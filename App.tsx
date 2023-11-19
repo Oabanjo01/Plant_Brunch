@@ -1,118 +1,70 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
+  Dimensions,
   StyleSheet,
   Text,
-  useColorScheme,
+  TouchableOpacity,
   View,
 } from 'react-native';
+import React from 'react';
+import Svg from 'react-native-svg';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import TestImg from '././assets/images/Group.svg';
+import {Colors} from '@app/constants/colors';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+let screenWidth = Dimensions.get('window').width - 20;
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
+    <View style={styles.parentContainer}>
+      <TestImg width="80%" height="50%" />
+      <Text style={styles.titleTextStyle}>Identify Plants</Text>
+      <Text style={styles.bodyTextStyle}>
+        You can identify the plants you don't know through your camera
       </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+      <TouchableOpacity activeOpacity={0.8}>
+        <View style={styles.buttonContainerStyle}>
+          <Text style={styles.buttonTextStyle}>Next</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
-}
-
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  parentContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.screenColor,
+    flexDirection: 'column',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  titleTextStyle: {
+    color: '#36455A',
+    fontSize: 19,
+    fontFamily: 'OpenSans-SemiBold',
+    marginBottom: '7%',
+    marginTop: '16%',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  bodyTextStyle: {
+    opacity: 0.8,
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 13,
+    color: Colors.secondaryTextColor,
+    marginHorizontal: '10%',
+    textAlign: 'center',
   },
-  highlight: {
-    fontWeight: '700',
+  buttonContainerStyle: {
+    paddingVertical: '2%',
+    backgroundColor: Colors.primary,
+    marginTop: '14%',
+    marginHorizontal: 100,
+    borderRadius: 3,
+    width: screenWidth * 0.95,
+  },
+  buttonTextStyle: {
+    textAlign: 'center',
+    fontFamily: 'OpenSans-Bold',
+    fontSize: 15,
+    color: Colors.lightTextColor,
   },
 });
-
 export default App;
