@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -8,23 +9,48 @@ import {
 import React from 'react';
 import Svg from 'react-native-svg';
 
-import TestImg from '././assets/images/Group.svg';
+import TestImg from '@assets/images/Group.svg';
 import {Colors} from '@app/constants/colors';
+import OnboardingScreen from '@app/components/onboarding/screens';
 
-let screenWidth = Dimensions.get('window').width - 20;
+let screenWidth = Dimensions.get('window').width;
+
+const randomData = [
+  {
+    id: '1',
+    titleText: 'Identify Plants',
+    bodyText: "You can identify the plants you don't know through your camera",
+  },
+  {
+    id: '2',
+    titleText: 'Learn Many Plants Species',
+    bodyText:
+      "Let's learn about the many plant species that exist in this world",
+  },
+  {
+    id: '3',
+    titleText: 'Read Many Articles About Plant',
+    bodyText:
+      "Let's learn more about beautiful plants and read many articles about plants and gardening",
+  },
+];
 const App = () => {
   return (
     <View style={styles.parentContainer}>
-      <TestImg width="80%" height="50%" />
-      <Text style={styles.titleTextStyle}>Identify Plants</Text>
-      <Text style={styles.bodyTextStyle}>
-        You can identify the plants you don't know through your camera
-      </Text>
-      <TouchableOpacity activeOpacity={0.8}>
-        <View style={styles.buttonContainerStyle}>
-          <Text style={styles.buttonTextStyle}>Next</Text>
-        </View>
-      </TouchableOpacity>
+      <FlatList
+        data={randomData}
+        keyExtractor={item => item.id}
+        renderItem={items => {
+          return (
+            <OnboardingScreen
+              bodyText={items.item.bodyText}
+              titleText={items.item.titleText}
+            />
+          );
+        }}
+        horizontal
+        pagingEnabled
+      />
     </View>
   );
 };
@@ -32,10 +58,6 @@ const App = () => {
 const styles = StyleSheet.create({
   parentContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.screenColor,
-    flexDirection: 'column',
   },
   titleTextStyle: {
     color: '#36455A',
