@@ -7,9 +7,7 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import Svg from 'react-native-svg';
 
-import TestImg from '@assets/images/Group.svg';
 import {Colors} from '@app/constants/colors';
 import OnboardingScreen from '@app/components/onboarding/screens';
 
