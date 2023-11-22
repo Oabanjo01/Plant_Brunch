@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 
 import {Colors} from '@app/constants/colors';
-import OnboardScreen from '@app/components/onboarding/onboarding';
+import OnboardScreen from '@app/components/onboarding/onboardingScreen';
+import {useNavigation} from '@react-navigation/native';
 
 type ItemProps = {
   id: string;
@@ -40,36 +41,49 @@ let screenWidth = Dimensions.get('window').width;
 let screenHeight = Dimensions.get('window').height;
 
 const OnboardingScreens = () => {
+  const navigation = useNavigation();
   const currentIndex = React.useRef(0);
   const screenFlatListRef = React.useRef<FlatList>();
+
+  const [activeIndex, setActiveIndex] = useState(1);
+  console.log(activeIndex, currentIndex.current);
+
   const handleNextPress = () => {
-    console.log(currentIndex.current);
-    if (currentIndex.current < randomData.length) {
+    if (currentIndex.current < randomData.length - 1) {
       currentIndex.current += 1;
       screenFlatListRef.current?.scrollToIndex({
         index: currentIndex.current,
         animated: true,
       });
+      return;
     }
+    goToLoginScreen();
   };
+
+  const goToLoginScreen = () => {
+    navigation.navigate('LoginScreen');
+  };
+
   return (
     <View style={styles.parentContainer}>
       <FlatList
-        ref={() => screenFlatListRef}
+        ref={screenFlatListRef}
         data={randomData}
         keyExtractor={item => item.id}
         renderItem={items => {
           return (
             <OnboardScreen
-              bodyText={items.item.titleText}
+              bodyText={items.item.bodyText}
               titleText={items.item.titleText}
               index={items.index}
               onPress={handleNextPress}
+              activeIndex={(items.index += 1)}
             />
           );
         }}
         horizontal
         pagingEnabled
+        scrollEnabled={false}
         showsHorizontalScrollIndicator={false}
       />
     </View>

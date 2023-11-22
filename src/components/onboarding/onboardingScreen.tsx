@@ -11,12 +11,14 @@ import Onboarding1 from '@assets/images/Onboarding1.svg';
 import Onboarding2 from '@assets/images/Onboarding2.svg';
 import Onboarding3 from '@assets/images/Onboarding3.svg';
 import {Colors} from '@app/constants/colors';
+import IndicatorDot from './indicatorDots';
 
 type OnboardingProps = {
   bodyText: string;
   titleText: string;
   index?: number;
   onPress?: () => void;
+  activeIndex: number;
 };
 
 let screenWidth = Dimensions.get('window').width;
@@ -28,6 +30,7 @@ const OnboardScreen = ({
   titleText,
   index,
   onPress,
+  activeIndex,
 }: OnboardingProps) => {
   switch (index) {
     case 0:
@@ -60,10 +63,27 @@ const OnboardScreen = ({
       {svgToRender}
       <Text style={styles.titleTextStyle}>{titleText}</Text>
       <Text style={styles.bodyTextStyle}>{bodyText}</Text>
+      <View style={styles.dotContainer}>
+        <IndicatorDot
+          dotStyle={
+            activeIndex === 1 ? styles.activeDotColor : styles.inActiveDotColor
+          }
+        />
+        <IndicatorDot
+          dotStyle={
+            activeIndex === 2 ? styles.activeDotColor : styles.inActiveDotColor
+          }
+        />
+        <IndicatorDot
+          dotStyle={
+            activeIndex === 3 ? styles.activeDotColor : styles.inActiveDotColor
+          }
+        />
+      </View>
       <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
         <View style={styles.buttonContainerStyle}>
           <Text style={styles.buttonTextStyle}>
-            {index === 2 ? 'Sign Up' : 'Next'}
+            {index === 2 ? 'Get Started' : 'Next'}
           </Text>
         </View>
       </TouchableOpacity>
@@ -80,6 +100,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  activeDotColor: {backgroundColor: Colors.primary},
+  inActiveDotColor: {backgroundColor: Colors.onboardingInactiveIconColor},
   titleTextStyle: {
     color: '#36455A',
     fontSize: 19,
@@ -99,15 +121,20 @@ const styles = StyleSheet.create({
     paddingVertical: '2%',
     backgroundColor: Colors.primary,
     marginTop: '14%',
-    marginHorizontal: 100,
     borderRadius: 3,
-    width: screenWidth * 0.95,
+    width: screenWidth * 0.89,
   },
   buttonTextStyle: {
     textAlign: 'center',
     fontFamily: 'OpenSans-Bold',
     fontSize: 15,
     color: Colors.lightTextColor,
+  },
+  dotContainer: {
+    alignItems: 'center',
+    marginTop: '4%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 });
 
