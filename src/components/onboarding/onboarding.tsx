@@ -16,35 +16,55 @@ type OnboardingProps = {
   bodyText: string;
   titleText: string;
   index?: number;
+  onPress?: () => void;
 };
 
 let screenWidth = Dimensions.get('window').width;
 let screenHeight = Dimensions.get('window').height;
+let svgToRender: JSX.Element;
 
-const OnboardingScreen = ({bodyText, titleText, index}: OnboardingProps) => {
-  let svgToRender;
+const OnboardScreen = ({
+  bodyText,
+  titleText,
+  index,
+  onPress,
+}: OnboardingProps) => {
   switch (index) {
     case 0:
-      <Onboarding1 width="80%" height="50%" />;
+      svgToRender = <Onboarding1 width="80%" height="50%" />;
       break;
     case 1:
-      <Onboarding2 width="80%" height="50%" />;
+      svgToRender = <Onboarding2 width="80%" height="50%" />;
       break;
     case 2:
-      <Onboarding3 width="80%" height="50%" />;
+      svgToRender = <Onboarding3 width="80%" height="50%" />;
       break;
 
     default:
       break;
   }
+
+  // add active indicators here
+
+  // const Dots = () => {
+  //   return (
+  //     <View style={{alignItems: 'center', width: '30%'}}>
+  //       <View style={{}}>
+
+  //       </View>
+  //     </View>
+  //   )
+  // }
   return (
     <View style={styles.parentContainer}>
       {svgToRender}
       <Text style={styles.titleTextStyle}>{titleText}</Text>
       <Text style={styles.bodyTextStyle}>{bodyText}</Text>
-      <TouchableOpacity activeOpacity={0.8}>
+      <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
         <View style={styles.buttonContainerStyle}>
-          <Text style={styles.buttonTextStyle}>Next</Text>
+          <Text style={styles.buttonTextStyle}>
+            {index === 2 ? 'Sign Up' : 'Next'}
+          </Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -90,4 +110,5 @@ const styles = StyleSheet.create({
     color: Colors.lightTextColor,
   },
 });
-export default OnboardingScreen;
+
+export default OnboardScreen;
