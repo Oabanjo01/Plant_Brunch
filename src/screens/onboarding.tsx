@@ -11,6 +11,9 @@ import {
 import {Colors} from '@app/constants/colors';
 import OnboardScreen from '@app/components/onboarding/onboardingScreen';
 import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '@app/navigation/navigation';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {Routes} from '@app/constants';
 
 type ItemProps = {
   id: string;
@@ -41,12 +44,10 @@ let screenWidth = Dimensions.get('window').width;
 let screenHeight = Dimensions.get('window').height;
 
 const OnboardingScreens = () => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const currentIndex = React.useRef(0);
-  const screenFlatListRef = React.useRef<FlatList>();
-
-  const [activeIndex, setActiveIndex] = useState(1);
-  console.log(activeIndex, currentIndex.current);
+  const screenFlatListRef = React.useRef<FlatList<ItemProps>>(null);
 
   const handleNextPress = () => {
     if (currentIndex.current < randomData.length - 1) {
@@ -61,7 +62,7 @@ const OnboardingScreens = () => {
   };
 
   const goToLoginScreen = () => {
-    navigation.navigate('LoginScreen');
+    navigation.navigate(Routes.Login);
   };
 
   return (

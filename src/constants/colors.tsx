@@ -3,6 +3,7 @@ export const Colors = {
   primary: '#2DDA93',
   primaryTextColor: '#36455A',
   secondaryTextColor: '#6A6F7D',
+  inActiveUnderlineTextInputColor: '#A7A7A7',
   lightTextColor: '#FFFFFF',
   favouriteButtonColor: '#FF6262',
   addPhotoButtonColor: '#48A2F5',

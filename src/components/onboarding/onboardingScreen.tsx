@@ -12,11 +12,12 @@ import Onboarding2 from '@assets/images/Onboarding2.svg';
 import Onboarding3 from '@assets/images/Onboarding3.svg';
 import {Colors} from '@app/constants/colors';
 import IndicatorDot from './indicatorDots';
+import {LargeButton} from '../buttons/buttons';
 
 type OnboardingProps = {
   bodyText: string;
   titleText: string;
-  index?: number;
+  index: number;
   onPress?: () => void;
   activeIndex: number;
 };
@@ -46,18 +47,6 @@ const OnboardScreen = ({
     default:
       break;
   }
-
-  // add active indicators here
-
-  // const Dots = () => {
-  //   return (
-  //     <View style={{alignItems: 'center', width: '30%'}}>
-  //       <View style={{}}>
-
-  //       </View>
-  //     </View>
-  //   )
-  // }
   return (
     <View style={styles.parentContainer}>
       {svgToRender}
@@ -80,13 +69,11 @@ const OnboardScreen = ({
           }
         />
       </View>
-      <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
-        <View style={styles.buttonContainerStyle}>
-          <Text style={styles.buttonTextStyle}>
-            {index === 2 ? 'Get Started' : 'Next'}
-          </Text>
-        </View>
-      </TouchableOpacity>
+      <LargeButton
+        text={index === 2 ? 'Get Started' : 'Next'}
+        onPress={onPress}
+      />
+      <Text>{index < 2 ? 'Skip' : null}</Text>
     </View>
   );
 };
@@ -116,6 +103,12 @@ const styles = StyleSheet.create({
     color: Colors.secondaryTextColor,
     marginHorizontal: '10%',
     textAlign: 'center',
+  },
+  skipContainerstyle: {
+    marginTop: '3%',
+  },
+  skipTextstyle: {
+    color: 'grey',
   },
   buttonContainerStyle: {
     paddingVertical: '2%',

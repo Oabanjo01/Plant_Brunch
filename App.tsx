@@ -4,13 +4,16 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import OnboardingScreens from '@app/screens/onboarding';
 import LoginScreen from '@app/screens/login';
-import ScreenStack from '@app/navigation';
+import ScreenStack from '@app/navigation/navigation';
+import {PaperProvider} from 'react-native-paper';
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <ScreenStack />
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <ScreenStack />
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
 
