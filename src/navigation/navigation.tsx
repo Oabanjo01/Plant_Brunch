@@ -4,8 +4,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 
 import OnboardingScreens from '@app/screens/onboarding';
-import LoginScreen from '@app/screens/login';
+import LoginScreen from '@app/screens/Auth/login';
 import {Colors, Routes} from '@app/constants';
+import SignUpScreen from '@app/screens/Auth/signup';
 
 export type RootStackParamList = {
   Onboarding: any;
@@ -28,6 +29,7 @@ const ScreenStack = () => {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name={Routes.Onboarding} component={OnboardingScreens} />
       <Stack.Screen name={Routes.Login} component={LoginScreen} />
+      <Stack.Screen name={Routes.SignUp} component={SignUpScreen} />
     </Stack.Navigator>
   );
 };

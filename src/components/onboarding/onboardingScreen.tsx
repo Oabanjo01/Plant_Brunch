@@ -13,6 +13,9 @@ import Onboarding3 from '@assets/images/Onboarding3.svg';
 import {Colors} from '@app/constants/colors';
 import IndicatorDot from './indicatorDots';
 import {LargeButton} from '../buttons/buttons';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '@app/navigation/navigation';
+import {Routes} from '@app/constants';
 
 type OnboardingProps = {
   bodyText: string;
@@ -33,6 +36,7 @@ const OnboardScreen = ({
   onPress,
   activeIndex,
 }: OnboardingProps) => {
+  const navigation = useNavigation<any>();
   switch (index) {
     case 0:
       svgToRender = <Onboarding1 width="80%" height="50%" />;
@@ -73,7 +77,11 @@ const OnboardScreen = ({
         text={index === 2 ? 'Get Started' : 'Next'}
         onPress={onPress}
       />
-      <Text>{index < 2 ? 'Skip' : null}</Text>
+      <TouchableOpacity
+        style={{shadowColor: Colors.primary}}
+        onPress={() => navigation.navigate(Routes.Login)}>
+        <Text style={{marginTop: '2%'}}>{index < 2 ? 'Skip' : null}</Text>
+      </TouchableOpacity>
     </View>
   );
 };

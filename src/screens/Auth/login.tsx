@@ -1,11 +1,20 @@
 import {LargeButton} from '@app/components/buttons/buttons';
 import TextFields from '@app/components/login/textInput';
+import {Routes} from '@app/constants';
 import {Colors} from '@app/constants/colors';
+import {RootStackParamList} from '@app/navigation/navigation';
+import {NavigationProp} from '@react-navigation/native';
 import {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Checkbox, PaperProvider} from 'react-native-paper';
 
-const LoginScreen = () => {
+type RootStackNavigationProp = NavigationProp<RootStackParamList>;
+
+type Props = {
+  navigation: RootStackNavigationProp;
+};
+
+const LoginScreen = ({navigation}: Props) => {
   const [userNameText, setUserNameText] = useState('');
   const [passwordText, setPasswordText] = useState('');
   const [usernamePlacHolder, setUsernamePlaceHolder] = useState('username');
@@ -63,7 +72,7 @@ const LoginScreen = () => {
         }}>
         <Text>Don’t Have Account? </Text>
         <TouchableOpacity
-          onPress={() => console.log('Sign Up')}
+          onPress={() => navigation.navigate(Routes.SignUp)}
           activeOpacity={0.9}>
           <Text style={{color: Colors.primary}}> Sign Up</Text>
         </TouchableOpacity>
@@ -72,7 +81,7 @@ const LoginScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   loginButtonStyle: {
     alignItems: 'center',
     marginTop: '7%',
