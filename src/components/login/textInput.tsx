@@ -29,7 +29,6 @@ const TextFields = (props: TextFieldProps) => {
       onChangeText={text => {
         setText(text);
         callBack(text);
-        console.log(text);
       }}
       theme={{
         colors: {

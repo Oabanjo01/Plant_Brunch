@@ -7,6 +7,7 @@ import OnboardingScreens from '@app/screens/onboarding';
 import LoginScreen from '@app/screens/Auth/login';
 import {Colors, Routes} from '@app/constants';
 import SignUpScreen from '@app/screens/Auth/signup';
+import HomePage from '@app/screens/Homepage/homepage';
 
 export type RootStackParamList = {
   Onboarding: any;
@@ -30,6 +31,7 @@ const ScreenStack = () => {
       <Stack.Screen name={Routes.Onboarding} component={OnboardingScreens} />
       <Stack.Screen name={Routes.Login} component={LoginScreen} />
       <Stack.Screen name={Routes.SignUp} component={SignUpScreen} />
+      <Stack.Screen name={Routes.Home} component={HomePage} />
     </Stack.Navigator>
   );
 };

@@ -62,7 +62,11 @@ const LoginScreen = ({navigation}: Props) => {
         </View>
         <Text>Forgot Password?</Text>
       </View>
-      <LargeButton text="Login" extraStyle={styles.loginButtonStyle} />
+      <LargeButton
+        text="Login"
+        extraStyle={styles.loginButtonStyle}
+        onPress={() => navigation.navigate(Routes.Home)}
+      />
       <View
         style={{
           alignItems: 'center',
