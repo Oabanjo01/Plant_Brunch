@@ -12,10 +12,11 @@ import Onboarding2 from '@assets/images/Onboarding2.svg';
 import Onboarding3 from '@assets/images/Onboarding3.svg';
 import {Colors} from '@app/constants/colors';
 import IndicatorDot from './indicatorDots';
-import {LargeButton} from '../buttons/buttons';
+import {LargeButton} from '../login/buttons';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {Routes} from '@app/constants';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
 
 type OnboardingProps = {
   bodyText: string;
@@ -25,8 +26,6 @@ type OnboardingProps = {
   activeIndex: number;
 };
 
-let screenWidth = Dimensions.get('window').width;
-let screenHeight = Dimensions.get('window').height;
 let svgToRender: JSX.Element;
 
 const OnboardScreen = ({

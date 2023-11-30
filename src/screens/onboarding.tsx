@@ -14,6 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Routes} from '@app/constants';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
 
 type ItemProps = {
   id: string;
@@ -40,8 +41,6 @@ const randomData: ItemProps[] = [
       "Let's learn more about beautiful plants and read many articles about plants and gardening",
   },
 ];
-let screenWidth = Dimensions.get('window').width;
-let screenHeight = Dimensions.get('window').height;
 
 const OnboardingScreens = () => {
   const navigation =

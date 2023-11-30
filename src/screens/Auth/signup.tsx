@@ -1,4 +1,4 @@
-import {LargeButton} from '@app/components/buttons/buttons';
+import {LargeButton} from '@app/components/login/buttons';
 import TextFields from '@app/components/login/textInput';
 import React, {useState} from 'react';
 import {

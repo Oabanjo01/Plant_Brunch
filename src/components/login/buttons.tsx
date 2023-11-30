@@ -1,4 +1,5 @@
 import {Colors} from '@app/constants/colors';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import React from 'react';
 import {
   Dimensions,
@@ -14,9 +15,6 @@ interface LargeButtonProps {
   text: string;
   onPress?: () => void;
 }
-
-let screenWidth = Dimensions.get('window').width;
-let screenHeight = Dimensions.get('window').height;
 export const LargeButton = (prop: LargeButtonProps) => {
   const {extraStyle, text, onPress} = prop;
   return (
