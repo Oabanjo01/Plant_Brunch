@@ -18,5 +18,5 @@ export const Routes: RootStackParamList = {
 export const Tabs: TabParamList = {
   Home: 'Home',
   Profile: 'Profile',
-  CameraButton: 'CameraButton',
+  CameraButton: 'Camera',
 };

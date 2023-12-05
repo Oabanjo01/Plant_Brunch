@@ -1,6 +1,6 @@
 import {Colors} from '@app/constants';
 import React, {useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, ImageBackground, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Icon, TextInput} from 'react-native-paper';
 import Dashboard from '@assets/images/Dashboard.svg';
@@ -43,7 +43,7 @@ const HomePage = () => {
               color: Colors.lightTextColor,
               fontSize: 21,
             }}>
-            Hello Taylor,
+            Hello Banjo,
           </Text>
           <Text
             style={{
@@ -139,6 +139,14 @@ const HomePage = () => {
           }}>
           Photography
         </Text>
+        <Image
+          source={require('@assets/images/Union.jpg')}
+          style={{
+            width: screenWidth * 0.8,
+            height: screenHeight * 0.2,
+            resizeMode: 'cover',
+          }}
+        />
       </View>
     </View>
   );
