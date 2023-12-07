@@ -4,7 +4,7 @@ import {View, Text, FlatList, ImageBackground, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Icon, TextInput} from 'react-native-paper';
 import Dashboard from '@assets/images/Dashboard.svg';
-import {Data, ItemProps, PlantData} from '@app/constants/homepagedata/homepage';
+import {Data, PlantData} from '@app/constants/homepagedata/homepage';
 import {
   dashboardHeight,
   screenHeight,

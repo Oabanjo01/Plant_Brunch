@@ -23,6 +23,7 @@ type OnboardingProps = {
   titleText: string;
   index: number;
   onPress?: () => void;
+  skip?: () => void;
   activeIndex: number;
 };
 
@@ -33,6 +34,7 @@ const OnboardScreen = ({
   titleText,
   index,
   onPress,
+  skip,
   activeIndex,
 }: OnboardingProps) => {
   const navigation = useNavigation<any>();
@@ -76,10 +78,10 @@ const OnboardScreen = ({
         text={index === 2 ? 'Get Started' : 'Next'}
         onPress={onPress}
       />
-      <TouchableOpacity
-        style={{shadowColor: Colors.primary}}
-        onPress={() => navigation.navigate(Routes.Login)}>
-        <Text style={{marginTop: '2%'}}>{index < 2 ? 'Skip' : null}</Text>
+      <TouchableOpacity style={{shadowColor: Colors.primary}} onPress={skip}>
+        <Text style={{marginTop: '2%', color: Colors.primaryTextColor}}>
+          {index < 2 ? 'Skip' : null}
+        </Text>
       </TouchableOpacity>
     </View>
   );

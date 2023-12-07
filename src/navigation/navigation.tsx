@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import OnboardingScreens from '@app/screens/onboarding';
@@ -13,14 +12,7 @@ import ProfilePage from '@app/screens/Profile/profile';
 import {Tabs} from '@app/constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import {
-  ImageBackground,
-  StyleSheet,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {ImageBackground, StyleSheet, View} from 'react-native';
 import {Image} from 'react-native-svg';
 import camerapage from '@app/screens/Camera/camerapage';
 import CameraPage from '@app/screens/Camera/camerapage';

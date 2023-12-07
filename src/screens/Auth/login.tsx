@@ -31,7 +31,9 @@ const LoginScreen = ({navigation}: Props) => {
         }}>
         Hello
       </Text>
-      <Text style={{marginBottom: '7%'}}>Let’s Learn More About Plants</Text>
+      <Text style={[styles.textStyle, {marginBottom: '7%'}]}>
+        Let’s Learn More About Plants
+      </Text>
       <TextFields
         onFocused={() => setUsernamePlaceHolder('')}
         placeHolderText={usernamePlacHolder}
@@ -58,9 +60,9 @@ const LoginScreen = ({navigation}: Props) => {
             status={checked ? 'checked' : 'unchecked'}
             onPress={() => setChecked(!checked)}
           />
-          <Text>Remember me</Text>
+          <Text style={styles.textStyle}>Remember me</Text>
         </View>
-        <Text>Forgot Password?</Text>
+        <Text style={styles.textStyle}>Forgot Password?</Text>
       </View>
       <LargeButton
         text="Login"
@@ -74,7 +76,7 @@ const LoginScreen = ({navigation}: Props) => {
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <Text>Don’t Have Account? </Text>
+        <Text style={styles.textStyle}>Don’t Have Account? </Text>
         <TouchableOpacity
           onPress={() => navigation.navigate(Routes.SignUp)}
           activeOpacity={0.9}>
@@ -97,6 +99,10 @@ export const styles = StyleSheet.create({
     paddingLeft: '7%',
     paddingRight: '7%',
     flex: 1,
+  },
+  textStyle: {
+    color: Colors.primaryTextColor,
+    fontFamily: 'OpenSans-Regular.ttf',
   },
 });
 export default LoginScreen;

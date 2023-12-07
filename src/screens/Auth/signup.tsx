@@ -9,11 +9,11 @@ import {
   View,
 } from 'react-native';
 import {Checkbox} from 'react-native-paper';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {styles} from './login';
 import {NavigationProp} from '@react-navigation/native';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {Routes} from '@app/constants/routes';
+import {Colors} from '@app/constants/colors';
 
 type RootStackNavigationProp = NavigationProp<RootStackParamList>;
 
@@ -37,15 +37,17 @@ const SignUpScreen = ({navigation}: Props) => {
         behavior="position"
         keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
         <Text
-          style={{
-            color: Colors.primaryTextColor,
-            fontSize: 30,
-            fontFamily: 'OpenSans-SemiBold',
-            marginBottom: 6,
-          }}>
-          Hello, create a new Wildlife account
+          style={[
+            styles.textStyle,
+            {
+              fontSize: 30,
+              marginBottom: 6,
+              fontFamily: 'OpenSans-SemiBold',
+            },
+          ]}>
+          Hello, create a new wildlife account
         </Text>
-        <Text style={{marginBottom: '7%'}}>
+        <Text style={[styles.textStyle, {marginBottom: '7%'}]}>
           Sign up now! Let’s Learn More About Plants
         </Text>
         <TextFields
@@ -90,7 +92,7 @@ const SignUpScreen = ({navigation}: Props) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Text>Have an Account? </Text>
+            <Text style={styles.textStyle}>Have an Account? </Text>
             <TouchableOpacity
               onPress={() => navigation.navigate(Routes.Login)}
               activeOpacity={0.9}>

@@ -8,6 +8,7 @@ import ScreenStack from '@app/navigation/navigation';
 import {PaperProvider} from 'react-native-paper';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import Wrapper from '@app/utilities/wrapper';
+import {Colors} from '@app/constants';
 
 const App = () => {
   return (
@@ -18,7 +19,10 @@ const App = () => {
             <ScreenStack />
           </NavigationContainer>
         </SafeAreaView>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor={Colors.screenColor}
+        />
       </PaperProvider>
     </>
   );

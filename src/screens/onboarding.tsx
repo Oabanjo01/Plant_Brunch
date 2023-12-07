@@ -1,10 +1,9 @@
 import React, {useRef, useState} from 'react';
 import {
-  Dimensions,
   FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -43,11 +42,17 @@ const randomData: ItemProps[] = [
 ];
 
 const OnboardingScreens = () => {
+  const [visibleIndex, setVisibleIndex] = useState<number>(0);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const currentIndex = React.useRef(0);
   const screenFlatListRef = React.useRef<FlatList<ItemProps>>(null);
 
+  const handleGetIndex = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    let offsetX = e.nativeEvent.contentOffset.x;
+    setVisibleIndex(Math.round(offsetX / screenWidth));
+    currentIndex.current = visibleIndex;
+  };
   const handleNextPress = () => {
     if (currentIndex.current < randomData.length - 1) {
       currentIndex.current += 1;
@@ -55,6 +60,7 @@ const OnboardingScreens = () => {
         index: currentIndex.current,
         animated: true,
       });
+
       return;
     }
     goToLoginScreen();
@@ -70,6 +76,7 @@ const OnboardingScreens = () => {
         ref={screenFlatListRef}
         data={randomData}
         keyExtractor={item => item.id}
+        onMomentumScrollEnd={handleGetIndex}
         renderItem={items => {
           return (
             <OnboardScreen
@@ -77,13 +84,14 @@ const OnboardingScreens = () => {
               titleText={items.item.titleText}
               index={items.index}
               onPress={handleNextPress}
+              skip={() => navigation.navigate(Routes.Login)}
               activeIndex={(items.index += 1)}
             />
           );
         }}
         horizontal
         pagingEnabled
-        scrollEnabled={false}
+        // scrollEnabled={false}
         showsHorizontalScrollIndicator={false}
       />
     </View>
