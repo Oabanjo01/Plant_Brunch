@@ -14,6 +14,8 @@ import {RootStackParamList} from '@app/navigation/navigation';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Routes} from '@app/constants';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Alert} from 'react-native';
 
 type ItemProps = {
   id: string;
@@ -43,16 +45,26 @@ const randomData: ItemProps[] = [
 
 const OnboardingScreens = () => {
   const [visibleIndex, setVisibleIndex] = useState<number>(0);
+
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const currentIndex = React.useRef(0);
   const screenFlatListRef = React.useRef<FlatList<ItemProps>>(null);
+
+  const setUserOnboarded = async () => {
+    try {
+      await AsyncStorage.setItem('userOnboarded', 'true');
+    } catch (error) {
+      Alert.alert('Error storing boolean value:');
+    }
+  };
 
   const handleGetIndex = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     let offsetX = e.nativeEvent.contentOffset.x;
     setVisibleIndex(Math.round(offsetX / screenWidth));
     currentIndex.current = visibleIndex;
   };
+
   const handleNextPress = () => {
     if (currentIndex.current < randomData.length - 1) {
       currentIndex.current += 1;
@@ -63,13 +75,13 @@ const OnboardingScreens = () => {
 
       return;
     }
+    setUserOnboarded();
     goToLoginScreen();
   };
 
   const goToLoginScreen = () => {
     navigation.navigate(Routes.Login);
   };
-
   return (
     <View style={styles.parentContainer}>
       <FlatList

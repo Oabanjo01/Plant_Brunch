@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -13,9 +13,8 @@ import {Tabs} from '@app/constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {ImageBackground, StyleSheet, View} from 'react-native';
-import {Image} from 'react-native-svg';
-import camerapage from '@app/screens/Camera/camerapage';
 import CameraPage from '@app/screens/Camera/camerapage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type RootStackParamList = {
   Onboarding: any;
@@ -152,8 +151,29 @@ const HomeTabNavigator = () => (
 );
 
 const ScreenStack = () => {
+  const [onboarded, setOnboarded] = useState<string | null>('false');
+
+  const getData = () => {
+    getUserOnboarded();
+  };
+
+  const getUserOnboarded = async () => {
+    try {
+      let onboardedValue = await AsyncStorage.getItem('userOnboarded');
+      setOnboarded(onboardedValue);
+      console.log('Onboarded value:', onboardedValue);
+    } catch (error) {
+      console.error('Error storing boolean value:', error);
+    }
+  };
+  useEffect(() => getData(), [onboarded]);
+  console.log(onboarded);
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName={
+        onboarded === 'true' ? Routes.Login : Routes.Onboarding
+      }>
       <Stack.Screen name={Routes.Onboarding} component={OnboardingScreens} />
       <Stack.Screen name={Routes.Login} component={LoginScreen} />
       <Stack.Screen name={Routes.SignUp} component={SignUpScreen} />
