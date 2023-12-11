@@ -11,4 +11,5 @@ export const Colors = {
   ratingIconColor: '#FFCD00',
   disabledButtonColor: '#AAAAAA',
   onboardingInactiveIconColor: '#DBDBDB',
+  tabBarTextColor: '#D2D2D2',
 };

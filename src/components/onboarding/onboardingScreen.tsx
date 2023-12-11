@@ -14,8 +14,6 @@ import {Colors} from '@app/constants/colors';
 import IndicatorDot from './indicatorDots';
 import {LargeButton} from '../login/buttons';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '@app/navigation/navigation';
-import {Routes} from '@app/constants';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 
 type OnboardingProps = {

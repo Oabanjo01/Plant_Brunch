@@ -139,14 +139,6 @@ const HomePage = () => {
           }}>
           Photography
         </Text>
-        <Image
-          source={require('@assets/images/Union.jpg')}
-          style={{
-            width: screenWidth * 0.8,
-            height: screenHeight * 0.2,
-            resizeMode: 'cover',
-          }}
-        />
       </View>
     </View>
   );
