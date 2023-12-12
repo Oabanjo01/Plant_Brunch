@@ -16,11 +16,11 @@ export const _renderPlantTypes = () => {
         height: screenHeight * 0.2,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 5,
       }}>
       <Image
         source={require('@assets/images/sampleplant3.jpg')}
         style={{
+          borderRadius: 5,
           width: screenWidth * 0.8,
           height: screenHeight * 0.2,
           resizeMode: 'cover',

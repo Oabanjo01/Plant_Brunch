@@ -12,14 +12,6 @@ import ProfilePage from '@app/screens/Profile/profile';
 import {Tabs} from '@app/constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import {
-  Image,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
 import CameraPage from '@app/screens/Camera/camerapage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TabBarStyle from '@app/components/tabbar/tabbarstyle';
@@ -47,23 +39,6 @@ export type TabParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const TabStack = createBottomTabNavigator<TabParamList>();
 
-// const CustomImagePickerButton = (onPress: any) => (
-//   <TouchableOpacity
-//     onPress={onPress}
-//     style={{top: -25, justifyContent: 'center', alignItems: 'center'}}>
-//     <View
-//       style={{
-//         width: screenWidth * 0.15,
-//         height: screenWidth * 0.15,
-//         borderRadius: (screenWidth * 0.15) / 2,
-//         // backgroundColor: Colors.addPhotoButtonColor,
-//       }}>
-//       {/* {children} */}
-//     </View>
-//     {/* // <Ionicons name={'add'} color={Colors.primary} />; */}
-//   </TouchableOpacity>
-// );
-
 const HomeTabNavigator: React.FC = () => (
   <TabStack.Navigator
     tabBar={props => {
@@ -80,6 +55,10 @@ const HomeTabNavigator: React.FC = () => (
       tabBarActiveTintColor: Colors.primary,
       tabBarInactiveTintColor: Colors.inActiveUnderlineTextInputColor,
       tabBarStyle: {
+        shadowColor: 'grey',
+        shadowOpacity: 0.4,
+        shadowOffset: {width: -1, height: -1},
+        elevation: 4,
         paddingTop: 10,
         paddingBottom: 10,
         backgroundColor: Colors.whiteColor,
@@ -114,9 +93,13 @@ const ScreenStack = () => {
 
   return (
     <Stack.Navigator
-      screenOptions={{headerShown: false}}
+      screenOptions={{
+        headerShown: false,
+      }}
       initialRouteName={
-        onboarded === 'true' ? Routes.Login : Routes.Onboarding
+        onboarded === 'false' || onboarded === null
+          ? Routes.Onboarding
+          : Routes.Login
       }>
       <Stack.Screen name={Routes.Onboarding} component={OnboardingScreens} />
       <Stack.Screen name={Routes.Login} component={LoginScreen} />

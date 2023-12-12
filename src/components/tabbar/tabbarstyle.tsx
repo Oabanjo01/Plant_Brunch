@@ -1,14 +1,14 @@
+import {Colors} from '@app/constants/colors';
 import {Tabs} from '@app/constants/routes';
 import {ImageBackground, Text, TouchableOpacity, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 type CustomTabBarProps = {
   state: {routes: any; index: number};
-  descriptors: {[key: string]: any}; // Adjust the type for descriptors according to your needs
+  descriptors: {[key: string]: any};
   navigation: any;
-  screenHeight: number; // Add the necessary props and their types
-  screenWidth: number; // Adjust the type according to your requirements
+  screenHeight: number;
+  screenWidth: number;
 };
 
 const TabBarStyle: React.FC<CustomTabBarProps> = ({
@@ -23,20 +23,20 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
       style={{
         flexDirection: 'row',
         backgroundColor: Colors.whiteColor,
-        height: screenHeight * 0.08,
+        height: screenHeight * 0.1,
       }}>
       <ImageBackground
         style={{
           flex: 1,
           width: '100%',
-          height: screenHeight * 0.15,
+          height: screenHeight * 0.16,
           position: 'absolute',
-          top: -29,
+          top: -32,
           // bottom: -screenHeight * 0.026,
           justifyContent: 'flex-start',
           alignContent: 'center',
         }}
-        source={require('../../assets/images/Union.jpg')}
+        source={require('@assets/images/Union.jpg')}
         resizeMode="cover"
       />
       {state.routes.map((route: any, index: number) => {
@@ -82,8 +82,8 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
                 style={{
                   position: 'absolute',
                   top: -21, // space from bottombar
-                  height: screenWidth * 0.19,
-                  width: screenWidth * 0.19,
+                  height: screenWidth * 0.15,
+                  width: screenWidth * 0.15,
                   borderWidth: isFocused ? 0 : 0.5,
                   borderColor: isFocused ? 'transparent' : Colors.primary,
                   backgroundColor: isFocused
@@ -102,7 +102,7 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
                 />
               </View>
             ) : (
-              <View>
+              <View style={{alignItems: 'center'}}>
                 <Ionicons
                   name={iconName ?? 'error'}
                   color={isFocused ? Colors.primary : Colors.tabBarTextColor}

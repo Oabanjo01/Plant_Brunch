@@ -47,3 +47,23 @@ export const PlantData: PlantProps[] = [
     subDescription2: 'Species',
   },
 ];
+export const PhotographyData: PlantProps[] = [
+  {
+    id: '1',
+    imagePath: 'images',
+    description1: 'Identify',
+    subDescription2: 'Identify2',
+  },
+  {
+    id: '2',
+    imagePath: 'images',
+    description1: 'Species',
+    subDescription2: 'Species',
+  },
+  {
+    id: '3',
+    imagePath: 'images',
+    description1: 'Species',
+    subDescription2: 'Species',
+  },
+];
