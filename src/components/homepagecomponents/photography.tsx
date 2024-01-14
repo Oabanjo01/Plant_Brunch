@@ -33,7 +33,7 @@ export const _renderPhotography = (
             borderRadius: 10,
             width: screenWidth * 0.45,
             height: screenHeight * 0.3,
-            resizeMode: 'cover',
+            resizeMode: 'contain',
           }}
         />
         <View

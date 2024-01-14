@@ -6,24 +6,27 @@ import ScreenStack from '@app/navigation/navigation';
 import {PaperProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
 
-import {store} from '@app/store/store';
+import {persistor, store} from '@app/redux/store/store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
   return (
     <>
       <Provider store={store}>
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor="rgba(255, 255, 255, 0.7)"
-          translucent
-        />
-        <PaperProvider>
-          {/* <SafeAreaView style={{flex: 1}}> */}
-          <NavigationContainer>
-            <ScreenStack />
-          </NavigationContainer>
-          {/* </SafeAreaView> */}
-        </PaperProvider>
+        <PersistGate persistor={persistor}>
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor="rgba(255, 255, 255, 0.7)"
+            translucent
+          />
+          <PaperProvider>
+            {/* <SafeAreaView style={{flex: 1}}> */}
+            <NavigationContainer>
+              <ScreenStack />
+            </NavigationContainer>
+            {/* </SafeAreaView> */}
+          </PaperProvider>
+        </PersistGate>
       </Provider>
     </>
   );

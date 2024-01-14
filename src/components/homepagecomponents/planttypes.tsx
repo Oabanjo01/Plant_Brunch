@@ -105,7 +105,6 @@ export const _renderItem = (
   return (
     <TouchableOpacity
       onPress={() => {
-        console.log(id, activeIndex);
         onPress();
       }}>
       <View

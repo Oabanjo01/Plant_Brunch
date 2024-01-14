@@ -19,6 +19,8 @@ import CameraPage from '@app/screens/camera/camerapage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TabBarStyle from '@app/components/tabbar/tabbarstyle';
 import PlantDetail from '@app/screens/plantdetail/plantdetail';
+import {RootState} from '@app/redux/store/store';
+import {useSelector} from 'react-redux';
 
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
@@ -82,37 +84,15 @@ const HomeTabNavigator: React.FC = () => (
 );
 
 const ScreenStack = () => {
-  const [onboarded, setOnboarded] = useState<string | null>('true');
-
-  const getData = () => {
-    getUserOnboarded();
-  };
-
-  const getUserOnboarded = async () => {
-    try {
-      let onboardedValue = await AsyncStorage.getItem('userOnboarded');
-      setOnboarded(onboardedValue);
-      console.log('Onboarded value:', onboardedValue);
-    } catch (error) {
-      console.error('Error storing boolean value:', error);
-    }
-  };
-
-  useEffect(() => {
-    console.log('Got here');
-    getData();
-  }, [onboarded]);
+  const onboardingStatus = useSelector((state: RootState) => state.auth.status);
+  console.log(onboardingStatus);
 
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName={
-        onboarded === 'false' || onboarded === null
-          ? Routes.Onboarding
-          : Routes.Login
-      }>
+      initialRouteName={onboardingStatus ? Routes.Login : Routes.Onboarding}>
       <Stack.Screen name={Routes.Onboarding} component={OnboardingScreens} />
       <Stack.Screen name={Routes.Login} component={LoginScreen} />
       <Stack.Screen name={Routes.SignUp} component={SignUpScreen} />

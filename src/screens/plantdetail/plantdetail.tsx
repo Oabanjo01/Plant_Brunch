@@ -1,11 +1,4 @@
-import {
-  Button,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Button, Image, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import BackButton from '@assets/images/BackButton.svg';
@@ -16,7 +9,9 @@ import {
 } from '@app/navigation/navigation';
 import {RouteProp, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {toggleName} from '@app/store/actions';
+import {toggleName} from '@app/redux/actions/actions';
+import {Colors} from '@app/constants';
+import {RootState} from '@app/redux/store/store';
 // import  from ;
 
 type PlantDetailsRouteProps = RouteProp<RootStackParamList>;
@@ -33,26 +28,24 @@ const PlantDetail: React.FC<PlantDetailsProps> = ({route}) => {
   };
 
   const dispatch = useDispatch();
+  const {initialText, currentTheme} = useSelector(
+    (state: RootState) => state.auth,
+  );
 
-  const userImage = useSelector(state => state.userState.currentTheme);
-  console.log(image);
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View
-        style={{
-          height: screenHeight * 0.3,
-        }}>
-        <View>
-          <ImageBackground
-            source={image}
-            style={{
-              height: screenHeight * 0.3,
-            }}
-          />
-        </View>
-        <View
+      <View style={{flex: 0.4}}>
+        <Image
+          source={image}
           style={{
             flex: 1,
+            borderRadius: 0.01,
+            width: screenWidth,
+            resizeMode: 'contain',
+          }}
+        />
+        <View
+          style={{
             position: 'absolute',
             top: screenHeight * 0.025,
             left: screenWidth * 0.05,
@@ -61,19 +54,14 @@ const PlantDetail: React.FC<PlantDetailsProps> = ({route}) => {
             <BackButton />
           </TouchableOpacity>
         </View>
-        <Button
-          title="Switch names"
-          onPress={() => {
-            dispatch(toggleName('Banjo'));
-          }}
-        />
-
-        <Text>{userImage}</Text>
+      </View>
+      <View style={{flex: 0.6}}>
+        <Text>{initialText}</Text>
+        <Text>{currentTheme}</Text>
+        <Button title="Press Me" onPress={() => dispatch(toggleName('Ban-'))} />
       </View>
     </SafeAreaView>
   );
 };
 
 export default PlantDetail;
-
-const styles = StyleSheet.create({});

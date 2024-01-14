@@ -17,8 +17,11 @@ import {
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Routes} from '@app/constants';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
+import {combineReducers} from 'redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {onboardingAction} from '@app/redux/actions/actions';
+import {RootState} from '@app/redux/store/store';
 
 type ItemProps = {
   id: string;
@@ -52,14 +55,15 @@ const OnboardingScreens = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const currentIndex = React.useRef(0);
   const screenFlatListRef = React.useRef<FlatList<ItemProps>>(null);
-
-  const setUserOnboarded = async () => {
-    try {
-      await AsyncStorage.setItem('userOnboarded', 'false');
-    } catch (error) {
-      Alert.alert('Error storing boolean value:');
-    }
-  };
+  const dispatch = useDispatch();
+  const onboardingStatus = useSelector((state: RootState) => state.auth.status);
+  // const setUserOnboarded = async () => {
+  //   try {
+  //     await AsyncStorage.setItem('userOnboarded', 'false');
+  //   } catch (error) {
+  //     Alert.alert('Error storing boolean value:');
+  //   }
+  // };
 
   const handleGetIndex = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     let offsetX = e.nativeEvent.contentOffset.x;
@@ -77,7 +81,8 @@ const OnboardingScreens = () => {
 
       return;
     }
-    setUserOnboarded();
+    console.log(onboardingStatus);
+    dispatch(onboardingAction(true));
     goToLoginScreen();
   };
 
