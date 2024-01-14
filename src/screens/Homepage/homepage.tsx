@@ -108,6 +108,8 @@ const HomePage = () => {
           style={{
             marginTop: screenHeight * 0.08,
             width: screenWidth,
+            height: screenWidth * 0.24,
+            flexDirection: 'column',
             alignItems: 'center',
           }}>
           <FlatList

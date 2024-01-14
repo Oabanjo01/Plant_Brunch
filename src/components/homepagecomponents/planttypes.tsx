@@ -120,13 +120,14 @@ export const _renderItem = (
       <View
         style={{
           flexDirection: 'column',
+          marginTop: id == activeIndex ? 0 : screenWidth * 0.01,
           height: id == activeIndex ? screenWidth * 0.24 : screenWidth * 0.22,
           alignItems: 'center',
           justifyContent: 'center',
           width: id == activeIndex ? screenWidth * 0.29 : screenWidth * 0.26,
           backgroundColor:
             id == activeIndex ? Colors.primary : Colors.whiteColor,
-          borderRadius: 5,
+          borderRadius: id == activeIndex ? 10 : 5,
           shadowColor: Colors.primary,
           elevation: 0.5,
         }}>
