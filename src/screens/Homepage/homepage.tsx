@@ -4,11 +4,7 @@ import {View, Text, FlatList, StatusBar, ScrollView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Icon, TextInput} from 'react-native-paper';
 import Dashboard from '@assets/images/Dashboard.svg';
-import {
-  Data,
-  PhotographyData,
-  PlantData,
-} from '@app/constants/homepagedata/homepage';
+import {Data, PhotographyData, PlantData} from '@app/constants/data/homepage';
 import {
   dashboardHeight,
   screenHeight,
@@ -20,18 +16,18 @@ import {
   _renderItem,
 } from '@app/components/homepagecomponents/planttypes';
 import {_renderPhotography} from '@app/components/homepagecomponents/photography';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {RootStackNavigationProp} from '@app/navigation/navigation';
+import {useNavigation} from '@react-navigation/native';
 
 const HomePage = () => {
+  const navigation = useNavigation<RootStackNavigationProp>();
   const [activeIndex, setActiveIndex] = useState('0');
-
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: Colors.screenColor,
       }}>
-      {/* <StatusBar translucent animated showHideTransition={'slide'} /> */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentInsetAdjustmentBehavior="never">
@@ -156,7 +152,7 @@ const HomePage = () => {
           <FlatList
             data={PhotographyData}
             keyExtractor={item => item.id}
-            renderItem={_renderPhotography}
+            renderItem={item => _renderPhotography(navigation, item.item)}
             horizontal
             showsHorizontalScrollIndicator={false}
             ItemSeparatorComponent={SeparatorComponent}

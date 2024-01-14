@@ -10,7 +10,10 @@ import {
 import {Colors} from '@app/constants/colors';
 import OnboardScreen from '@app/components/onboarding/onboardingScreen';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '@app/navigation/navigation';
+import {
+  RootStackNavigationProp,
+  RootStackParamList,
+} from '@app/navigation/navigation';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Routes} from '@app/constants';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
@@ -46,14 +49,13 @@ const randomData: ItemProps[] = [
 const OnboardingScreens = () => {
   const [visibleIndex, setVisibleIndex] = useState<number>(0);
 
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<RootStackNavigationProp>();
   const currentIndex = React.useRef(0);
   const screenFlatListRef = React.useRef<FlatList<ItemProps>>(null);
 
   const setUserOnboarded = async () => {
     try {
-      await AsyncStorage.setItem('userOnboarded', 'true');
+      await AsyncStorage.setItem('userOnboarded', 'false');
     } catch (error) {
       Alert.alert('Error storing boolean value:');
     }

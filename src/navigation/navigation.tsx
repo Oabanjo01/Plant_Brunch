@@ -1,20 +1,29 @@
 import React, {useEffect, useState} from 'react';
 
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationProp,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import OnboardingScreens from '@app/screens/onboarding';
-import LoginScreen from '@app/screens/Auth/login';
+import LoginScreen from '@app/screens/auth/login';
 import {Colors, Routes} from '@app/constants';
-import SignUpScreen from '@app/screens/Auth/signup';
-import HomePage from '@app/screens/Homepage/homepage';
-import ProfilePage from '@app/screens/Profile/profile';
+import SignUpScreen from '@app/screens/auth/signup';
+import HomePage from '@app/screens/homepage/homepage';
+import ProfilePage from '@app/screens/profile/profile';
 import {Tabs} from '@app/constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import CameraPage from '@app/screens/Camera/camerapage';
+import CameraPage from '@app/screens/camera/camerapage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TabBarStyle from '@app/components/tabbar/tabbarstyle';
+import PlantDetail from '@app/screens/plantdetail/plantdetail';
+
+export type RootStackNavigationProp =
+  NativeStackNavigationProp<RootStackParamList>;
+
+export type ScreenProps = {navigation: RootStackNavigationProp};
 
 export type RootStackParamList = {
   Onboarding: any;
@@ -24,7 +33,7 @@ export type RootStackParamList = {
   Home: any;
   Profile: any;
 
-  ItemDetail: any;
+  PlantDetail: any;
   Species: any;
   PlantList: any;
   Articles: any;
@@ -89,7 +98,10 @@ const ScreenStack = () => {
     }
   };
 
-  useEffect(() => getData(), []);
+  useEffect(() => {
+    console.log('Got here');
+    getData();
+  }, [onboarded]);
 
   return (
     <Stack.Navigator
@@ -104,6 +116,7 @@ const ScreenStack = () => {
       <Stack.Screen name={Routes.Onboarding} component={OnboardingScreens} />
       <Stack.Screen name={Routes.Login} component={LoginScreen} />
       <Stack.Screen name={Routes.SignUp} component={SignUpScreen} />
+      <Stack.Screen name={Routes.PlantDetail} component={PlantDetail} />
       <Stack.Screen name={Routes.Home} component={HomeTabNavigator} />
     </Stack.Navigator>
   );

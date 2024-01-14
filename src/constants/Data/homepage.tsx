@@ -50,20 +50,20 @@ export const PlantData: PlantProps[] = [
 export const PhotographyData: PlantProps[] = [
   {
     id: '1',
-    imagePath: 'images',
-    description1: 'Identify',
+    imagePath: require('../../../assets/images/sampleplant1.jpg'),
+    description1: 'Pot Plant',
     subDescription2: 'Identify2',
   },
   {
     id: '2',
-    imagePath: 'images',
-    description1: 'Species',
+    imagePath: require('../../../assets/images/sampleplant2.jpg'),
+    description1: 'Water lily',
     subDescription2: 'Species',
   },
   {
     id: '3',
-    imagePath: 'images',
-    description1: 'Species',
+    imagePath: require('../../../assets/images/sampleplant3.jpg'),
+    description1: 'Hyacinth',
     subDescription2: 'Species',
   },
 ];

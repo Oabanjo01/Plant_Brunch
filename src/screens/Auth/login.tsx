@@ -7,14 +7,9 @@ import {NavigationProp} from '@react-navigation/native';
 import {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Checkbox, PaperProvider} from 'react-native-paper';
+import {ScreenProps} from '@app/navigation/navigation';
 
-type RootStackNavigationProp = NavigationProp<RootStackParamList>;
-
-type Props = {
-  navigation: RootStackNavigationProp;
-};
-
-const LoginScreen = ({navigation}: Props) => {
+const LoginScreen = ({navigation}: ScreenProps) => {
   const [userNameText, setUserNameText] = useState('');
   const [passwordText, setPasswordText] = useState('');
   const [usernamePlacHolder, setUsernamePlaceHolder] = useState('username');

@@ -1,4 +1,4 @@
-import {ItemProps} from '@app/constants/homepagedata/homepage';
+import {ItemProps} from '@app/constants/data/homepage';
 import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
@@ -12,20 +12,22 @@ export const _renderPlantTypes = () => {
   return (
     <View
       style={{
-        width: screenWidth * 0.8,
-        height: screenHeight * 0.2,
         alignItems: 'center',
         justifyContent: 'center',
       }}>
       <Image
-        source={require('@assets/images/sampleplant3.jpg')}
+        source={require('@assets/images/Picture.png')}
         style={{
           borderRadius: 5,
           width: screenWidth * 0.8,
-          height: screenHeight * 0.2,
+          height: screenHeight * 0.25,
           resizeMode: 'cover',
         }}
       />
+      <View>
+        <Text style={{color: Colors.primaryTextColor}}>Home Plants</Text>
+        <Text>68 types of plants</Text>
+      </View>
     </View>
   );
 };

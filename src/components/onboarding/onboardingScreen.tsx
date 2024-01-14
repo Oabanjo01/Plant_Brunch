@@ -13,7 +13,6 @@ import Onboarding3 from '@assets/images/Onboarding3.svg';
 import {Colors} from '@app/constants/colors';
 import IndicatorDot from './indicatorDots';
 import {LargeButton} from '../login/buttons';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 
 type OnboardingProps = {
@@ -35,7 +34,6 @@ const OnboardScreen = ({
   skip,
   activeIndex,
 }: OnboardingProps) => {
-  const navigation = useNavigation<any>();
   switch (index) {
     case 0:
       svgToRender = <Onboarding1 width="80%" height="50%" />;
