@@ -21,6 +21,7 @@ import TabBarStyle from '@app/components/tabbar/tabbarstyle';
 import PlantDetail from '@app/screens/plantdetail/plantdetail';
 import {RootState} from '@app/redux/store/store';
 import {useSelector} from 'react-redux';
+import {View} from 'react-native';
 
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
@@ -51,36 +52,42 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const TabStack = createBottomTabNavigator<TabParamList>();
 
 const HomeTabNavigator: React.FC = () => (
-  <TabStack.Navigator
-    tabBar={props => {
-      return (
-        <TabBarStyle
-          {...props}
-          screenHeight={screenHeight}
-          screenWidth={screenWidth}
-        />
-      );
-    }}
-    screenOptions={({route}) => ({
-      headerShown: false,
-      tabBarActiveTintColor: Colors.primary,
-      tabBarInactiveTintColor: Colors.inActiveUnderlineTextInputColor,
-      tabBarStyle: {
-        shadowColor: 'grey',
-        shadowOpacity: 0.4,
-        shadowOffset: {width: -1, height: -1},
-        elevation: 4,
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: Colors.whiteColor,
-        height: screenHeight * 0.08,
-      },
-    })}
-    initialRouteName={Tabs.Home}>
-    <TabStack.Screen name={Tabs.Home} component={HomePage} />
-    <TabStack.Screen name={Tabs.CameraButton} component={CameraPage} />
-    <TabStack.Screen name={Tabs.Profile} component={ProfilePage} />
-  </TabStack.Navigator>
+  <View
+    style={{
+      height: screenHeight,
+      width: screenWidth,
+    }}>
+    <TabStack.Navigator
+      tabBar={props => {
+        return (
+          <TabBarStyle
+            {...props}
+            screenHeight={screenHeight}
+            screenWidth={screenWidth}
+          />
+        );
+      }}
+      screenOptions={({route}) => ({
+        headerShown: false,
+        tabBarActiveTintColor: Colors.primary,
+        tabBarInactiveTintColor: Colors.inActiveUnderlineTextInputColor,
+        tabBarStyle: {
+          shadowColor: 'grey',
+          shadowOpacity: 0.4,
+          shadowOffset: {width: -1, height: -1},
+          elevation: 4,
+          paddingTop: 10,
+          paddingBottom: 10,
+          backgroundColor: Colors.whiteColor,
+          height: screenHeight * 0.08,
+        },
+      })}
+      initialRouteName={Tabs.Home}>
+      <TabStack.Screen name={Tabs.Home} component={HomePage} />
+      <TabStack.Screen name={Tabs.CameraButton} component={CameraPage} />
+      <TabStack.Screen name={Tabs.Profile} component={ProfilePage} />
+    </TabStack.Navigator>
+  </View>
 );
 
 const ScreenStack = () => {

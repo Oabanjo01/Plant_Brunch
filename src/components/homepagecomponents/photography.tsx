@@ -46,7 +46,7 @@ export const _renderPhotography = (
             borderTopRightRadius: 5,
             borderBottomRightRadius: 5,
           }}>
-          <Text>{imageTag}</Text>
+          <Text># {imageTag}</Text>
         </View>
       </View>
     </TouchableOpacity>

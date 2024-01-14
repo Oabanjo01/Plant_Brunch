@@ -1,4 +1,4 @@
-import {ItemProps} from '@app/constants/data/homepage';
+import {ItemProps, PlantProps} from '@app/constants/data/homepage';
 import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
@@ -8,7 +8,7 @@ export const SeparatorComponent = () => {
   return <View style={{width: screenWidth * 0.05}} />;
 };
 
-export const _renderPlantTypes = () => {
+export const _renderPlantTypes = (item: PlantProps) => {
   return (
     <View
       style={{
@@ -20,13 +20,23 @@ export const _renderPlantTypes = () => {
         style={{
           borderRadius: 5,
           width: screenWidth * 0.8,
-          height: screenHeight * 0.25,
-          resizeMode: 'cover',
+          height: screenHeight * 0.2,
+          resizeMode: 'contain',
         }}
       />
-      <View>
-        <Text style={{color: Colors.primaryTextColor}}>Home Plants</Text>
-        <Text>68 types of plants</Text>
+
+      <View
+        style={{
+          backgroundColor: Colors.whiteColor,
+          position: 'absolute',
+          left: 0,
+          bottom: 20,
+          opacity: 0.8,
+          padding: 5,
+          borderTopRightRadius: 5,
+          borderBottomRightRadius: 5,
+        }}>
+        <Text># {item.description1}</Text>
       </View>
     </View>
   );

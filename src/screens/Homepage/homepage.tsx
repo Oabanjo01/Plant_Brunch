@@ -78,9 +78,13 @@ const HomePage = () => {
               backgroundColor: Colors.whiteColor,
               alignItems: 'center',
               borderRadius: 40,
-              paddingLeft: screenWidth * 0.04,
+              paddingHorizontal: screenWidth * 0.04,
             }}>
-            <Icon size={24} color="#000" source={'magnify'} />
+            <Icon
+              size={24}
+              color={Colors.primaryTextColor}
+              source={'magnify'}
+            />
             <TextInput
               underlineColor="transparent"
               activeUnderlineColor="transparent"
@@ -91,6 +95,11 @@ const HomePage = () => {
                 flex: 1,
                 borderColor: 'transparent',
               }}
+            />
+            <Icon
+              size={24}
+              color={Colors.primaryTextColor}
+              source={'check-bold'}
             />
           </View>
         </LinearGradient>
@@ -130,7 +139,7 @@ const HomePage = () => {
           <FlatList
             data={PlantData}
             keyExtractor={item => item.id}
-            renderItem={_renderPlantTypes}
+            renderItem={item => _renderPlantTypes(item.item)}
             horizontal
             showsHorizontalScrollIndicator={false}
             ItemSeparatorComponent={SeparatorComponent}
