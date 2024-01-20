@@ -2,83 +2,181 @@ import {LargeButton} from '@app/components/login/buttons';
 import TextFields from '@app/components/login/textInput';
 import {Routes} from '@app/constants';
 import {Colors} from '@app/constants/colors';
-import {RootStackParamList} from '@app/navigation/navigation';
-import {NavigationProp} from '@react-navigation/native';
 import {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Checkbox, PaperProvider} from 'react-native-paper';
+import {Checkbox} from 'react-native-paper';
 import {ScreenProps} from '@app/navigation/navigation';
+import {Formik, validateYupSchema} from 'formik';
+import * as yup from 'yup';
+import auth from '@react-native-firebase/auth';
 
 const LoginScreen = ({navigation}: ScreenProps) => {
   const [userNameText, setUserNameText] = useState('');
   const [passwordText, setPasswordText] = useState('');
-  const [usernamePlacHolder, setUsernamePlaceHolder] = useState('username');
+  const [emailPlacHolder, setEmailPlaceHolder] = useState('username');
   const [passwordPlacHolder, setPasswordPlaceHolder] = useState('password');
   const [checked, setChecked] = useState(false);
+  const [validateChange, setValidateChange] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isValidPassword, setIsValidPassword] = useState(false);
+  const [displayPassword, setDisplayPassword] = useState(false);
+
+  const handleFieldBlur = (fieldName: any) => {};
+
+  const loginValidationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .trim()
+      .email('Please enter valid email')
+      .required('Email Address is Required'),
+    password: yup
+      .string()
+      .trim()
+      .min(8, ({min}) => `Password must be at least ${min} characters`)
+      .required('Password is required'),
+  });
+
+  const handleLogin = () => {
+    setValidateChange(true);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text
-        style={{
-          color: Colors.primaryTextColor,
-          fontSize: 30,
-          fontFamily: 'OpenSans-SemiBold',
-          marginBottom: 6,
-        }}>
-        Hello
-      </Text>
-      <Text style={[styles.textStyle, {marginBottom: '7%'}]}>
-        Let’s Learn More About Plants
-      </Text>
-      <TextFields
-        onFocused={() => setUsernamePlaceHolder('')}
-        placeHolderText={usernamePlacHolder}
-        valueText={userNameText}
-        labelText="Username"
-        callBack={setUserNameText}
-      />
-      <TextFields
-        onFocused={() => setPasswordPlaceHolder('')}
-        placeHolderText={passwordPlacHolder}
-        valueText={passwordText}
-        labelText="Password"
-        callBack={setPasswordText}
-      />
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Checkbox
-            color={Colors.primary}
-            status={checked ? 'checked' : 'unchecked'}
-            onPress={() => setChecked(!checked)}
+    <Formik
+      initialValues={{email: '', password: ''}}
+      validateOnBlur
+      validateOnChange={validateChange}
+      validationSchema={loginValidationSchema}
+      onSubmit={handleLogin}>
+      {({
+        values,
+        handleChange,
+        handleSubmit,
+        errors,
+        isSubmitting,
+        isValid,
+        touched,
+      }) => (
+        <View style={styles.container}>
+          <Text
+            style={{
+              color: Colors.primaryTextColor,
+              fontSize: 30,
+              fontFamily: 'OpenSans-SemiBold',
+              marginBottom: 6,
+            }}>
+            Hello
+          </Text>
+          <Text style={[styles.textStyle, {marginBottom: '7%'}]}>
+            Let’s Learn More About Plants
+          </Text>
+          <TextFields
+            onFocused={() => setEmailPlaceHolder('')}
+            placeHolderText={emailPlacHolder}
+            valueText={values.email}
+            keyboardType="email-address"
+            labelText="Email"
+            onBlur={e => handleFieldBlur('email')}
+            callBack={handleChange('email')}
           />
-          <Text style={styles.textStyle}>Remember me</Text>
+          {isValid === false && isValidEmail === false && (
+            <Text style={{fontSize: 12, color: 'red'}}>{errors.email}</Text>
+          )}
+          <TextFields
+            onFocused={() => setPasswordPlaceHolder('')}
+            placeHolderText={passwordPlacHolder}
+            valueText={values.password}
+            labelText="Password"
+            onBlur={e => handleFieldBlur('password')}
+            callBack={handleChange('password')}
+            displayRightIcon
+            togglePasswordDisplay={() => setDisplayPassword(!displayPassword)}
+            displayPassword={displayPassword}
+          />
+          {isValid === false && isValidPassword === false && (
+            <Text style={{fontSize: 12, color: 'red'}}>{errors.password}</Text>
+          )}
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Checkbox
+                color={Colors.primary}
+                status={checked ? 'checked' : 'unchecked'}
+                onPress={() => setChecked(!checked)}
+              />
+              <Text style={styles.textStyle}>Remember me</Text>
+            </View>
+            <Text style={styles.textStyle}>Forgot Password?</Text>
+          </View>
+          <LargeButton
+            text="Login"
+            extraStyle={styles.loginButtonStyle}
+            onPress={
+              () => {
+                loginValidationSchema
+                  .validate(values)
+                  .then(async () => {
+                    setIsValidEmail(true);
+                    setIsValidPassword(true);
+                    await auth()
+                      .createUserWithEmailAndPassword(
+                        values.email,
+                        values.password,
+                      )
+                      .then(async userCredential => {
+                        await userCredential.user
+                          .sendEmailVerification()
+                          .then(() => {
+                            console.log(userCredential);
+                            userCredential.user.emailVerified === false ??
+                              console.log('Not verified');
+                          });
+                      })
+                      .catch(error => {
+                        if (error.code === 'auth/email-already-in-use') {
+                          console.log('That email address is already in use!');
+                        }
+
+                        if (error.code === 'auth/invalid-email') {
+                          console.log('That email address is invalid!');
+                        }
+                      });
+
+                    // .then(() => {
+                    //   console.log('User is signed in');
+                    // })
+                    // .catch(error => {
+                    //   console.log('error:', error);
+                    // });
+                  })
+                  .catch(() => {});
+                handleSubmit();
+              }
+              // navigation.navigate(Routes.Home)
+            }
+          />
+          <View
+            style={{
+              alignItems: 'center',
+              marginTop: '4%',
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            <Text style={styles.textStyle}>Don’t Have Account? </Text>
+            <TouchableOpacity
+              onPress={values => {
+                navigation.navigate(Routes.SignUp);
+              }}
+              activeOpacity={0.9}>
+              <Text style={{color: Colors.primary}}> Sign Up</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <Text style={styles.textStyle}>Forgot Password?</Text>
-      </View>
-      <LargeButton
-        text="Login"
-        extraStyle={styles.loginButtonStyle}
-        onPress={() => navigation.navigate(Routes.Home)}
-      />
-      <View
-        style={{
-          alignItems: 'center',
-          marginTop: '4%',
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}>
-        <Text style={styles.textStyle}>Don’t Have Account? </Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(Routes.SignUp)}
-          activeOpacity={0.9}>
-          <Text style={{color: Colors.primary}}> Sign Up</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      )}
+    </Formik>
   );
 };
 

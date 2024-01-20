@@ -21,7 +21,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const HomePage = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
-  const [activeIndex, setActiveIndex] = useState('0');
+  const [activeIndex, setActiveIndex] = useState('2');
   return (
     <View
       style={{
@@ -80,11 +80,7 @@ const HomePage = () => {
               borderRadius: 40,
               paddingHorizontal: screenWidth * 0.04,
             }}>
-            <Icon
-              size={24}
-              color={Colors.primaryTextColor}
-              source={'magnify'}
-            />
+            <Icon size={24} color={Colors.primary} source={'magnify'} />
             <TextInput
               underlineColor="transparent"
               activeUnderlineColor="transparent"
@@ -96,11 +92,14 @@ const HomePage = () => {
                 borderColor: 'transparent',
               }}
             />
-            <Icon
-              size={24}
-              color={Colors.primaryTextColor}
-              source={'check-bold'}
-            />
+            <View
+              style={{
+                backgroundColor: Colors.primary,
+                padding: 4,
+                borderRadius: 20,
+              }}>
+              <Icon size={24} color={Colors.whiteColor} source={'check-bold'} />
+            </View>
           </View>
         </LinearGradient>
 

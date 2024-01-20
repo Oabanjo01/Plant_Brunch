@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "641536110383",
+    "project_id": "plant-app-aff11",
+    "storage_bucket": "plant-app-aff11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641536110383:android:25f1d9362022384e2bfbda",
+        "android_client_info": {
+          "package_name": "com.wildlife"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcwA89pqc5QBgIqcnCJIccerzXn1uN0tg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
