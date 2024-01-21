@@ -37,6 +37,7 @@ const TextFields = (props: TextFieldProps) => {
       onFocus={onFocused}
       onBlur={onBlur}
       keyboardType={keyboardType}
+      spellCheck={true}
       maxLength={30}
       secureTextEntry={displayPassword ? false : true}
       underlineColor={Colors.inActiveUnderlineTextInputColor}

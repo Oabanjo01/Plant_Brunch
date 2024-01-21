@@ -15,7 +15,8 @@ import {Routes} from '@app/constants/routes';
 import {Colors} from '@app/constants/colors';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import auth from '@react-native-firebase/auth';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {showToast} from '@app/utilities/toast';
 
 type RootStackNavigationProp = NavigationProp<RootStackParamList>;
 
@@ -28,13 +29,15 @@ const SignUpScreen = ({navigation}: Props) => {
   const [userEmailPlacHolder, setUserEmailPlaceHolder] = useState('useremail');
   const [passwordPlacHolder, setPasswordPlaceHolder] = useState('password');
   const [confirmPasswordPlacHolder, setConfirmPasswordPlaceHolder] =
-    useState('confirm-password');
+    useState('confirmPassword');
   const [validateChange, setValidateChange] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidUsername, setIsValidUsername] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
   const [isValidConfirmPassword, setisValidConfirmPassword] = useState(false);
   const [displayPassword, setDisplayPassword] = useState(false);
+  const [displayConfirmPassword, setdisplayConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const signUpvalidationSchema = yup.object().shape({
     userName: yup
@@ -58,9 +61,42 @@ const SignUpScreen = ({navigation}: Props) => {
       .oneOf([yup.ref('password'), null], 'Passwords must match')
       .required('Confirm Password is required'),
   });
-  const handleSignIn = () => {
-    console.log('Signing in');
+  const handleSignIn = async (values: any) => {
+    setIsLoading(true);
     setValidateChange(true);
+    try {
+      const userCredential = await auth().createUserWithEmailAndPassword(
+        values.userEmail,
+        values.password,
+      );
+      await userCredential.user.sendEmailVerification().then(() => {
+        console.log(userCredential);
+        userCredential.user.emailVerified === false &&
+          console.log('Not verified');
+      });
+      setIsLoading(false);
+    } catch (error: any) {
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          showToast();
+          setIsLoading(false);
+          console.log('Email already in use', error);
+          break;
+        case 'auth/invalid-email':
+          console.log('Email is invalid');
+          break;
+        case 'auth/too-many-requests':
+          console.log('Chill, too many requests');
+          break;
+        case 'auth/invalid-password':
+          console.log('Inalid password');
+          break;
+
+        default:
+          console.log('An error occurred');
+          break;
+      }
+    }
   };
   return (
     <Formik
@@ -73,7 +109,7 @@ const SignUpScreen = ({navigation}: Props) => {
       validateOnBlur
       validateOnChange={validateChange}
       validationSchema={signUpvalidationSchema}
-      onSubmit={handleSignIn}>
+      onSubmit={values => handleSignIn(values)}>
       {({
         values,
         handleChange,
@@ -106,6 +142,7 @@ const SignUpScreen = ({navigation}: Props) => {
               placeHolderText={usernamePlacHolder}
               valueText={values.userName}
               labelText="Username"
+              displayPassword
               callBack={handleChange('userName')}
             />
             {isValid === false && isValidUsername === false && (
@@ -116,7 +153,6 @@ const SignUpScreen = ({navigation}: Props) => {
             <TextFields
               onFocused={() => setUserEmailPlaceHolder('')}
               placeHolderText={userEmailPlacHolder}
-              displayPassword
               valueText={values.userEmail}
               keyboardType="email-address"
               labelText="User email"
@@ -149,6 +185,10 @@ const SignUpScreen = ({navigation}: Props) => {
               labelText="Confirm password"
               callBack={handleChange('confirmPassword')}
               displayRightIcon
+              togglePasswordDisplay={() =>
+                setdisplayConfirmPassword(!displayConfirmPassword)
+              }
+              displayPassword={displayConfirmPassword}
             />
             {isValid === false && isValidConfirmPassword === false && (
               <Text style={{fontSize: 12, color: 'red'}}>
@@ -162,40 +202,27 @@ const SignUpScreen = ({navigation}: Props) => {
                 justifyContent: 'space-between',
               }}>
               <LargeButton
-                text="Sign up"
-                extraStyle={styles.loginButtonStyle}
-                onPress={() => {
-                  signUpvalidationSchema
-                    .validate(values)
-                    .then(async () => {
-                      setIsValidEmail(true);
-                      setIsValidPassword(true);
-                      setIsValidUsername(true);
-                      setisValidConfirmPassword(true);
-                      await auth()
-                        .createUserWithEmailAndPassword(
-                          values.userEmail,
-                          values.password,
-                        )
-                        .then(async userCredential => {
-                          await userCredential.user
-                            .sendEmailVerification()
-                            .then(() => {
-                              console.log(userCredential);
-                              userCredential.user.emailVerified === false ??
-                                console.log('Not verified');
-                            });
-                        });
-                      // .then(() => {
-                      //   console.log('User is signed in');
-                      // })
-                      // .catch(error => {
-                      //   console.log('error:', error);
-                      // });
-                    })
-                    .catch(() => {});
-                  handleSubmit();
-                }}
+                text={isLoading ? 'Loading...' : 'Sign up'}
+                extraStyle={
+                  isLoading
+                    ? styles.loadingButtonStyle
+                    : styles.loginButtonStyle
+                }
+                onPress={
+                  !isLoading
+                    ? () => {
+                        signUpvalidationSchema
+                          .validate(values)
+                          .then(async () => {
+                            setIsValidEmail(true);
+                            setIsValidPassword(true);
+                            setIsValidUsername(true);
+                            setisValidConfirmPassword(true);
+                          });
+                        handleSubmit();
+                      }
+                    : () => {}
+                }
               />
               <View
                 style={{

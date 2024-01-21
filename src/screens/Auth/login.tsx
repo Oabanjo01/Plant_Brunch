@@ -9,11 +9,10 @@ import {ScreenProps} from '@app/navigation/navigation';
 import {Formik, validateYupSchema} from 'formik';
 import * as yup from 'yup';
 import auth from '@react-native-firebase/auth';
+import Toast from 'react-native-toast-message';
 
 const LoginScreen = ({navigation}: ScreenProps) => {
-  const [userNameText, setUserNameText] = useState('');
-  const [passwordText, setPasswordText] = useState('');
-  const [emailPlacHolder, setEmailPlaceHolder] = useState('username');
+  const [emailPlacHolder, setEmailPlaceHolder] = useState('email');
   const [passwordPlacHolder, setPasswordPlaceHolder] = useState('password');
   const [checked, setChecked] = useState(false);
   const [validateChange, setValidateChange] = useState(false);
@@ -57,6 +56,11 @@ const LoginScreen = ({navigation}: ScreenProps) => {
         touched,
       }) => (
         <View style={styles.container}>
+          <Toast
+            ref={ref => {
+              Toast.setRef(ref);
+            }}
+          />
           <Text
             style={{
               color: Colors.primaryTextColor,
@@ -114,49 +118,35 @@ const LoginScreen = ({navigation}: ScreenProps) => {
           <LargeButton
             text="Login"
             extraStyle={styles.loginButtonStyle}
-            onPress={
-              () => {
-                loginValidationSchema
-                  .validate(values)
-                  .then(async () => {
-                    setIsValidEmail(true);
-                    setIsValidPassword(true);
-                    await auth()
-                      .createUserWithEmailAndPassword(
-                        values.email,
-                        values.password,
-                      )
-                      .then(async userCredential => {
-                        await userCredential.user
-                          .sendEmailVerification()
-                          .then(() => {
-                            console.log(userCredential);
-                            userCredential.user.emailVerified === false ??
-                              console.log('Not verified');
-                          });
-                      })
-                      .catch(error => {
-                        if (error.code === 'auth/email-already-in-use') {
-                          console.log('That email address is already in use!');
-                        }
+            onPress={() => {
+              loginValidationSchema.validate(values).then(async () => {
+                setIsValidEmail(true);
+                setIsValidPassword(true);
+                try {
+                  console.log('Got here - 2');
+                  const userCredential =
+                    await auth().createUserWithEmailAndPassword(
+                      values.email,
+                      values.password,
+                    );
+                  await userCredential.user.sendEmailVerification().then(() => {
+                    console.log(userCredential);
+                    userCredential.user.emailVerified === false &&
+                      console.log('Not verified');
+                  });
+                } catch (error: any) {
+                  console.log('Got here - error', error);
+                  if (error.code === 'auth/email-already-in-use') {
+                    console.log('That email address is already in use!');
+                  }
 
-                        if (error.code === 'auth/invalid-email') {
-                          console.log('That email address is invalid!');
-                        }
-                      });
-
-                    // .then(() => {
-                    //   console.log('User is signed in');
-                    // })
-                    // .catch(error => {
-                    //   console.log('error:', error);
-                    // });
-                  })
-                  .catch(() => {});
-                handleSubmit();
-              }
-              // navigation.navigate(Routes.Home)
-            }
+                  if (error.code === 'auth/invalid-email') {
+                    console.log('That email address is invalid!');
+                  }
+                }
+              });
+              handleSubmit();
+            }}
           />
           <View
             style={{
@@ -184,6 +174,11 @@ export const styles = StyleSheet.create({
   loginButtonStyle: {
     alignItems: 'center',
     marginTop: '7%',
+  },
+  loadingButtonStyle: {
+    alignItems: 'center',
+    marginTop: '7%',
+    backgroundColor: Colors.disabledButtonColor,
   },
   container: {
     backgroundColor: Colors.screenColor,
