@@ -78,23 +78,42 @@ const SignUpScreen = ({navigation}: Props) => {
     } catch (error: any) {
       switch (error.code) {
         case 'auth/email-already-in-use':
-          showToast();
-          setIsLoading(false);
-          console.log('Email already in use', error);
+          showToast({
+            text2: 'Email already in use',
+            text1: 'Error',
+            type: 'error',
+          });
           break;
         case 'auth/invalid-email':
-          console.log('Email is invalid');
+          showToast({
+            text2: 'Email is invalid',
+            text1: 'Error',
+            type: 'error',
+          });
           break;
         case 'auth/too-many-requests':
-          console.log('Chill, too many requests');
+          showToast({
+            text2: 'Chill, too many requests',
+            text1: 'Error',
+            type: 'error',
+          });
           break;
         case 'auth/invalid-password':
-          console.log('Inalid password');
+          showToast({
+            text2: 'Invalid password',
+            text1: 'Error',
+            type: 'error',
+          });
           break;
 
         default:
-          console.log('An error occurred');
+          showToast({
+            text2: 'Something went wrong, try this some other time?',
+            text1: 'Error',
+            type: 'error',
+          });
           break;
+          setIsLoading(false);
       }
     }
   };

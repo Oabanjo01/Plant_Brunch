@@ -1,20 +1,63 @@
-import {Platform, ToastAndroid} from 'react-native';
-import Toast from 'react-native-toast-message';
+import {Colors} from '@app/constants';
+import {screenWidth} from '@app/constants/dimensions';
+import {Platform, Text, ToastAndroid, View} from 'react-native';
 
-export const showToast = () => {
-  // if (Platform.OS === 'android') {
-  //   ToastAndroid.showWithGravityAndOffset(
-  //     'This is some something 👋',
-  //     ToastAndroid.LONG,
-  //     ToastAndroid.BOTTOM,
-  //     25,
-  //     50,
-  //   );
-  // } else {
+import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
+
+interface ToastProps {
+  text1: string;
+  text2: string;
+  type: string;
+}
+
+export const toastConfig = {
+  success: ({props}: {props: ToastProps}) =>
+    customToasts({props: props, backgroundColor: Colors.primary}),
+  error: ({props}: {props: ToastProps}) =>
+    customToasts({props: props, backgroundColor: Colors.favouriteButtonColor}),
+
+  info: ({props}: {props: ToastProps}) =>
+    customToasts({props: props, backgroundColor: Colors.addPhotoButtonColor}),
+};
+
+const customToasts = ({
+  backgroundColor,
+  props,
+}: {
+  backgroundColor: string;
+  props: ToastProps;
+}) => {
+  return (
+    <View
+      style={{
+        padding: 15,
+        // marginHorizontal: 20,
+        width: screenWidth * 0.8,
+        backgroundColor: backgroundColor,
+        opacity: 0.8,
+        borderRadius: 15,
+      }}>
+      <Text
+        style={{color: Colors.lightTextColor, fontWeight: '600', fontSize: 18}}>
+        {props.text1}
+      </Text>
+      <Text
+        style={{color: Colors.lightTextColor, fontWeight: '400', fontSize: 14}}>
+        {props.text2}
+      </Text>
+    </View>
+  );
+};
+
+export const showToast = ({type, text1, text2}: ToastProps) => {
+  console.log('type', type, 'text1', text1, 'text2', text2);
   Toast.show({
-    type: 'success',
-    text1: 'Hello',
-    text2: 'This is some something 👋',
+    type: type,
+    props: {text1: text1, text2: text2},
+    position: 'bottom',
+    visibilityTime: 5000,
+    bottomOffset: 20,
+    text1: text1,
+    text2: text2,
   });
-  // }
 };
