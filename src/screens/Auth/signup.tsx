@@ -69,27 +69,40 @@ const SignUpScreen = ({navigation}: Props) => {
         values.userEmail,
         values.password,
       );
-      await userCredential.user.sendEmailVerification().then(() => {
-        console.log(userCredential);
-        userCredential.user.emailVerified === false &&
-          console.log('Not verified');
-      });
+      await userCredential.user
+        .sendEmailVerification()
+        .then(() => {
+          console.log(userCredential);
+          userCredential.user.emailVerified === false &&
+            showToast({
+              text1: 'Success',
+              text2:
+                'A link has been sent to your email address, kindly activate your account',
+              type: 'success',
+            });
+        })
+        .then(() => {
+          navigation.navigate(Routes.Login);
+        });
       setIsLoading(false);
     } catch (error: any) {
       switch (error.code) {
         case 'auth/email-already-in-use':
           showToast({
-            text2: 'Email already in use',
+            text2:
+              'Email already in use, check your mail for a reactivation link or login instead',
             text1: 'Error',
-            type: 'error',
+            type: 'info',
           });
+          setIsLoading(false);
           break;
         case 'auth/invalid-email':
           showToast({
             text2: 'Email is invalid',
-            text1: 'Error',
+            text1: 'Email in use',
             type: 'error',
           });
+          setIsLoading(false);
           break;
         case 'auth/too-many-requests':
           showToast({
@@ -97,6 +110,7 @@ const SignUpScreen = ({navigation}: Props) => {
             text1: 'Error',
             type: 'error',
           });
+          setIsLoading(false);
           break;
         case 'auth/invalid-password':
           showToast({
@@ -104,6 +118,7 @@ const SignUpScreen = ({navigation}: Props) => {
             text1: 'Error',
             type: 'error',
           });
+          setIsLoading(false);
           break;
 
         default:
