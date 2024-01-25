@@ -2,6 +2,7 @@ import {LargeButton} from '@app/components/login/buttons';
 import TextFields from '@app/components/login/textInput';
 import React, {useState} from 'react';
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   Text,
@@ -17,6 +18,7 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {showToast} from '@app/utilities/toast';
+import handleFirebaseError from '@app/utilities/errorHandling';
 
 type RootStackNavigationProp = NavigationProp<RootStackParamList>;
 
@@ -86,50 +88,9 @@ const SignUpScreen = ({navigation}: Props) => {
         });
       setIsLoading(false);
     } catch (error: any) {
-      switch (error.code) {
-        case 'auth/email-already-in-use':
-          showToast({
-            text2:
-              'Email already in use, check your mail for a reactivation link or login instead',
-            text1: 'Error',
-            type: 'info',
-          });
-          setIsLoading(false);
-          break;
-        case 'auth/invalid-email':
-          showToast({
-            text2: 'Email is invalid',
-            text1: 'Email in use',
-            type: 'error',
-          });
-          setIsLoading(false);
-          break;
-        case 'auth/too-many-requests':
-          showToast({
-            text2: 'Chill, too many requests',
-            text1: 'Error',
-            type: 'error',
-          });
-          setIsLoading(false);
-          break;
-        case 'auth/invalid-password':
-          showToast({
-            text2: 'Invalid password',
-            text1: 'Error',
-            type: 'error',
-          });
-          setIsLoading(false);
-          break;
-
-        default:
-          showToast({
-            text2: 'Something went wrong, try this some other time?',
-            text1: 'Error',
-            type: 'error',
-          });
-          break;
-          setIsLoading(false);
-      }
+      console.log(error.toString());
+      setIsLoading(false);
+      handleFirebaseError(error);
     }
   };
   return (
@@ -245,6 +206,7 @@ const SignUpScreen = ({navigation}: Props) => {
                 onPress={
                   !isLoading
                     ? () => {
+                        Keyboard.dismiss();
                         signUpvalidationSchema
                           .validate(values)
                           .then(async () => {

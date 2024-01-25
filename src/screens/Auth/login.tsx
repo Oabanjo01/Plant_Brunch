@@ -2,14 +2,15 @@ import {LargeButton} from '@app/components/login/buttons';
 import TextFields from '@app/components/login/textInput';
 import {Routes} from '@app/constants';
 import {Colors} from '@app/constants/colors';
-import {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useEffect, useState} from 'react';
+import {Keyboard, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Checkbox} from 'react-native-paper';
 import {ScreenProps} from '@app/navigation/navigation';
 import {Formik, validateYupSchema} from 'formik';
 import * as yup from 'yup';
 import auth from '@react-native-firebase/auth';
-import Toast from 'react-native-toast-message';
+import {showToast} from '@app/utilities/toast';
+import handleFirebaseError from '@app/utilities/errorHandling';
 
 const LoginScreen = ({navigation}: ScreenProps) => {
   const [emailPlacHolder, setEmailPlaceHolder] = useState('email');
@@ -19,8 +20,19 @@ const LoginScreen = ({navigation}: ScreenProps) => {
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
   const [displayPassword, setDisplayPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFieldBlur = (fieldName: any) => {};
+
+  useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged(user => {
+      if (user && user.emailVerified) {
+        navigation.navigate(Routes.Home);
+      }
+    });
+    console.log(unsubscribe());
+    return unsubscribe;
+  }, []);
 
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -35,8 +47,27 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       .required('Password is required'),
   });
 
-  const handleLogin = () => {
+  const handleLogin = async (values: any) => {
+    setIsLoading(true);
     setValidateChange(true);
+    try {
+      const userCredential = await auth().signInWithEmailAndPassword(
+        values.email,
+        values.password,
+      );
+      userCredential.user.emailVerified === false
+        ? showToast({
+            text1: 'Success',
+            text2:
+              'A link has been sent to your email address, kindly activate your account before logging in',
+            type: 'info',
+          })
+        : navigation.navigate(Routes.Home);
+      setIsLoading(false);
+    } catch (error: any) {
+      setIsLoading(false);
+      handleFirebaseError(error);
+    }
   };
 
   return (
@@ -45,7 +76,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       validateOnBlur
       validateOnChange={validateChange}
       validationSchema={loginValidationSchema}
-      onSubmit={handleLogin}>
+      onSubmit={values => handleLogin(values)}>
       {({
         values,
         handleChange,
@@ -56,11 +87,6 @@ const LoginScreen = ({navigation}: ScreenProps) => {
         touched,
       }) => (
         <View style={styles.container}>
-          <Toast
-            ref={ref => {
-              Toast.setRef(ref);
-            }}
-          />
           <Text
             style={{
               color: Colors.primaryTextColor,
@@ -116,37 +142,22 @@ const LoginScreen = ({navigation}: ScreenProps) => {
             <Text style={styles.textStyle}>Forgot Password?</Text>
           </View>
           <LargeButton
-            text="Login"
-            extraStyle={styles.loginButtonStyle}
-            onPress={() => {
-              loginValidationSchema.validate(values).then(async () => {
-                setIsValidEmail(true);
-                setIsValidPassword(true);
-                try {
-                  console.log('Got here - 2');
-                  const userCredential =
-                    await auth().createUserWithEmailAndPassword(
-                      values.email,
-                      values.password,
-                    );
-                  await userCredential.user.sendEmailVerification().then(() => {
-                    console.log(userCredential);
-                    userCredential.user.emailVerified === false &&
-                      console.log('Not verified');
-                  });
-                } catch (error: any) {
-                  console.log('Got here - error', error);
-                  if (error.code === 'auth/email-already-in-use') {
-                    console.log('That email address is already in use!');
+            text={isLoading ? 'Loading...' : 'Log in'}
+            extraStyle={
+              isLoading ? styles.loadingButtonStyle : styles.loginButtonStyle
+            }
+            onPress={
+              !isLoading
+                ? () => {
+                    Keyboard.dismiss();
+                    loginValidationSchema.validate(values).then(async () => {
+                      setIsValidEmail(true);
+                      setIsValidPassword(true);
+                    });
+                    handleSubmit();
                   }
-
-                  if (error.code === 'auth/invalid-email') {
-                    console.log('That email address is invalid!');
-                  }
-                }
-              });
-              handleSubmit();
-            }}
+                : () => {}
+            }
           />
           <View
             style={{

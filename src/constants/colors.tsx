@@ -1,7 +1,8 @@
 export const Colors = {
   screenColor: '#E5E5E5',
   primary: '#2DDA93',
-  primaryTextColor: '#36455A',
+  primaryTextColor: '#000000',
+  lightPrimaryTextColor: '#777777',
   secondaryTextColor: '#6A6F7D',
   inActiveUnderlineTextInputColor: '#A7A7A7',
   lightTextColor: '#FFFFFF',

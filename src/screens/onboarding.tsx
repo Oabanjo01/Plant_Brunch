@@ -103,7 +103,10 @@ const OnboardingScreens = () => {
               titleText={items.item.titleText}
               index={items.index}
               onPress={handleNextPress}
-              skip={() => navigation.navigate(Routes.Login)}
+              skip={() => {
+                dispatch(onboardingAction(true));
+                navigation.navigate(Routes.Login);
+              }}
               activeIndex={(items.index += 1)}
             />
           );

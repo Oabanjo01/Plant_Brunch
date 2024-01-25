@@ -50,7 +50,7 @@ const customToasts = ({
 };
 
 export const showToast = ({type, text1, text2}: ToastProps) => {
-  console.log('type', type, 'text1', text1, 'text2', text2);
+  Toast.hide();
   Toast.show({
     type: type,
     props: {text1: text1, text2: text2},

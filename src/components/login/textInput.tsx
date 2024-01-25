@@ -35,6 +35,7 @@ const TextFields = (props: TextFieldProps) => {
       label={labelText}
       placeholder={placeHolderText}
       onFocus={onFocused}
+      textColor={Colors.primaryTextColor}
       onBlur={onBlur}
       keyboardType={keyboardType}
       spellCheck={true}
@@ -54,6 +55,7 @@ const TextFields = (props: TextFieldProps) => {
               <Ionicons
                 name={displayPassword ? 'eye' : 'eye-off'}
                 size={18}
+                color={Colors.primary}
                 onPress={togglePasswordDisplay}
               />
             )}
@@ -65,13 +67,17 @@ const TextFields = (props: TextFieldProps) => {
       }
       theme={{
         colors: {
+          onSurfaceVariant: Colors.lightPrimaryTextColor,
           placeholder: Colors.inActiveUnderlineTextInputColor,
         },
       }}
       selectionColor={Colors.primary}
       underlineColorAndroid={Colors.inActiveUnderlineTextInputColor}
       activeOutlineColor={Colors.primary}
-      style={{backgroundColor: Colors.screenColor, marginBottom: '5%'}}
+      style={{
+        backgroundColor: Colors.screenColor,
+        marginBottom: '5%',
+      }}
     />
   );
 };
