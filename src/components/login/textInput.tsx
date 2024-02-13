@@ -40,7 +40,7 @@ const TextFields = (props: TextFieldProps) => {
       keyboardType={keyboardType}
       spellCheck={true}
       maxLength={30}
-      secureTextEntry={displayPassword ? false : true}
+      secureTextEntry={displayPassword ? true : false}
       underlineColor={Colors.inActiveUnderlineTextInputColor}
       activeUnderlineColor={Colors.primary}
       value={text}

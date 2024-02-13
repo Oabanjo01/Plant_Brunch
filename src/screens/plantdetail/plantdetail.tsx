@@ -1,6 +1,5 @@
 import {Button, Image, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import BackButton from '@assets/images/BackButton.svg';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {
@@ -33,7 +32,7 @@ const PlantDetail: React.FC<PlantDetailsProps> = ({route}) => {
   );
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
       <View style={{flex: 0.4}}>
         <Image
           source={image}
@@ -51,7 +50,7 @@ const PlantDetail: React.FC<PlantDetailsProps> = ({route}) => {
             left: screenWidth * 0.05,
           }}>
           <TouchableOpacity onPress={() => goBack()}>
-            <BackButton />
+            <BackButton color={Colors.primaryTextColor} />
           </TouchableOpacity>
         </View>
       </View>
@@ -60,7 +59,7 @@ const PlantDetail: React.FC<PlantDetailsProps> = ({route}) => {
         <Text>{currentTheme}</Text>
         <Button title="Press Me" onPress={() => dispatch(toggleName('Ban-'))} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

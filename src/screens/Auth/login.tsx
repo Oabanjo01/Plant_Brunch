@@ -6,7 +6,7 @@ import {useEffect, useState} from 'react';
 import {Keyboard, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Checkbox} from 'react-native-paper';
 import {ScreenProps} from '@app/navigation/navigation';
-import {Formik, validateYupSchema} from 'formik';
+import {Formik} from 'formik';
 import * as yup from 'yup';
 import auth from '@react-native-firebase/auth';
 import {showToast} from '@app/utilities/toast';
@@ -19,7 +19,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
   const [validateChange, setValidateChange] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
-  const [displayPassword, setDisplayPassword] = useState(false);
+  const [displayPassword, setDisplayPassword] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFieldBlur = (fieldName: any) => {};
@@ -57,7 +57,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       );
       userCredential.user.emailVerified === false
         ? showToast({
-            text1: 'Success',
+            text1: 'Verify yout email',
             text2:
               'A link has been sent to your email address, kindly activate your account before logging in',
             type: 'info',
@@ -69,7 +69,6 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       handleFirebaseError(error);
     }
   };
-
   return (
     <Formik
       initialValues={{email: '', password: ''}}

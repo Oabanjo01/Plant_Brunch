@@ -8,48 +8,49 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* wildlifeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* wildlifeTests.m */; };
-		0AB74593BC614AD4A4E0A155 /* OpenSans_Condensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D30D3914495F44DF94EA2585 /* OpenSans_Condensed-SemiBold.ttf */; };
-		0C80B921A6F3F58F76C31292 /* libPods-wildlife.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-wildlife.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		14AB4E50940A461E80DB7545 /* OpenSans_Condensed-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7287B0157C9F45A7A0547583 /* OpenSans_Condensed-MediumItalic.ttf */; };
-		151B9C824B354D1783F177D6 /* OpenSans_SemiCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D92C1AD06FB4B45A9BAD676 /* OpenSans_SemiCondensed-Regular.ttf */; };
-		221EE72B10B3422596942FDD /* OpenSans_Condensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 344BA9E6AE264D018A103F1D /* OpenSans_Condensed-Regular.ttf */; };
-		2885742478B04D769A7A3D3D /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C90A09734FD42FD9AF59B5D /* OpenSans-Bold.ttf */; };
-		29683850C836422A9DD991F5 /* OpenSans_SemiCondensed-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A7504546EED414F93288E1A /* OpenSans_SemiCondensed-SemiBoldItalic.ttf */; };
-		2EE8FC61BB4042B8A1A2BDF9 /* OpenSans_SemiCondensed-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 946D42AE8DB046BC92F12F3D /* OpenSans_SemiCondensed-ExtraBold.ttf */; };
-		3280D26A7B8C4248BB4EE9A2 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7577B806B5684227B642D354 /* OpenSans-ExtraBold.ttf */; };
-		44F5E273C46743AE80DEEAAE /* OpenSans_Condensed-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96EA781FFCCE4C4D8F3EAAC2 /* OpenSans_Condensed-ExtraBold.ttf */; };
-		48845D549C604BDEAD296C3D /* OpenSans_SemiCondensed-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC0D9DD72B7142AC90D1C652 /* OpenSans_SemiCondensed-Light.ttf */; };
-		4BC0989FA8AB4431A435ECCE /* OpenSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 61971EAC4D934FF3887879D3 /* OpenSans-MediumItalic.ttf */; };
-		5142F14789494B70BE982C3B /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47DC67519188461D9DFB93FB /* OpenSans-Italic.ttf */; };
-		66D9C19B11914AB5A2BF100A /* OpenSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 544857DA99634E92918E9147 /* OpenSans-Medium.ttf */; };
-		75A2889EDE6E468EBB926445 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A354AC5363341C0AE654CB8 /* OpenSans-LightItalic.ttf */; };
-		7699B88040F8A987B510C191 /* libPods-wildlife-wildlifeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-wildlife-wildlifeTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8DED2EB89AFC43ABA2635509 /* OpenSans_SemiCondensed-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C678F738A5BA4FDF8DC6E8FF /* OpenSans_SemiCondensed-Medium.ttf */; };
-		913A3F687DA44CBC86BD8AF1 /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB6BAA66FF634465BA81F23F /* OpenSans-SemiBoldItalic.ttf */; };
-		91F80B519EE84BBBAF021ADC /* OpenSans_Condensed-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5847844A39424887A3F74A2B /* OpenSans_Condensed-Italic.ttf */; };
-		95896E5E0F6D418E8F68082B /* OpenSans_SemiCondensed-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25D088EA815043E6A970BBCC /* OpenSans_SemiCondensed-LightItalic.ttf */; };
-		99DC7F55D9DB4669A2D2BE9A /* OpenSans_Condensed-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B78359BE7715494FA0696175 /* OpenSans_Condensed-Medium.ttf */; };
-		9C23A671E8D6439A8C615887 /* OpenSans_SemiCondensed-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91AEE8AD92964931ADFC833A /* OpenSans_SemiCondensed-ExtraBoldItalic.ttf */; };
-		A0C4D24AE72441989640B238 /* OpenSans_Condensed-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28872765EFC7480D91441434 /* OpenSans_Condensed-LightItalic.ttf */; };
-		A3FFBB0A851E485DAC854428 /* OpenSans_SemiCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D339DF01B4CAD9BE54F91 /* OpenSans_SemiCondensed-SemiBold.ttf */; };
-		AA33BC71A81A4343A8862E0B /* OpenSans_SemiCondensed-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1D34252822D453281973625 /* OpenSans_SemiCondensed-MediumItalic.ttf */; };
-		B0166D6632784A05AB34A28D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0047DC48BC77438D9C4DD52E /* OpenSans-Regular.ttf */; };
-		C781D83563274F46A4FD4B25 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFA06DD265F54720870C48D2 /* OpenSans-SemiBold.ttf */; };
-		D1F4D781B83F4BECB4781B0E /* OpenSans_Condensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAEB9B9ABA64424EB6BC3846 /* OpenSans_Condensed-BoldItalic.ttf */; };
-		D29BFA975B6B4B0782EC0CE1 /* OpenSans_Condensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA90389D14494FA5AD2B573E /* OpenSans_Condensed-Bold.ttf */; };
-		D6AAC7DC406443A0A821E74F /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF51392AAC804E3BA46E6910 /* OpenSans-BoldItalic.ttf */; };
-		DCCA7D5BAE8E45B69B6FC1F3 /* OpenSans_Condensed-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 731226F31BF44563A6735EAB /* OpenSans_Condensed-SemiBoldItalic.ttf */; };
-		DE8F4A0ACC324C47B6AB4F87 /* OpenSans_SemiCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 136E3FA5E49949FEAE70C610 /* OpenSans_SemiCondensed-Bold.ttf */; };
-		E1B7B52F3B9048A5A4E94748 /* OpenSans_SemiCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D3910068E6C438A86F22FFC /* OpenSans_SemiCondensed-BoldItalic.ttf */; };
-		E3097FCF9786446483D9B472 /* OpenSans_Condensed-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A0189B3069C41D39B521E74 /* OpenSans_Condensed-Light.ttf */; };
-		E76FD9DD987E4AC382414228 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FB32114A6741FFB7E7414D /* OpenSans-ExtraBoldItalic.ttf */; };
-		EC2291E52F8F44548DF83E8B /* OpenSans_Condensed-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5120A65E1094F9383E0F341 /* OpenSans_Condensed-ExtraBoldItalic.ttf */; };
-		EE79AEB9B6D2422D82E6399E /* OpenSans_SemiCondensed-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC681A6657A640E48F876E4D /* OpenSans_SemiCondensed-Italic.ttf */; };
-		EFD6AA70CAC24D819E519ECE /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F86C0A187FD14DB1A146C3B9 /* OpenSans-Light.ttf */; };
+		AAC28882C15F1164B2F23657 /* libPods-wildlife.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCE9F3EF19FDD04AF2D771B /* libPods-wildlife.a */; };
+		C0929246A08C3584F6F45BBD /* libPods-wildlife-wildlifeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D71AFC8C1D1A8B4C3D239AD /* libPods-wildlife-wildlifeTests.a */; };
+		F5789DBD2B6A974500DBE158 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5789DBC2B6A974500DBE158 /* GoogleService-Info.plist */; };
+		F5BC67442B7BFE9E00BB9AF5 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C90A09734FD42FD9AF59B5D /* OpenSans-Bold.ttf */; };
+		F5BC67452B7BFE9E00BB9AF5 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF51392AAC804E3BA46E6910 /* OpenSans-BoldItalic.ttf */; };
+		F5BC67462B7BFE9E00BB9AF5 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7577B806B5684227B642D354 /* OpenSans-ExtraBold.ttf */; };
+		F5BC67472B7BFE9E00BB9AF5 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FB32114A6741FFB7E7414D /* OpenSans-ExtraBoldItalic.ttf */; };
+		F5BC67482B7BFE9E00BB9AF5 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47DC67519188461D9DFB93FB /* OpenSans-Italic.ttf */; };
+		F5BC67492B7BFE9E00BB9AF5 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F86C0A187FD14DB1A146C3B9 /* OpenSans-Light.ttf */; };
+		F5BC674A2B7BFE9E00BB9AF5 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A354AC5363341C0AE654CB8 /* OpenSans-LightItalic.ttf */; };
+		F5BC674B2B7BFE9E00BB9AF5 /* OpenSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 544857DA99634E92918E9147 /* OpenSans-Medium.ttf */; };
+		F5BC674C2B7BFE9E00BB9AF5 /* OpenSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 61971EAC4D934FF3887879D3 /* OpenSans-MediumItalic.ttf */; };
+		F5BC674D2B7BFE9E00BB9AF5 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0047DC48BC77438D9C4DD52E /* OpenSans-Regular.ttf */; };
+		F5BC674E2B7BFE9E00BB9AF5 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFA06DD265F54720870C48D2 /* OpenSans-SemiBold.ttf */; };
+		F5BC674F2B7BFE9E00BB9AF5 /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB6BAA66FF634465BA81F23F /* OpenSans-SemiBoldItalic.ttf */; };
+		F5BC67502B7BFE9E00BB9AF5 /* OpenSans_Condensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA90389D14494FA5AD2B573E /* OpenSans_Condensed-Bold.ttf */; };
+		F5BC67512B7BFE9E00BB9AF5 /* OpenSans_Condensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAEB9B9ABA64424EB6BC3846 /* OpenSans_Condensed-BoldItalic.ttf */; };
+		F5BC67522B7BFE9E00BB9AF5 /* OpenSans_Condensed-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96EA781FFCCE4C4D8F3EAAC2 /* OpenSans_Condensed-ExtraBold.ttf */; };
+		F5BC67532B7BFE9E00BB9AF5 /* OpenSans_Condensed-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5120A65E1094F9383E0F341 /* OpenSans_Condensed-ExtraBoldItalic.ttf */; };
+		F5BC67542B7BFE9E00BB9AF5 /* OpenSans_Condensed-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5847844A39424887A3F74A2B /* OpenSans_Condensed-Italic.ttf */; };
+		F5BC67552B7BFE9E00BB9AF5 /* OpenSans_Condensed-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A0189B3069C41D39B521E74 /* OpenSans_Condensed-Light.ttf */; };
+		F5BC67562B7BFE9E00BB9AF5 /* OpenSans_Condensed-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28872765EFC7480D91441434 /* OpenSans_Condensed-LightItalic.ttf */; };
+		F5BC67572B7BFE9E00BB9AF5 /* OpenSans_Condensed-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B78359BE7715494FA0696175 /* OpenSans_Condensed-Medium.ttf */; };
+		F5BC67582B7BFE9E00BB9AF5 /* OpenSans_Condensed-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7287B0157C9F45A7A0547583 /* OpenSans_Condensed-MediumItalic.ttf */; };
+		F5BC67592B7BFE9E00BB9AF5 /* OpenSans_Condensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 344BA9E6AE264D018A103F1D /* OpenSans_Condensed-Regular.ttf */; };
+		F5BC675A2B7BFE9E00BB9AF5 /* OpenSans_Condensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D30D3914495F44DF94EA2585 /* OpenSans_Condensed-SemiBold.ttf */; };
+		F5BC675B2B7BFE9E00BB9AF5 /* OpenSans_Condensed-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 731226F31BF44563A6735EAB /* OpenSans_Condensed-SemiBoldItalic.ttf */; };
+		F5BC675C2B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 136E3FA5E49949FEAE70C610 /* OpenSans_SemiCondensed-Bold.ttf */; };
+		F5BC675D2B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D3910068E6C438A86F22FFC /* OpenSans_SemiCondensed-BoldItalic.ttf */; };
+		F5BC675E2B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 946D42AE8DB046BC92F12F3D /* OpenSans_SemiCondensed-ExtraBold.ttf */; };
+		F5BC675F2B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91AEE8AD92964931ADFC833A /* OpenSans_SemiCondensed-ExtraBoldItalic.ttf */; };
+		F5BC67602B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC681A6657A640E48F876E4D /* OpenSans_SemiCondensed-Italic.ttf */; };
+		F5BC67612B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC0D9DD72B7142AC90D1C652 /* OpenSans_SemiCondensed-Light.ttf */; };
+		F5BC67622B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25D088EA815043E6A970BBCC /* OpenSans_SemiCondensed-LightItalic.ttf */; };
+		F5BC67632B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C678F738A5BA4FDF8DC6E8FF /* OpenSans_SemiCondensed-Medium.ttf */; };
+		F5BC67642B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1D34252822D453281973625 /* OpenSans_SemiCondensed-MediumItalic.ttf */; };
+		F5BC67652B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D92C1AD06FB4B45A9BAD676 /* OpenSans_SemiCondensed-Regular.ttf */; };
+		F5BC67662B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D339DF01B4CAD9BE54F91 /* OpenSans_SemiCondensed-SemiBold.ttf */; };
+		F5BC67672B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A7504546EED414F93288E1A /* OpenSans_SemiCondensed-SemiBoldItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,59 +64,79 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0047DC48BC77438D9C4DD52E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		0047DC48BC77438D9C4DD52E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* wildlifeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = wildlifeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* wildlifeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wildlifeTests.m; sourceTree = "<group>"; };
-		136E3FA5E49949FEAE70C610 /* OpenSans_SemiCondensed-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-Bold.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-Bold.ttf"; sourceTree = "<group>"; };
+		136E3FA5E49949FEAE70C610 /* OpenSans_SemiCondensed-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-Bold.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-Bold.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* wildlife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wildlife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = wildlife/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = wildlife/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = wildlife/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = wildlife/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = wildlife/main.m; sourceTree = "<group>"; };
-		18FB32114A6741FFB7E7414D /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBoldItalic.ttf"; path = "../assets/fonts/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-wildlife-wildlifeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wildlife-wildlifeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		25D088EA815043E6A970BBCC /* OpenSans_SemiCondensed-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-LightItalic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-LightItalic.ttf"; sourceTree = "<group>"; };
-		28872765EFC7480D91441434 /* OpenSans_Condensed-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-LightItalic.ttf"; path = "../assets/fonts/OpenSans_Condensed-LightItalic.ttf"; sourceTree = "<group>"; };
-		2C7D339DF01B4CAD9BE54F91 /* OpenSans_SemiCondensed-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-SemiBold.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-SemiBold.ttf"; sourceTree = "<group>"; };
-		344BA9E6AE264D018A103F1D /* OpenSans_Condensed-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-Regular.ttf"; path = "../assets/fonts/OpenSans_Condensed-Regular.ttf"; sourceTree = "<group>"; };
-		3A354AC5363341C0AE654CB8 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-LightItalic.ttf"; path = "../assets/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-wildlife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wildlife.debug.xcconfig"; path = "Target Support Files/Pods-wildlife/Pods-wildlife.debug.xcconfig"; sourceTree = "<group>"; };
-		47DC67519188461D9DFB93FB /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Italic.ttf"; path = "../assets/fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
-		544857DA99634E92918E9147 /* OpenSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Medium.ttf"; path = "../assets/fonts/OpenSans-Medium.ttf"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-wildlife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wildlife.release.xcconfig"; path = "Target Support Files/Pods-wildlife/Pods-wildlife.release.xcconfig"; sourceTree = "<group>"; };
-		5847844A39424887A3F74A2B /* OpenSans_Condensed-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-Italic.ttf"; path = "../assets/fonts/OpenSans_Condensed-Italic.ttf"; sourceTree = "<group>"; };
-		5A0189B3069C41D39B521E74 /* OpenSans_Condensed-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-Light.ttf"; path = "../assets/fonts/OpenSans_Condensed-Light.ttf"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-wildlife-wildlifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wildlife-wildlifeTests.debug.xcconfig"; path = "Target Support Files/Pods-wildlife-wildlifeTests/Pods-wildlife-wildlifeTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5C90A09734FD42FD9AF59B5D /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
-		5D92C1AD06FB4B45A9BAD676 /* OpenSans_SemiCondensed-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-Regular.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-Regular.ttf"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-wildlife.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wildlife.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		61971EAC4D934FF3887879D3 /* OpenSans-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-MediumItalic.ttf"; path = "../assets/fonts/OpenSans-MediumItalic.ttf"; sourceTree = "<group>"; };
-		6A7504546EED414F93288E1A /* OpenSans_SemiCondensed-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-SemiBoldItalic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		7287B0157C9F45A7A0547583 /* OpenSans_Condensed-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-MediumItalic.ttf"; path = "../assets/fonts/OpenSans_Condensed-MediumItalic.ttf"; sourceTree = "<group>"; };
-		731226F31BF44563A6735EAB /* OpenSans_Condensed-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-SemiBoldItalic.ttf"; path = "../assets/fonts/OpenSans_Condensed-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		7577B806B5684227B642D354 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBold.ttf"; path = "../assets/fonts/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		18FB32114A6741FFB7E7414D /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBoldItalic.ttf"; path = "../assets/fonts/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		1BCE9F3EF19FDD04AF2D771B /* libPods-wildlife.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wildlife.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		25D088EA815043E6A970BBCC /* OpenSans_SemiCondensed-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-LightItalic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-LightItalic.ttf"; sourceTree = "<group>"; };
+		28872765EFC7480D91441434 /* OpenSans_Condensed-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-LightItalic.ttf"; path = "../assets/fonts/OpenSans_Condensed-LightItalic.ttf"; sourceTree = "<group>"; };
+		2BD5274D7F444BFF4BBB26AD /* Pods-wildlife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wildlife.release.xcconfig"; path = "Target Support Files/Pods-wildlife/Pods-wildlife.release.xcconfig"; sourceTree = "<group>"; };
+		2C7D339DF01B4CAD9BE54F91 /* OpenSans_SemiCondensed-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-SemiBold.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-SemiBold.ttf"; sourceTree = "<group>"; };
+		2D71AFC8C1D1A8B4C3D239AD /* libPods-wildlife-wildlifeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wildlife-wildlifeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		30F8335ABAEFAF0FA46F99EA /* Pods-wildlife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wildlife.debug.xcconfig"; path = "Target Support Files/Pods-wildlife/Pods-wildlife.debug.xcconfig"; sourceTree = "<group>"; };
+		344BA9E6AE264D018A103F1D /* OpenSans_Condensed-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-Regular.ttf"; path = "../assets/fonts/OpenSans_Condensed-Regular.ttf"; sourceTree = "<group>"; };
+		3A354AC5363341C0AE654CB8 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-LightItalic.ttf"; path = "../assets/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		47DC67519188461D9DFB93FB /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Italic.ttf"; path = "../assets/fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		544857DA99634E92918E9147 /* OpenSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Medium.ttf"; path = "../assets/fonts/OpenSans-Medium.ttf"; sourceTree = "<group>"; };
+		5847844A39424887A3F74A2B /* OpenSans_Condensed-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-Italic.ttf"; path = "../assets/fonts/OpenSans_Condensed-Italic.ttf"; sourceTree = "<group>"; };
+		5A0189B3069C41D39B521E74 /* OpenSans_Condensed-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-Light.ttf"; path = "../assets/fonts/OpenSans_Condensed-Light.ttf"; sourceTree = "<group>"; };
+		5B37F327D7BEAD0160F17CA5 /* Pods-wildlife-wildlifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wildlife-wildlifeTests.release.xcconfig"; path = "Target Support Files/Pods-wildlife-wildlifeTests/Pods-wildlife-wildlifeTests.release.xcconfig"; sourceTree = "<group>"; };
+		5C90A09734FD42FD9AF59B5D /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		5D92C1AD06FB4B45A9BAD676 /* OpenSans_SemiCondensed-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-Regular.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-Regular.ttf"; sourceTree = "<group>"; };
+		61971EAC4D934FF3887879D3 /* OpenSans-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-MediumItalic.ttf"; path = "../assets/fonts/OpenSans-MediumItalic.ttf"; sourceTree = "<group>"; };
+		6A7504546EED414F93288E1A /* OpenSans_SemiCondensed-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-SemiBoldItalic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		7287B0157C9F45A7A0547583 /* OpenSans_Condensed-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-MediumItalic.ttf"; path = "../assets/fonts/OpenSans_Condensed-MediumItalic.ttf"; sourceTree = "<group>"; };
+		731226F31BF44563A6735EAB /* OpenSans_Condensed-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-SemiBoldItalic.ttf"; path = "../assets/fonts/OpenSans_Condensed-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		7577B806B5684227B642D354 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBold.ttf"; path = "../assets/fonts/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = wildlife/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-wildlife-wildlifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wildlife-wildlifeTests.release.xcconfig"; path = "Target Support Files/Pods-wildlife-wildlifeTests/Pods-wildlife-wildlifeTests.release.xcconfig"; sourceTree = "<group>"; };
-		8D3910068E6C438A86F22FFC /* OpenSans_SemiCondensed-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-BoldItalic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-BoldItalic.ttf"; sourceTree = "<group>"; };
-		91AEE8AD92964931ADFC833A /* OpenSans_SemiCondensed-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-ExtraBoldItalic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		946D42AE8DB046BC92F12F3D /* OpenSans_SemiCondensed-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-ExtraBold.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-ExtraBold.ttf"; sourceTree = "<group>"; };
-		96EA781FFCCE4C4D8F3EAAC2 /* OpenSans_Condensed-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-ExtraBold.ttf"; path = "../assets/fonts/OpenSans_Condensed-ExtraBold.ttf"; sourceTree = "<group>"; };
-		AC0D9DD72B7142AC90D1C652 /* OpenSans_SemiCondensed-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-Light.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-Light.ttf"; sourceTree = "<group>"; };
-		AC681A6657A640E48F876E4D /* OpenSans_SemiCondensed-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-Italic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-Italic.ttf"; sourceTree = "<group>"; };
-		B78359BE7715494FA0696175 /* OpenSans_Condensed-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-Medium.ttf"; path = "../assets/fonts/OpenSans_Condensed-Medium.ttf"; sourceTree = "<group>"; };
-		BB6BAA66FF634465BA81F23F /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBoldItalic.ttf"; path = "../assets/fonts/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		C1D34252822D453281973625 /* OpenSans_SemiCondensed-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-MediumItalic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-MediumItalic.ttf"; sourceTree = "<group>"; };
-		C5120A65E1094F9383E0F341 /* OpenSans_Condensed-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-ExtraBoldItalic.ttf"; path = "../assets/fonts/OpenSans_Condensed-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		C678F738A5BA4FDF8DC6E8FF /* OpenSans_SemiCondensed-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-Medium.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-Medium.ttf"; sourceTree = "<group>"; };
-		D30D3914495F44DF94EA2585 /* OpenSans_Condensed-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-SemiBold.ttf"; path = "../assets/fonts/OpenSans_Condensed-SemiBold.ttf"; sourceTree = "<group>"; };
-		EA90389D14494FA5AD2B573E /* OpenSans_Condensed-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-Bold.ttf"; path = "../assets/fonts/OpenSans_Condensed-Bold.ttf"; sourceTree = "<group>"; };
-		EAEB9B9ABA64424EB6BC3846 /* OpenSans_Condensed-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-BoldItalic.ttf"; path = "../assets/fonts/OpenSans_Condensed-BoldItalic.ttf"; sourceTree = "<group>"; };
+		8D3910068E6C438A86F22FFC /* OpenSans_SemiCondensed-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-BoldItalic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-BoldItalic.ttf"; sourceTree = "<group>"; };
+		91AEE8AD92964931ADFC833A /* OpenSans_SemiCondensed-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-ExtraBoldItalic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		946D42AE8DB046BC92F12F3D /* OpenSans_SemiCondensed-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-ExtraBold.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-ExtraBold.ttf"; sourceTree = "<group>"; };
+		96EA781FFCCE4C4D8F3EAAC2 /* OpenSans_Condensed-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-ExtraBold.ttf"; path = "../assets/fonts/OpenSans_Condensed-ExtraBold.ttf"; sourceTree = "<group>"; };
+		A4761B853B11EABA23CFB3ED /* Pods-wildlife-wildlifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wildlife-wildlifeTests.debug.xcconfig"; path = "Target Support Files/Pods-wildlife-wildlifeTests/Pods-wildlife-wildlifeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AC0D9DD72B7142AC90D1C652 /* OpenSans_SemiCondensed-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-Light.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-Light.ttf"; sourceTree = "<group>"; };
+		AC681A6657A640E48F876E4D /* OpenSans_SemiCondensed-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-Italic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-Italic.ttf"; sourceTree = "<group>"; };
+		B78359BE7715494FA0696175 /* OpenSans_Condensed-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-Medium.ttf"; path = "../assets/fonts/OpenSans_Condensed-Medium.ttf"; sourceTree = "<group>"; };
+		BB6BAA66FF634465BA81F23F /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBoldItalic.ttf"; path = "../assets/fonts/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		C1D34252822D453281973625 /* OpenSans_SemiCondensed-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-MediumItalic.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-MediumItalic.ttf"; sourceTree = "<group>"; };
+		C5120A65E1094F9383E0F341 /* OpenSans_Condensed-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-ExtraBoldItalic.ttf"; path = "../assets/fonts/OpenSans_Condensed-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		C678F738A5BA4FDF8DC6E8FF /* OpenSans_SemiCondensed-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_SemiCondensed-Medium.ttf"; path = "../assets/fonts/OpenSans_SemiCondensed-Medium.ttf"; sourceTree = "<group>"; };
+		D30D3914495F44DF94EA2585 /* OpenSans_Condensed-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-SemiBold.ttf"; path = "../assets/fonts/OpenSans_Condensed-SemiBold.ttf"; sourceTree = "<group>"; };
+		EA90389D14494FA5AD2B573E /* OpenSans_Condensed-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-Bold.ttf"; path = "../assets/fonts/OpenSans_Condensed-Bold.ttf"; sourceTree = "<group>"; };
+		EAEB9B9ABA64424EB6BC3846 /* OpenSans_Condensed-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans_Condensed-BoldItalic.ttf"; path = "../assets/fonts/OpenSans_Condensed-BoldItalic.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		EF51392AAC804E3BA46E6910 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-BoldItalic.ttf"; path = "../assets/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
-		F86C0A187FD14DB1A146C3B9 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Light.ttf"; path = "../assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
-		FFA06DD265F54720870C48D2 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBold.ttf"; path = "../assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		EF51392AAC804E3BA46E6910 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-BoldItalic.ttf"; path = "../assets/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		F55EFA232B7A6A63004A84DC /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		F55EFA242B7A6A63004A84DC /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		F55EFA252B7A6A63004A84DC /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		F55EFA262B7A6A63004A84DC /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		F55EFA272B7A6A63004A84DC /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		F55EFA282B7A6A63004A84DC /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		F55EFA292B7A6A63004A84DC /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		F55EFA2A2B7A6A63004A84DC /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		F55EFA2B2B7A6A63004A84DC /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		F55EFA2C2B7A6A63004A84DC /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		F55EFA2D2B7A6A63004A84DC /* FontAwesome6_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome6_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome6_Regular.ttf"; sourceTree = "<group>"; };
+		F55EFA2E2B7A6A63004A84DC /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		F55EFA2F2B7A6A64004A84DC /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		F55EFA302B7A6A64004A84DC /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		F55EFA312B7A6A64004A84DC /* FontAwesome6_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome6_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome6_Brands.ttf"; sourceTree = "<group>"; };
+		F55EFA322B7A6A64004A84DC /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		F55EFA332B7A6A64004A84DC /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		F55EFA342B7A6A64004A84DC /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		F55EFA352B7A6A64004A84DC /* FontAwesome6_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome6_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome6_Solid.ttf"; sourceTree = "<group>"; };
+		F5789DBC2B6A974500DBE158 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F86C0A187FD14DB1A146C3B9 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Light.ttf"; path = "../assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		FFA06DD265F54720870C48D2 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBold.ttf"; path = "../assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-wildlife-wildlifeTests.a in Frameworks */,
+				C0929246A08C3584F6F45BBD /* libPods-wildlife-wildlifeTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,7 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-wildlife.a in Frameworks */,
+				AAC28882C15F1164B2F23657 /* libPods-wildlife.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +179,7 @@
 		13B07FAE1A68108700A75B9A /* wildlife */ = {
 			isa = PBXGroup;
 			children = (
+				F55EFA222B7A67C4004A84DC /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -172,8 +194,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-wildlife.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-wildlife-wildlifeTests.a */,
+				1BCE9F3EF19FDD04AF2D771B /* libPods-wildlife.a */,
+				2D71AFC8C1D1A8B4C3D239AD /* libPods-wildlife-wildlifeTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -188,6 +210,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F5789DBC2B6A974500DBE158 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* wildlife */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* wildlifeTests */,
@@ -213,10 +236,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-wildlife.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-wildlife.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-wildlife-wildlifeTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-wildlife-wildlifeTests.release.xcconfig */,
+				30F8335ABAEFAF0FA46F99EA /* Pods-wildlife.debug.xcconfig */,
+				2BD5274D7F444BFF4BBB26AD /* Pods-wildlife.release.xcconfig */,
+				A4761B853B11EABA23CFB3ED /* Pods-wildlife-wildlifeTests.debug.xcconfig */,
+				5B37F327D7BEAD0160F17CA5 /* Pods-wildlife-wildlifeTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -262,7 +285,32 @@
 				6A7504546EED414F93288E1A /* OpenSans_SemiCondensed-SemiBoldItalic.ttf */,
 			);
 			name = Resources;
-			path = "";
+			sourceTree = "<group>";
+		};
+		F55EFA222B7A67C4004A84DC /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F55EFA2B2B7A6A63004A84DC /* AntDesign.ttf */,
+				F55EFA252B7A6A63004A84DC /* Entypo.ttf */,
+				F55EFA322B7A6A64004A84DC /* EvilIcons.ttf */,
+				F55EFA342B7A6A64004A84DC /* Feather.ttf */,
+				F55EFA302B7A6A64004A84DC /* FontAwesome.ttf */,
+				F55EFA2F2B7A6A64004A84DC /* FontAwesome5_Brands.ttf */,
+				F55EFA292B7A6A63004A84DC /* FontAwesome5_Regular.ttf */,
+				F55EFA2A2B7A6A63004A84DC /* FontAwesome5_Solid.ttf */,
+				F55EFA312B7A6A64004A84DC /* FontAwesome6_Brands.ttf */,
+				F55EFA2D2B7A6A63004A84DC /* FontAwesome6_Regular.ttf */,
+				F55EFA352B7A6A64004A84DC /* FontAwesome6_Solid.ttf */,
+				F55EFA2E2B7A6A63004A84DC /* Fontisto.ttf */,
+				F55EFA262B7A6A63004A84DC /* Foundation.ttf */,
+				F55EFA282B7A6A63004A84DC /* Ionicons.ttf */,
+				F55EFA272B7A6A63004A84DC /* MaterialCommunityIcons.ttf */,
+				F55EFA332B7A6A64004A84DC /* MaterialIcons.ttf */,
+				F55EFA2C2B7A6A63004A84DC /* Octicons.ttf */,
+				F55EFA232B7A6A63004A84DC /* SimpleLineIcons.ttf */,
+				F55EFA242B7A6A63004A84DC /* Zocial.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,12 +320,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "wildlifeTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				98A1DAA9FD39BEF5BB9B61A3 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				405F837C02490E9464B636C1 /* [CP] Embed Pods Frameworks */,
+				FB2A707B1AFFD29716535FAF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -293,15 +341,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "wildlife" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				513FE45774E33382339CD3C0 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
-				9779CA1739C0E497F5233371 /* [CP-User] [RNFB] Core Configuration */,
+				18D5C685495442CB7155DA45 /* [CP] Embed Pods Frameworks */,
+				3710317792A304A864925686 /* [CP] Copy Pods Resources */,
+				CE4BC911FA590149CECDC0BC /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -360,44 +408,45 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5BC67442B7BFE9E00BB9AF5 /* OpenSans-Bold.ttf in Resources */,
+				F5BC67452B7BFE9E00BB9AF5 /* OpenSans-BoldItalic.ttf in Resources */,
+				F5BC67462B7BFE9E00BB9AF5 /* OpenSans-ExtraBold.ttf in Resources */,
+				F5BC67472B7BFE9E00BB9AF5 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				F5BC67482B7BFE9E00BB9AF5 /* OpenSans-Italic.ttf in Resources */,
+				F5BC67492B7BFE9E00BB9AF5 /* OpenSans-Light.ttf in Resources */,
+				F5BC674A2B7BFE9E00BB9AF5 /* OpenSans-LightItalic.ttf in Resources */,
+				F5BC674B2B7BFE9E00BB9AF5 /* OpenSans-Medium.ttf in Resources */,
+				F5BC674C2B7BFE9E00BB9AF5 /* OpenSans-MediumItalic.ttf in Resources */,
+				F5BC674D2B7BFE9E00BB9AF5 /* OpenSans-Regular.ttf in Resources */,
+				F5BC674E2B7BFE9E00BB9AF5 /* OpenSans-SemiBold.ttf in Resources */,
+				F5BC674F2B7BFE9E00BB9AF5 /* OpenSans-SemiBoldItalic.ttf in Resources */,
+				F5BC67502B7BFE9E00BB9AF5 /* OpenSans_Condensed-Bold.ttf in Resources */,
+				F5BC67512B7BFE9E00BB9AF5 /* OpenSans_Condensed-BoldItalic.ttf in Resources */,
+				F5BC67522B7BFE9E00BB9AF5 /* OpenSans_Condensed-ExtraBold.ttf in Resources */,
+				F5BC67532B7BFE9E00BB9AF5 /* OpenSans_Condensed-ExtraBoldItalic.ttf in Resources */,
+				F5BC67542B7BFE9E00BB9AF5 /* OpenSans_Condensed-Italic.ttf in Resources */,
+				F5BC67552B7BFE9E00BB9AF5 /* OpenSans_Condensed-Light.ttf in Resources */,
+				F5BC67562B7BFE9E00BB9AF5 /* OpenSans_Condensed-LightItalic.ttf in Resources */,
+				F5BC67572B7BFE9E00BB9AF5 /* OpenSans_Condensed-Medium.ttf in Resources */,
+				F5BC67582B7BFE9E00BB9AF5 /* OpenSans_Condensed-MediumItalic.ttf in Resources */,
+				F5BC67592B7BFE9E00BB9AF5 /* OpenSans_Condensed-Regular.ttf in Resources */,
+				F5BC675A2B7BFE9E00BB9AF5 /* OpenSans_Condensed-SemiBold.ttf in Resources */,
+				F5BC675B2B7BFE9E00BB9AF5 /* OpenSans_Condensed-SemiBoldItalic.ttf in Resources */,
+				F5BC675C2B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-Bold.ttf in Resources */,
+				F5BC675D2B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-BoldItalic.ttf in Resources */,
+				F5BC675E2B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-ExtraBold.ttf in Resources */,
+				F5BC675F2B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-ExtraBoldItalic.ttf in Resources */,
+				F5BC67602B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-Italic.ttf in Resources */,
+				F5BC67612B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-Light.ttf in Resources */,
+				F5BC67622B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-LightItalic.ttf in Resources */,
+				F5BC67632B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-Medium.ttf in Resources */,
+				F5BC67642B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-MediumItalic.ttf in Resources */,
+				F5BC67652B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-Regular.ttf in Resources */,
+				F5BC67662B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-SemiBold.ttf in Resources */,
+				F5BC67672B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-SemiBoldItalic.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				2885742478B04D769A7A3D3D /* OpenSans-Bold.ttf in Resources */,
-				D6AAC7DC406443A0A821E74F /* OpenSans-BoldItalic.ttf in Resources */,
-				3280D26A7B8C4248BB4EE9A2 /* OpenSans-ExtraBold.ttf in Resources */,
-				E76FD9DD987E4AC382414228 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
-				5142F14789494B70BE982C3B /* OpenSans-Italic.ttf in Resources */,
-				EFD6AA70CAC24D819E519ECE /* OpenSans-Light.ttf in Resources */,
-				75A2889EDE6E468EBB926445 /* OpenSans-LightItalic.ttf in Resources */,
-				66D9C19B11914AB5A2BF100A /* OpenSans-Medium.ttf in Resources */,
-				4BC0989FA8AB4431A435ECCE /* OpenSans-MediumItalic.ttf in Resources */,
-				B0166D6632784A05AB34A28D /* OpenSans-Regular.ttf in Resources */,
-				C781D83563274F46A4FD4B25 /* OpenSans-SemiBold.ttf in Resources */,
-				913A3F687DA44CBC86BD8AF1 /* OpenSans-SemiBoldItalic.ttf in Resources */,
-				D29BFA975B6B4B0782EC0CE1 /* OpenSans_Condensed-Bold.ttf in Resources */,
-				D1F4D781B83F4BECB4781B0E /* OpenSans_Condensed-BoldItalic.ttf in Resources */,
-				44F5E273C46743AE80DEEAAE /* OpenSans_Condensed-ExtraBold.ttf in Resources */,
-				EC2291E52F8F44548DF83E8B /* OpenSans_Condensed-ExtraBoldItalic.ttf in Resources */,
-				91F80B519EE84BBBAF021ADC /* OpenSans_Condensed-Italic.ttf in Resources */,
-				E3097FCF9786446483D9B472 /* OpenSans_Condensed-Light.ttf in Resources */,
-				A0C4D24AE72441989640B238 /* OpenSans_Condensed-LightItalic.ttf in Resources */,
-				99DC7F55D9DB4669A2D2BE9A /* OpenSans_Condensed-Medium.ttf in Resources */,
-				14AB4E50940A461E80DB7545 /* OpenSans_Condensed-MediumItalic.ttf in Resources */,
-				221EE72B10B3422596942FDD /* OpenSans_Condensed-Regular.ttf in Resources */,
-				0AB74593BC614AD4A4E0A155 /* OpenSans_Condensed-SemiBold.ttf in Resources */,
-				DCCA7D5BAE8E45B69B6FC1F3 /* OpenSans_Condensed-SemiBoldItalic.ttf in Resources */,
-				DE8F4A0ACC324C47B6AB4F87 /* OpenSans_SemiCondensed-Bold.ttf in Resources */,
-				E1B7B52F3B9048A5A4E94748 /* OpenSans_SemiCondensed-BoldItalic.ttf in Resources */,
-				2EE8FC61BB4042B8A1A2BDF9 /* OpenSans_SemiCondensed-ExtraBold.ttf in Resources */,
-				9C23A671E8D6439A8C615887 /* OpenSans_SemiCondensed-ExtraBoldItalic.ttf in Resources */,
-				EE79AEB9B6D2422D82E6399E /* OpenSans_SemiCondensed-Italic.ttf in Resources */,
-				48845D549C604BDEAD296C3D /* OpenSans_SemiCondensed-Light.ttf in Resources */,
-				95896E5E0F6D418E8F68082B /* OpenSans_SemiCondensed-LightItalic.ttf in Resources */,
-				8DED2EB89AFC43ABA2635509 /* OpenSans_SemiCondensed-Medium.ttf in Resources */,
-				AA33BC71A81A4343A8862E0B /* OpenSans_SemiCondensed-MediumItalic.ttf in Resources */,
-				151B9C824B354D1783F177D6 /* OpenSans_SemiCondensed-Regular.ttf in Resources */,
-				A3FFBB0A851E485DAC854428 /* OpenSans_SemiCondensed-SemiBold.ttf in Resources */,
-				29683850C836422A9DD991F5 /* OpenSans_SemiCondensed-SemiBoldItalic.ttf in Resources */,
+				F5789DBD2B6A974500DBE158 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,7 +469,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		18D5C685495442CB7155DA45 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -437,42 +486,41 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wildlife/Pods-wildlife-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9779CA1739C0E497F5233371 /* [CP-User] [RNFB] Core Configuration */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			name = "[CP-User] [RNFB] Core Configuration";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    if ! python3 --version >/dev/null 2>&1; then echo \"python3 not found, firebase.json file processing error.\" && exit 1; fi\n    _JSON_OUTPUT_BASE64=$(python3 -c 'import json,sys,base64;print(base64.b64encode(bytes(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"', '\"'rb'\"').read())['${_JSON_ROOT}']), '\"'utf-8'\"')).decode())' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.analytics_registration_with_ad_network_enabled\n  _ANALYTICS_REGISTRATION_WITH_AD_NETWORK=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_registration_with_ad_network_enabled\")\n  if [[ $_ANALYTICS_REGISTRATION_WITH_AD_NETWORK ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_REGISTRATION_WITH_AD_NETWORK\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
-		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		3710317792A304A864925686 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wildlife/Pods-wildlife-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-wildlife-wildlifeTests-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-wildlife/Pods-wildlife-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wildlife/Pods-wildlife-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		405F837C02490E9464B636C1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wildlife-wildlifeTests/Pods-wildlife-wildlifeTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wildlife-wildlifeTests/Pods-wildlife-wildlifeTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wildlife-wildlifeTests/Pods-wildlife-wildlifeTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		513FE45774E33382339CD3C0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -494,41 +542,42 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
+		98A1DAA9FD39BEF5BB9B61A3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wildlife-wildlifeTests/Pods-wildlife-wildlifeTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wildlife-wildlifeTests/Pods-wildlife-wildlifeTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-wildlife-wildlifeTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wildlife-wildlifeTests/Pods-wildlife-wildlifeTests-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
+		CE4BC911FA590149CECDC0BC /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wildlife/Pods-wildlife-resources-${CONFIGURATION}-input-files.xcfilelist",
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wildlife/Pods-wildlife-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
+			name = "[CP-User] [RNFB] Core Configuration";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wildlife/Pods-wildlife-resources.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    if ! python3 --version >/dev/null 2>&1; then echo \"python3 not found, firebase.json file processing error.\" && exit 1; fi\n    _JSON_OUTPUT_BASE64=$(python3 -c 'import json,sys,base64;print(base64.b64encode(bytes(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"', '\"'rb'\"').read())['${_JSON_ROOT}']), '\"'utf-8'\"')).decode())' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.analytics_registration_with_ad_network_enabled\n  _ANALYTICS_REGISTRATION_WITH_AD_NETWORK=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_registration_with_ad_network_enabled\")\n  if [[ $_ANALYTICS_REGISTRATION_WITH_AD_NETWORK ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_REGISTRATION_WITH_AD_NETWORK\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
 		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
+		FB2A707B1AFFD29716535FAF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -597,7 +646,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-wildlife-wildlifeTests.debug.xcconfig */;
+			baseConfigurationReference = A4761B853B11EABA23CFB3ED /* Pods-wildlife-wildlifeTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -624,7 +673,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-wildlife-wildlifeTests.release.xcconfig */;
+			baseConfigurationReference = 5B37F327D7BEAD0160F17CA5 /* Pods-wildlife-wildlifeTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -648,7 +697,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-wildlife.debug.xcconfig */;
+			baseConfigurationReference = 30F8335ABAEFAF0FA46F99EA /* Pods-wildlife.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -675,7 +724,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-wildlife.release.xcconfig */;
+			baseConfigurationReference = 2BD5274D7F444BFF4BBB26AD /* Pods-wildlife.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -748,6 +797,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
@@ -823,6 +880,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,

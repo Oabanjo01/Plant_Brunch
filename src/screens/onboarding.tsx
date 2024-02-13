@@ -57,13 +57,6 @@ const OnboardingScreens = () => {
   const screenFlatListRef = React.useRef<FlatList<ItemProps>>(null);
   const dispatch = useDispatch();
   const onboardingStatus = useSelector((state: RootState) => state.auth.status);
-  // const setUserOnboarded = async () => {
-  //   try {
-  //     await AsyncStorage.setItem('userOnboarded', 'false');
-  //   } catch (error) {
-  //     Alert.alert('Error storing boolean value:');
-  //   }
-  // };
 
   const handleGetIndex = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     let offsetX = e.nativeEvent.contentOffset.x;

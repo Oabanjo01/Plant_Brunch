@@ -54,7 +54,7 @@ const TabStack = createBottomTabNavigator<TabParamList>();
 const HomeTabNavigator: React.FC = () => (
   <View
     style={{
-      height: screenHeight,
+      flex: 1,
       width: screenWidth,
     }}>
     <TabStack.Navigator
@@ -72,10 +72,8 @@ const HomeTabNavigator: React.FC = () => (
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.inActiveUnderlineTextInputColor,
         tabBarStyle: {
-          shadowColor: 'grey',
           shadowOpacity: 0.4,
           shadowOffset: {width: -1, height: -1},
-          elevation: 4,
           paddingTop: 10,
           paddingBottom: 10,
           backgroundColor: Colors.whiteColor,
@@ -92,7 +90,6 @@ const HomeTabNavigator: React.FC = () => (
 
 const ScreenStack = () => {
   const onboardingStatus = useSelector((state: RootState) => state.auth.status);
-  console.log(onboardingStatus);
 
   return (
     <Stack.Navigator

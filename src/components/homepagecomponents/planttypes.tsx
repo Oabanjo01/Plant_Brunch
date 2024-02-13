@@ -36,7 +36,12 @@ export const _renderPlantTypes = (item: PlantProps) => {
           borderTopRightRadius: 5,
           borderBottomRightRadius: 5,
         }}>
-        <Text># {item.description1}</Text>
+        <Text
+          style={{
+            color: Colors.primaryTextColor,
+          }}>
+          # {item.description1}
+        </Text>
       </View>
     </View>
   );
