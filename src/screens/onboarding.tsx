@@ -21,7 +21,7 @@ import {Alert} from 'react-native';
 import {combineReducers} from 'redux';
 import {useDispatch, useSelector} from 'react-redux';
 import {onboardingAction} from '@app/redux/actions/actions';
-import {RootState} from '@app/redux/store/store';
+import {RootState} from '@app/redux/store';
 
 type ItemProps = {
   id: string;
@@ -56,7 +56,9 @@ const OnboardingScreens = () => {
   const currentIndex = React.useRef(0);
   const screenFlatListRef = React.useRef<FlatList<ItemProps>>(null);
   const dispatch = useDispatch();
-  const onboardingStatus = useSelector((state: RootState) => state.auth.status);
+  const onboardingStatus = useSelector(
+    (state: RootState) => state.onboarding.status,
+  );
 
   const handleGetIndex = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     let offsetX = e.nativeEvent.contentOffset.x;
@@ -74,7 +76,6 @@ const OnboardingScreens = () => {
 
       return;
     }
-    console.log(onboardingStatus);
     dispatch(onboardingAction(true));
     goToLoginScreen();
   };

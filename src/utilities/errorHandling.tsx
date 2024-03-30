@@ -47,12 +47,19 @@ const handleFirebaseError = (
       return showToast({
         text2: 'Email is not verified',
         text1: 'Error',
-        type: 'error',
+        type: 'info',
       });
     case 'auth/user-not-found':
       return showToast({
         text2: 'User not found',
         text1: 'Error',
+        type: 'error',
+      });
+    case 'auth/network-request-failed':
+      return showToast({
+        text2:
+          ' A network error (such as timeout, interrupted connection or unreachable host) has occurred',
+        text1: 'Netork error',
         type: 'error',
       });
 

@@ -10,7 +10,7 @@ import {RouteProp, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {toggleName} from '@app/redux/actions/actions';
 import {Colors} from '@app/constants';
-import {RootState} from '@app/redux/store/store';
+import {RootState} from '@app/redux/store';
 // import  from ;
 
 type PlantDetailsRouteProps = RouteProp<RootStackParamList>;

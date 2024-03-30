@@ -7,7 +7,7 @@ import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
 interface ToastProps {
   text1: string;
   text2: string;
-  type: string;
+  type: 'success' | 'info' | 'error';
 }
 
 export const toastConfig = {

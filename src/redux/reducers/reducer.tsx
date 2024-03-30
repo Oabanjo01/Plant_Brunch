@@ -1,5 +1,10 @@
-import {OnboardingStatus, ToggleStatus} from '../types/types';
+import {OnboardingStatus, ToggleStatus} from '../types';
 
+// NOTE:
+// It is important to pass an initial state as default to
+// the state parameter to handle the case of calling
+// the reducers for the first time when the
+// state might be undefined
 interface UserState {
   currentTheme: string;
   initialText: string;

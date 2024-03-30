@@ -31,7 +31,7 @@ export const _renderPhotography = (
       <Image
         source={image}
         style={{
-          width: screenWidth * 0.8,
+          width: screenWidth * 0.4,
           height: screenHeight * 0.25,
           borderRadius: 10,
           resizeMode: Platform.OS === 'android' ? 'contain' : 'cover',

@@ -6,7 +6,7 @@ import ScreenStack from '@app/navigation/navigation';
 import {PaperProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
 
-import {persistor, store} from '@app/redux/store/store';
+import {persistor, store} from '@app/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import Toast from 'react-native-toast-message';
 import {toastConfig} from '@app/utilities/toast';

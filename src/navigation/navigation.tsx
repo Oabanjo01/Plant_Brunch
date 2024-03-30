@@ -19,7 +19,7 @@ import CameraPage from '@app/screens/camera/camerapage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TabBarStyle from '@app/components/tabbar/tabbarstyle';
 import PlantDetail from '@app/screens/plantdetail/plantdetail';
-import {RootState} from '@app/redux/store/store';
+import {RootState} from '@app/redux/store';
 import {useSelector} from 'react-redux';
 import {View} from 'react-native';
 
@@ -54,8 +54,9 @@ const TabStack = createBottomTabNavigator<TabParamList>();
 const HomeTabNavigator: React.FC = () => (
   <View
     style={{
-      flex: 1,
+      // flex: 1,
       width: screenWidth,
+      height: screenHeight,
     }}>
     <TabStack.Navigator
       tabBar={props => {

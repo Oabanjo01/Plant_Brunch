@@ -74,7 +74,6 @@ const SignUpScreen = ({navigation}: Props) => {
       await userCredential.user
         .sendEmailVerification()
         .then(() => {
-          console.log(userCredential);
           userCredential.user.emailVerified === false &&
             showToast({
               text1: 'Success',
@@ -88,7 +87,6 @@ const SignUpScreen = ({navigation}: Props) => {
         });
       setIsLoading(false);
     } catch (error: any) {
-      console.log(error.toString());
       setIsLoading(false);
       handleFirebaseError(error);
     }

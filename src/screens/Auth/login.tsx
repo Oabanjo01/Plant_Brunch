@@ -9,8 +9,8 @@ import {ScreenProps} from '@app/navigation/navigation';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import auth from '@react-native-firebase/auth';
-import {showToast} from '@app/utilities/toast';
-import handleFirebaseError from '@app/utilities/errorHandling';
+import {APP_NAME, API_KEY, COMPANY_EMAIL} from '@env';
+import {useLogin} from '@app/utilities/hooks/authentication/useLogin';
 
 const LoginScreen = ({navigation}: ScreenProps) => {
   const [emailPlacHolder, setEmailPlaceHolder] = useState('email');
@@ -20,17 +20,17 @@ const LoginScreen = ({navigation}: ScreenProps) => {
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
   const [displayPassword, setDisplayPassword] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleFieldBlur = (fieldName: any) => {};
+  const {handleLogin, isLoading, setIsLoading} = useLogin();
 
   useEffect(() => {
+    // Implement splash screen then redirection of user
     const unsubscribe = auth().onAuthStateChanged(user => {
       if (user && user.emailVerified) {
         navigation.navigate(Routes.Home);
       }
     });
-    console.log(unsubscribe());
     return unsubscribe;
   }, []);
 
@@ -47,35 +47,16 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       .required('Password is required'),
   });
 
-  const handleLogin = async (values: any) => {
-    setIsLoading(true);
-    setValidateChange(true);
-    try {
-      const userCredential = await auth().signInWithEmailAndPassword(
-        values.email,
-        values.password,
-      );
-      userCredential.user.emailVerified === false
-        ? showToast({
-            text1: 'Verify yout email',
-            text2:
-              'A link has been sent to your email address, kindly activate your account before logging in',
-            type: 'info',
-          })
-        : navigation.navigate(Routes.Home);
-      setIsLoading(false);
-    } catch (error: any) {
-      setIsLoading(false);
-      handleFirebaseError(error);
-    }
-  };
   return (
     <Formik
       initialValues={{email: '', password: ''}}
       validateOnBlur
       validateOnChange={validateChange}
       validationSchema={loginValidationSchema}
-      onSubmit={values => handleLogin(values)}>
+      onSubmit={values => {
+        setValidateChange(true);
+        handleLogin(values, navigation);
+      }}>
       {({
         values,
         handleChange,
@@ -140,6 +121,11 @@ const LoginScreen = ({navigation}: ScreenProps) => {
             </View>
             <Text style={styles.textStyle}>Forgot Password?</Text>
           </View>
+          <Text>
+            {API_KEY}
+            {APP_NAME}
+            {COMPANY_EMAIL}
+          </Text>
           <LargeButton
             text={isLoading ? 'Loading...' : 'Log in'}
             extraStyle={

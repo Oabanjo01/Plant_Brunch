@@ -1,5 +1,5 @@
-import {Colors} from '@app/constants';
-import React, {useState} from 'react';
+import {Colors, Routes} from '@app/constants';
+import React, {useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   View,
@@ -9,6 +9,7 @@ import {
   ScrollView,
   Platform,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {FAB, Icon, TextInput} from 'react-native-paper';
@@ -19,6 +20,7 @@ import {
   screenHeight,
   screenWidth,
 } from '@app/constants/dimensions';
+import Warning from '@assets/images/Warning.svg';
 import {
   SeparatorComponent,
   _renderPlantTypes,
@@ -27,10 +29,66 @@ import {
 import {_renderPhotography} from '@app/components/homepagecomponents/photography';
 import {RootStackNavigationProp} from '@app/navigation/navigation';
 import {useNavigation} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
+import {showToast} from '@app/utilities/toast';
+import {useSelector} from 'react-redux';
+import {RootState} from '@app/redux/store';
+import instance, {generateConfigObject} from '@app/redux/api';
+import {Plant, PlantListResponse} from '@app/redux/types';
+import {ActivityIndicator} from 'react-native';
+import {AxiosError} from 'axios';
 
 const HomePage = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const [activeIndex, setActiveIndex] = useState('2');
+  const [loadingPicture, setIsLoadingPicture] = useState<boolean>(false);
+  const [isFetchingData, setIsFetchingData] = useState<boolean>(true);
+  const [plantList, setPlantList] = useState<Plant[]>([]);
+
+  const userData = useSelector((state: RootState) => state.auth.user);
+  const {user} = userData;
+
+  useEffect(() => {
+    setIsFetchingData(true);
+    const fetchPlantList = async () => {
+      const response = await instance.request(
+        generateConfigObject(
+          'get',
+          'species-list',
+          // {_limit: 5,}
+        ),
+      );
+      console.log(response.status, 'response');
+      try {
+        return response.data;
+      } catch (error: AxiosError | any) {
+        console.error(error, 'error');
+        setIsFetchingData(false);
+        showToast({
+          type: 'error',
+          text1: 'Error Fetching Plant List',
+          text2: error.message,
+        });
+        throw error.message;
+      }
+    };
+    fetchPlantList().then(data => {
+      console.log(data, 'data');
+      setPlantList(data ?? []);
+    });
+    setIsFetchingData(false);
+  }, []);
+  console.log(isFetchingData, 'isFetchingData');
+  const handleLoadStart = () => {
+    console.log('Loading plant list');
+    setIsLoadingPicture(true);
+  };
+
+  const handleLoadEnd = () => {
+    console.log('Loaded plant list');
+    setIsLoadingPicture(false);
+  };
+  console.log(plantList, 'plant list');
   return (
     <>
       <View
@@ -65,7 +123,7 @@ const HomePage = () => {
                   color: Colors.lightTextColor,
                   fontSize: 28,
                 }}>
-                Hello Banjo,
+                Hello ,
               </Text>
               <Text
                 style={{
@@ -77,9 +135,39 @@ const HomePage = () => {
                 Let’s Learn More About Plants
               </Text>
             </View>
+
             <View style={{position: 'absolute', right: 0}}>
               <Dashboard />
             </View>
+            <TouchableOpacity
+              onPress={() => {
+                auth()
+                  .signOut()
+                  .then(() => {
+                    navigation.replace(Routes.Login);
+                    showToast({
+                      type: 'success',
+                      text1: 'Logged out',
+                      text2: 'You have been logged out',
+                    });
+                  })
+                  .catch((error: string) => {
+                    showToast({
+                      type: 'error',
+                      text1: 'Could not log out',
+                      text2: 'An error occurred while logging out',
+                    });
+                  });
+              }}
+              style={{
+                alignItems: 'center',
+                position: 'absolute',
+                top: dashboardHeight * 0.3,
+                right: 20,
+              }}>
+              <Ionicons name="log-out" color={Colors.whiteColor} size={40} />
+              <Text style={{color: Colors.whiteColor}}>Logout</Text>
+            </TouchableOpacity>
             <View
               style={{
                 flex: 1,
@@ -160,14 +248,47 @@ const HomePage = () => {
               }}>
               Plant Types
             </Text>
-            <FlatList
-              data={PlantData}
-              keyExtractor={item => item.id}
-              renderItem={item => _renderPlantTypes(item.item)}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              ItemSeparatorComponent={SeparatorComponent}
-            />
+            <View
+              style={{
+                alignItems: plantList.length === 0 ? 'center' : 'flex-start',
+              }}>
+              <FlatList
+                data={plantList}
+                keyExtractor={item => item.id.toString()}
+                renderItem={item => {
+                  return _renderPlantTypes(
+                    item.item,
+                    loadingPicture,
+                    handleLoadStart,
+                    handleLoadEnd,
+                  );
+                }}
+                ListEmptyComponent={
+                  // isFetchingData || plantList.length === 0 ? (
+                  <View
+                    style={{
+                      // position: 'absolute',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: screenWidth * 0.8,
+                      height: screenHeight * 0.2,
+                    }}>
+                    <ActivityIndicator
+                      color={Colors.primary}
+                      style={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        borderRadius: 5,
+                        padding: 10,
+                      }}
+                    />
+                  </View>
+                  // ) : null
+                }
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                ItemSeparatorComponent={SeparatorComponent}
+              />
+            </View>
           </View>
           <View
             style={{
