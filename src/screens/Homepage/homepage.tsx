@@ -5,14 +5,12 @@ import {
   View,
   Text,
   FlatList,
-  StatusBar,
   ScrollView,
-  Platform,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {FAB, Icon, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import Dashboard from '@assets/images/Dashboard.svg';
 import {Data, PhotographyData, PlantData} from '@app/constants/data/homepage';
 import {
@@ -24,7 +22,6 @@ import Warning from '@assets/images/Warning.svg';
 import {
   SeparatorComponent,
   _renderPlantTypes,
-  _renderItem,
 } from '@app/components/homepagecomponents/planttypes';
 import {_renderPhotography} from '@app/components/homepagecomponents/photography';
 import {RootStackNavigationProp} from '@app/navigation/navigation';
@@ -36,7 +33,9 @@ import {RootState} from '@app/redux/store';
 import instance, {generateConfigObject} from '@app/redux/api';
 import {Plant, PlantListResponse} from '@app/redux/types';
 import {ActivityIndicator} from 'react-native';
-import {AxiosError} from 'axios';
+import axios, {AxiosError} from 'axios';
+import {_renderItem} from '@app/components/homepagecomponents/plantcategories';
+import {fetchHomePagedata} from '@app/redux';
 
 const HomePage = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -46,23 +45,24 @@ const HomePage = () => {
   const [plantList, setPlantList] = useState<Plant[]>([]);
 
   const userData = useSelector((state: RootState) => state.auth.user);
-  const {user} = userData;
+  // const {user} = userData;
+  const plantItemsToShow = 10;
 
   useEffect(() => {
     setIsFetchingData(true);
     const fetchPlantList = async () => {
-      const response = await instance.request(
-        generateConfigObject(
-          'get',
-          'species-list',
-          // {_limit: 5,}
-        ),
-      );
-      console.log(response.status, 'response');
+      const response = await fetchHomePagedata();
       try {
-        return response.data;
-      } catch (error: AxiosError | any) {
-        console.error(error, 'error');
+        return response?.response1;
+      } catch (error: any) {
+        if (
+          axios.isAxiosError<{error: {message: string}}>(error) &&
+          error.response?.status === 401
+        ) {
+          return error.response.data.error;
+        }
+
+        // console.error(error, 'error');
         setIsFetchingData(false);
         showToast({
           type: 'error',
@@ -73,19 +73,20 @@ const HomePage = () => {
       }
     };
     fetchPlantList().then(data => {
-      console.log(data, 'data');
-      setPlantList(data ?? []);
+      // console.log(data, 'data');
+      const slicedData = data.slice(0, plantItemsToShow);
+      setPlantList(slicedData ?? []);
     });
     setIsFetchingData(false);
   }, []);
-  console.log(isFetchingData, 'isFetchingData');
+  // console.log(isFetchingData, 'isFetchingData');
   const handleLoadStart = () => {
-    console.log('Loading plant list');
+    // console.log('Loading plant list');
     setIsLoadingPicture(true);
   };
 
   const handleLoadEnd = () => {
-    console.log('Loaded plant list');
+    // console.log('Loaded plant list');
     setIsLoadingPicture(false);
   };
   console.log(plantList, 'plant list');
@@ -242,7 +243,6 @@ const HomePage = () => {
             <Text
               style={{
                 fontSize: 17,
-                fontFamily: 'OpenSans-Bold',
                 color: Colors.primaryTextColor,
                 marginBottom: screenHeight * 0.01,
               }}>
@@ -298,7 +298,6 @@ const HomePage = () => {
             <Text
               style={{
                 fontSize: 17,
-                fontFamily: 'OpenSans-Bold',
                 marginBottom: screenHeight * 0.01,
                 color: Colors.primaryTextColor,
               }}>

@@ -3,23 +3,25 @@ import axios from 'axios';
 
 const instance = axios.create({
   baseURL: BASE_URL,
+  // headers: {Authorization: API_KEY},
 });
 
 export const generateConfigObject = (
   method: string,
   endpoint: string,
-  // params?: {},
+  params?: {},
 ) => {
-  const url = `${endpoint}?key=${API_KEY}`;
+  const url = `${endpoint}?key=`;
   return {
     method,
     url,
-    // params,
+    params,
   };
 };
 
 instance.interceptors.request.use(
   config => {
+    config.headers['Authorization'] = `Bearer ${API_KEY}`;
     console.log(config);
     return config;
   },
@@ -30,10 +32,11 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   response => {
-    console.log(response);
+    console.log(response, 'api.ts response');
     return response;
   },
   error => {
+    console.log(error, 'api.ts error');
     return Promise.reject(error);
   },
 );
