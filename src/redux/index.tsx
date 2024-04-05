@@ -15,16 +15,16 @@ export const planDiseasesResponse = instance.request(
 
 export const fetchHomePagedata = async () => {
   try {
-    console.log('Fetching');
     const allResponses = await axios.all([
       speciesListResponse,
       planDiseasesResponse,
     ]);
-    const response1 = allResponses[0].data;
-    const response2 = allResponses[1].data;
+    const plantList = allResponses[0].data;
+    const plantDisease = allResponses[1].data;
+    // console.log(plantDisease, 'all responses');
     return {
-      response1,
-      response2,
+      plantList,
+      plantDisease,
     };
   } catch (error) {
     console.log(error, 'error');

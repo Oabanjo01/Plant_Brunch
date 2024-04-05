@@ -47,6 +47,33 @@ export interface Plant {
   };
 }
 
+export interface PlantDiseaseType {
+  common_name: string;
+  description: {
+    description: string;
+    subtitle: string;
+  }[];
+  family: string | null;
+  host: string[];
+  id: number;
+  images: {
+    license: number;
+    license_name: string;
+    license_url: string;
+    medium_url: string;
+    original_url: string;
+    regular_url: string;
+    small_url: string;
+    thumbnail: string;
+  }[];
+  other_name: string | null;
+  scientific_name: string;
+  solution: {
+    description: string;
+    subtitle: string;
+  }[];
+}
+
 export interface PlantListResponse {
   data: Plant[];
 }

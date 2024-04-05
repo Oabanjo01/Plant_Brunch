@@ -12,13 +12,12 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {TextInput} from 'react-native-paper';
 import Dashboard from '@assets/images/Dashboard.svg';
-import {Data, PhotographyData, PlantData} from '@app/constants/data/homepage';
+import {Data} from '@app/constants/data/homepage';
 import {
   dashboardHeight,
   screenHeight,
   screenWidth,
 } from '@app/constants/dimensions';
-import Warning from '@assets/images/Warning.svg';
 import {
   SeparatorComponent,
   _renderPlantTypes,
@@ -31,7 +30,7 @@ import {showToast} from '@app/utilities/toast';
 import {useSelector} from 'react-redux';
 import {RootState} from '@app/redux/store';
 import instance, {generateConfigObject} from '@app/redux/api';
-import {Plant, PlantListResponse} from '@app/redux/types';
+import {Plant, PlantDiseaseType, PlantListResponse} from '@app/redux/types';
 import {ActivityIndicator} from 'react-native';
 import axios, {AxiosError} from 'axios';
 import {_renderItem} from '@app/components/homepagecomponents/plantcategories';
@@ -40,56 +39,95 @@ import {fetchHomePagedata} from '@app/redux';
 const HomePage = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const [activeIndex, setActiveIndex] = useState('2');
-  const [loadingPicture, setIsLoadingPicture] = useState<boolean>(false);
+  const [loadingPlantListPicture, setIsLoadingPlantListPicture] =
+    useState<boolean>(false);
+  const [loadingPlantDiseasePicture, setIsLoadingPlantDiseasePicture] =
+    useState<boolean>(false);
   const [isFetchingData, setIsFetchingData] = useState<boolean>(true);
-  const [plantList, setPlantList] = useState<Plant[]>([]);
+  const [plantList, setPlantList] = useState<Plant[] | null>([]);
+  const [plantDisease, setPlantDisease] = useState<PlantDiseaseType[] | null>(
+    [],
+  );
 
   const userData = useSelector((state: RootState) => state.auth.user);
   // const {user} = userData;
   const plantItemsToShow = 10;
+  const plantDiseasesToShow = 7;
+
+  const fetchPlantList = async () => {
+    const response = await fetchHomePagedata();
+    try {
+      const planSpeciesList = response?.plantList.data;
+      return planSpeciesList;
+    } catch (error: any) {
+      setPlantList(null);
+      setIsFetchingData(false);
+      if (
+        axios.isAxiosError<{error: {message: string}}>(error) &&
+        error.response?.status === 401
+      ) {
+        return error.response.data.error;
+      }
+      showToast({
+        type: 'error',
+        text1: 'Error Fetching Plant List',
+        text2: error.message,
+      });
+      throw error.message;
+    }
+  };
+
+  const fetchPlantDiseases = async () => {
+    const response = await fetchHomePagedata();
+    try {
+      const plantDiseaseList = response?.plantDisease.data;
+      return plantDiseaseList;
+    } catch (error: any) {
+      setPlantDisease(null);
+      setIsFetchingData(false);
+      if (
+        axios.isAxiosError<{error: {message: string}}>(error) &&
+        error.response?.status === 401
+      ) {
+        return error.response.data.error;
+      }
+      showToast({
+        type: 'error',
+        text1: 'Error Fetching Plant List',
+        text2: error.message,
+      });
+      throw error.message;
+    }
+  };
 
   useEffect(() => {
     setIsFetchingData(true);
-    const fetchPlantList = async () => {
-      const response = await fetchHomePagedata();
-      try {
-        return response?.response1;
-      } catch (error: any) {
-        if (
-          axios.isAxiosError<{error: {message: string}}>(error) &&
-          error.response?.status === 401
-        ) {
-          return error.response.data.error;
-        }
-
-        // console.error(error, 'error');
-        setIsFetchingData(false);
-        showToast({
-          type: 'error',
-          text1: 'Error Fetching Plant List',
-          text2: error.message,
-        });
-        throw error.message;
-      }
-    };
     fetchPlantList().then(data => {
-      // console.log(data, 'data');
       const slicedData = data.slice(0, plantItemsToShow);
       setPlantList(slicedData ?? []);
     });
+    fetchPlantDiseases().then((data: PlantDiseaseType[]) => {
+      const slicedData = data.slice(0, plantDiseasesToShow);
+      setPlantDisease(slicedData);
+    });
+
     setIsFetchingData(false);
   }, []);
-  // console.log(isFetchingData, 'isFetchingData');
-  const handleLoadStart = () => {
-    // console.log('Loading plant list');
-    setIsLoadingPicture(true);
+
+  const handlePlantListLoadStart = () => {
+    setIsLoadingPlantListPicture(true);
   };
 
-  const handleLoadEnd = () => {
-    // console.log('Loaded plant list');
-    setIsLoadingPicture(false);
+  const handlePlantListLoadEnd = () => {
+    setIsLoadingPlantListPicture(false);
   };
-  console.log(plantList, 'plant list');
+  const handlePlantDiseaseLoadStart = () => {
+    setIsLoadingPlantDiseasePicture(true);
+  };
+
+  const handlePlantDiseaseLoadEnd = () => {
+    setIsLoadingPlantDiseasePicture(false);
+  };
   return (
     <>
       <View
@@ -226,9 +264,7 @@ const HomePage = () => {
               data={Data}
               keyExtractor={item => item.id}
               renderItem={items =>
-                _renderItem(items.item, activeIndex, items.index, () =>
-                  setActiveIndex(items.item.id),
-                )
+                _renderItem(items.item, () => console.log(items.item))
               }
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -251,6 +287,7 @@ const HomePage = () => {
             <View
               style={{
                 alignItems: plantList.length === 0 ? 'center' : 'flex-start',
+                borderRadius: 5,
               }}>
               <FlatList
                 data={plantList}
@@ -258,31 +295,31 @@ const HomePage = () => {
                 renderItem={item => {
                   return _renderPlantTypes(
                     item.item,
-                    loadingPicture,
-                    handleLoadStart,
-                    handleLoadEnd,
+                    loadingPlantListPicture,
+                    handlePlantListLoadStart,
+                    handlePlantListLoadEnd,
                   );
                 }}
                 ListEmptyComponent={
-                  // isFetchingData || plantList.length === 0 ? (
-                  <View
-                    style={{
-                      // position: 'absolute',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: screenWidth * 0.8,
-                      height: screenHeight * 0.2,
-                    }}>
-                    <ActivityIndicator
-                      color={Colors.primary}
+                  isFetchingData || plantList.length === 0 ? (
+                    <View
                       style={{
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                        borderRadius: 5,
-                        padding: 10,
-                      }}
-                    />
-                  </View>
-                  // ) : null
+                        // position: 'absolute',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: screenWidth * 0.8,
+                        height: screenHeight * 0.2,
+                      }}>
+                      <ActivityIndicator
+                        color={Colors.primary}
+                        style={{
+                          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                          borderRadius: 5,
+                          padding: 10,
+                        }}
+                      />
+                    </View>
+                  ) : null
                 }
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -304,12 +341,41 @@ const HomePage = () => {
               Photography
             </Text>
             <FlatList
-              data={PhotographyData}
-              keyExtractor={item => item.id}
-              renderItem={item => _renderPhotography(navigation, item.item)}
+              data={plantDisease}
+              keyExtractor={item => item.id.toString()}
+              renderItem={item => {
+                return _renderPhotography(
+                  navigation,
+                  item.item,
+                  loadingPlantDiseasePicture,
+                  handlePlantDiseaseLoadStart,
+                  handlePlantDiseaseLoadEnd,
+                );
+              }}
               horizontal
               showsHorizontalScrollIndicator={false}
               ItemSeparatorComponent={SeparatorComponent}
+              ListEmptyComponent={
+                isFetchingData || plantDisease?.length === 0 ? (
+                  <View
+                    style={{
+                      // position: 'absolute',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: screenWidth * 0.8,
+                      height: screenHeight * 0.2,
+                    }}>
+                    <ActivityIndicator
+                      color={Colors.primary}
+                      style={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        borderRadius: 5,
+                        padding: 10,
+                      }}
+                    />
+                  </View>
+                ) : null
+              }
             />
             <Text
               style={{

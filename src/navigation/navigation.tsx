@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import {
   NativeStackNavigationProp,
@@ -20,7 +20,11 @@ import PlantDetail from '@app/screens/plantdetail/plantdetail';
 import {RootState} from '@app/redux/store';
 import {useSelector} from 'react-redux';
 import {View} from 'react-native';
-import {useCameraPermission} from 'react-native-vision-camera';
+import {
+  Camera,
+  useCameraDevice,
+  useCameraPermission,
+} from 'react-native-vision-camera';
 import {showToast} from '@app/utilities/toast';
 
 export type RootStackNavigationProp =
@@ -53,35 +57,30 @@ const TabStack = createBottomTabNavigator<TabParamList>();
 
 const HomeTabNavigator: React.FC = () => {
   const {hasPermission, requestPermission} = useCameraPermission();
-  const handlePermission = async () => {
-    if (hasPermission) {
-      console.log('Camera permission granted');
-      // logic for what happens
-    }
-    // else if (!hasPermission) {
-    //   console.log('Camera permission denied');
-    //   // Handle permission denial
-    // }
-    else {
-      // Request camera permission if it has not been granted or denied yet
-      try {
-        const permissionStatus = await requestPermission();
+  const device = useCameraDevice('back');
+  const camera = useRef<Camera>(null);
 
-        permissionStatus
-          ? showToast({
-              text1: 'Permission granted',
-              text2: 'You can now take some pictures of your favourite plants!',
-              type: 'success',
-            })
-          : showToast({
-              text1: 'Camera permission denied',
-              text2: 'Grant camera permission',
-              type: 'info',
-            });
-      } catch (error) {
-        console.error('Error requesting camera permission:', error);
-      }
-    }
+  const handlePermission = async () => {
+    // if (hasPermission) {
+    //   return <Camera device={device} isActive={true} />;
+    // } else {
+    //   try {
+    //     const permissionStatus = await requestPermission();
+    //     permissionStatus
+    //       ? showToast({
+    //           text1: 'Permission granted',
+    //           text2: 'You can now take some pictures of your favourite plants!',
+    //           type: 'success',
+    //         })
+    //       : showToast({
+    //           text1: 'Camera permission denied',
+    //           text2: 'Grant camera permission in your settings',
+    //           type: 'info',
+    //         });
+    //   } catch (error) {
+    //     console.error('Error requesting camera permission:', error);
+    //   }
+    // }
   };
 
   return (

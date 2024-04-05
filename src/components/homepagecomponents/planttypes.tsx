@@ -1,10 +1,11 @@
 import {ItemProps, PlantProps} from '@app/constants/data/homepage';
 import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Platform, Text, TouchableOpacity, View} from 'react-native';
 import Svg, {ClipPath, Defs, Path, Rect} from 'react-native-svg';
 import {Plant} from '@app/redux/types';
 import {ActivityIndicator} from 'react-native-paper';
+import FastImage from 'react-native-fast-image';
 
 export const SeparatorComponent = () => {
   return <View style={{width: screenWidth * 0.05}} />;
@@ -22,20 +23,21 @@ export const _renderPlantTypes = (
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <Image
+      <FastImage
         onLoad={pictureLoadingEnds}
         onLoadStart={pictureLoadingStarts}
         source={{
           uri: item.default_image.regular_url,
+          priority: FastImage.priority.normal,
         }}
+        resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
         style={{
-          borderRadius: 5,
+          borderRadius: 10,
           width: screenWidth * 0.73,
-          height: screenHeight * 0.25,
-          resizeMode: 'cover',
+          height: screenHeight * 0.22,
         }}
       />
-      {/* {(pictureIsLoading || !item) && (
+      {(pictureIsLoading || !item) && (
         <View
           style={{
             position: 'absolute',
@@ -53,7 +55,7 @@ export const _renderPlantTypes = (
             }}
           />
         </View>
-      )} */}
+      )}
 
       <View
         style={{
