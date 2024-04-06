@@ -10,22 +10,17 @@ import OnboardingScreens from '@app/screens/onboarding';
 import LoginScreen from '@app/screens/auth/login';
 import {Colors, Routes} from '@app/constants';
 import SignUpScreen from '@app/screens/auth/signup';
-import HomePage from '@app/screens/homepage/homepage';
-import ProfilePage from '@app/screens/profile/profile';
+import HomePage from '@app/screens/tabscreens/homepage/homepage';
+import ProfilePage from '@app/screens/tabscreens/profile/profile';
 import {Tabs} from '@app/constants/routes';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import CameraPage from '@app/screens/camera/camerapage';
+import CameraPage from '@app/screens/tabscreens/uploadimage/uploadmethod';
 import TabBarStyle from '@app/components/tabbar/tabbarstyle';
 import PlantDetail from '@app/screens/plantdetail/plantdetail';
 import {RootState} from '@app/redux/store';
 import {useSelector} from 'react-redux';
 import {View} from 'react-native';
-import {
-  Camera,
-  useCameraDevice,
-  useCameraPermission,
-} from 'react-native-vision-camera';
-import {showToast} from '@app/utilities/toast';
+import CameraScreen from '@app/screens/camera';
 
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
@@ -45,6 +40,8 @@ export type RootStackParamList = {
   PlantList: any;
   Articles: any;
   ArticleDetails: any;
+
+  Camera: any;
 };
 
 export type TabParamList = {
@@ -56,33 +53,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const TabStack = createBottomTabNavigator<TabParamList>();
 
 const HomeTabNavigator: React.FC = () => {
-  const {hasPermission, requestPermission} = useCameraPermission();
-  const device = useCameraDevice('back');
-  const camera = useRef<Camera>(null);
-
-  const handlePermission = async () => {
-    // if (hasPermission) {
-    //   return <Camera device={device} isActive={true} />;
-    // } else {
-    //   try {
-    //     const permissionStatus = await requestPermission();
-    //     permissionStatus
-    //       ? showToast({
-    //           text1: 'Permission granted',
-    //           text2: 'You can now take some pictures of your favourite plants!',
-    //           type: 'success',
-    //         })
-    //       : showToast({
-    //           text1: 'Camera permission denied',
-    //           text2: 'Grant camera permission in your settings',
-    //           type: 'info',
-    //         });
-    //   } catch (error) {
-    //     console.error('Error requesting camera permission:', error);
-    //   }
-    // }
-  };
-
   return (
     <View
       style={{
@@ -115,15 +85,7 @@ const HomeTabNavigator: React.FC = () => {
         })}
         initialRouteName={Tabs.Home}>
         <TabStack.Screen name={Tabs.Home} component={HomePage} />
-        <TabStack.Screen
-          name={Tabs.CameraButton}
-          component={CameraPage}
-          listeners={{
-            tabPress: () => {
-              handlePermission();
-            },
-          }}
-        />
+        <TabStack.Screen name={Tabs.CameraButton} component={CameraPage} />
         <TabStack.Screen name={Tabs.Profile} component={ProfilePage} />
       </TabStack.Navigator>
     </View>
@@ -144,6 +106,7 @@ const ScreenStack = () => {
       <Stack.Screen name={Routes.SignUp} component={SignUpScreen} />
       <Stack.Screen name={Routes.PlantDetail} component={PlantDetail} />
       <Stack.Screen name={Routes.Home} component={HomeTabNavigator} />
+      <Stack.Screen name={Routes.Camera} component={CameraScreen} />
     </Stack.Navigator>
   );
 };

@@ -13,6 +13,7 @@ export const Routes: RootStackParamList = {
   PlantList: 'PlantList',
   Articles: 'Articles',
   ArticleDetails: 'ArticleDetails',
+  Camera: 'Camera',
 };
 
 export const Tabs: TabParamList = {

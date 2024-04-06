@@ -107,7 +107,6 @@ const OnboardingScreens = () => {
         }}
         horizontal
         pagingEnabled
-        // scrollEnabled={false}
         showsHorizontalScrollIndicator={false}
       />
     </View>

@@ -4,7 +4,7 @@ import {Routes} from '@app/constants';
 import {Colors} from '@app/constants/colors';
 import {useEffect, useState} from 'react';
 import {Keyboard, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Checkbox} from 'react-native-paper';
+import {ActivityIndicator, Checkbox} from 'react-native-paper';
 import {ScreenProps} from '@app/navigation/navigation';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -20,17 +20,22 @@ const LoginScreen = ({navigation}: ScreenProps) => {
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
   const [displayPassword, setDisplayPassword] = useState(true);
+  const [userAuthState, setUserAuthState] = useState<boolean>(false);
 
   const handleFieldBlur = (fieldName: any) => {};
   const {handleLogin, isLoading, setIsLoading} = useLogin();
 
   useEffect(() => {
+    setUserAuthState(false);
     // Implement splash screen then redirection of user
     const unsubscribe = auth().onAuthStateChanged(user => {
       if (user && user.emailVerified) {
+        setUserAuthState(true);
         navigation.navigate(Routes.Home);
       }
+      setUserAuthState(true);
     });
+    setUserAuthState(true);
     return unsubscribe;
   }, []);
 
@@ -47,7 +52,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       .required('Password is required'),
   });
 
-  return (
+  return userAuthState ? (
     <Formik
       initialValues={{email: '', password: ''}}
       validateOnBlur
@@ -163,6 +168,8 @@ const LoginScreen = ({navigation}: ScreenProps) => {
         </View>
       )}
     </Formik>
+  ) : (
+    <ActivityIndicator />
   );
 };
 
