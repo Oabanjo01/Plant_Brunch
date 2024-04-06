@@ -65,7 +65,7 @@ const CameraPage = ({navigation}: ScreenProps) => {
             borderWidth: 2,
             padding: 10,
             borderRadius: 20,
-            borderColor: Colors.inActiveUnderlineTextInputColor,
+            borderColor: Colors.tabBarTextColor,
           }}>
           <Ionicons
             name={'camera-outline'}
@@ -74,7 +74,6 @@ const CameraPage = ({navigation}: ScreenProps) => {
               alignSelf: 'center',
               marginBottom: 5,
             }}
-            onPress={() => {}}
             color={Colors.primary}
           />
           <Text style={{color: Colors.primaryTextColor}}>Camerapage</Text>
@@ -86,7 +85,7 @@ const CameraPage = ({navigation}: ScreenProps) => {
           borderWidth: 2,
           padding: 10,
           borderRadius: 20,
-          borderColor: Colors.inActiveUnderlineTextInputColor,
+          borderColor: Colors.tabBarTextColor,
         }}>
         <Ionicons
           name={'image-outline'}
