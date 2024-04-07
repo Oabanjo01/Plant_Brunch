@@ -20,7 +20,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
   const [displayPassword, setDisplayPassword] = useState(true);
-  const [userAuthState, setUserAuthState] = useState<boolean>(false);
+  const [userAuthState, setUserAuthState] = useState<boolean | string>(false);
 
   const handleFieldBlur = (fieldName: any) => {};
   const {handleLogin, isLoading, setIsLoading} = useLogin();
@@ -32,10 +32,10 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       if (user && user.emailVerified) {
         setUserAuthState(true);
         navigation.navigate(Routes.Home);
+      } else {
+        setUserAuthState('notAuthenticated');
       }
-      setUserAuthState(true);
     });
-    setUserAuthState(true);
     return unsubscribe;
   }, []);
 
@@ -51,126 +51,136 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       .min(8, ({min}) => `Password must be at least ${min} characters`)
       .required('Password is required'),
   });
-
-  return userAuthState ? (
-    <Formik
-      initialValues={{email: '', password: ''}}
-      validateOnBlur
-      validateOnChange={validateChange}
-      validationSchema={loginValidationSchema}
-      onSubmit={values => {
-        setValidateChange(true);
-        handleLogin(values, navigation);
-      }}>
-      {({
-        values,
-        handleChange,
-        handleSubmit,
-        errors,
-        isSubmitting,
-        isValid,
-        touched,
-      }) => (
-        <View style={styles.container}>
-          <Text
-            style={{
-              color: Colors.primaryTextColor,
-              fontSize: 30,
-              fontFamily: 'OpenSans-SemiBold',
-              marginBottom: 6,
-            }}>
-            Hello
-          </Text>
-          <Text style={[styles.textStyle, {marginBottom: '7%'}]}>
-            Let’s Learn More About Plants
-          </Text>
-          <TextFields
-            onFocused={() => setEmailPlaceHolder('')}
-            placeHolderText={emailPlacHolder}
-            valueText={values.email}
-            keyboardType="email-address"
-            labelText="Email"
-            onBlur={e => handleFieldBlur('email')}
-            callBack={handleChange('email')}
-          />
-          {isValid === false && isValidEmail === false && (
-            <Text style={{fontSize: 12, color: 'red'}}>{errors.email}</Text>
-          )}
-          <TextFields
-            onFocused={() => setPasswordPlaceHolder('')}
-            placeHolderText={passwordPlacHolder}
-            valueText={values.password}
-            labelText="Password"
-            onBlur={e => handleFieldBlur('password')}
-            callBack={handleChange('password')}
-            displayRightIcon
-            togglePasswordDisplay={() => setDisplayPassword(!displayPassword)}
-            displayPassword={displayPassword}
-          />
-          {isValid === false && isValidPassword === false && (
-            <Text style={{fontSize: 12, color: 'red'}}>{errors.password}</Text>
-          )}
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Checkbox
-                color={Colors.primary}
-                status={checked ? 'checked' : 'unchecked'}
-                onPress={() => setChecked(!checked)}
-              />
-              <Text style={styles.textStyle}>Remember me</Text>
+  console.log(userAuthState);
+  if (userAuthState === false) {
+    return (
+      <ActivityIndicator
+        size={40}
+        color={Colors.primary}
+        style={{justifyContent: 'center', alignItems: 'center', flex: 1}}
+      />
+    );
+  } else if (userAuthState === 'notAuthenticated') {
+    return (
+      <Formik
+        initialValues={{email: '', password: ''}}
+        validateOnBlur
+        validateOnChange={validateChange}
+        validationSchema={loginValidationSchema}
+        onSubmit={values => {
+          setValidateChange(true);
+          handleLogin(values, navigation);
+        }}>
+        {({
+          values,
+          handleChange,
+          handleSubmit,
+          errors,
+          isSubmitting,
+          isValid,
+          touched,
+        }) => (
+          <View style={styles.container}>
+            <Text
+              style={{
+                color: Colors.primaryTextColor,
+                fontSize: 30,
+                fontFamily: 'OpenSans-SemiBold',
+                marginBottom: 6,
+              }}>
+              Hello
+            </Text>
+            <Text style={[styles.textStyle, {marginBottom: '7%'}]}>
+              Let’s Learn More About Plants
+            </Text>
+            <TextFields
+              onFocused={() => setEmailPlaceHolder('')}
+              placeHolderText={emailPlacHolder}
+              valueText={values.email}
+              keyboardType="email-address"
+              labelText="Email"
+              onBlur={e => handleFieldBlur('email')}
+              callBack={handleChange('email')}
+            />
+            {isValid === false && isValidEmail === false && (
+              <Text style={{fontSize: 12, color: 'red'}}>{errors.email}</Text>
+            )}
+            <TextFields
+              onFocused={() => setPasswordPlaceHolder('')}
+              placeHolderText={passwordPlacHolder}
+              valueText={values.password}
+              labelText="Password"
+              onBlur={e => handleFieldBlur('password')}
+              callBack={handleChange('password')}
+              displayRightIcon
+              togglePasswordDisplay={() => setDisplayPassword(!displayPassword)}
+              displayPassword={displayPassword}
+            />
+            {isValid === false && isValidPassword === false && (
+              <Text style={{fontSize: 12, color: 'red'}}>
+                {errors.password}
+              </Text>
+            )}
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Checkbox
+                  color={Colors.primary}
+                  status={checked ? 'checked' : 'unchecked'}
+                  onPress={() => setChecked(!checked)}
+                />
+                <Text style={styles.textStyle}>Remember me</Text>
+              </View>
+              <Text style={styles.textStyle}>Forgot Password?</Text>
             </View>
-            <Text style={styles.textStyle}>Forgot Password?</Text>
+            <Text>
+              {API_KEY}
+              {APP_NAME}
+              {COMPANY_EMAIL}
+            </Text>
+            <LargeButton
+              text={isLoading ? 'Loading...' : 'Log in'}
+              extraStyle={
+                isLoading ? styles.loadingButtonStyle : styles.loginButtonStyle
+              }
+              onPress={
+                !isLoading
+                  ? () => {
+                      Keyboard.dismiss();
+                      loginValidationSchema.validate(values).then(async () => {
+                        setIsValidEmail(true);
+                        setIsValidPassword(true);
+                      });
+                      handleSubmit();
+                    }
+                  : () => {}
+              }
+            />
+            <View
+              style={{
+                alignItems: 'center',
+                marginTop: '4%',
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}>
+              <Text style={styles.textStyle}>Don’t Have Account? </Text>
+              <TouchableOpacity
+                onPress={values => {
+                  navigation.navigate(Routes.SignUp);
+                }}
+                activeOpacity={0.9}>
+                <Text style={{color: Colors.primary}}> Sign Up</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <Text>
-            {API_KEY}
-            {APP_NAME}
-            {COMPANY_EMAIL}
-          </Text>
-          <LargeButton
-            text={isLoading ? 'Loading...' : 'Log in'}
-            extraStyle={
-              isLoading ? styles.loadingButtonStyle : styles.loginButtonStyle
-            }
-            onPress={
-              !isLoading
-                ? () => {
-                    Keyboard.dismiss();
-                    loginValidationSchema.validate(values).then(async () => {
-                      setIsValidEmail(true);
-                      setIsValidPassword(true);
-                    });
-                    handleSubmit();
-                  }
-                : () => {}
-            }
-          />
-          <View
-            style={{
-              alignItems: 'center',
-              marginTop: '4%',
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <Text style={styles.textStyle}>Don’t Have Account? </Text>
-            <TouchableOpacity
-              onPress={values => {
-                navigation.navigate(Routes.SignUp);
-              }}
-              activeOpacity={0.9}>
-              <Text style={{color: Colors.primary}}> Sign Up</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-    </Formik>
-  ) : (
-    <ActivityIndicator />
-  );
+        )}
+      </Formik>
+    );
+  }
 };
 
 export const styles = StyleSheet.create({

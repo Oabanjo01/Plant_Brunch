@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {TextInput} from 'react-native-paper';
@@ -142,7 +143,7 @@ const HomePage = () => {
             start={{x: 0, y: 0}}
             end={{x: 1, y: 1}}
             locations={[0.1, 1]}
-            colors={[Colors.primary, Colors.screenColor]}
+            colors={['#61D2C4', '#29D890']}
             style={{
               opacity: 1,
               height: dashboardHeight,
@@ -213,15 +214,27 @@ const HomePage = () => {
                 position: 'absolute',
                 left: screenWidth * 0.05,
                 right: screenWidth * 0.05,
-                bottom: dashboardHeight * 0.1,
+                bottom: -dashboardHeight * 0.1,
                 flexDirection: 'row',
                 backgroundColor: Colors.whiteColor,
                 alignItems: 'center',
                 borderRadius: 40,
                 paddingHorizontal: screenWidth * 0.03,
+                ...Platform.select({
+                  ios: {
+                    shadowColor: 'rgba(0, 0, 0, 0.1)',
+                    shadowOffset: {width: 1, height: 2},
+                    shadowOpacity: 0.8,
+                    shadowRadius: 2,
+                  },
+                  android: {
+                    elevation: 7,
+                  },
+                }),
               }}>
               <Ionicons
                 size={26}
+                style={{marginLeft: 10}}
                 color={Colors.primary}
                 name={'search-outline'}
               />
@@ -237,7 +250,7 @@ const HomePage = () => {
                   borderColor: 'transparent',
                 }}
               />
-              <View
+              {/* <View
                 style={{
                   backgroundColor: Colors.primary,
                   padding: 4,
@@ -248,13 +261,13 @@ const HomePage = () => {
                   color={Colors.whiteColor}
                   name={'arrow-forward-outline'}
                 />
-              </View>
+              </View> */}
             </View>
           </LinearGradient>
 
           <View
             style={{
-              marginTop: screenHeight * 0.03,
+              marginTop: screenHeight * 0.06,
               width: screenWidth,
               height: screenWidth * 0.24,
               flexDirection: 'column',
@@ -286,7 +299,7 @@ const HomePage = () => {
             </Text>
             <View
               style={{
-                alignItems: plantList.length === 0 ? 'center' : 'flex-start',
+                alignItems: plantList?.length === 0 ? 'center' : 'flex-start',
                 borderRadius: 5,
               }}>
               <FlatList
@@ -301,19 +314,21 @@ const HomePage = () => {
                   );
                 }}
                 ListEmptyComponent={
-                  isFetchingData || plantList.length === 0 ? (
+                  isFetchingData || plantList?.length === 0 ? (
                     <View
                       style={{
-                        // position: 'absolute',
+                        borderWidth: 1,
+                        borderColor: Colors.whiteColor,
                         alignItems: 'center',
                         justifyContent: 'center',
-                        width: screenWidth * 0.8,
-                        height: screenHeight * 0.2,
+                        borderRadius: 10,
+                        width: screenWidth * 0.73,
+                        height: screenHeight * 0.22,
                       }}>
                       <ActivityIndicator
                         color={Colors.primary}
                         style={{
-                          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                          backgroundColor: 'rgba(0, 0, 0, 0.2)',
                           borderRadius: 5,
                           padding: 10,
                         }}
@@ -340,43 +355,52 @@ const HomePage = () => {
               }}>
               Photography
             </Text>
-            <FlatList
-              data={plantDisease}
-              keyExtractor={item => item.id.toString()}
-              renderItem={item => {
-                return _renderPhotography(
-                  navigation,
-                  item.item,
-                  loadingPlantDiseasePicture,
-                  handlePlantDiseaseLoadStart,
-                  handlePlantDiseaseLoadEnd,
-                );
-              }}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              ItemSeparatorComponent={SeparatorComponent}
-              ListEmptyComponent={
-                isFetchingData || plantDisease?.length === 0 ? (
-                  <View
-                    style={{
-                      // position: 'absolute',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: screenWidth * 0.8,
-                      height: screenHeight * 0.2,
-                    }}>
-                    <ActivityIndicator
-                      color={Colors.primary}
+            <View
+              style={{
+                alignItems:
+                  plantDisease?.length === 0 ? 'center' : 'flex-start',
+                borderRadius: 5,
+              }}>
+              <FlatList
+                data={plantDisease}
+                keyExtractor={item => item.id.toString()}
+                renderItem={item => {
+                  return _renderPhotography(
+                    navigation,
+                    item.item,
+                    loadingPlantDiseasePicture,
+                    handlePlantDiseaseLoadStart,
+                    handlePlantDiseaseLoadEnd,
+                  );
+                }}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                ItemSeparatorComponent={SeparatorComponent}
+                ListEmptyComponent={
+                  isFetchingData || plantDisease?.length === 0 ? (
+                    <View
                       style={{
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                        borderRadius: 5,
-                        padding: 10,
-                      }}
-                    />
-                  </View>
-                ) : null
-              }
-            />
+                        borderWidth: 1,
+                        borderColor: Colors.whiteColor,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderRadius: 10,
+                        width: screenWidth * 0.4,
+                        height: screenHeight * 0.25,
+                      }}>
+                      <ActivityIndicator
+                        color={Colors.primary}
+                        style={{
+                          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                          borderRadius: 5,
+                          padding: 10,
+                        }}
+                      />
+                    </View>
+                  ) : null
+                }
+              />
+            </View>
             <Text
               style={{
                 fontSize: 14,

@@ -102,8 +102,8 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
                     alignItems: 'center',
                   }}>
                   <Ionicons
-                    name="camera"
-                    size={30}
+                    name="add"
+                    size={32}
                     color={
                       isFocused ? Colors.whiteColor : Colors.addPhotoButtonColor
                     }
@@ -119,6 +119,8 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
                   <Text
                     style={{
                       textAlign: 'justify',
+                      fontFamily: 'OpenSans-Regular',
+                      fontSize: 15,
                       alignItems: 'center',
                       color: isFocused
                         ? Colors.primary

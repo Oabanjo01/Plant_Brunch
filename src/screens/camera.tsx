@@ -25,6 +25,7 @@ import {
 
 const CameraScreen = ({navigation}: ScreenProps) => {
   const [photo, setPhoto] = useState<PhotoFile>();
+  const [flashActive, setFlashactive] = useState<boolean>(false);
 
   const camera = useRef<Camera>(null);
   const device = useCameraDevice('back', {
@@ -46,7 +47,7 @@ const CameraScreen = ({navigation}: ScreenProps) => {
   const onTakePicture = async () => {
     console.log('photo');
     const photo = await camera.current?.takePhoto({
-      flash: 'auto',
+      flash: flashActive ? 'on' : 'off',
     });
     console.log(photo, 'photo');
     setPhoto(photo);
@@ -140,6 +141,7 @@ const CameraScreen = ({navigation}: ScreenProps) => {
         </>
       ) : (
         <>
+          <View></View>
           <Camera
             ref={camera}
             device={device}
@@ -148,23 +150,48 @@ const CameraScreen = ({navigation}: ScreenProps) => {
             style={{flex: 1}}
             photo={true}
           />
-          {Platform.OS === 'ios' ? (
-            <TouchableOpacity
-              onPress={() => {
-                console.log('clicked on camera');
-                onTakePicture();
-              }}>
-              <View style={styles.cameraButton}></View>
-            </TouchableOpacity>
-          ) : (
-            <TouchableNativeFeedback
-              onPress={() => {
-                console.log('clicked on camera');
-                onTakePicture();
-              }}>
-              <View style={styles.cameraButton}></View>
-            </TouchableNativeFeedback>
-          )}
+          <View
+            style={{
+              width: screenWidth,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              height: screenHeight * 0.2,
+              alignItems: 'center',
+            }}>
+            {Platform.OS === 'ios' ? (
+              <>
+                <Ionicons
+                  name={flashActive ? 'flash-outline' : 'flash-off-outline'}
+                  style={{position: 'absolute', left: screenWidth * 0.15}}
+                  onPress={() => setFlashactive(!flashActive)}
+                  size={30}
+                  color={Colors.primary}
+                />
+                <TouchableOpacity
+                  onPress={() => {
+                    onTakePicture();
+                  }}>
+                  <View style={styles.cameraButton}></View>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <>
+                <Ionicons
+                  name={flashActive ? 'flash-outline' : 'flash-off-outline'}
+                  style={{position: 'absolute', left: screenWidth * 0.15}}
+                  onPress={() => setFlashactive(flashActive => !flashActive)}
+                  size={30}
+                  color={Colors.primary}
+                />
+                <TouchableNativeFeedback
+                  onPress={() => {
+                    onTakePicture();
+                  }}>
+                  <View style={styles.cameraButton}></View>
+                </TouchableNativeFeedback>
+              </>
+            )}
+          </View>
         </>
       )}
     </View>
@@ -173,10 +200,8 @@ const CameraScreen = ({navigation}: ScreenProps) => {
 
 const styles = StyleSheet.create({
   cameraButton: {
-    position: 'absolute',
-    bottom: 25,
     backgroundColor: 'transparent',
-    alignSelf: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
     borderColor: Colors.whiteColor,
     borderWidth: 3,

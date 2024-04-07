@@ -39,7 +39,7 @@ export const _renderPhotography = (
           uri: plantDisease.images[0].original_url,
         }}
         resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
-        onLoad={pictureLoadingEnds}
+        onLoadEnd={pictureLoadingEnds}
         onLoadStart={pictureLoadingStarts}
         style={{
           width: screenWidth * 0.4,
@@ -50,11 +50,10 @@ export const _renderPhotography = (
       {(pictureIsLoading || !plantDisease) && (
         <View
           style={{
-            position: 'absolute',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '100%',
-            height: '100%',
+            width: screenWidth * 0.4,
+            height: screenHeight * 0.25,
           }}>
           <ActivityIndicator
             color={Colors.primary}
