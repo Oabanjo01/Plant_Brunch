@@ -19,12 +19,11 @@ import {
   screenHeight,
   screenWidth,
 } from '@app/constants/dimensions';
-import {
+import RenderPlantTypes, {
   SeparatorComponent,
-  _renderPlantTypes,
 } from '@app/components/homepagecomponents/planttypes';
 import {_renderPhotography} from '@app/components/homepagecomponents/photography';
-import {RootStackNavigationProp} from '@app/navigation/navigation';
+import {RootStackNavigationProp, ScreenProps} from '@app/navigation/navigation';
 import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import {showToast} from '@app/utilities/toast';
@@ -37,8 +36,8 @@ import axios, {AxiosError} from 'axios';
 import {_renderItem} from '@app/components/homepagecomponents/plantcategories';
 import {fetchHomePagedata} from '@app/redux';
 
-const HomePage = () => {
-  const navigation = useNavigation<RootStackNavigationProp>();
+const HomePage = ({navigation}: ScreenProps) => {
+  // const navigation = useNavigation();
   const [activeIndex, setActiveIndex] = useState('2');
   const [loadingPlantListPicture, setIsLoadingPlantListPicture] =
     useState<boolean>(false);
@@ -192,6 +191,7 @@ const HomePage = () => {
                     });
                   })
                   .catch((error: string) => {
+                    console.log(error);
                     showToast({
                       type: 'error',
                       text1: 'Could not log out',
@@ -277,7 +277,11 @@ const HomePage = () => {
               data={Data}
               keyExtractor={item => item.id}
               renderItem={items =>
-                _renderItem(items.item, () => console.log(items.item))
+                _renderItem(items.item, () => {
+                  items.index === 2
+                    ? navigation.navigate(Routes.Articles)
+                    : console.log('items');
+                })
               }
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -306,11 +310,12 @@ const HomePage = () => {
                 data={plantList}
                 keyExtractor={item => item.id.toString()}
                 renderItem={item => {
-                  return _renderPlantTypes(
+                  return RenderPlantTypes(
                     item.item,
                     loadingPlantListPicture,
                     handlePlantListLoadStart,
                     handlePlantListLoadEnd,
+                    navigation,
                   );
                 }}
                 ListEmptyComponent={

@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {
   RootStackNavigationProp,
   RootStackParamList,
+  ScreenProps,
 } from '@app/navigation/navigation';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Routes} from '@app/constants';
@@ -49,10 +50,10 @@ const randomData: ItemProps[] = [
   },
 ];
 
-const OnboardingScreens = () => {
+const OnboardingScreens = ({navigation}: ScreenProps) => {
   const [visibleIndex, setVisibleIndex] = useState<number>(0);
 
-  const navigation = useNavigation<RootStackNavigationProp>();
+  // const navigation = useNavigation<RootStackNavigationProp>();
   const currentIndex = React.useRef(0);
   const screenFlatListRef = React.useRef<FlatList<ItemProps>>(null);
   const dispatch = useDispatch();
@@ -96,10 +97,14 @@ const OnboardingScreens = () => {
               bodyText={items.item.bodyText}
               titleText={items.item.titleText}
               index={items.index}
-              onPress={handleNextPress}
+              onPress={() => {
+                items.index <= 2
+                  ? handleNextPress()
+                  : dispatch(onboardingAction(true));
+              }}
               skip={() => {
                 dispatch(onboardingAction(true));
-                navigation.navigate(Routes.Login);
+                navigation.navigate('Login');
               }}
               activeIndex={(items.index += 1)}
             />

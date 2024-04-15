@@ -21,11 +21,8 @@ import {RootState} from '@app/redux/store';
 import {useSelector} from 'react-redux';
 import {View} from 'react-native';
 import CameraScreen from '@app/screens/camera';
-
-export type RootStackNavigationProp =
-  NativeStackNavigationProp<RootStackParamList>;
-
-export type ScreenProps = {navigation: RootStackNavigationProp};
+import Articles from '@app/screens/articles/articles';
+import {Plant, PlantDiseaseType} from '@app/redux/types';
 
 export type RootStackParamList = {
   Onboarding: any;
@@ -35,7 +32,7 @@ export type RootStackParamList = {
   Home: any;
   Profile: any;
 
-  PlantDetail: any;
+  PlantDetail: {item: Plant | PlantDiseaseType} | undefined;
   Species: any;
   PlantList: any;
   Articles: any;
@@ -44,13 +41,19 @@ export type RootStackParamList = {
   Camera: any;
 };
 
+export type RootStackNavigationProp =
+  NativeStackNavigationProp<RootStackParamList>;
+
+export type ScreenProps = {navigation: RootStackNavigationProp};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const TabStack = createBottomTabNavigator<TabParamList>();
+
 export type TabParamList = {
   Home: any;
   Profile: any;
   CameraButton: any;
 };
-const Stack = createNativeStackNavigator<RootStackParamList>();
-const TabStack = createBottomTabNavigator<TabParamList>();
 
 const HomeTabNavigator: React.FC = () => {
   return (
@@ -104,9 +107,10 @@ const ScreenStack = () => {
       <Stack.Screen name={Routes.Onboarding} component={OnboardingScreens} />
       <Stack.Screen name={Routes.Login} component={LoginScreen} />
       <Stack.Screen name={Routes.SignUp} component={SignUpScreen} />
-      <Stack.Screen name={Routes.PlantDetail} component={PlantDetail} />
+      <Stack.Screen name={'PlantDetail'} component={PlantDetail} />
       <Stack.Screen name={Routes.Home} component={HomeTabNavigator} />
       <Stack.Screen name={Routes.Camera} component={CameraScreen} />
+      <Stack.Screen name={Routes.Articles} component={Articles} />
     </Stack.Navigator>
   );
 };

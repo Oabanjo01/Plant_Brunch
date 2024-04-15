@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {styles} from './login';
 import {NavigationProp} from '@react-navigation/native';
-import {RootStackParamList} from '@app/navigation/navigation';
+import {RootStackParamList, ScreenProps} from '@app/navigation/navigation';
 import {Routes} from '@app/constants/routes';
 import {Colors} from '@app/constants/colors';
 import {Formik} from 'formik';
@@ -20,13 +20,7 @@ import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {showToast} from '@app/utilities/toast';
 import handleFirebaseError from '@app/utilities/errorHandling';
 
-type RootStackNavigationProp = NavigationProp<RootStackParamList>;
-
-type Props = {
-  navigation: RootStackNavigationProp;
-};
-
-const SignUpScreen = ({navigation}: Props) => {
+const SignUpScreen = ({navigation}: ScreenProps) => {
   const [usernamePlacHolder, setUsernamePlaceHolder] = useState('username');
   const [userEmailPlacHolder, setUserEmailPlaceHolder] = useState('useremail');
   const [passwordPlacHolder, setPasswordPlaceHolder] = useState('password');
@@ -83,7 +77,7 @@ const SignUpScreen = ({navigation}: Props) => {
             });
         })
         .then(() => {
-          navigation.navigate(Routes.Login);
+          navigation.navigate('Login');
         });
       setIsLoading(false);
     } catch (error: any) {

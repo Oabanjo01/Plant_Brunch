@@ -27,6 +27,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
 
   useEffect(() => {
     setUserAuthState(false);
+
     // Implement splash screen then redirection of user
     const unsubscribe = auth().onAuthStateChanged(user => {
       if (user && user.emailVerified) {
@@ -203,7 +204,7 @@ export const styles = StyleSheet.create({
   },
   textStyle: {
     color: Colors.primaryTextColor,
-    fontFamily: 'OpenSans-Regular.ttf',
+    fontFamily: 'OpenSans-Regular',
   },
 });
 export default LoginScreen;

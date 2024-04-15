@@ -1,24 +1,32 @@
-import {ItemProps, PlantProps} from '@app/constants/data/homepage';
 import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Image, Platform, Text, TouchableOpacity, View} from 'react-native';
-import Svg, {ClipPath, Defs, Path, Rect} from 'react-native-svg';
 import {Plant} from '@app/redux/types';
 import {ActivityIndicator} from 'react-native-paper';
 import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp, ScreenProps} from '@app/navigation/navigation';
+import {Routes} from '@app/constants';
 
 export const SeparatorComponent = () => {
   return <View style={{width: screenWidth * 0.05}} />;
 };
 
-export const _renderPlantTypes = (
+const RenderPlantTypes = (
   item: Plant,
   pictureIsLoading: boolean,
   pictureLoadingStarts: () => void,
   pictureLoadingEnds: () => void,
+  navigation: RootStackNavigationProp,
 ) => {
+  // const navigation = useNavigation<ScreenProps>();
   return (
-    <View
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('PlantDetail', {
+          item: item,
+        });
+      }}
       style={{
         alignItems: 'center',
         justifyContent: 'center',
@@ -75,6 +83,8 @@ export const _renderPlantTypes = (
           # {item.common_name}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
+
+export default RenderPlantTypes;
