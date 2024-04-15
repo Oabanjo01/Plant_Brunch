@@ -35,6 +35,7 @@ import {ActivityIndicator} from 'react-native';
 import axios, {AxiosError} from 'axios';
 import {_renderItem} from '@app/components/homepagecomponents/plantcategories';
 import {fetchHomePagedata} from '@app/redux';
+import {Fonts} from '@app/constants/fonts';
 
 const HomePage = ({navigation}: ScreenProps) => {
   // const navigation = useNavigation();
@@ -152,9 +153,6 @@ const HomePage = ({navigation}: ScreenProps) => {
               style={{
                 marginTop: dashboardHeight * 0.3,
                 marginLeft: screenWidth * 0.06,
-                // position: 'absolute',
-                // top: dashboardHeight * 0.16,
-                // left: screenWidth * 0.1,
               }}>
               <Text
                 style={{
@@ -167,7 +165,7 @@ const HomePage = ({navigation}: ScreenProps) => {
               <Text
                 style={{
                   marginTop: 5,
-                  fontFamily: 'OpenSans',
+                  fontFamily: Fonts.Regular,
                   color: Colors.lightTextColor,
                   fontSize: 17,
                 }}>
@@ -250,18 +248,6 @@ const HomePage = ({navigation}: ScreenProps) => {
                   borderColor: 'transparent',
                 }}
               />
-              {/* <View
-                style={{
-                  backgroundColor: Colors.primary,
-                  padding: 4,
-                  borderRadius: 20,
-                }}>
-                <Ionicons
-                  size={24}
-                  color={Colors.whiteColor}
-                  name={'arrow-forward-outline'}
-                />
-              </View> */}
             </View>
           </LinearGradient>
 

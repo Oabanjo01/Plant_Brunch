@@ -16,13 +16,14 @@ import {Tabs} from '@app/constants/routes';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import CameraPage from '@app/screens/tabscreens/uploadimage/uploadmethod';
 import TabBarStyle from '@app/components/tabbar/tabbarstyle';
-import PlantDetail from '@app/screens/plantdetail/plantdetail';
+import PlantListDetail from '@app/screens/plantdetail/plantListDetail';
 import {RootState} from '@app/redux/store';
 import {useSelector} from 'react-redux';
 import {View} from 'react-native';
 import CameraScreen from '@app/screens/camera';
 import Articles from '@app/screens/articles/articles';
 import {Plant, PlantDiseaseType} from '@app/redux/types';
+import PlantDiseaseDetail from '@app/screens/plantdetail/plantDiseaseDetail';
 
 export type RootStackParamList = {
   Onboarding: any;
@@ -32,7 +33,8 @@ export type RootStackParamList = {
   Home: any;
   Profile: any;
 
-  PlantDetail: {item: Plant | PlantDiseaseType} | undefined;
+  PlantListDetail: {item: Plant} | undefined;
+  plantDiseaseDetail: {item: PlantDiseaseType} | undefined;
   Species: any;
   PlantList: any;
   Articles: any;
@@ -107,7 +109,11 @@ const ScreenStack = () => {
       <Stack.Screen name={Routes.Onboarding} component={OnboardingScreens} />
       <Stack.Screen name={Routes.Login} component={LoginScreen} />
       <Stack.Screen name={Routes.SignUp} component={SignUpScreen} />
-      <Stack.Screen name={'PlantDetail'} component={PlantDetail} />
+      <Stack.Screen name={'PlantListDetail'} component={PlantListDetail} />
+      <Stack.Screen
+        name={'plantDiseaseDetail'}
+        component={PlantDiseaseDetail}
+      />
       <Stack.Screen name={Routes.Home} component={HomeTabNavigator} />
       <Stack.Screen name={Routes.Camera} component={CameraScreen} />
       <Stack.Screen name={Routes.Articles} component={Articles} />

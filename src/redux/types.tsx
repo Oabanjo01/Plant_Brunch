@@ -65,7 +65,7 @@ export interface PlantDiseaseType {
     regular_url: string;
     small_url: string;
     thumbnail: string;
-  }[];
+  };
   other_name: string | null;
   scientific_name: string;
   solution: {

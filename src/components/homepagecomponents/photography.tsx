@@ -26,17 +26,18 @@ export const _renderPhotography = (
   pictureLoadingEnds: () => void,
 ) => {
   const image = plantDisease.images;
-  const nametag = plantDisease.common_name;
+  const nametag = plantDisease.disease_name;
+  console.log(plantDisease);
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate(Routes.PlantDetail, {
-          image: image,
+        navigation.navigate('plantDiseaseDetail', {
+          item: plantDisease,
         })
       }>
       <FastImage
         source={{
-          uri: plantDisease.images[0].original_url,
+          uri: image[0].original_disease_url,
         }}
         resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
         onLoadEnd={pictureLoadingEnds}

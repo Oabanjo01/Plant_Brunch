@@ -19,11 +19,11 @@ const RenderPlantTypes = (
   pictureLoadingEnds: () => void,
   navigation: RootStackNavigationProp,
 ) => {
-  // const navigation = useNavigation<ScreenProps>();
+  console.log(item);
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('PlantDetail', {
+        navigation.navigate('PlantListDetail', {
           item: item,
         });
       }}
