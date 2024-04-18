@@ -45,11 +45,9 @@ const CameraScreen = ({navigation}: ScreenProps) => {
   const isActive = isFocused && appState === 'active';
 
   const onTakePicture = async () => {
-    console.log('photo');
     const photo = await camera.current?.takePhoto({
       flash: flashActive ? 'on' : 'off',
     });
-    console.log(photo, 'photo');
     setPhoto(photo);
   };
 

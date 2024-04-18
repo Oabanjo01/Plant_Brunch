@@ -20,7 +20,6 @@ const RenderPlantPictures = (
   pictureLoadingEnds: () => void,
   navigation: RootStackNavigationProp,
 ) => {
-  console.log(item);
   return (
     <TouchableOpacity
       onPress={() => {

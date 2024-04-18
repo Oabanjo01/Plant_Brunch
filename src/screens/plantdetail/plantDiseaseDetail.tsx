@@ -11,7 +11,6 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -22,7 +21,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 type Props = NativeStackScreenProps<RootStackParamList, 'plantDiseaseDetail'>;
 
 const PlantDiseaseDetail = ({route, navigation}: Props) => {
-  const [showDescription, SetShowDescription] = useState<boolean>(true);
+  const [showDescription, setShowDescription] = useState<boolean>(true);
+  const [showSolutions, setShowSolutions] = useState<boolean>(true);
+  const [isFavourited, setIsFavourited] = useState<boolean>(true);
   const item = route.params?.item;
 
   const {
@@ -41,9 +42,12 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
   const goBack = () => {
     navigation.goBack();
   };
-
-  console.log(item);
-
+  console.log(
+    item,
+    item?.description.map(item => {
+      console.log(item.description);
+    }),
+  );
   const renderStarIcons = (rating: number) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
@@ -76,6 +80,20 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     .map(item => `${item.subtitle}\n\n${item.description}`)
     .join('\n\n');
 
+  const combinedSolution = solution.map(item => {
+    const joinedDescription = item.description.replace(/\n/g, '');
+    return (
+      <>
+        <WText style={{fontFamily: Fonts.italic, fontSize: 15}}>
+          {item.subtitle.trimStart()}
+        </WText>
+        {`\n`}
+        <WText>{joinedDescription.trim()}</WText>
+        {`\n\n`}
+      </>
+    );
+  });
+
   return (
     <View style={{flex: 1}}>
       <View style={{marginBottom: (screenWidth * 0.15) / 2}}>
@@ -92,10 +110,12 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
           />
           <View style={styles.favouriteButton}>
             <Ionicons
-              name={'heart-outline'}
+              name={isFavourited ? 'heart' : 'heart-outline'}
               size={28}
               color={Colors.whiteColor}
-              onPress={() => {}}
+              onPress={() => {
+                setIsFavourited(!isFavourited);
+              }}
             />
           </View>
         </View>
@@ -119,8 +139,8 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
           style={{
             flexDirection: 'row',
           }}>
-          <WText style={styles.tagTextStyle}>Danger</WText>
-          <WText style={styles.tagTextStyle}>Danger</WText>
+          {family && <WText style={styles.tagTextStyle}>{family}</WText>}
+          <WText style={styles.tagTextStyle}>{common_name}</WText>
         </View>
         <WText style={{fontSize: 25, fontFamily: Fonts.semiBold}}>
           {common_name}
@@ -150,32 +170,138 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             <WText>Cactacae</WText>
           </View>
         </View>
-        <View
+        {description.length > 0 && (
+          <>
+            <SubTopics
+              topic="DESCRIPTION"
+              showNote={showDescription}
+              toggleShowNote={() => {
+                setShowDescription(!showDescription);
+              }}
+            />
+            <Divider horizontalInset style={{marginBottom: 10}} bold />
+            {showDescription && <WText>{combinedDescription}</WText>}
+          </>
+        )}
+        {solution.length > 0 && (
+          <>
+            <SubTopics
+              topic="SOLUTIONS"
+              showNote={showSolutions}
+              toggleShowNote={() => {
+                setShowSolutions(!showSolutions);
+              }}
+            />
+            <Divider horizontalInset style={{marginBottom: 10}} bold />
+            {showSolutions && (
+              <WText
+                style={{
+                  textAlign: 'center',
+                  marginBottom: screenHeight * 0.03,
+                }}>
+                {combinedSolution}
+              </WText>
+            )}
+          </>
+        )}
+      </ScrollView>
+      <View
+        style={{
+          bottom: 20,
+          position: 'absolute',
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+          width: '100%',
+        }}>
+        <TouchableOpacity
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginHorizontal: screenWidth * 0.015,
+            backgroundColor: Colors.primary,
+            width: screenWidth * 0.12,
+            height: screenWidth * 0.12,
+            borderRadius: (screenWidth * 0.12) / 2,
             alignItems: 'center',
+            justifyContent: 'center',
+            padding: 10,
+            opacity: 0.9,
+          }}>
+          <Ionicons
+            name="bookmark-outline"
+            size={20}
+            color={Colors.whiteColor}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: Colors.primary,
+            borderRadius: 20,
+            height: screenHeight * 0.05,
+            width: screenWidth * 0.5,
+            alignSelf: 'center',
+            justifyContent: 'center',
+            opacity: 0.9,
           }}>
           <WText
             style={{
-              marginTop: 10,
-              marginBottom: 5,
+              color: Colors.lightTextColor,
               fontFamily: Fonts.semiBold,
+              fontSize: 16,
+              textAlign: 'center',
+              textAlignVertical: 'center',
             }}>
-            DESCRIPTION
+            Buy This Picture
           </WText>
-          <Ionicons
-            name="chevron-down-outline"
-            size={18}
-            onPress={() => {
-              SetShowDescription(!showDescription);
-            }}
-          />
-        </View>
-        <Divider horizontalInset style={{marginBottom: 10}} bold />
-        {showDescription && <WText>{combinedDescription}</WText>}
-      </ScrollView>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: Colors.primary,
+            width: screenWidth * 0.12,
+            height: screenWidth * 0.12,
+            borderRadius: (screenWidth * 0.12) / 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 10,
+            opacity: 0.9,
+          }}>
+          <Ionicons name="cart-outline" size={20} color={Colors.whiteColor} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+export const SubTopics = ({
+  showNote,
+  toggleShowNote,
+  topic,
+}: {
+  topic: string;
+  showNote: boolean;
+  toggleShowNote: (showNote: boolean) => void;
+}) => {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        marginTop: 10,
+        justifyContent: 'space-between',
+        marginHorizontal: screenWidth * 0.015,
+        alignItems: 'center',
+      }}>
+      <WText
+        style={{
+          marginTop: 10,
+          marginBottom: 5,
+          fontFamily: Fonts.semiBold,
+        }}>
+        {topic}
+      </WText>
+      <Ionicons
+        name={showNote ? 'chevron-down-outline' : 'chevron-forward-outline'}
+        size={18}
+        onPress={() => {
+          toggleShowNote(!showNote);
+        }}
+      />
     </View>
   );
 };

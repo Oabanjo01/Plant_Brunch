@@ -1,5 +1,5 @@
 import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import BackButton from '@assets/images/BackButton.svg';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootStackParamList} from '@app/navigation/navigation';
@@ -13,10 +13,15 @@ import {
   capitalize,
   createSentenceFromArray,
 } from '@app/utilities/sentenceHelpers';
+import WText from '@app/utilities/customText';
+import {SubTopics} from './plantDiseaseDetail';
+import {Divider} from 'react-native-paper';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantListDetail'>;
 
 const PlantListDetail = ({route, navigation}: Props) => {
+  const [showDescription, setShowDescription] = useState<boolean>(true);
+  const [isFavourited, setIsFavourited] = useState<boolean>(true);
   const item = route.params?.item;
   const {
     default_image,
@@ -30,12 +35,9 @@ const PlantListDetail = ({route, navigation}: Props) => {
 
   const {regular_url} = default_image;
 
-  console.log(default_image.original_url, 'default image');
   const goBack = () => {
     navigation.goBack();
   };
-
-  console.log(item);
 
   const renderStarIcons = (rating: number) => {
     const stars = [];
@@ -81,10 +83,12 @@ const PlantListDetail = ({route, navigation}: Props) => {
           />
           <View style={styles.favouriteButton}>
             <Ionicons
-              name={'heart-outline'}
+              name={isFavourited ? 'heart' : 'heart-outline'}
               size={28}
               color={Colors.whiteColor}
-              onPress={() => {}}
+              onPress={() => {
+                setIsFavourited(!isFavourited);
+              }}
             />
           </View>
         </View>
@@ -107,42 +111,114 @@ const PlantListDetail = ({route, navigation}: Props) => {
           style={{
             flexDirection: 'row',
           }}>
-          <Text style={styles.tagTextStyle}>Danger</Text>
-          <Text style={styles.tagTextStyle}>Danger</Text>
+          <WText style={styles.tagTextStyle}>Danger</WText>
+          <WText style={styles.tagTextStyle}>Danger</WText>
         </View>
-        <Text style={{fontSize: 25, fontFamily: Fonts.semiBold}}>
+        <WText style={{fontSize: 25, fontFamily: Fonts.semiBold}}>
           {common_name}
-        </Text>
+        </WText>
         <View style={{flexDirection: 'row'}}>
           {renderStarIcons(4)}
-          <Text style={{fontSize: FontSize.normalText, paddingLeft: 4}}>
+          <WText style={{fontSize: FontSize.normalText, paddingLeft: 4}}>
             4.1
-          </Text>
+          </WText>
         </View>
         <View style={{flexDirection: 'row', marginTop: 10}}>
           <View style={{marginRight: 20}}>
-            <Text style={{marginBottom: 10}}>KINGDOM</Text>
-            <Text>Plantae</Text>
+            <WText style={{marginBottom: 10}}>KINGDOM</WText>
+            <WText>Plantae</WText>
           </View>
           <View>
-            <Text style={{marginBottom: 10}}>FAMILY</Text>
-            <Text>Cactacae</Text>
+            <WText style={{marginBottom: 10}}>FAMILY</WText>
+            <WText>Cactacae</WText>
           </View>
         </View>
-        <Text style={{marginTop: 10, marginBottom: 5}}>DESCRIPTION</Text>
-        <Text>
-          Common name: {capitalize(common_name)}
-          {`\n`}
-          Scientific name: {createSentenceFromArray(scientific_name)}
-          {`\n`}
-          Other name: {createSentenceFromArray(other_name)}
-          {`\n`}
-          Cycle: {capitalize(cycle)} {`\n`}
-          Watering: {capitalize(watering)}
-          {`\n`}
-          Sunlight: {`${createSentenceFromArray(sunlight, false)}`}
-          {`\n`}
-        </Text>
+        <>
+          <SubTopics
+            topic="DESCRIPTION"
+            showNote={showDescription}
+            toggleShowNote={() => {
+              setShowDescription(!showDescription);
+            }}
+          />
+          <Divider horizontalInset style={{marginBottom: 10}} bold />
+          {/* {showDescription && <WText>{combinedDescription}</WText>} */}
+        </>
+        {showDescription && (
+          <WText>
+            Common name: {capitalize(common_name)}
+            {`\n\n`}
+            Scientific name: {createSentenceFromArray(scientific_name)}
+            {`\n\n`}
+            Other name: {createSentenceFromArray(other_name)}
+            {`\n\n`}
+            Cycle: {capitalize(cycle)} {`\n\n`}
+            Watering: {capitalize(watering)}
+            {`\n\n`}
+            Sunlight: {`${createSentenceFromArray(sunlight, false)}`}
+            {`\n\n`}
+          </WText>
+        )}
+      </View>
+      <View
+        style={{
+          bottom: 20,
+          position: 'absolute',
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+          width: '100%',
+        }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: Colors.primary,
+            width: screenWidth * 0.12,
+            height: screenWidth * 0.12,
+            borderRadius: (screenWidth * 0.12) / 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 10,
+            opacity: 0.9,
+          }}>
+          <Ionicons
+            name="bookmark-outline"
+            size={20}
+            color={Colors.whiteColor}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: Colors.primary,
+            borderRadius: 20,
+            height: screenHeight * 0.05,
+            width: screenWidth * 0.5,
+            alignSelf: 'center',
+            justifyContent: 'center',
+            opacity: 0.9,
+          }}>
+          <WText
+            style={{
+              color: Colors.lightTextColor,
+              fontFamily: Fonts.semiBold,
+              fontSize: 16,
+              textAlign: 'center',
+              textAlignVertical: 'center',
+            }}>
+            Buy This Picture
+          </WText>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: Colors.primary,
+            width: screenWidth * 0.12,
+            height: screenWidth * 0.12,
+            borderRadius: (screenWidth * 0.12) / 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 10,
+            opacity: 0.9,
+          }}>
+          <Ionicons name="cart-outline" size={20} color={Colors.whiteColor} />
+        </TouchableOpacity>
       </View>
     </View>
   );

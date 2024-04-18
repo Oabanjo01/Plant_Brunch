@@ -190,7 +190,6 @@ const HomePage = ({navigation}: ScreenProps) => {
                     });
                   })
                   .catch((error: string) => {
-                    console.log(error);
                     showToast({
                       type: 'error',
                       text1: 'Could not log out',

@@ -20,7 +20,6 @@ const CameraPage = ({navigation}: ScreenProps) => {
   // }, [hasPermission]);
 
   const handlePhoneVersion = () => {
-    console.log('Phone version');
     return (Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 12) ||
       (Platform.OS === 'android' && Platform.Version >= 26)
       ? handlePermission()

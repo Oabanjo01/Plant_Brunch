@@ -21,12 +21,9 @@ export const fetchHomePagedata = async () => {
     ]);
     const plantList = allResponses[0].data;
     const plantDisease = allResponses[1].data;
-    // console.log(plantDisease, 'all responses');
     return {
       plantList,
       plantDisease,
     };
-  } catch (error) {
-    console.log(error, 'error');
-  }
+  } catch (error) {}
 };

@@ -21,7 +21,6 @@ export const generateConfigObject = (
 
 instance.interceptors.request.use(
   config => {
-    // console.log(config);
     return config;
   },
   error => {
@@ -31,11 +30,9 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   response => {
-    // console.log(response, 'api.ts');
     return response;
   },
   error => {
-    // console.log(error, 'api.ts error');
     return Promise.reject(error);
   },
 );

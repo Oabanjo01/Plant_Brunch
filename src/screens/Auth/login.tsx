@@ -62,7 +62,6 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       .min(8, ({min}) => `Password must be at least ${min} characters`)
       .required('Password is required'),
   });
-  console.log(userAuthState);
   if (userAuthState === false) {
     return (
       <ActivityIndicator
