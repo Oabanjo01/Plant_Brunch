@@ -1,58 +1,61 @@
 import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import {Image, Platform, Text, TouchableOpacity, View} from 'react-native';
-import {Plant} from '@app/redux/types';
-import {ActivityIndicator} from 'react-native-paper';
-import FastImage from 'react-native-fast-image';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp, ScreenProps} from '@app/navigation/navigation';
+import {
+  ActivityIndicator,
+  Image,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {RootStackNavigationProp} from '@app/navigation/navigation';
 import {Routes} from '@app/constants';
+import {PlantProps} from '@app/constants/data/homepage';
+import {PlantDiseaseType} from '@app/redux/types';
+import FastImage from 'react-native-fast-image';
+import {Fonts} from '@app/constants/fonts';
 
 export const SeparatorComponent = () => {
   return <View style={{width: screenWidth * 0.05}} />;
 };
 
-const RenderPlantTypes = (
-  item: Plant,
+export const RenderDiseasePicture = (
+  navigation: RootStackNavigationProp,
+  plantDisease: PlantDiseaseType,
   pictureIsLoading: boolean,
   pictureLoadingStarts: () => void,
   pictureLoadingEnds: () => void,
-  navigation: RootStackNavigationProp,
 ) => {
-  console.log(item);
+  const image = plantDisease.images;
+  const nametag = plantDisease.common_name;
+  console.log(image);
   return (
     <TouchableOpacity
-      onPress={() => {
-        navigation.navigate('PlantListDetail', {
-          item: item,
-        });
-      }}
-      style={{
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
+      onPress={() =>
+        navigation.navigate('plantDiseaseDetail', {
+          item: plantDisease,
+        })
+      }>
       <FastImage
-        onLoad={pictureLoadingEnds}
-        onLoadStart={pictureLoadingStarts}
         source={{
-          uri: item.default_image.regular_url,
-          priority: FastImage.priority.normal,
+          uri: image[0].regular_url,
         }}
         resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
+        onLoadEnd={pictureLoadingEnds}
+        onLoadStart={pictureLoadingStarts}
         style={{
+          width: screenWidth * 0.4,
+          height: screenHeight * 0.25,
           borderRadius: 10,
-          width: screenWidth * 0.73,
-          height: screenHeight * 0.22,
         }}
       />
-      {(pictureIsLoading || !item) && (
+      {(pictureIsLoading || !plantDisease) && (
         <View
           style={{
-            position: 'absolute',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '100%',
-            height: '100%',
+            width: screenWidth * 0.4,
+            height: screenHeight * 0.25,
           }}>
           <ActivityIndicator
             color={Colors.primary}
@@ -64,12 +67,10 @@ const RenderPlantTypes = (
           />
         </View>
       )}
-
       <View
         style={{
           backgroundColor: Colors.whiteColor,
           position: 'absolute',
-          left: 0,
           bottom: 20,
           opacity: 0.8,
           padding: 5,
@@ -79,12 +80,11 @@ const RenderPlantTypes = (
         <Text
           style={{
             color: Colors.primaryTextColor,
+            fontFamily: Fonts.Regular,
           }}>
-          # {item.common_name}
+          # {nametag}
         </Text>
       </View>
     </TouchableOpacity>
   );
 };
-
-export default RenderPlantTypes;

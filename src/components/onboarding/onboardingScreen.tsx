@@ -1,19 +1,14 @@
 import React from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 
+import {Colors} from '@app/constants/colors';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import WText from '@app/utilities/customText';
 import Onboarding1 from '@assets/images/Onboarding1.svg';
 import Onboarding2 from '@assets/images/Onboarding2.svg';
 import Onboarding3 from '@assets/images/Onboarding3.svg';
-import {Colors} from '@app/constants/colors';
-import IndicatorDot from './indicatorDots';
 import {LargeButton} from '../login/buttons';
-import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import IndicatorDot from './indicatorDots';
 
 type OnboardingProps = {
   bodyText: string;
@@ -51,8 +46,8 @@ const OnboardScreen = ({
   return (
     <View style={styles.parentContainer}>
       {svgToRender}
-      <Text style={styles.titleTextStyle}>{titleText}</Text>
-      <Text style={styles.bodyTextStyle}>{bodyText}</Text>
+      <WText style={styles.titleTextStyle}>{titleText}</WText>
+      <WText style={styles.bodyTextStyle}>{bodyText}</WText>
       <View style={styles.dotContainer}>
         <IndicatorDot
           dotStyle={
@@ -75,9 +70,9 @@ const OnboardScreen = ({
         onPress={onPress}
       />
       <TouchableOpacity style={{shadowColor: Colors.primary}} onPress={skip}>
-        <Text style={{marginTop: '2%', color: Colors.primaryTextColor}}>
+        <WText style={{marginTop: '2%', color: Colors.primaryTextColor}}>
           {index < 2 ? 'Skip' : null}
-        </Text>
+        </WText>
       </TouchableOpacity>
     </View>
   );

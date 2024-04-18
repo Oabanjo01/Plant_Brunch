@@ -1,22 +1,28 @@
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
-import BackButton from '@assets/images/BackButton.svg';
-import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import {RootStackParamList} from '@app/navigation/navigation';
 import {Colors} from '@app/constants';
-import {Plant, PlantDiseaseType} from '@app/redux/types';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import FastImage from 'react-native-fast-image';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {FontSize, Fonts} from '@app/constants/fonts';
+import {RootStackParamList} from '@app/navigation/navigation';
+import {PlantDiseaseType} from '@app/redux/types';
+import WText from '@app/utilities/customText';
+import BackButton from '@assets/images/BackButton.svg';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React, {useState} from 'react';
 import {
-  capitalize,
-  createSentenceFromArray,
-} from '@app/utilities/sentenceHelpers';
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import {Divider} from 'react-native-paper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'plantDiseaseDetail'>;
 
 const PlantDiseaseDetail = ({route, navigation}: Props) => {
+  const [showDescription, SetShowDescription] = useState<boolean>(true);
   const item = route.params?.item;
 
   const {
@@ -30,7 +36,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     scientific_name,
   } = item as PlantDiseaseType;
 
-  const {original_url, regular_url} = images;
+  const {original_url, regular_url} = images[0];
 
   const goBack = () => {
     navigation.goBack();
@@ -66,6 +72,10 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     return stars;
   };
 
+  const combinedDescription = description
+    .map(item => `${item.subtitle}\n\n${item.description}`)
+    .join('\n\n');
+
   return (
     <View style={{flex: 1}}>
       <View style={{marginBottom: (screenWidth * 0.15) / 2}}>
@@ -100,54 +110,72 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
           </TouchableOpacity>
         </View>
       </View>
-      <View
+      <ScrollView
         style={{
-          paddingLeft: 20,
+          paddingHorizontal: 20,
+          marginBottom: 20,
         }}>
         <View
           style={{
             flexDirection: 'row',
           }}>
-          <Text style={styles.tagTextStyle}>Danger</Text>
-          <Text style={styles.tagTextStyle}>Danger</Text>
+          <WText style={styles.tagTextStyle}>Danger</WText>
+          <WText style={styles.tagTextStyle}>Danger</WText>
         </View>
-        <Text style={{fontSize: 25, fontFamily: Fonts.semiBold}}>
-          {disease_name}
-        </Text>
+        <WText style={{fontSize: 25, fontFamily: Fonts.semiBold}}>
+          {common_name}
+        </WText>
         <View style={{flexDirection: 'row'}}>
           {renderStarIcons(4)}
-          <Text style={{fontSize: FontSize.normalText, paddingLeft: 4}}>
+          <WText
+            style={{
+              fontSize: FontSize.normalText,
+              paddingLeft: 4,
+              fontFamily: Fonts.semiBold,
+            }}>
             4.1
-          </Text>
+          </WText>
         </View>
         <View style={{flexDirection: 'row', marginTop: 10}}>
           <View style={{marginRight: 20}}>
-            <Text style={{marginBottom: 10}}>KINGDOM</Text>
-            <Text>Plantae</Text>
+            <WText style={{marginBottom: 10, fontFamily: Fonts.semiBold}}>
+              KINGDOM
+            </WText>
+            <WText>Plantae</WText>
           </View>
           <View>
-            <Text style={{marginBottom: 10}}>FAMILY</Text>
-            <Text>Cactacae</Text>
+            <WText style={{marginBottom: 10, fontFamily: Fonts.semiBold}}>
+              FAMILY
+            </WText>
+            <WText>Cactacae</WText>
           </View>
         </View>
-        <Text style={{marginTop: 10, marginBottom: 5}}>DESCRIPTION</Text>
-        <Text>
-          {description}
-          {/* Common name: {capitalize(disease_name)}
-          {`\n`}
-          Scientific name:{' '}
-          {createSentenceFromArray(scientific_name || disease_scientific_name)}
-          {`\n`}
-          Other name:{' '}
-          {createSentenceFromArray(other_name || other_disease_name)}
-          {`\n`}
-          Cycle: {capitalize(cycle)} {`\n`}
-          Watering: {capitalize(watering)}
-          {`\n`}
-          Sunlight: {`${createSentenceFromArray(sunlight, false)}`}
-          {`\n`} */}
-        </Text>
-      </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginHorizontal: screenWidth * 0.015,
+            alignItems: 'center',
+          }}>
+          <WText
+            style={{
+              marginTop: 10,
+              marginBottom: 5,
+              fontFamily: Fonts.semiBold,
+            }}>
+            DESCRIPTION
+          </WText>
+          <Ionicons
+            name="chevron-down-outline"
+            size={18}
+            onPress={() => {
+              SetShowDescription(!showDescription);
+            }}
+          />
+        </View>
+        <Divider horizontalInset style={{marginBottom: 10}} bold />
+        {showDescription && <WText>{combinedDescription}</WText>}
+      </ScrollView>
     </View>
   );
 };

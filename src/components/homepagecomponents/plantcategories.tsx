@@ -4,7 +4,7 @@ import {screenWidth, screenHeight} from '@app/constants/dimensions';
 import {TouchableOpacity, View, Text} from 'react-native';
 import Svg, {Defs, ClipPath, Rect, Path} from 'react-native-svg';
 
-export const _renderItem = (props: ItemProps, onPress: () => void) => {
+export const RenderSubTopics = (props: ItemProps, onPress: () => void) => {
   const {id, image, description} = props;
   let svgToRender;
   switch (props.id) {

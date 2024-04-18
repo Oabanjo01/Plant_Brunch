@@ -21,8 +21,8 @@ import {
 } from '@app/constants/dimensions';
 import RenderPlantTypes, {
   SeparatorComponent,
-} from '@app/components/homepagecomponents/planttypes';
-import {_renderPhotography} from '@app/components/homepagecomponents/photography';
+} from '@app/components/homepagecomponents/photography';
+import {RenderDiseasePicture} from '@app/components/homepagecomponents/plantdiseases';
 import {RootStackNavigationProp, ScreenProps} from '@app/navigation/navigation';
 import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
@@ -33,9 +33,11 @@ import instance, {generateConfigObject} from '@app/redux/api';
 import {Plant, PlantDiseaseType, PlantListResponse} from '@app/redux/types';
 import {ActivityIndicator} from 'react-native';
 import axios, {AxiosError} from 'axios';
-import {_renderItem} from '@app/components/homepagecomponents/plantcategories';
+import {RenderSubTopics} from '@app/components/homepagecomponents/plantcategories';
 import {fetchHomePagedata} from '@app/redux';
 import {Fonts} from '@app/constants/fonts';
+import RenderPlantPictures from '@app/components/homepagecomponents/photography';
+import WText from '@app/utilities/customText';
 
 const HomePage = ({navigation}: ScreenProps) => {
   // const navigation = useNavigation();
@@ -154,23 +156,22 @@ const HomePage = ({navigation}: ScreenProps) => {
                 marginTop: dashboardHeight * 0.3,
                 marginLeft: screenWidth * 0.06,
               }}>
-              <Text
+              <WText
                 style={{
-                  fontFamily: 'OpenSans-Bold',
+                  fontFamily: Fonts.semiBold,
                   color: Colors.lightTextColor,
                   fontSize: 28,
                 }}>
                 Hello ,
-              </Text>
-              <Text
+              </WText>
+              <WText
                 style={{
                   marginTop: 5,
-                  fontFamily: Fonts.Regular,
                   color: Colors.lightTextColor,
                   fontSize: 17,
                 }}>
                 Let’s Learn More About Plants
-              </Text>
+              </WText>
             </View>
 
             <View style={{position: 'absolute', right: 0}}>
@@ -204,7 +205,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 right: 20,
               }}>
               <Ionicons name="log-out" color={Colors.whiteColor} size={40} />
-              <Text style={{color: Colors.whiteColor}}>Logout</Text>
+              <WText style={{color: Colors.whiteColor}}>Logout</WText>
             </TouchableOpacity>
             <View
               style={{
@@ -263,7 +264,7 @@ const HomePage = ({navigation}: ScreenProps) => {
               data={Data}
               keyExtractor={item => item.id}
               renderItem={items =>
-                _renderItem(items.item, () => {
+                RenderSubTopics(items.item, () => {
                   items.index === 2
                     ? navigation.navigate(Routes.Articles)
                     : console.log('items');
@@ -279,14 +280,13 @@ const HomePage = ({navigation}: ScreenProps) => {
               marginHorizontal: screenWidth * 0.05,
               marginTop: screenHeight * 0.01,
             }}>
-            <Text
+            <WText
               style={{
                 fontSize: 17,
-                color: Colors.primaryTextColor,
                 marginBottom: screenHeight * 0.01,
               }}>
-              Plant Types
-            </Text>
+              Photography
+            </WText>
             <View
               style={{
                 alignItems: plantList?.length === 0 ? 'center' : 'flex-start',
@@ -296,7 +296,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 data={plantList}
                 keyExtractor={item => item.id.toString()}
                 renderItem={item => {
-                  return RenderPlantTypes(
+                  return RenderPlantPictures(
                     item.item,
                     loadingPlantListPicture,
                     handlePlantListLoadStart,
@@ -338,14 +338,13 @@ const HomePage = ({navigation}: ScreenProps) => {
               marginHorizontal: screenWidth * 0.05,
               marginVertical: screenHeight * 0.01,
             }}>
-            <Text
+            <WText
               style={{
                 fontSize: 17,
                 marginBottom: screenHeight * 0.01,
-                color: Colors.primaryTextColor,
               }}>
-              Photography
-            </Text>
+              Plant Diseases
+            </WText>
             <View
               style={{
                 alignItems:
@@ -356,7 +355,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 data={plantDisease}
                 keyExtractor={item => item.id.toString()}
                 renderItem={item => {
-                  return _renderPhotography(
+                  return RenderDiseasePicture(
                     navigation,
                     item.item,
                     loadingPlantDiseasePicture,
@@ -392,11 +391,10 @@ const HomePage = ({navigation}: ScreenProps) => {
                 }
               />
             </View>
-            <Text
+            <WText
               style={{
                 fontSize: 14,
                 alignItems: 'center',
-                fontFamily: 'OpenSans-Bold',
                 textAlign: 'center',
                 flex: 1,
                 color: Colors.addPhotoButtonColor,
@@ -404,7 +402,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 marginBottom: screenHeight * 0.05,
               }}>
               About Developer
-            </Text>
+            </WText>
           </View>
         </ScrollView>
       </View>

@@ -7,22 +7,14 @@ import {
   View,
 } from 'react-native';
 
-import {Colors} from '@app/constants/colors';
 import OnboardScreen from '@app/components/onboarding/onboardingScreen';
-import {useNavigation} from '@react-navigation/native';
-import {
-  RootStackNavigationProp,
-  RootStackParamList,
-  ScreenProps,
-} from '@app/navigation/navigation';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Routes} from '@app/constants';
+import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import {Alert} from 'react-native';
-import {combineReducers} from 'redux';
-import {useDispatch, useSelector} from 'react-redux';
+import {ScreenProps} from '@app/navigation/navigation';
 import {onboardingAction} from '@app/redux/actions/actions';
 import {RootState} from '@app/redux/store';
+import {useDispatch, useSelector} from 'react-redux';
 
 type ItemProps = {
   id: string;
@@ -104,7 +96,7 @@ const OnboardingScreens = ({navigation}: ScreenProps) => {
               }}
               skip={() => {
                 dispatch(onboardingAction(true));
-                navigation.navigate('Login');
+                navigation.navigate(Routes.Login);
               }}
               activeIndex={(items.index += 1)}
             />

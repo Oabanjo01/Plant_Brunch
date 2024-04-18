@@ -1,11 +1,14 @@
-import {TextInput} from 'react-native-paper';
+import {MD3Theme, TextInput, useTheme} from 'react-native-paper';
 import {useState} from 'react';
 import {Colors} from '@app/constants/colors';
 import {KeyboardTypeOptions} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {screenHeight} from '@app/constants/dimensions';
+import {Fonts} from '@app/constants/fonts';
 
 interface TextFieldProps {
   onFocused: () => void;
+  theme: MD3Theme;
   placeHolderText: string;
   valueText: string;
   labelText: string;
@@ -24,6 +27,7 @@ const TextFields = (props: TextFieldProps) => {
     labelText,
     callBack,
     onBlur,
+    theme,
     keyboardType,
     displayRightIcon,
     displayPassword,
@@ -59,9 +63,6 @@ const TextFields = (props: TextFieldProps) => {
                 onPress={togglePasswordDisplay}
               />
             )}
-            // color={
-            //   isFocused ? Colors.whiteColor : Colors.addPhotoButtonColor
-            // }
           />
         )
       }
@@ -70,13 +71,20 @@ const TextFields = (props: TextFieldProps) => {
           onSurfaceVariant: Colors.lightPrimaryTextColor,
           placeholder: Colors.inActiveUnderlineTextInputColor,
         },
+        fonts: {
+          regular: {
+            fontStyle: 'normal',
+            fontFamily: Fonts.Regular,
+          },
+        },
       }}
       selectionColor={Colors.primary}
       underlineColorAndroid={Colors.inActiveUnderlineTextInputColor}
       activeOutlineColor={Colors.primary}
       style={{
         backgroundColor: Colors.screenColor,
-        marginBottom: '5%',
+        fontFamily: Fonts.Bold,
+        marginBottom: screenHeight * 0.018,
       }}
     />
   );

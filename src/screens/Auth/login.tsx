@@ -2,15 +2,23 @@ import {LargeButton} from '@app/components/login/buttons';
 import TextFields from '@app/components/login/textInput';
 import {Routes} from '@app/constants';
 import {Colors} from '@app/constants/colors';
-import {useEffect, useState} from 'react';
-import {Keyboard, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {ActivityIndicator, Checkbox} from 'react-native-paper';
+import {screenHeight} from '@app/constants/dimensions';
+import {Fonts} from '@app/constants/fonts';
 import {ScreenProps} from '@app/navigation/navigation';
-import {Formik} from 'formik';
-import * as yup from 'yup';
-import auth from '@react-native-firebase/auth';
-import {APP_NAME, API_KEY, COMPANY_EMAIL} from '@env';
+import WText from '@app/utilities/customText';
 import {useLogin} from '@app/utilities/hooks/authentication/useLogin';
+import auth from '@react-native-firebase/auth';
+import {Formik} from 'formik';
+import {useEffect, useState} from 'react';
+import {
+  Keyboard,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {ActivityIndicator, Checkbox, useTheme} from 'react-native-paper';
+import * as yup from 'yup';
 
 const LoginScreen = ({navigation}: ScreenProps) => {
   const [emailPlacHolder, setEmailPlaceHolder] = useState('email');
@@ -24,6 +32,8 @@ const LoginScreen = ({navigation}: ScreenProps) => {
 
   const handleFieldBlur = (fieldName: any) => {};
   const {handleLogin, isLoading, setIsLoading} = useLogin();
+
+  const theme = useTheme();
 
   useEffect(() => {
     setUserAuthState(false);
@@ -81,20 +91,28 @@ const LoginScreen = ({navigation}: ScreenProps) => {
           isValid,
           touched,
         }) => (
-          <View style={styles.container}>
-            <Text
+          <ScrollView
+            style={styles.container}
+            keyboardShouldPersistTaps="never">
+            <WText
               style={{
                 color: Colors.primaryTextColor,
                 fontSize: 30,
-                fontFamily: 'OpenSans-SemiBold',
+                fontFamily: Fonts.semiBold,
                 marginBottom: 6,
               }}>
-              Hello
-            </Text>
-            <Text style={[styles.textStyle, {marginBottom: '7%'}]}>
+              Hi there,
+            </WText>
+            <WText
+              style={{
+                marginBottom: screenHeight * 0.03,
+                color: Colors.primaryTextColor,
+                fontFamily: Fonts.Regular,
+              }}>
               Let’s Learn More About Plants
-            </Text>
+            </WText>
             <TextFields
+              theme={theme}
               onFocused={() => setEmailPlaceHolder('')}
               placeHolderText={emailPlacHolder}
               valueText={values.email}
@@ -104,9 +122,10 @@ const LoginScreen = ({navigation}: ScreenProps) => {
               callBack={handleChange('email')}
             />
             {isValid === false && isValidEmail === false && (
-              <Text style={{fontSize: 12, color: 'red'}}>{errors.email}</Text>
+              <WText style={{fontSize: 12, color: 'red'}}>{errors.email}</WText>
             )}
             <TextFields
+              theme={theme}
               onFocused={() => setPasswordPlaceHolder('')}
               placeHolderText={passwordPlacHolder}
               valueText={values.password}
@@ -118,9 +137,9 @@ const LoginScreen = ({navigation}: ScreenProps) => {
               displayPassword={displayPassword}
             />
             {isValid === false && isValidPassword === false && (
-              <Text style={{fontSize: 12, color: 'red'}}>
+              <WText style={{fontSize: 12, color: 'red'}}>
                 {errors.password}
-              </Text>
+              </WText>
             )}
             <View
               style={{
@@ -134,15 +153,24 @@ const LoginScreen = ({navigation}: ScreenProps) => {
                   status={checked ? 'checked' : 'unchecked'}
                   onPress={() => setChecked(!checked)}
                 />
-                <Text style={styles.textStyle}>Remember me</Text>
+                <WText
+                  style={{
+                    color: Colors.primaryTextColor,
+                    fontFamily: Fonts.Regular,
+                  }}>
+                  Remember me
+                </WText>
               </View>
-              <Text style={styles.textStyle}>Forgot Password?</Text>
+              <WText
+                style={{
+                  color: Colors.primary,
+                  fontFamily: Fonts.italic,
+                  fontWeight: '600',
+                  fontStyle: 'italic',
+                }}>
+                Forgot Password?
+              </WText>
             </View>
-            <Text>
-              {API_KEY}
-              {APP_NAME}
-              {COMPANY_EMAIL}
-            </Text>
             <LargeButton
               text={isLoading ? 'Loading...' : 'Log in'}
               extraStyle={
@@ -164,20 +192,24 @@ const LoginScreen = ({navigation}: ScreenProps) => {
             <View
               style={{
                 alignItems: 'center',
-                marginTop: '4%',
+                marginTop: screenHeight * 0.03,
                 flexDirection: 'row',
                 justifyContent: 'center',
               }}>
-              <Text style={styles.textStyle}>Don’t Have Account? </Text>
+              <WText
+                style={{
+                  color: Colors.primaryTextColor,
+                  fontFamily: Fonts.Regular,
+                }}>
+                Don’t Have Account?{' '}
+              </WText>
               <TouchableOpacity
-                onPress={values => {
-                  navigation.navigate(Routes.SignUp);
-                }}
+                onPress={() => navigation.navigate(Routes.SignUp)}
                 activeOpacity={0.9}>
-                <Text style={{color: Colors.primary}}> Sign Up</Text>
+                <WText style={{color: Colors.primary}}> Sign Up</WText>
               </TouchableOpacity>
             </View>
-          </View>
+          </ScrollView>
         )}
       </Formik>
     );
@@ -201,10 +233,6 @@ export const styles = StyleSheet.create({
     paddingLeft: '7%',
     paddingRight: '7%',
     flex: 1,
-  },
-  textStyle: {
-    color: Colors.primaryTextColor,
-    fontFamily: 'OpenSans-Regular',
   },
 });
 export default LoginScreen;
