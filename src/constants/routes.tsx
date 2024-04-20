@@ -7,8 +7,9 @@ export const Routes: RootStackParamList = {
 
   Home: 'HomePage',
   Profile: 'Profile',
+  PlantDiseaseDetail: undefined,
 
-  PlantDetail: 'PlantDetail',
+  PlantListDetail: undefined,
   Species: 'Species',
   PlantList: 'PlantList',
   Articles: 'Articles',

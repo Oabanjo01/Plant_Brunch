@@ -15,6 +15,6 @@ export const createSentenceFromArray = (
   const itemsString = array.join(', ');
   const sentence = `${
     noSentenceTemplate === true ? sentenceTemplate : ''
-  }${itemsString}.`;
+  }${capitalize(itemsString)}.`;
   return sentence;
 };

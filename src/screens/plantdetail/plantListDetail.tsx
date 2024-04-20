@@ -1,4 +1,11 @@
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import BackButton from '@assets/images/BackButton.svg';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
@@ -67,6 +74,12 @@ const PlantListDetail = ({route, navigation}: Props) => {
     return stars;
   };
 
+  const otherName = other_name?.map(item => {
+    return (
+      <WText style={{...styles.tagTextStyle, marginRight: 10}}>{item}</WText>
+    );
+  });
+
   return (
     <View style={{flex: 1}}>
       <View style={{marginBottom: (screenWidth * 0.15) / 2}}>
@@ -102,17 +115,43 @@ const PlantListDetail = ({route, navigation}: Props) => {
             <BackButton />
           </TouchableOpacity>
         </View>
+        <View
+          style={{
+            position: 'absolute',
+            top: screenHeight * 0.025,
+            right: screenWidth * 0.04,
+          }}>
+          <TouchableOpacity onPress={() => goBack()}>
+            <Ionicons
+              name="ellipsis-vertical-outline"
+              color={Colors.addPhotoButtonColor}
+              size={24}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-      <View
+      <ScrollView
         style={{
-          paddingLeft: 20,
+          paddingHorizontal: 20,
+          marginBottom: screenHeight * 0.06,
         }}>
         <View
           style={{
             flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignItems: 'flex-start',
           }}>
-          <WText style={styles.tagTextStyle}>Danger</WText>
-          <WText style={styles.tagTextStyle}>Danger</WText>
+          <WText
+            key={'scientific name'}
+            style={{
+              ...styles.tagTextStyle,
+              backgroundColor: Colors.favouriteButtonColor,
+              color: Colors.whiteColor,
+              marginBottom: 4,
+            }}>
+            {scientific_name}
+          </WText>
+          {(otherName?.length > 0 || !otherName) && otherName}
         </View>
         <WText style={{fontSize: 25, fontFamily: Fonts.semiBold}}>
           {common_name}
@@ -123,16 +162,6 @@ const PlantListDetail = ({route, navigation}: Props) => {
             4.1
           </WText>
         </View>
-        <View style={{flexDirection: 'row', marginTop: 10}}>
-          <View style={{marginRight: 20}}>
-            <WText style={{marginBottom: 10}}>KINGDOM</WText>
-            <WText>Plantae</WText>
-          </View>
-          <View>
-            <WText style={{marginBottom: 10}}>FAMILY</WText>
-            <WText>Cactacae</WText>
-          </View>
-        </View>
         <>
           <SubTopics
             topic="DESCRIPTION"
@@ -142,7 +171,6 @@ const PlantListDetail = ({route, navigation}: Props) => {
             }}
           />
           <Divider horizontalInset style={{marginBottom: 10}} bold />
-          {/* {showDescription && <WText>{combinedDescription}</WText>} */}
         </>
         {showDescription && (
           <WText>
@@ -159,7 +187,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
             {`\n\n`}
           </WText>
         )}
-      </View>
+      </ScrollView>
       <View
         style={{
           bottom: 20,
@@ -224,15 +252,14 @@ const PlantListDetail = ({route, navigation}: Props) => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   tagTextStyle: {
     alignSelf: 'flex-start',
     paddingVertical: 2,
     paddingHorizontal: 4,
     marginRight: 5,
-    opacity: 0.5,
     borderRadius: 5,
-    backgroundColor: Colors.addPhotoButtonColor,
+    backgroundColor: 'rgba(47, 145, 235, 0.1)',
     color: Colors.addPhotoButtonColor,
     fontFamily: 'OpenSans-SemiBold',
   },

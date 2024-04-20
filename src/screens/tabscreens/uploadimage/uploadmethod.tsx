@@ -13,11 +13,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const CameraPage = ({navigation}: ScreenProps) => {
   const {hasPermission, requestPermission} = useCameraPermission();
-  // const navigation = useNavigation<RootStackNavigationProp>();
-
-  // useEffect(() => {
-  //   handlePermission();
-  // }, [hasPermission]);
 
   const handlePhoneVersion = () => {
     return (Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 12) ||

@@ -34,7 +34,7 @@ export type RootStackParamList = {
   Profile: any;
 
   PlantListDetail: {item: Plant} | undefined;
-  plantDiseaseDetail: {item: PlantDiseaseType} | undefined;
+  PlantDiseaseDetail: {item: PlantDiseaseType} | undefined;
   Species: any;
   PlantList: any;
   Articles: any;

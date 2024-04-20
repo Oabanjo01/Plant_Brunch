@@ -35,11 +35,6 @@ const CameraScreen = ({navigation}: ScreenProps) => {
       'wide-angle-camera',
     ],
   });
-  // const format = useCameraFormat(device, [
-  //   {
-  //     photoResolution: {height: 10, width: 20},
-  //   },
-  // ]);
   const isFocused = useIsFocused();
   const appState = useAppState();
   const isActive = isFocused && appState === 'active';
@@ -143,7 +138,6 @@ const CameraScreen = ({navigation}: ScreenProps) => {
           <Camera
             ref={camera}
             device={device}
-            // format={format}
             isActive={isActive}
             style={{flex: 1}}
             photo={true}

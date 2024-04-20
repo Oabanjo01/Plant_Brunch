@@ -4,21 +4,20 @@ import {FontSize, Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {PlantDiseaseType} from '@app/redux/types';
 import WText from '@app/utilities/customText';
+import {
+  capitalize,
+  createSentenceFromArray,
+} from '@app/utilities/sentenceHelpers';
 import BackButton from '@assets/images/BackButton.svg';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {
-  Platform,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Platform, ScrollView, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Divider} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {styles} from './plantListDetail';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'plantDiseaseDetail'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'PlantDiseaseDetail'>;
 
 const PlantDiseaseDetail = ({route, navigation}: Props) => {
   const [showDescription, setShowDescription] = useState<boolean>(true);
@@ -42,12 +41,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
   const goBack = () => {
     navigation.goBack();
   };
-  console.log(
-    item,
-    item?.description.map(item => {
-      console.log(item.description);
-    }),
-  );
+
   const renderStarIcons = (rating: number) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
@@ -94,6 +88,18 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     );
   });
 
+  const combineHostPlant = host
+    .map(item => {
+      return `${capitalize(item)}`;
+    })
+    .join(', ');
+
+  const otherName = other_name?.map(item => {
+    return (
+      <WText style={{...styles.tagTextStyle, marginRight: 10}}>{item}</WText>
+    );
+  });
+
   return (
     <View style={{flex: 1}}>
       <View style={{marginBottom: (screenWidth * 0.15) / 2}}>
@@ -129,18 +135,42 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             <BackButton />
           </TouchableOpacity>
         </View>
+        <View
+          style={{
+            position: 'absolute',
+            top: screenHeight * 0.025,
+            right: screenWidth * 0.04,
+          }}>
+          <TouchableOpacity onPress={() => goBack()}>
+            <Ionicons
+              name="ellipsis-vertical-outline"
+              color={Colors.addPhotoButtonColor}
+              size={24}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <ScrollView
         style={{
           paddingHorizontal: 20,
-          marginBottom: 20,
+          marginBottom: screenHeight * 0.06,
         }}>
         <View
           style={{
             flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignItems: 'flex-start',
           }}>
           {family && <WText style={styles.tagTextStyle}>{family}</WText>}
-          <WText style={styles.tagTextStyle}>{common_name}</WText>
+          <WText
+            style={{
+              ...styles.tagTextStyle,
+              backgroundColor: Colors.favouriteButtonColor,
+              color: Colors.whiteColor,
+            }}>
+            {scientific_name}
+          </WText>
+          {(otherName?.length > 0 || !otherName) && otherName}
         </View>
         <WText style={{fontSize: 25, fontFamily: Fonts.semiBold}}>
           {common_name}
@@ -156,20 +186,18 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             4.1
           </WText>
         </View>
-        <View style={{flexDirection: 'row', marginTop: 10}}>
-          <View style={{marginRight: 20}}>
-            <WText style={{marginBottom: 10, fontFamily: Fonts.semiBold}}>
-              KINGDOM
+        {host.length > 0 && (
+          <View style={{flexDirection: 'row', marginTop: 10}}>
+            <WText
+              style={{
+                color: Colors.addPhotoButtonColor,
+                fontFamily: Fonts.semiBold,
+              }}>
+              Host Plants{''}
             </WText>
-            <WText>Plantae</WText>
+            <WText> - {combineHostPlant}.</WText>
           </View>
-          <View>
-            <WText style={{marginBottom: 10, fontFamily: Fonts.semiBold}}>
-              FAMILY
-            </WText>
-            <WText>Cactacae</WText>
-          </View>
-        </View>
+        )}
         {description.length > 0 && (
           <>
             <SubTopics
@@ -305,30 +333,5 @@ export const SubTopics = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  tagTextStyle: {
-    alignSelf: 'flex-start',
-    paddingVertical: 2,
-    paddingHorizontal: 4,
-    marginRight: 5,
-    opacity: 0.5,
-    borderRadius: 5,
-    backgroundColor: Colors.addPhotoButtonColor,
-    color: Colors.addPhotoButtonColor,
-    fontFamily: 'OpenSans-SemiBold',
-  },
-  favouriteButton: {
-    position: 'absolute',
-    backgroundColor: Colors.favouriteButtonColor,
-    width: screenWidth * 0.15,
-    height: screenWidth * 0.15,
-    borderRadius: (screenWidth * 0.15) / 2,
-    bottom: -((screenWidth * 0.15) / 2),
-    right: screenWidth * 0.05,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default PlantDiseaseDetail;

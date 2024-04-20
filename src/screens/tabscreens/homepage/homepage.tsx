@@ -264,9 +264,20 @@ const HomePage = ({navigation}: ScreenProps) => {
               keyExtractor={item => item.id}
               renderItem={items =>
                 RenderSubTopics(items.item, () => {
-                  items.index === 2
-                    ? navigation.navigate(Routes.Articles)
-                    : console.log('items');
+                  switch (items.index) {
+                    case 0:
+                      navigation.push(Routes.Camera);
+                      break;
+                    case 1:
+                      console.log('items');
+                      break;
+                    case 2:
+                      navigation.navigate(Routes.Articles);
+                      break;
+
+                    default:
+                      break;
+                  }
                 })
               }
               horizontal
