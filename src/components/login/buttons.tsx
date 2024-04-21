@@ -1,10 +1,10 @@
 import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import WText from '@app/utilities/customText';
 import React from 'react';
 import {
   Dimensions,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
   ViewStyle,
@@ -20,7 +20,7 @@ export const LargeButton = (prop: LargeButtonProps) => {
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
       <View style={[styles.buttonContainerStyle, extraStyle]}>
-        <Text style={styles.buttonTextStyle}>{text}</Text>
+        <WText style={styles.buttonTextStyle}>{text}</WText>
       </View>
     </TouchableOpacity>
   );

@@ -1,9 +1,9 @@
 import {Colors} from '@app/constants/colors';
 import {Tabs} from '@app/constants/routes';
+import WText from '@app/utilities/customText';
 import {
   ImageBackground,
   KeyboardAvoidingView,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -116,7 +116,7 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
                     color={isFocused ? Colors.primary : Colors.tabBarTextColor}
                     size={24}
                   />
-                  <Text
+                  <WText
                     style={{
                       textAlign: 'justify',
                       fontFamily: 'OpenSans-Regular',
@@ -127,7 +127,7 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
                         : Colors.tabBarTextColor,
                     }}>
                     {label}
-                  </Text>
+                  </WText>
                 </View>
               )}
             </TouchableOpacity>

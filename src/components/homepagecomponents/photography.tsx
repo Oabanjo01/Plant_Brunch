@@ -1,13 +1,11 @@
 import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import {Image, Platform, Text, TouchableOpacity, View} from 'react-native';
+import {RootStackNavigationProp} from '@app/navigation/navigation';
 import {Plant} from '@app/redux/types';
-import {ActivityIndicator} from 'react-native-paper';
+import WText from '@app/utilities/customText';
+import {Platform, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp, ScreenProps} from '@app/navigation/navigation';
-import {Routes} from '@app/constants';
-import {Fonts} from '@app/constants/fonts';
+import {ActivityIndicator} from 'react-native-paper';
 
 export const SeparatorComponent = () => {
   return <View style={{width: screenWidth * 0.05}} />;
@@ -76,13 +74,12 @@ const RenderPlantPictures = (
           borderTopRightRadius: 5,
           borderBottomRightRadius: 5,
         }}>
-        <Text
+        <WText
           style={{
-            fontFamily: Fonts.Regular,
             color: Colors.primaryTextColor,
           }}>
           # {item.common_name}
-        </Text>
+        </WText>
       </View>
     </TouchableOpacity>
   );

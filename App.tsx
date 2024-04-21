@@ -1,17 +1,15 @@
-import {Platform, StatusBar, StyleSheet, View} from 'react-native';
 import React from 'react';
+import {Platform, StatusBar, StyleSheet} from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
 import ScreenStack from '@app/navigation/navigation';
+import {NavigationContainer} from '@react-navigation/native';
 import {PaperProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
 
 import {persistor, store} from '@app/redux/store';
-import {PersistGate} from 'redux-persist/integration/react';
-import Toast from 'react-native-toast-message';
 import {toastConfig} from '@app/utilities/toast';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Colors} from '@app/constants';
+import Toast from 'react-native-toast-message';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
   return (

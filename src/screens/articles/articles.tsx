@@ -1,18 +1,17 @@
-import {View, Text, ScrollView, Platform, Image} from 'react-native';
-import React from 'react';
-import LinearGradient from 'react-native-linear-gradient';
-import {TextInput} from 'react-native-paper';
 import {Colors} from '@app/constants';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   dashboardHeight,
   screenHeight,
   screenWidth,
 } from '@app/constants/dimensions';
-import ArticlesPage from '@assets/images/ArticlesPage.svg';
 import Backbutton from '@app/utilities/backbutton';
-import {ScreenProps} from '@app/navigation/navigation';
-import {PhotographyData} from '@app/constants/data/homepage';
+import WText from '@app/utilities/customText';
+import ArticlesPage from '@assets/images/ArticlesPage.svg';
+import React from 'react';
+import {Image, Platform, ScrollView, View} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import {TextInput} from 'react-native-paper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Articles = () => {
   return (
@@ -113,7 +112,7 @@ const Articles = () => {
               borderBottomEndRadius: 20,
               borderBottomStartRadius: 20,
             }}>
-            <Text
+            <WText
               style={{
                 textAlign: 'justify',
                 fontFamily: 'OpenSans-SemiBold',
@@ -123,7 +122,7 @@ const Articles = () => {
               }}>
               Plants are nature's marvels, providing oxygen and beauty to our
               surroundings.
-            </Text>
+            </WText>
             <View></View>
           </View>
           <Image

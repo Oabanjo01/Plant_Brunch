@@ -1,15 +1,11 @@
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useRef} from 'react';
-import {
-  Camera,
-  useCameraDevice,
-  useCameraPermission,
-} from 'react-native-vision-camera';
-import {showToast} from '@app/utilities/toast';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {RootStackNavigationProp, ScreenProps} from '@app/navigation/navigation';
 import {Colors, Routes} from '@app/constants';
+import {ScreenProps} from '@app/navigation/navigation';
+import WText from '@app/utilities/customText';
+import {showToast} from '@app/utilities/toast';
+import React from 'react';
+import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useCameraPermission} from 'react-native-vision-camera';
 
 const CameraPage = ({navigation}: ScreenProps) => {
   const {hasPermission, requestPermission} = useCameraPermission();
@@ -70,7 +66,7 @@ const CameraPage = ({navigation}: ScreenProps) => {
             }}
             color={Colors.primary}
           />
-          <Text style={{color: Colors.primaryTextColor}}>Camerapage</Text>
+          <WText style={{color: Colors.primaryTextColor}}>Camerapage</WText>
         </TouchableOpacity>
       }
       <TouchableOpacity
@@ -91,7 +87,7 @@ const CameraPage = ({navigation}: ScreenProps) => {
           onPress={() => {}}
           color={Colors.primary}
         />
-        <Text style={{color: Colors.primaryTextColor}}>Access Files</Text>
+        <WText style={{color: Colors.primaryTextColor}}>Access Files</WText>
       </TouchableOpacity>
     </View>
   );

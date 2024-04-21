@@ -1,6 +1,15 @@
+import React, {useState} from 'react';
 import {LargeButton} from '@app/components/login/buttons';
 import TextFields from '@app/components/login/textInput';
-import React, {useState} from 'react';
+
+import {Colors} from '@app/constants/colors';
+import {Fonts} from '@app/constants/fonts';
+import {Routes} from '@app/constants/routes';
+import {ScreenProps} from '@app/navigation/navigation';
+import WText from '@app/utilities/customText';
+import handleFirebaseError from '@app/utilities/errorHandling';
+import {showToast} from '@app/utilities/toast';
+import {Formik} from 'formik';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -9,16 +18,26 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {styles} from './login';
-import {NavigationProp} from '@react-navigation/native';
-import {RootStackParamList, ScreenProps} from '@app/navigation/navigation';
-import {Routes} from '@app/constants/routes';
-import {Colors} from '@app/constants/colors';
-import {Formik} from 'formik';
+import {useTheme} from 'react-native-paper';
 import * as yup from 'yup';
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {showToast} from '@app/utilities/toast';
-import handleFirebaseError from '@app/utilities/errorHandling';
+import {styles} from './login';
+import app from '@react-native-firebase/app';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
+type SignUpdata = {
+  userName: string;
+  userEmail: string;
+  password: string;
+  confirmPassword: string;
+};
+
+const initialValues: SignUpdata = {
+  userName: '',
+  userEmail: '',
+  password: '',
+  confirmPassword: '',
+};
 
 const SignUpScreen = ({navigation}: ScreenProps) => {
   const [usernamePlacHolder, setUsernamePlaceHolder] = useState('username');
@@ -57,7 +76,9 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
       .oneOf([yup.ref('password'), null], 'Passwords must match')
       .required('Confirm Password is required'),
   });
-  const handleSignIn = async (values: any) => {
+
+  const theme = useTheme();
+  const handleSignIn = async (values: SignUpdata) => {
     setIsLoading(true);
     setValidateChange(true);
     try {
@@ -65,6 +86,9 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
         values.userEmail,
         values.password,
       );
+      await firestore().collection('Signups').doc('Usernames').set({
+        username: values.userName,
+      });
       await userCredential.user
         .sendEmailVerification()
         .then(() => {
@@ -81,63 +105,55 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
         });
       setIsLoading(false);
     } catch (error: any) {
+      console.log(error);
       setIsLoading(false);
       handleFirebaseError(error);
     }
   };
+
   return (
+    // <View>
+    //   <Text>ddddd</Text>
+    // </View>
     <Formik
-      initialValues={{
-        userName: '',
-        userEmail: '',
-        password: '',
-        confirmPassword: '',
-      }}
+      initialValues={initialValues}
       validateOnBlur
       validateOnChange={validateChange}
       validationSchema={signUpvalidationSchema}
-      onSubmit={values => handleSignIn(values)}>
-      {({
-        values,
-        handleChange,
-        handleSubmit,
-        errors,
-        isSubmitting,
-        isValid,
-        touched,
-      }) => (
+      onSubmit={values => {
+        handleSignIn(values);
+      }}>
+      {({values, handleChange, handleSubmit, errors, isValid}) => (
         <View style={styles.container}>
           <KeyboardAvoidingView
             behavior="position"
             keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
-            <Text
-              style={[
-                styles.textStyle,
-                {
-                  fontSize: 30,
-                  marginBottom: 6,
-                  fontFamily: 'OpenSans-SemiBold',
-                },
-              ]}>
+            <WText
+              style={{
+                fontSize: 30,
+                marginBottom: 6,
+                fontFamily: Fonts.semiBold,
+              }}>
               Hello, create a new wildlife account
-            </Text>
-            <Text style={[styles.textStyle, {marginBottom: '7%'}]}>
+            </WText>
+            <WText style={{marginBottom: '7%'}}>
               Sign up now! Let’s Learn More About Plants
-            </Text>
+            </WText>
             <TextFields
+              theme={theme}
               onFocused={() => setUsernamePlaceHolder('')}
               placeHolderText={usernamePlacHolder}
               valueText={values.userName}
               labelText="Username"
-              displayPassword
               callBack={handleChange('userName')}
             />
             {isValid === false && isValidUsername === false && (
-              <Text style={{fontSize: 12, color: 'red'}}>
+              <WText style={{fontSize: 12, color: 'red'}}>
                 {errors.userName}
-              </Text>
+              </WText>
             )}
             <TextFields
+              theme={theme}
               onFocused={() => setUserEmailPlaceHolder('')}
               placeHolderText={userEmailPlacHolder}
               valueText={values.userEmail}
@@ -146,11 +162,12 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
               callBack={handleChange('userEmail')}
             />
             {isValid === false && isValidEmail === false && (
-              <Text style={{fontSize: 12, color: 'red'}}>
+              <WText style={{fontSize: 12, color: 'red'}}>
                 {errors.userEmail}
-              </Text>
+              </WText>
             )}
             <TextFields
+              theme={theme}
               onFocused={() => setPasswordPlaceHolder('')}
               placeHolderText={passwordPlacHolder}
               valueText={values.userEmail}
@@ -161,11 +178,12 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
               togglePasswordDisplay={() => setDisplayPassword(!displayPassword)}
             />
             {isValid === false && isValidPassword === false && (
-              <Text style={{fontSize: 12, color: 'red'}}>
+              <WText style={{fontSize: 12, color: 'red'}}>
                 {errors.password}
-              </Text>
+              </WText>
             )}
             <TextFields
+              theme={theme}
               onFocused={() => setConfirmPasswordPlaceHolder('')}
               placeHolderText={confirmPasswordPlacHolder}
               valueText={values.confirmPassword}
@@ -178,9 +196,9 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
               displayPassword={displayConfirmPassword}
             />
             {isValid === false && isValidConfirmPassword === false && (
-              <Text style={{fontSize: 12, color: 'red'}}>
+              <WText style={{fontSize: 12, color: 'red'}}>
                 {errors.confirmPassword}
-              </Text>
+              </WText>
             )}
             <View
               style={{
@@ -219,11 +237,11 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
                   flexDirection: 'row',
                   justifyContent: 'center',
                 }}>
-                <Text style={styles.textStyle}>Have an Account? </Text>
+                <WText>Have an Account? </WText>
                 <TouchableOpacity
                   onPress={() => navigation.navigate(Routes.Login)}
                   activeOpacity={0.9}>
-                  <Text style={{color: Colors.primary}}> Login</Text>
+                  <WText style={{color: Colors.primary}}> Login</WText>
                 </TouchableOpacity>
               </View>
             </View>
@@ -233,5 +251,6 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
     </Formik>
   );
 };
+// };
 
 export default SignUpScreen;

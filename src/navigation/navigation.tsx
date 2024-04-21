@@ -1,29 +1,28 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   NativeStackNavigationProp,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import OnboardingScreens from '@app/screens/onboarding';
-import LoginScreen from '@app/screens/auth/login';
+import TabBarStyle from '@app/components/tabbar/tabbarstyle';
 import {Colors, Routes} from '@app/constants';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import {Tabs} from '@app/constants/routes';
+import {RootState} from '@app/redux/store';
+import {Plant, PlantDiseaseType} from '@app/redux/types';
+import Articles from '@app/screens/articles/articles';
+import LoginScreen from '@app/screens/auth/login';
 import SignUpScreen from '@app/screens/auth/signup';
+import OnboardingScreens from '@app/screens/onboarding';
+import PlantDiseaseDetail from '@app/screens/plantdetail/plantDiseaseDetail';
+import PlantListDetail from '@app/screens/plantdetail/plantListDetail';
 import HomePage from '@app/screens/tabscreens/homepage/homepage';
 import ProfilePage from '@app/screens/tabscreens/profile/profile';
-import {Tabs} from '@app/constants/routes';
-import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import CameraPage from '@app/screens/tabscreens/uploadimage/uploadmethod';
-import TabBarStyle from '@app/components/tabbar/tabbarstyle';
-import PlantListDetail from '@app/screens/plantdetail/plantListDetail';
-import {RootState} from '@app/redux/store';
-import {useSelector} from 'react-redux';
 import {View} from 'react-native';
-import CameraScreen from '@app/screens/camera';
-import Articles from '@app/screens/articles/articles';
-import {Plant, PlantDiseaseType} from '@app/redux/types';
-import PlantDiseaseDetail from '@app/screens/plantdetail/plantDiseaseDetail';
+import {useSelector} from 'react-redux';
 
 export type RootStackParamList = {
   Onboarding: any;
@@ -110,11 +109,11 @@ const ScreenStack = () => {
       <Stack.Screen name={Routes.SignUp} component={SignUpScreen} />
       <Stack.Screen name={'PlantListDetail'} component={PlantListDetail} />
       <Stack.Screen
-        name={'plantDiseaseDetail'}
+        name={'PlantDiseaseDetail'}
         component={PlantDiseaseDetail}
       />
       <Stack.Screen name={Routes.Home} component={HomeTabNavigator} />
-      <Stack.Screen name={Routes.Camera} component={CameraScreen} />
+      <Stack.Screen name={Routes.Camera} component={CameraPage} />
       <Stack.Screen name={Routes.Articles} component={Articles} />
     </Stack.Navigator>
   );

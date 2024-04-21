@@ -4,13 +4,13 @@ import {
   screenHeight,
   screenWidth,
 } from '@app/constants/dimensions';
-import {showToast} from '@app/utilities/toast';
+import {Fonts} from '@app/constants/fonts';
+import WText from '@app/utilities/customText';
+import ProfileDashboard from '@assets/images/ProfileDashboard.svg';
 import React, {useState} from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {ScrollView, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {TextInput} from 'react-native-paper';
-import ProfileDashboard from '@assets/images/ProfileDashboard.svg';
 
 const ProfilePage = () => {
   const [activeButton, setActiveButton] = useState<0 | 1 | 2>(1);
@@ -41,28 +41,28 @@ const ProfilePage = () => {
             justifyContent: 'center',
           }}
         />
-        <Text
+        <WText
           style={{
             marginTop: 20,
             marginBottom: 10,
             color: Colors.whiteColor,
-            fontFamily: 'OpenSans-SemiBold',
+            fontFamily: Fonts.semiBold,
             fontSize: 18,
           }}>
           Olabanjo Olakunori
-        </Text>
+        </WText>
         <View style={{flexDirection: 'row'}}>
           <Ionicons name={'location'} size={30} color={Colors.whiteColor} />
-          <Text
+          <WText
             style={{
               color: Colors.whiteColor,
-              fontFamily: 'OpenSans-SemiBold',
+              fontFamily: Fonts.semiBold,
               fontSize: 15,
               marginLeft: 10,
               alignSelf: 'center',
             }}>
             Okunade street
-          </Text>
+          </WText>
         </View>
         <View style={{position: 'absolute', right: 0}}>
           <ProfileDashboard />
@@ -82,9 +82,8 @@ const ProfilePage = () => {
               activeButton === 0 ? Colors.addPhotoButtonColor : 'transparent',
             borderRadius: 20,
           }}>
-          <Text
+          <WText
             style={{
-              fontFamily: 'OpenSans-Regular',
               paddingHorizontal: 10,
               color:
                 activeButton === 0
@@ -92,7 +91,7 @@ const ProfilePage = () => {
                   : Colors.primaryTextColor,
             }}>
             ARTICLES
-          </Text>
+          </WText>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setActiveButton(1)}
@@ -102,9 +101,8 @@ const ProfilePage = () => {
               activeButton === 1 ? Colors.addPhotoButtonColor : 'transparent',
             borderRadius: 20,
           }}>
-          <Text
+          <WText
             style={{
-              fontFamily: 'OpenSans-Regular',
               paddingHorizontal: 10,
               color:
                 activeButton === 1
@@ -112,7 +110,7 @@ const ProfilePage = () => {
                   : Colors.primaryTextColor,
             }}>
             SPECIES
-          </Text>
+          </WText>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setActiveButton(2)}
@@ -122,9 +120,8 @@ const ProfilePage = () => {
               activeButton === 2 ? Colors.addPhotoButtonColor : 'transparent',
             borderRadius: 20,
           }}>
-          <Text
+          <WText
             style={{
-              fontFamily: 'OpenSans-Regular',
               paddingHorizontal: 10,
               color:
                 activeButton === 2
@@ -132,17 +129,17 @@ const ProfilePage = () => {
                   : Colors.primaryTextColor,
             }}>
             LIKES
-          </Text>
+          </WText>
         </TouchableOpacity>
       </View>
-      <Text
+      <WText
         style={{
-          fontFamily: 'OpenSans-SemiBold',
+          fontFamily: Fonts.semiBold,
           marginTop: screenHeight * 0.02,
           marginLeft: screenWidth * 0.04,
         }}>
         YOUR COLLECTED PLANTS
-      </Text>
+      </WText>
       <View
         style={{
           flexDirection: 'row',
@@ -161,8 +158,8 @@ const ProfilePage = () => {
           }}
         />
         <View>
-          <Text style={{fontFamily: 'OpenSans-Regular'}}>Alagatre Plant</Text>
-          <Text style={{fontFamily: 'OpenSans-Regular'}}>02.01.2019</Text>
+          <WText>Alagatre Plant</WText>
+          <WText>02.01.2019</WText>
         </View>
       </View>
     </ScrollView>

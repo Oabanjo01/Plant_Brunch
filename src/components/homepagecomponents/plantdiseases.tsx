@@ -1,19 +1,16 @@
 import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import {Fonts} from '@app/constants/fonts';
+import {RootStackNavigationProp} from '@app/navigation/navigation';
+import {PlantDiseaseType} from '@app/redux/types';
+import WText from '@app/utilities/customText';
 import {
   ActivityIndicator,
-  Image,
   Platform,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {RootStackNavigationProp} from '@app/navigation/navigation';
-import {Routes} from '@app/constants';
-import {PlantProps} from '@app/constants/data/homepage';
-import {PlantDiseaseType} from '@app/redux/types';
 import FastImage from 'react-native-fast-image';
-import {Fonts} from '@app/constants/fonts';
 
 export const SeparatorComponent = () => {
   return <View style={{width: screenWidth * 0.05}} />;
@@ -31,7 +28,7 @@ export const RenderDiseasePicture = (
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate('plantDiseaseDetail', {
+        navigation.navigate('PlantDiseaseDetail', {
           item: plantDisease,
         })
       }>
@@ -76,13 +73,13 @@ export const RenderDiseasePicture = (
           borderTopRightRadius: 5,
           borderBottomRightRadius: 5,
         }}>
-        <Text
+        <WText
           style={{
             color: Colors.primaryTextColor,
             fontFamily: Fonts.Regular,
           }}>
           # {nametag}
-        </Text>
+        </WText>
       </View>
     </TouchableOpacity>
   );

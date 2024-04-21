@@ -1,8 +1,9 @@
 import {Colors} from '@app/constants/colors';
 import {ItemProps} from '@app/constants/data/homepage';
-import {screenWidth, screenHeight} from '@app/constants/dimensions';
-import {TouchableOpacity, View, Text} from 'react-native';
-import Svg, {Defs, ClipPath, Rect, Path} from 'react-native-svg';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import WText from '@app/utilities/customText';
+import {TouchableOpacity, View} from 'react-native';
+import Svg, {ClipPath, Defs, Path, Rect} from 'react-native-svg';
 
 export const RenderSubTopics = (props: ItemProps, onPress: () => void) => {
   const {id, image, description} = props;
@@ -87,14 +88,14 @@ export const RenderSubTopics = (props: ItemProps, onPress: () => void) => {
           shadowColor: Colors.primary,
         }}>
         {svgToRender}
-        <Text
+        <WText
           style={{
             fontSize: 14,
             marginTop: screenHeight * 0.01,
             color: Colors.primaryTextColor,
           }}>
           {description}
-        </Text>
+        </WText>
       </View>
     </TouchableOpacity>
   );

@@ -3,6 +3,7 @@ import {screenWidth} from '@app/constants/dimensions';
 import {Platform, Text, ToastAndroid, View} from 'react-native';
 
 import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
+import WText from './customText';
 
 interface ToastProps {
   text1: string;
@@ -37,14 +38,14 @@ const customToasts = ({
         opacity: 0.8,
         borderRadius: 15,
       }}>
-      <Text
+      <WText
         style={{color: Colors.lightTextColor, fontWeight: '600', fontSize: 18}}>
         {props.text1}
-      </Text>
-      <Text
+      </WText>
+      <WText
         style={{color: Colors.lightTextColor, fontWeight: '400', fontSize: 14}}>
         {props.text2}
-      </Text>
+      </WText>
     </View>
   );
 };
