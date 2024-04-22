@@ -1,35 +1,34 @@
-import React, {useState} from 'react';
 import {LargeButton} from '@app/components/login/buttons';
 import TextFields from '@app/components/login/textInput';
+import React, {useState} from 'react';
 
 import {Colors} from '@app/constants/colors';
+import {screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {Routes} from '@app/constants/routes';
 import {ScreenProps} from '@app/navigation/navigation';
 import WText from '@app/utilities/customText';
-import handleFirebaseError from '@app/utilities/errorHandling';
-import {showToast} from '@app/utilities/toast';
 import {Formik} from 'formik';
 import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {useTheme} from 'react-native-paper';
+import SelectDropdown from 'react-native-select-dropdown';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as yup from 'yup';
 import {styles} from './login';
-import app from '@react-native-firebase/app';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+import {useSignUp} from '@app/utilities/hooks/authentication/useSignUp';
 
-type SignUpdata = {
+export type SignUpdata = {
   userName: string;
   userEmail: string;
   password: string;
   confirmPassword: string;
+  gender: string;
 };
 
 const initialValues: SignUpdata = {
@@ -37,6 +36,7 @@ const initialValues: SignUpdata = {
   userEmail: '',
   password: '',
   confirmPassword: '',
+  gender: '',
 };
 
 const SignUpScreen = ({navigation}: ScreenProps) => {
@@ -52,7 +52,6 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
   const [isValidConfirmPassword, setisValidConfirmPassword] = useState(false);
   const [displayPassword, setDisplayPassword] = useState(false);
   const [displayConfirmPassword, setdisplayConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const signUpvalidationSchema = yup.object().shape({
     userName: yup
@@ -65,6 +64,7 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
       .trim()
       .email('Please enter a valid email')
       .required('Email Address is Required'),
+    gender: yup.string().required('Gender is required'),
     password: yup
       .string()
       .trim()
@@ -78,52 +78,33 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
   });
 
   const theme = useTheme();
-  const handleSignIn = async (values: SignUpdata) => {
-    setIsLoading(true);
-    setValidateChange(true);
-    try {
-      const userCredential = await auth().createUserWithEmailAndPassword(
-        values.userEmail,
-        values.password,
-      );
-      await firestore().collection('Signups').doc('Usernames').set({
-        username: values.userName,
-      });
-      await userCredential.user
-        .sendEmailVerification()
-        .then(() => {
-          userCredential.user.emailVerified === false &&
-            showToast({
-              text1: 'Success',
-              text2:
-                'A link has been sent to your email address, kindly activate your account',
-              type: 'success',
-            });
-        })
-        .then(() => {
-          navigation.navigate('Login');
-        });
-      setIsLoading(false);
-    } catch (error: any) {
-      console.log(error);
-      setIsLoading(false);
-      handleFirebaseError(error);
-    }
-  };
+
+  const {handleSignIn, isLoading} = useSignUp();
+
+  const gender = [
+    {title: 'Male', icon: 'man-outline'},
+    {title: 'Female', icon: 'woman-outline'},
+  ];
 
   return (
-    // <View>
-    //   <Text>ddddd</Text>
-    // </View>
     <Formik
       initialValues={initialValues}
       validateOnBlur
       validateOnChange={validateChange}
       validationSchema={signUpvalidationSchema}
       onSubmit={values => {
-        handleSignIn(values);
+        setValidateChange(true);
+        handleSignIn(values, navigation);
       }}>
-      {({values, handleChange, handleSubmit, errors, isValid}) => (
+      {({
+        values,
+        handleChange,
+        handleSubmit,
+        setValues,
+        errors,
+        isValid,
+        setFieldValue,
+      }) => (
         <View style={styles.container}>
           <KeyboardAvoidingView
             behavior="position"
@@ -166,6 +147,80 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
                 {errors.userEmail}
               </WText>
             )}
+            <SelectDropdown
+              data={gender}
+              onSelect={(selectedItem, index) => {
+                setFieldValue('gender', selectedItem.title);
+                setValues(previousValue => ({
+                  ...previousValue,
+                  gender: selectedItem.title,
+                }));
+                console.log(values.gender, selectedItem.title, index);
+              }}
+              renderButton={(selectedItem, isOpened) => {
+                return (
+                  <>
+                    <View style={styles.selectGender}>
+                      {selectedItem && (
+                        <Ionicons
+                          name={selectedItem.icon}
+                          size={20}
+                          color={Colors.primary}
+                        />
+                      )}
+                      <WText
+                        style={{
+                          textAlign: 'left',
+                        }}>
+                        {(selectedItem && selectedItem.title) ||
+                          'Select your gender'}
+                      </WText>
+                      <Ionicons
+                        name={isOpened ? 'chevron-up' : 'chevron-down'}
+                        size={20}
+                        color={Colors.addPhotoButtonColor}
+                      />
+                    </View>
+                    {isValid === false && values.gender === '' && (
+                      <WText
+                        style={{
+                          fontSize: 12,
+                          color: 'red',
+                          textAlign: 'center',
+                        }}>
+                        {errors.gender}
+                      </WText>
+                    )}
+                  </>
+                );
+              }}
+              renderItem={(item, index, isSelected) => {
+                return (
+                  <View
+                    style={{
+                      ...styles.dropdownSelectedStyle,
+                      ...(isSelected && {
+                        backgroundColor: Colors.primary,
+                      }),
+                    }}>
+                    <Ionicons
+                      name={item.icon}
+                      size={22}
+                      style={{paddingHorizontal: screenWidth * 0.05}}
+                    />
+                    <WText style={{flex: 1, fontSize: 16}}>{item.title}</WText>
+                  </View>
+                );
+              }}
+              showsVerticalScrollIndicator={false}
+              dropdownStyle={{
+                backgroundColor: Colors.screenColor,
+                paddingHorizontal: 10,
+                marginTop: 5,
+                paddingVertical: 5,
+                borderRadius: 12,
+              }}
+            />
             <TextFields
               theme={theme}
               onFocused={() => setPasswordPlaceHolder('')}

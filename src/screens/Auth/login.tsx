@@ -2,13 +2,14 @@ import {LargeButton} from '@app/components/login/buttons';
 import TextFields from '@app/components/login/textInput';
 import {Routes} from '@app/constants';
 import {Colors} from '@app/constants/colors';
-import {screenHeight} from '@app/constants/dimensions';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {ScreenProps} from '@app/navigation/navigation';
 import WText from '@app/utilities/customText';
 import {useLogin} from '@app/utilities/hooks/authentication/useLogin';
 import auth from '@react-native-firebase/auth';
 import {Formik} from 'formik';
+import React from 'react';
 import {useEffect, useState} from 'react';
 import {
   Keyboard,
@@ -37,8 +38,6 @@ const LoginScreen = ({navigation}: ScreenProps) => {
 
   useEffect(() => {
     setUserAuthState(false);
-
-    // Implement splash screen then redirection of user
     const unsubscribe = auth().onAuthStateChanged(user => {
       if (user && user.emailVerified) {
         setUserAuthState(true);
@@ -232,6 +231,29 @@ export const styles = StyleSheet.create({
     paddingLeft: '7%',
     paddingRight: '7%',
     flex: 1,
+  },
+  selectGender: {
+    width: screenWidth * 0.5,
+    height: screenHeight * 0.05,
+    marginVertical: screenHeight * 0.01,
+    borderColor: Colors.primary,
+    borderWidth: 1,
+    borderRadius: 12,
+    flexDirection: 'row',
+    paddingHorizontal: screenWidth * 0.05,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  dropdownSelectedStyle: {
+    width: '100%',
+    paddingHorizontal: 12,
+    marginVertical: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    borderRadius: 12,
+    height: screenHeight * 0.06,
   },
 });
 export default LoginScreen;

@@ -22,6 +22,7 @@ export const useLogin = () => {
         values.password,
       );
       if (userCredential.user.emailVerified === false) {
+        setIsLoading(false);
         showToast({
           text1: 'Verify yout email',
           text2:
