@@ -243,7 +243,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: screenWidth * 0.05,
     justifyContent: 'space-between',
     alignItems: 'center',
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
   },
   dropdownSelectedStyle: {
     width: '100%',

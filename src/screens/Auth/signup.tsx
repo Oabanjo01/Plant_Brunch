@@ -8,6 +8,7 @@ import {Fonts} from '@app/constants/fonts';
 import {Routes} from '@app/constants/routes';
 import {ScreenProps} from '@app/navigation/navigation';
 import WText from '@app/utilities/customText';
+import {useSignUp} from '@app/utilities/hooks/authentication/useSignUp';
 import {Formik} from 'formik';
 import {
   Keyboard,
@@ -21,7 +22,6 @@ import SelectDropdown from 'react-native-select-dropdown';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as yup from 'yup';
 import {styles} from './login';
-import {useSignUp} from '@app/utilities/hooks/authentication/useSignUp';
 
 export type SignUpdata = {
   userName: string;
@@ -99,6 +99,8 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
       {({
         values,
         handleChange,
+        setTouched,
+        setFieldTouched,
         handleSubmit,
         setValues,
         errors,
@@ -150,12 +152,18 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
             <SelectDropdown
               data={gender}
               onSelect={(selectedItem, index) => {
+                Keyboard.dismiss();
+                setTouched({
+                  confirmPassword: false,
+                  password: false,
+                  userName: false,
+                  userEmail: false,
+                });
                 setFieldValue('gender', selectedItem.title);
                 setValues(previousValue => ({
                   ...previousValue,
                   gender: selectedItem.title,
                 }));
-                console.log(values.gender, selectedItem.title, index);
               }}
               renderButton={(selectedItem, isOpened) => {
                 return (
@@ -206,6 +214,7 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
                     <Ionicons
                       name={item.icon}
                       size={22}
+                      color={Colors.addPhotoButtonColor}
                       style={{paddingHorizontal: screenWidth * 0.05}}
                     />
                     <WText style={{flex: 1, fontSize: 16}}>{item.title}</WText>
@@ -216,7 +225,8 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
               dropdownStyle={{
                 backgroundColor: Colors.screenColor,
                 paddingHorizontal: 10,
-                marginTop: 5,
+                marginTop: 2,
+                width: screenWidth * 0.5,
                 paddingVertical: 5,
                 borderRadius: 12,
               }}
