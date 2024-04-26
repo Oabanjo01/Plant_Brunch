@@ -50,7 +50,7 @@ const OnboardingScreens = ({navigation}: ScreenProps) => {
   const screenFlatListRef = React.useRef<FlatList<ItemProps>>(null);
   const dispatch = useDispatch();
   const onboardingStatus = useSelector(
-    (state: RootState) => state.onboarding.status,
+    (state: RootState) => state.onboarding.onboardingStatus,
   );
 
   const handleGetIndex = (e: NativeSyntheticEvent<NativeScrollEvent>) => {

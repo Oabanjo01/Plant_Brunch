@@ -61,6 +61,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       .min(8, ({min}) => `Password must be at least ${min} characters`)
       .required('Password is required'),
   });
+
   if (userAuthState === false) {
     return (
       <ActivityIndicator
@@ -199,7 +200,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
                   color: Colors.primaryTextColor,
                   fontFamily: Fonts.Regular,
                 }}>
-                Don’t Have Account?{' '}
+                Don’t Have an Account?{' '}
               </WText>
               <TouchableOpacity
                 onPress={() => navigation.navigate(Routes.SignUp)}
