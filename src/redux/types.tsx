@@ -1,7 +1,10 @@
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
-export const OnboardingStatus = 'Onboarding';
-export const ToggleStatus = 'Toggle';
+// action names
+export default {
+  OnboardingStatus: 'Onboarding',
+  ToggleStatus: 'Toggle',
+};
 
 // reducer action types
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -80,5 +83,5 @@ export interface PlantListResponse {
 
 export type AuthenticationTypes = {
   isAuthenticated: boolean;
-  user: FirebaseAuthTypes.UserCredential;
+  user: FirebaseAuthTypes.UserCredential | null;
 };

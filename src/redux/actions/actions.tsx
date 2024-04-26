@@ -1,4 +1,4 @@
-import {OnboardingStatus, ToggleStatus} from '../types';
+import types from '../types';
 
 import {LOGIN, LOGIN_SUCCESS, LOGOUT_SUCCESS} from '../types';
 
@@ -6,12 +6,12 @@ import {LOGIN, LOGIN_SUCCESS, LOGOUT_SUCCESS} from '../types';
 
 export const toggleName = (newName: string) => {
   return {
-    type: ToggleStatus, // all actions must have a type
+    type: types.ToggleStatus, // all actions must have a type
     payload: newName,
   };
 };
 
-export const LoginAction = (payload: any) => {
+export const loginAction = (payload: any) => {
   return {
     type: LOGIN_SUCCESS,
     payload: {
@@ -20,15 +20,16 @@ export const LoginAction = (payload: any) => {
   };
 };
 
-export const LogoutAction = (payload: string) => {
+export const logoutAction = (payload: string) => {
   return {
     type: LOGOUT_SUCCESS,
+    status: {},
   };
 };
 
 export const onboardingAction = (status: boolean) => {
   return {
-    type: OnboardingStatus,
+    type: types.OnboardingStatus,
     status: status,
   };
 };

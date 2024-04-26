@@ -5,7 +5,7 @@ import {useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {Routes} from '@app/constants/routes';
 import {useDispatch} from 'react-redux';
-import {LoginAction} from '@app/redux/actions/actions';
+import {loginAction} from '@app/redux/actions/actions';
 
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +33,7 @@ export const useLogin = () => {
       }
 
       navigation.replace(Routes.Home);
-      dispatch(LoginAction(userCredential.user));
+      dispatch(loginAction(userCredential.user));
       setIsLoading(false);
     } catch (error: any) {
       setIsLoading(false);

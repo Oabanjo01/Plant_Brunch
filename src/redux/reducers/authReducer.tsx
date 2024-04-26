@@ -13,7 +13,7 @@ const initialState: AuthenticationTypes = {
 
 const authReducer = (
   state: AuthenticationTypes = initialState,
-  {type, payload}: {type: string; payload: any},
+  {type, payload}: {type: string; payload: AuthenticationTypes},
 ) => {
   switch (type) {
     case LOGIN_SUCCESS:
