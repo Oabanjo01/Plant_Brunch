@@ -18,10 +18,19 @@ export const useSignUp = () => {
         values.userEmail,
         values.password,
       );
-      await firestore().collection('Signups').doc('Usernames').set({
-        username: values.userName,
-        gender: values.gender,
+      await userCredential.user.updateProfile({
+        displayName: values.userName,
       });
+      await firestore()
+        .collection('Signups')
+        .doc('Usernames')
+        .collection(values.userEmail)
+        .doc(userCredential.user.uid)
+        .set({
+          username: values.userName,
+          userEmail: values.userEmail,
+          gender: values.gender,
+        });
       await userCredential.user
         .sendEmailVerification()
         .then(() => {

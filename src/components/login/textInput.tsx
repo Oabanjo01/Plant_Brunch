@@ -5,6 +5,7 @@ import {KeyboardTypeOptions} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {screenHeight} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
+import React from 'react';
 
 interface TextFieldProps {
   onFocused: () => void;

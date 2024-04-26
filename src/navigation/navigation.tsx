@@ -98,7 +98,7 @@ const HomeTabNavigator: React.FC = () => {
 
 const ScreenStack = () => {
   const onboardingStatus = useSelector(
-    (state: RootState) => state.onboarding.status,
+    (state: RootState) => state.onboarding.onboardingStatus,
   );
   return (
     <Stack.Navigator

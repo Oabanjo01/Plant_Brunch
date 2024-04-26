@@ -61,6 +61,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       .min(8, ({min}) => `Password must be at least ${min} characters`)
       .required('Password is required'),
   });
+
   if (userAuthState === false) {
     return (
       <ActivityIndicator
@@ -87,7 +88,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
           errors,
           isSubmitting,
           isValid,
-          touched,
+          setFieldValue,
         }) => (
           <ScrollView
             style={styles.container}
@@ -199,10 +200,12 @@ const LoginScreen = ({navigation}: ScreenProps) => {
                   color: Colors.primaryTextColor,
                   fontFamily: Fonts.Regular,
                 }}>
-                Don’t Have Account?{' '}
+                Don’t Have an Account?{' '}
               </WText>
               <TouchableOpacity
-                onPress={() => navigation.navigate(Routes.SignUp)}
+                onPress={() => {
+                  navigation.navigate(Routes.SignUp);
+                }}
                 activeOpacity={0.9}>
                 <WText style={{color: Colors.primary}}> Sign Up</WText>
               </TouchableOpacity>

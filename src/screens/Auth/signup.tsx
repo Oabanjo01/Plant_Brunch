@@ -237,7 +237,7 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
               placeHolderText={passwordPlacHolder}
               valueText={values.userEmail}
               labelText="Password"
-              displayPassword={displayPassword}
+              displayPassword={!displayPassword}
               callBack={handleChange('password')}
               displayRightIcon
               togglePasswordDisplay={() => setDisplayPassword(!displayPassword)}
@@ -258,7 +258,7 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
               togglePasswordDisplay={() =>
                 setdisplayConfirmPassword(!displayConfirmPassword)
               }
-              displayPassword={displayConfirmPassword}
+              displayPassword={!displayConfirmPassword}
             />
             {isValid === false && isValidConfirmPassword === false && (
               <WText style={{fontSize: 12, color: 'red'}}>
