@@ -40,13 +40,6 @@ const authReducer = (
         isAuthenticated: false,
         user: null,
       };
-    case types.TOGGLE_STATUS:
-      return {
-        ...state,
-        currentTheme: payload ?? 'payload',
-        initialText: payload ?? 'Welcome',
-      };
-
     default:
       return state;
   }

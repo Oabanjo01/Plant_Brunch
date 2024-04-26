@@ -25,9 +25,11 @@ export const logoutAction = () => {
   };
 };
 
-export const onboardingAction = (status: boolean) => {
+export const onboardingAction = (payload: boolean) => {
   return {
     type: types.ONBOARDING_STATUS,
-    status: status,
+    payload: {
+      onboardingStatus: payload,
+    },
   };
 };
