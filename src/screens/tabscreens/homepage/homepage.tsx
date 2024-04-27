@@ -27,7 +27,7 @@ import {RootStackNavigationProp, ScreenProps} from '@app/navigation/navigation';
 import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import {showToast} from '@app/utilities/toast';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@app/redux/store';
 import instance, {generateConfigObject} from '@app/api';
 import {Plant, PlantDiseaseType, PlantListResponse} from '@app/redux/types';
@@ -38,6 +38,7 @@ import {fetchHomePagedata} from '@app/index';
 import {Fonts} from '@app/constants/fonts';
 import RenderPlantPictures from '@app/components/homepagecomponents/photography';
 import WText from '@app/utilities/customText';
+import {logoutAction} from '@app/redux/actions/actions';
 
 const HomePage = ({navigation}: ScreenProps) => {
   // const navigation = useNavigation();
@@ -57,6 +58,7 @@ const HomePage = ({navigation}: ScreenProps) => {
   const plantItemsToShow = 10;
   const plantDiseasesToShow = 7;
 
+  const dispatch = useDispatch();
   const fetchPlantList = async () => {
     const response = await fetchHomePagedata();
     try {
@@ -182,6 +184,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 auth()
                   .signOut()
                   .then(() => {
+                    dispatch(logoutAction());
                     navigation.replace(Routes.Login);
                     showToast({
                       type: 'success',
