@@ -6,7 +6,7 @@ export type OnboardingData = {
 };
 
 const initialState: OnboardingData = {
-  onboardingStatus: true,
+  onboardingStatus: false,
 };
 
 const onboardingReducer = (
@@ -15,14 +15,15 @@ const onboardingReducer = (
 ) => {
   switch (type) {
     case types.ONBOARDING_STATUS:
-      return {
+      const newState = {
         ...state,
         onboardingStatus: payload.onboardingStatus,
       };
+      return newState;
     case REHYDRATE:
       return {
         ...state,
-        ...payload.onboarding,
+        ...(payload?.onboarding || undefined),
       };
     default:
       return state;

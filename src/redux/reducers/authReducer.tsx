@@ -41,10 +41,11 @@ const authReducer = (
         isAuthenticated: false,
         user: null,
       };
-    case REHYDRATE: // Add this case for handling rehydration
+    case REHYDRATE:
+      const incomingState = payload ? payload?.auth : undefined;
       return {
         ...state,
-        // ...payload.auth, // Merge the persisted auth state with the initial state
+        ...(payload?.auth ?? undefined),
       };
     default:
       return state;

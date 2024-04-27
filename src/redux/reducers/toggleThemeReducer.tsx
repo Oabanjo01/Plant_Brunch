@@ -22,7 +22,7 @@ const toggleThemeReducer = (
     case REHYDRATE:
       return {
         ...state,
-        ...payload.theme,
+        ...(payload?.theme ?? undefined),
       };
 
     default:

@@ -11,29 +11,22 @@ const persistConfig = {
   whitelist: ['onboarding', 'theme', 'auth'],
 };
 
-const rootReducer = (state: any, action: any) => {
-  if (action.type === 'REHYDRATE' && action.payload === undefined) {
-    // If there is no persisted state, return the combined reducers with the initial state
-    console.log(action.payload, 'restarted app');
-    return combineReducers({
-      auth: authReducer,
-      onboarding: onboardingReducer,
-      theme: toggleThemeReducer,
-    })(undefined, action);
-  }
-  console.log(action.payload, 'persisted');
-  // If there is persisted state, use the persisted reducers
-  return combineReducers({
-    auth: persistReducer(persistConfig, authReducer),
-    onboarding: persistReducer(persistConfig, onboardingReducer),
-    theme: persistReducer(persistConfig, toggleThemeReducer),
-  })(state, action);
+const rootReducer = (state, action) => {
+  const combinedReducers = combineReducers({
+    auth: authReducer,
+    onboarding: onboardingReducer,
+    theme: toggleThemeReducer,
+  });
+
+  const rehydratedState = combinedReducers(state, action);
+  return rehydratedState;
 };
 
-export const store = createStore(rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const store = createStore(persistedReducer);
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof rootReducer>;
-console.log('Initial State: ', store.getState());
+// console.log('Initial State: ', store.getState());
 store.subscribe(() => {
   console.log('New State: ', store.getState());
 });
