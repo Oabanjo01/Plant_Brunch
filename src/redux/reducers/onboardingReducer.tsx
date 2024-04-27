@@ -1,3 +1,4 @@
+import {REHYDRATE} from 'redux-persist';
 import types from '../types';
 
 export type OnboardingData = {
@@ -5,7 +6,7 @@ export type OnboardingData = {
 };
 
 const initialState: OnboardingData = {
-  onboardingStatus: false,
+  onboardingStatus: true,
 };
 
 const onboardingReducer = (
@@ -18,7 +19,11 @@ const onboardingReducer = (
         ...state,
         onboardingStatus: payload.onboardingStatus,
       };
-
+    case REHYDRATE:
+      return {
+        ...state,
+        ...payload.onboarding,
+      };
     default:
       return state;
   }

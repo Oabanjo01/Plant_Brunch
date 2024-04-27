@@ -8,13 +8,27 @@ import toggleThemeReducer from './reducers/toggleThemeReducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  whitelist: ['onboarding', 'theme', 'auth'],
 };
 
-const rootReducer = combineReducers({
-  auth: persistReducer(persistConfig, authReducer),
-  onboarding: persistReducer(persistConfig, onboardingReducer),
-  theme: persistReducer(persistConfig, toggleThemeReducer),
-});
+const rootReducer = (state: any, action: any) => {
+  if (action.type === 'REHYDRATE' && action.payload === undefined) {
+    // If there is no persisted state, return the combined reducers with the initial state
+    console.log(action.payload, 'restarted app');
+    return combineReducers({
+      auth: authReducer,
+      onboarding: onboardingReducer,
+      theme: toggleThemeReducer,
+    })(undefined, action);
+  }
+  console.log(action.payload, 'persisted');
+  // If there is persisted state, use the persisted reducers
+  return combineReducers({
+    auth: persistReducer(persistConfig, authReducer),
+    onboarding: persistReducer(persistConfig, onboardingReducer),
+    theme: persistReducer(persistConfig, toggleThemeReducer),
+  })(state, action);
+};
 
 export const store = createStore(rootReducer);
 export const persistor = persistStore(store);

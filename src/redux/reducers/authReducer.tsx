@@ -1,3 +1,4 @@
+import {REHYDRATE} from 'redux-persist';
 import types, {UserData} from '../types';
 
 // NOTE:
@@ -39,6 +40,11 @@ const authReducer = (
         ...state,
         isAuthenticated: false,
         user: null,
+      };
+    case REHYDRATE: // Add this case for handling rehydration
+      return {
+        ...state,
+        // ...payload.auth, // Merge the persisted auth state with the initial state
       };
     default:
       return state;

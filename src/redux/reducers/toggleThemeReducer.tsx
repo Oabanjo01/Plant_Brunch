@@ -1,3 +1,4 @@
+import {REHYDRATE} from 'redux-persist';
 import types from '../types';
 
 export type ThemeProperty = {
@@ -16,8 +17,12 @@ const toggleThemeReducer = (
     case types.TOGGLE_STATUS:
       return {
         ...state,
-        currentTheme: payload ?? 'payload',
-        initialText: payload ?? 'Welcome',
+        isDarkMode: payload,
+      };
+    case REHYDRATE:
+      return {
+        ...state,
+        ...payload.theme,
       };
 
     default:
