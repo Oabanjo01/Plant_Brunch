@@ -25,6 +25,14 @@ export const logoutAction = () => {
   };
 };
 
+export const rememberUserAction = (payload: boolean) => {
+  return {
+    type: types.REMEMBER_ME,
+    payload: {
+      rememberUser: payload,
+    },
+  };
+};
 export const onboardingAction = (payload: boolean) => {
   return {
     type: types.ONBOARDING_STATUS,

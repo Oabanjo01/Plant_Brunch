@@ -11,12 +11,15 @@ import types, {UserData} from '../types';
 const initialState: UserData = {
   isAuthenticated: false,
   user: null,
+  rememberUser: false,
 };
 
 const authReducer = (
   state: UserData = initialState,
   {type, payload}: {type: string; payload: any},
 ) => {
+  console.log(payload, 'payload');
+
   switch (type) {
     case types.LOGIN_SUCCESS:
       return {
@@ -40,6 +43,11 @@ const authReducer = (
         ...state,
         isAuthenticated: false,
         user: null,
+      };
+    case types.REMEMBER_ME:
+      return {
+        ...state,
+        rememberUser: payload.rememberUser,
       };
     case REHYDRATE:
       const incomingState = payload ? payload?.auth : undefined;

@@ -8,6 +8,7 @@ export default {
   LOGIN_FAILURE: 'LOGIN_FAILURE',
   LOGOUT_FAILURE: 'LOGOUT_FAILURE',
   LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
+  REMEMBER_ME: 'REMEMBER_ME',
 };
 
 // action types
@@ -82,4 +83,5 @@ export interface PlantListResponse {
 export type UserData = {
   isAuthenticated: boolean;
   user: FirebaseAuthTypes.UserCredential | null;
+  rememberUser: boolean;
 };

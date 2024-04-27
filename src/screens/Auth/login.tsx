@@ -5,12 +5,13 @@ import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {ScreenProps} from '@app/navigation/navigation';
+import {rememberUserAction} from '@app/redux/actions/actions';
+import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import {useLogin} from '@app/utilities/hooks/authentication/useLogin';
 import auth from '@react-native-firebase/auth';
 import {Formik} from 'formik';
-import React from 'react';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Keyboard,
   ScrollView,
@@ -19,12 +20,13 @@ import {
   View,
 } from 'react-native';
 import {ActivityIndicator, Checkbox, useTheme} from 'react-native-paper';
+import {useDispatch, useSelector} from 'react-redux';
 import * as yup from 'yup';
 
 const LoginScreen = ({navigation}: ScreenProps) => {
   const [emailPlacHolder, setEmailPlaceHolder] = useState('email');
   const [passwordPlacHolder, setPasswordPlaceHolder] = useState('password');
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState<boolean>(false);
   const [validateChange, setValidateChange] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
@@ -35,6 +37,10 @@ const LoginScreen = ({navigation}: ScreenProps) => {
   const {handleLogin, isLoading, setIsLoading} = useLogin();
 
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const checkedStatus = useSelector(
+    (state: RootState) => state.auth.rememberUser,
+  );
 
   useEffect(() => {
     setUserAuthState(false);
@@ -149,8 +155,11 @@ const LoginScreen = ({navigation}: ScreenProps) => {
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Checkbox
                   color={Colors.primary}
-                  status={checked ? 'checked' : 'unchecked'}
-                  onPress={() => setChecked(!checked)}
+                  status={checkedStatus ? 'checked' : 'unchecked'}
+                  onPress={() => {
+                    setChecked(!checked);
+                    dispatch(rememberUserAction(checked));
+                  }}
                 />
                 <WText
                   style={{
