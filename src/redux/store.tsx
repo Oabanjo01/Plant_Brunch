@@ -1,9 +1,10 @@
-import {combineReducers, createStore} from 'redux';
-import {persistReducer, persistStore} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {combineReducers, applyMiddleware, createStore} from 'redux';
+import {persistReducer, persistStore} from 'redux-persist';
 import authReducer from './reducers/authReducer';
 import onboardingReducer from './reducers/onboardingReducer';
 import toggleThemeReducer from './reducers/toggleThemeReducer';
+import logger, {createLogger} from 'redux-logger';
 
 const persistConfig = {
   key: 'root',
@@ -11,22 +12,34 @@ const persistConfig = {
   whitelist: ['onboarding', 'theme', 'auth'],
 };
 
-const rootReducer = (state, action) => {
+export type AuthState = ReturnType<typeof authReducer>;
+export type OnboardingState = ReturnType<typeof onboardingReducer>;
+export type ThemeState = ReturnType<typeof toggleThemeReducer>;
+
+const reduxlogger = createLogger({});
+const rootReducer = (
+  state:
+    | {auth: AuthState; onboarding: OnboardingState; theme: ThemeState}
+    | undefined,
+  action: any,
+) => {
   const combinedReducers = combineReducers({
     auth: authReducer,
     onboarding: onboardingReducer,
     theme: toggleThemeReducer,
   });
 
-  const rehydratedState = combinedReducers(state, action);
+  const rehydratedState:
+    | {auth: AuthState; onboarding: OnboardingState; theme: ThemeState}
+    | undefined = combinedReducers(state, action);
   return rehydratedState;
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-export const store = createStore(persistedReducer);
+export const store = createStore(
+  persistedReducer,
+  applyMiddleware(reduxlogger),
+);
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof rootReducer>;
-// console.log('Initial State: ', store.getState());
-store.subscribe(() => {
-  console.log('New State: ', store.getState());
-});
+store.subscribe(() => {});

@@ -1,44 +1,40 @@
+import RenderPlantPictures, {
+  SeparatorComponent,
+} from '@app/components/homepagecomponents/photography';
+import {RenderSubTopics} from '@app/components/homepagecomponents/plantcategories';
+import {RenderDiseasePicture} from '@app/components/homepagecomponents/plantdiseases';
 import {Colors, Routes} from '@app/constants';
-import React, {useEffect, useState} from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {
-  View,
-  Text,
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import {TextInput} from 'react-native-paper';
-import Dashboard from '@assets/images/Dashboard.svg';
 import {Data} from '@app/constants/data/homepage';
 import {
   dashboardHeight,
   screenHeight,
   screenWidth,
 } from '@app/constants/dimensions';
-import RenderPlantTypes, {
-  SeparatorComponent,
-} from '@app/components/homepagecomponents/photography';
-import {RenderDiseasePicture} from '@app/components/homepagecomponents/plantdiseases';
-import {RootStackNavigationProp, ScreenProps} from '@app/navigation/navigation';
-import {useNavigation} from '@react-navigation/native';
-import auth from '@react-native-firebase/auth';
-import {showToast} from '@app/utilities/toast';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '@app/redux/store';
-import instance, {generateConfigObject} from '@app/api';
-import {Plant, PlantDiseaseType, PlantListResponse} from '@app/redux/types';
-import {ActivityIndicator} from 'react-native';
-import axios, {AxiosError} from 'axios';
-import {RenderSubTopics} from '@app/components/homepagecomponents/plantcategories';
-import {fetchHomePagedata} from '@app/index';
 import {Fonts} from '@app/constants/fonts';
-import RenderPlantPictures from '@app/components/homepagecomponents/photography';
-import WText from '@app/utilities/customText';
+import {fetchHomePagedata} from '@app/index';
+import {ScreenProps} from '@app/navigation/navigation';
 import {logoutAction} from '@app/redux/actions/actions';
+import {RootState} from '@app/redux/store';
+import {Plant, PlantDiseaseType} from '@app/redux/types';
+import WText from '@app/utilities/customText';
+import {showToast} from '@app/utilities/toast';
+import Dashboard from '@assets/images/Dashboard.svg';
+import auth from '@react-native-firebase/auth';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import {TextInput} from 'react-native-paper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useDispatch, useSelector} from 'react-redux';
 
 const HomePage = ({navigation}: ScreenProps) => {
   // const navigation = useNavigation();
@@ -54,7 +50,7 @@ const HomePage = ({navigation}: ScreenProps) => {
   );
 
   const userData = useSelector((state: RootState) => state.auth.user);
-  // const {user} = userData;
+  const {displayName} = userData;
   const plantItemsToShow = 10;
   const plantDiseasesToShow = 7;
 
@@ -164,7 +160,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                   color: Colors.lightTextColor,
                   fontSize: 28,
                 }}>
-                Hello ,
+                Hello {displayName},
               </WText>
               <WText
                 style={{

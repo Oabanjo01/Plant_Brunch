@@ -18,8 +18,6 @@ const authReducer = (
   state: UserData = initialState,
   {type, payload}: {type: string; payload: any},
 ) => {
-  console.log(payload, 'payload');
-
   switch (type) {
     case types.LOGIN_SUCCESS:
       return {

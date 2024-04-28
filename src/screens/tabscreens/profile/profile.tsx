@@ -5,15 +5,19 @@ import {
   screenWidth,
 } from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
+import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import ProfileDashboard from '@assets/images/ProfileDashboard.svg';
 import React, {useState} from 'react';
 import {ScrollView, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
 
 const ProfilePage = () => {
   const [activeButton, setActiveButton] = useState<0 | 1 | 2>(1);
+  const userData = useSelector((state: RootState) => state.auth.user);
+  const {displayName} = userData;
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -49,7 +53,7 @@ const ProfilePage = () => {
             fontFamily: Fonts.semiBold,
             fontSize: 18,
           }}>
-          Olabanjo Olakunori
+          {displayName}
         </WText>
         <View style={{flexDirection: 'row'}}>
           <Ionicons name={'location'} size={30} color={Colors.whiteColor} />
