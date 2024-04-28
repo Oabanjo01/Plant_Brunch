@@ -13,8 +13,8 @@ import {
 import {Fonts} from '@app/constants/fonts';
 import {fetchHomePagedata} from '@app/index';
 import {ScreenProps} from '@app/navigation/navigation';
-import {logoutAction} from '@app/redux/actions/actions';
-import {RootState} from '@app/redux/store';
+import {fetchHomeData, logoutAction} from '@app/redux/actions/actions';
+import {RootState, store} from '@app/redux/store';
 import {Plant, PlantDiseaseType} from '@app/redux/types';
 import WText from '@app/utilities/customText';
 import {showToast} from '@app/utilities/toast';
@@ -44,75 +44,35 @@ const HomePage = ({navigation}: ScreenProps) => {
   const [loadingPlantDiseasePicture, setIsLoadingPlantDiseasePicture] =
     useState<boolean>(false);
   const [isFetchingData, setIsFetchingData] = useState<boolean>(true);
-  const [plantList, setPlantList] = useState<Plant[] | null>([]);
-  const [plantDisease, setPlantDisease] = useState<PlantDiseaseType[] | null>(
-    [],
-  );
+  // const [plantList, setPlantList] = useState<Plant[] | null>([]);
+  // const [plantDisease, setPlantDisease] = useState<PlantDiseaseType[] | null>(
+  //   [],
+  // );
 
   const userData = useSelector((state: RootState) => state.auth.user);
+  const userData2 = useSelector((state: RootState) => state.fetchData);
   const {displayName} = userData;
+  const {plantList, plantDisease} = userData2;
   const plantItemsToShow = 10;
   const plantDiseasesToShow = 7;
 
   const dispatch = useDispatch();
-  const fetchPlantList = async () => {
-    const response = await fetchHomePagedata();
-    try {
-      const planSpeciesList = response?.plantList.data;
-      return planSpeciesList;
-    } catch (error: any) {
-      setPlantList(null);
-      setIsFetchingData(false);
-      if (
-        axios.isAxiosError<{error: {message: string}}>(error) &&
-        error.response?.status === 401
-      ) {
-        return error.response.data.error;
-      }
-      showToast({
-        type: 'error',
-        text1: 'Error Fetching Plant List',
-        text2: error.message,
-      });
-      throw error.message;
-    }
-  };
 
-  const fetchPlantDiseases = async () => {
-    const response = await fetchHomePagedata();
-    try {
-      const plantDiseaseList = response?.plantDisease.data;
-      return plantDiseaseList;
-    } catch (error: any) {
-      setPlantDisease(null);
-      setIsFetchingData(false);
-      if (
-        axios.isAxiosError<{error: {message: string}}>(error) &&
-        error.response?.status === 401
-      ) {
-        return error.response.data.error;
-      }
-      showToast({
-        type: 'error',
-        text1: 'Error Fetching Plant List',
-        text2: error.message,
-      });
-      throw error.message;
-    }
-  };
+  console.log('got here', plantList);
 
   useEffect(() => {
-    setIsFetchingData(true);
-    fetchPlantList().then(data => {
-      const slicedData = data.slice(0, plantItemsToShow);
-      setPlantList(slicedData ?? []);
-    });
-    fetchPlantDiseases().then((data: PlantDiseaseType[]) => {
-      const slicedData = data.slice(0, plantDiseasesToShow);
-      setPlantDisease(slicedData);
-    });
+    store.dispatch(fetchHomeData);
+    //   setIsFetchingData(true);
+    //   fetchPlantList().then(data => {
+    //     const slicedData = data.slice(0, plantItemsToShow);
+    //     setPlantList(slicedData ?? []);
+    //   });
+    //   fetchPlantDiseases().then((data: PlantDiseaseType[]) => {
+    //     const slicedData = data.slice(0, plantDiseasesToShow);
+    //     setPlantDisease(slicedData);
+    //   });
 
-    setIsFetchingData(false);
+    //   setIsFetchingData(false);
   }, []);
 
   const handlePlantListLoadStart = () => {

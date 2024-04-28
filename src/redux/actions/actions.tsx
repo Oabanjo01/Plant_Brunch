@@ -1,4 +1,6 @@
+import axios from 'axios';
 import types from '../types';
+import {planDiseasesResponse, speciesListResponse} from '@app/index';
 
 // These functions are action creators, they return an action - {type, payload}
 // action creators, functions returning an action. An action is an object with a type property
@@ -40,4 +42,55 @@ export const onboardingAction = (payload: boolean) => {
       onboardingStatus: payload,
     },
   };
+};
+
+export const fetchData = () => {
+  return {
+    type: types.FETCHING_DATA,
+  };
+};
+export const fetchDataSuccess = (payload: any) => {
+  return {
+    type: types.FETCHED_DATA_SUCCESS,
+    payload: {
+      fetchedData: payload,
+    },
+  };
+};
+export const fetchDataFailure = (payload: string) => {
+  console.log('landed in actions error');
+  return {
+    type: types.FETCHED_DATA_FAILURE,
+    payload: {
+      error: payload,
+    },
+  };
+};
+
+export const fetchHomeData = async (dispatch: any, getState: any) => {
+  console.log('heeeeee');
+  dispatch(fetchData());
+  const allResponses = await axios.all([
+    speciesListResponse,
+    planDiseasesResponse,
+  ]);
+  console.log('heeeeee 111');
+  const plantList = allResponses[0].data.data;
+  const plantDisease = allResponses[1].data.data;
+  console.log(plantList, 'action');
+  try {
+    dispatch(
+      fetchDataSuccess({plantList: plantList, plantDisease: plantDisease}),
+    );
+    return {
+      plantList,
+      plantDisease,
+    };
+  } catch (error) {
+    console.log('not an string error', error);
+    if (typeof error === 'string') {
+      dispatch(fetchDataFailure(error));
+      return;
+    }
+  }
 };
