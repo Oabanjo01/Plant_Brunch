@@ -29,7 +29,7 @@ const fetchedDataReducer = (
       return {
         ...state,
         plantList: [...payload.fetchedData.plantList],
-        plantDisease: {...payload.fetchedData.plantDisease},
+        plantDisease: [...payload.fetchedData.plantDisease],
         isLoading: false,
       };
     case types.FETCHED_DATA_FAILURE:

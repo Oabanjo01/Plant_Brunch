@@ -4,6 +4,7 @@ import {Fonts} from '@app/constants/fonts';
 import {RootStackNavigationProp} from '@app/navigation/navigation';
 import {PlantDiseaseType} from '@app/redux/types';
 import WText from '@app/utilities/customText';
+import React from 'react';
 import {
   ActivityIndicator,
   Platform,
@@ -22,9 +23,11 @@ export const RenderDiseasePicture = (
   pictureIsLoading: boolean,
   pictureLoadingStarts: () => void,
   pictureLoadingEnds: () => void,
+  pictureLoading: boolean,
 ) => {
-  const image = plantDisease.images;
+  const image = plantDisease.images[0];
   const nametag = plantDisease.common_name;
+  console.log(pictureIsLoading, pictureLoading);
   return (
     <TouchableOpacity
       onPress={() =>
@@ -34,7 +37,7 @@ export const RenderDiseasePicture = (
       }>
       <FastImage
         source={{
-          uri: image[0].regular_url,
+          uri: image?.regular_url,
         }}
         resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
         onLoadEnd={pictureLoadingEnds}
@@ -45,24 +48,26 @@ export const RenderDiseasePicture = (
           borderRadius: 10,
         }}
       />
-      {(pictureIsLoading || !plantDisease) && (
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: screenWidth * 0.4,
-            height: screenHeight * 0.25,
-          }}>
-          <ActivityIndicator
-            color={Colors.primary}
+      {plantDisease &&
+        !pictureIsLoading &&
+        (pictureLoading ? (
+          <View
             style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.2)',
-              borderRadius: 5,
-              padding: 10,
-            }}
-          />
-        </View>
-      )}
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: screenWidth * 0.4,
+              height: screenHeight * 0.25,
+            }}>
+            <ActivityIndicator
+              color={Colors.primary}
+              style={{
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                borderRadius: 5,
+                padding: 10,
+              }}
+            />
+          </View>
+        ) : null)}
       <View
         style={{
           backgroundColor: Colors.whiteColor,

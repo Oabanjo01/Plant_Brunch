@@ -68,29 +68,29 @@ export const fetchDataFailure = (payload: string) => {
 };
 
 export const fetchHomeData = async (dispatch: any, getState: any) => {
-  console.log('heeeeee');
+  console.log('heeeeee', getState());
   dispatch(fetchData());
   const allResponses = await axios.all([
     speciesListResponse,
     planDiseasesResponse,
   ]);
-  console.log('heeeeee 111');
   const plantList = allResponses[0].data.data;
   const plantDisease = allResponses[1].data.data;
-  console.log(plantList, 'action');
+  // console.log(plantDisease, 'action');
   try {
     dispatch(
-      fetchDataSuccess({plantList: plantList, plantDisease: plantDisease}),
+      fetchDataSuccess({
+        plantList: plantList,
+        plantDisease: plantDisease,
+      }),
     );
-    return {
-      plantList,
-      plantDisease,
-    };
+    console.log('heeeeee 111', getState());
+    return;
   } catch (error) {
-    console.log('not an string error', error);
     if (typeof error === 'string') {
       dispatch(fetchDataFailure(error));
       return;
     }
+    console.log('not an string error', error);
   }
 };

@@ -13,7 +13,6 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {fetchHomeData} from '@app/redux/actions/actions';
 
 const App = () => {
-  store.dispatch(fetchHomeData);
   return (
     <>
       <Provider store={store}>

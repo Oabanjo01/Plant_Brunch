@@ -3,6 +3,7 @@ import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootStackNavigationProp} from '@app/navigation/navigation';
 import {Plant} from '@app/redux/types';
 import WText from '@app/utilities/customText';
+import React from 'react';
 import {Platform, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {ActivityIndicator} from 'react-native-paper';

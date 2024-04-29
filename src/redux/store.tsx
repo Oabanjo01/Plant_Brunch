@@ -20,7 +20,7 @@ const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   whitelist: ['onboarding', 'theme', 'auth'],
-  // blacklist: ['fetchData'],
+  blacklist: ['fetchData'],
 };
 
 export type AuthState = ReturnType<typeof authReducer>;
@@ -28,10 +28,7 @@ export type OnboardingState = ReturnType<typeof onboardingReducer>;
 export type ThemeState = ReturnType<typeof toggleThemeReducer>;
 
 const reduxlogger = createLogger({});
-const middlewares = [
-  thunk,
-  // reduxlogger
-];
+const middlewares = [thunk, reduxlogger];
 
 const rootReducer = (
   state:
@@ -70,8 +67,8 @@ export const store = createStore(
 );
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof rootReducer>;
-store.dispatch(fetchHomeData);
+// store.dispatch(fetchHomeData);
 
 store.subscribe(() => {
-  console.log(store.getState(), 'store console');
+  // console.log(store.getState(), 'store console');
 });
