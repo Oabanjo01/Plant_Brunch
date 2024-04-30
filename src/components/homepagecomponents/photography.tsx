@@ -15,8 +15,6 @@ export const SeparatorComponent = () => {
 const RenderPlantPictures = (
   item: Plant,
   pictureIsLoading: boolean,
-  pictureLoadingStarts: () => void,
-  pictureLoadingEnds: () => void,
   navigation: RootStackNavigationProp,
 ) => {
   return (
@@ -31,8 +29,8 @@ const RenderPlantPictures = (
         justifyContent: 'center',
       }}>
       <FastImage
-        onLoad={pictureLoadingEnds}
-        onLoadStart={pictureLoadingStarts}
+        onLoad={() => console.log('onloadend')}
+        onLoadStart={() => console.log('onloadend')}
         source={{
           uri: item.default_image.regular_url,
           priority: FastImage.priority.normal,

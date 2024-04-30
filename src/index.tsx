@@ -1,6 +1,12 @@
 import axios from 'axios';
 import {plantDisease, plantList} from './paths';
 import instance, {generateConfigObject} from './api';
+import {
+  Plant,
+  PlantDiseaseResponse,
+  PlantDiseaseType,
+  PlantListResponse,
+} from './redux/types';
 
 export const speciesListResponse = instance.request(
   generateConfigObject('get', plantList, {
@@ -19,8 +25,8 @@ export const fetchHomePagedata = async () => {
       speciesListResponse,
       planDiseasesResponse,
     ]);
-    const plantList = allResponses[0].data;
-    const plantDisease = allResponses[1].data;
+    const plantList: Plant[] = allResponses[0].data;
+    const plantDisease: PlantDiseaseType[] = allResponses[1].data;
     return {
       plantList,
       plantDisease,

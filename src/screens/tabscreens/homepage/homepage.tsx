@@ -15,12 +15,12 @@ import {ScreenProps} from '@app/navigation/navigation';
 import {fetchHomeData, logoutAction} from '@app/redux/actions/actions';
 import {RootState, store} from '@app/redux/store';
 import WText from '@app/utilities/customText';
+import {useFetchData} from '@app/utilities/hooks/apiData/useFetchData';
 import {showToast} from '@app/utilities/toast';
 import Dashboard from '@assets/images/Dashboard.svg';
 import auth from '@react-native-firebase/auth';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
-  ActivityIndicator,
   FlatList,
   Platform,
   ScrollView,
@@ -34,42 +34,20 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 
 const HomePage = ({navigation}: ScreenProps) => {
-  const [loadingPlantListPicture, setIsLoadingPlantListPicture] =
-    useState<boolean>(false);
-  const [loadingPlantDiseasePicture, setIsLoadingPlantDiseasePicture] =
-    useState<boolean>(false);
-  const [isFetchingData, setIsFetchingData] = useState<boolean>(true);
-
+  store.dispatch(fetchHomeData);
   const userData = useSelector((state: RootState) => state.auth.user);
   const fetchedData = useSelector((state: RootState) => state.fetchData);
 
   const {displayName} = userData;
   const {plantList, plantDisease, isLoading} = fetchedData;
 
+  // const {storedUserName, plantDisease, plantList, isLoading, fetchdata} =
+  //   useFetchData();
+
   const dispatch = useDispatch();
 
-  // console.log('got here', isLoading);
+  // console.log('got here', fetchdata());
 
-  useEffect(() => {
-    store.dispatch(fetchHomeData);
-  }, []);
-
-  const handlePlantListLoadStart = () => {
-    setIsLoadingPlantListPicture(true);
-  };
-
-  const handlePlantListLoadEnd = () => {
-    setIsLoadingPlantListPicture(false);
-  };
-  const handlePlantDiseaseLoadStart = () => {
-    console.log('Starting');
-    setIsLoadingPlantDiseasePicture(true);
-  };
-
-  const handlePlantDiseaseLoadEnd = () => {
-    console.log('Ending');
-    setIsLoadingPlantDiseasePicture(false);
-  };
   return (
     <>
       <View
@@ -246,37 +224,31 @@ const HomePage = ({navigation}: ScreenProps) => {
                 data={plantList}
                 keyExtractor={item => item.id.toString()}
                 renderItem={item => {
-                  return RenderPlantPictures(
-                    item.item,
-                    isLoading,
-                    handlePlantListLoadStart,
-                    handlePlantListLoadEnd,
-                    navigation,
-                  );
+                  return RenderPlantPictures(item.item, isLoading, navigation);
                 }}
-                ListEmptyComponent={
-                  isFetchingData || plantList?.length === 0 ? (
-                    <View
-                      style={{
-                        borderWidth: 1,
-                        borderColor: Colors.whiteColor,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: 10,
-                        width: screenWidth * 0.73,
-                        height: screenHeight * 0.22,
-                      }}>
-                      <ActivityIndicator
-                        color={Colors.primary}
-                        style={{
-                          backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                          borderRadius: 5,
-                          padding: 10,
-                        }}
-                      />
-                    </View>
-                  ) : null
-                }
+                // ListEmptyComponent={
+                //   isFetchingData || plantList?.length === 0 ? (
+                //     <View
+                //       style={{
+                //         borderWidth: 1,
+                //         borderColor: Colors.whiteColor,
+                //         alignItems: 'center',
+                //         justifyContent: 'center',
+                //         borderRadius: 10,
+                //         width: screenWidth * 0.73,
+                //         height: screenHeight * 0.22,
+                //       }}>
+                //       <ActivityIndicator
+                //         color={Colors.primary}
+                //         style={{
+                //           backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                //           borderRadius: 5,
+                //           padding: 10,
+                //         }}
+                //       />
+                //     </View>
+                //   ) : null
+                // }
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 ItemSeparatorComponent={SeparatorComponent}
@@ -305,14 +277,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 data={plantDisease}
                 keyExtractor={item => item.id.toString()}
                 renderItem={item => {
-                  return RenderDiseasePicture(
-                    navigation,
-                    item.item,
-                    isLoading,
-                    handlePlantDiseaseLoadStart,
-                    handlePlantDiseaseLoadEnd,
-                    loadingPlantDiseasePicture,
-                  );
+                  return RenderDiseasePicture(navigation, item.item, isLoading);
                 }}
                 horizontal
                 showsHorizontalScrollIndicator={false}

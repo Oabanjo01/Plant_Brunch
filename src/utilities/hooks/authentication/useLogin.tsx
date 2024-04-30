@@ -24,7 +24,7 @@ export const useLogin = () => {
       if (userCredential.user.emailVerified === false) {
         setIsLoading(false);
         showToast({
-          text1: 'Verify yout email',
+          text1: 'Verify your email',
           text2:
             'A link has been sent to your email address, kindly activate your account before logging in',
           type: 'info',

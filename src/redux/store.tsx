@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
-  Middleware,
   applyMiddleware,
   combineReducers,
   legacy_createStore as createStore,
@@ -9,12 +8,11 @@ import {createLogger} from 'redux-logger';
 import {persistReducer, persistStore} from 'redux-persist';
 import {thunk} from 'redux-thunk';
 import authReducer from './reducers/authReducer';
-import onboardingReducer from './reducers/onboardingReducer';
-import toggleThemeReducer from './reducers/toggleThemeReducer';
 import fetchedDataReducer, {
   FetchedDataType,
 } from './reducers/fetchedDataReducer';
-import {fetchHomeData} from './actions/actions';
+import onboardingReducer from './reducers/onboardingReducer';
+import toggleThemeReducer from './reducers/toggleThemeReducer';
 
 const persistConfig = {
   key: 'root',

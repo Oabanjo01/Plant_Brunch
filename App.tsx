@@ -10,7 +10,6 @@ import {persistor, store} from '@app/redux/store';
 import {toastConfig} from '@app/utilities/toast';
 import Toast from 'react-native-toast-message';
 import {PersistGate} from 'redux-persist/integration/react';
-import {fetchHomeData} from '@app/redux/actions/actions';
 
 const App = () => {
   return (

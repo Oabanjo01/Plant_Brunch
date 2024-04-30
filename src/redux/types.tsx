@@ -82,6 +82,9 @@ export interface PlantDiseaseType {
 export interface PlantListResponse {
   data: Plant[];
 }
+export interface PlantDiseaseResponse {
+  data: PlantDiseaseType[];
+}
 
 export type UserData = {
   isAuthenticated: boolean;
