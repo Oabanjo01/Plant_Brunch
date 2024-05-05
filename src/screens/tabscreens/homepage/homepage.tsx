@@ -20,6 +20,7 @@ import WText from '@app/utilities/customText';
 import {useFetchData} from '@app/utilities/hooks/apiData/useFetchData';
 import {showToast} from '@app/utilities/toast';
 import Dashboard from '@assets/images/Dashboard.svg';
+import Warning from '@assets/images/Warning.svg';
 import auth from '@react-native-firebase/auth';
 import React, {useEffect, useState} from 'react';
 import {
@@ -32,7 +33,7 @@ import {
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {TextInput} from 'react-native-paper';
+import {Divider, TextInput} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -40,7 +41,9 @@ const HomePage = ({navigation}: ScreenProps) => {
   const {plantList, plantDisease, isLoading, storedUserName} = useFetchData();
   const dispatch = useDispatch();
 
-  console.log('got here', plantList);
+  const [loadingPicture, setLoadingPicture] = useState<boolean>(true);
+
+  console.log('got here', loadingPicture);
 
   return (
     <>
@@ -227,34 +230,30 @@ const HomePage = ({navigation}: ScreenProps) => {
                   renderItem={item => {
                     return RenderPlantPictures(
                       item.item,
-                      // isLoading,
                       navigation,
+                      () => setLoadingPicture(false),
+                      loadingPicture,
                     );
                   }}
-                  // ListEmptyComponent={
-                  //   isFetchingData || plantList?.length === 0 ? (
-                  //     <View
-                  //       style={{
-                  //         borderWidth: 1,
-                  //         borderColor: Colors.whiteColor,
-                  //         alignItems: 'center',
-                  //         justifyContent: 'center',
-                  //         borderRadius: 10,
-                  //         width: screenWidth * 0.73,
-                  //         height: screenHeight * 0.22,
-                  //       }}>
-                  //       <ActivityIndicator
-                  //         color={Colors.primary}
-                  //         style={{
-                  //           backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                  //           borderRadius: 5,
-                  //           padding: 10,
-                  //         }}
-                  //       />
-                  //     </View>
-                  //   ) : null
-                  // }
                   horizontal
+                  ListEmptyComponent={
+                    <View
+                      style={{
+                        height: screenHeight * 0.3,
+                        aspectRatio: 3 / 2,
+                        justifyContent: 'center',
+                      }}>
+                      <WText
+                        style={{
+                          textAlign: 'center',
+                          fontFamily: Fonts.italic,
+                          color: Colors.addPhotoButtonColor,
+                        }}>
+                        Not able to fetch plant images at this time, come back
+                        some other time.
+                      </WText>
+                    </View>
+                  }
                   showsHorizontalScrollIndicator={false}
                   ItemSeparatorComponent={SeparatorComponent}
                 />
@@ -285,44 +284,41 @@ const HomePage = ({navigation}: ScreenProps) => {
                     return RenderDiseasePicture(
                       navigation,
                       item.item,
-                      // isLoading,
+                      () => setLoadingPicture(false),
+                      loadingPicture,
                     );
                   }}
                   horizontal
+                  ListEmptyComponent={
+                    <View
+                      style={{
+                        height: screenHeight * 0.3,
+                        aspectRatio: 3 / 2,
+                        justifyContent: 'center',
+                      }}>
+                      <WText
+                        style={{
+                          textAlign: 'center',
+                          fontFamily: Fonts.italic,
+                          color: Colors.addPhotoButtonColor,
+                        }}>
+                        Not able to fetch plant diseases at this time, come back
+                        some other time.
+                      </WText>
+                    </View>
+                  }
                   showsHorizontalScrollIndicator={false}
                   ItemSeparatorComponent={SeparatorComponent}
-                  // ListEmptyComponent={
-                  //   isFetchingData || plantDisease?.length === 0 ? (
-                  //     <View
-                  //       style={{
-                  //         borderWidth: 1,
-                  //         borderColor: Colors.whiteColor,
-                  //         alignItems: 'center',
-                  //         justifyContent: 'center',
-                  //         borderRadius: 10,
-                  //         width: screenWidth * 0.4,
-                  //         height: screenHeight * 0.25,
-                  //       }}>
-                  //       <ActivityIndicator
-                  //         color={Colors.primary}
-                  //         style={{
-                  //           backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                  //           borderRadius: 5,
-                  //           padding: 10,
-                  //         }}
-                  //       />
-                  //     </View>
-                  //   ) : null
-                  // }
                 />
               </View>
+              <Divider />
               <WText
                 style={{
                   fontSize: 14,
                   alignItems: 'center',
                   textAlign: 'center',
                   flex: 1,
-                  color: Colors.addPhotoButtonColor,
+                  color: Colors.primary,
                   marginTop: screenHeight * 0.03,
                   marginBottom: screenHeight * 0.05,
                 }}>

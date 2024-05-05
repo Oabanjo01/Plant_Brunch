@@ -2,7 +2,8 @@ import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootStackNavigationProp} from '@app/navigation/navigation';
 import {PlantDiseaseType} from '@app/redux/types';
-import React from 'react';
+import WText from '@app/utilities/customText';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Platform,
@@ -18,10 +19,12 @@ export const SeparatorComponent = () => {
 export const RenderDiseasePicture = (
   navigation: RootStackNavigationProp,
   plantDisease: PlantDiseaseType,
-  // loading: boolean,
+  loadedPicture: () => void,
+  loading: boolean,
 ) => {
   const image = plantDisease.images[0];
   const nametag = plantDisease.common_name;
+  console.log(loading);
 
   return (
     <TouchableOpacity
@@ -31,24 +34,50 @@ export const RenderDiseasePicture = (
         })
       }>
       <View>
-        {/* {loading && (
-          <ActivityIndicator color={Colors.primary}></ActivityIndicator>
-        )} */}
         <FastImage
+          style={{
+            width: screenWidth * 0.4,
+            height: screenHeight * 0.3,
+            borderRadius: 10,
+          }}
           source={{
             uri: image?.regular_url,
           }}
           resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
           onLoadEnd={() => {
-            console.log('onloadend');
-          }}
-          onLoadStart={() => console.log('onloadstart')}
-          style={{
-            width: screenWidth * 0.4,
-            height: screenHeight * 0.25,
-            borderRadius: 10,
+            loadedPicture();
+            console.log('loaded');
           }}
         />
+        <View
+          style={{
+            backgroundColor: Colors.whiteColor,
+            position: 'absolute',
+            left: 0,
+            bottom: 20,
+            opacity: 0.8,
+            padding: 5,
+            borderTopRightRadius: 5,
+            borderBottomRightRadius: 5,
+          }}>
+          <WText
+            style={{
+              color: Colors.primaryTextColor,
+            }}>
+            # {nametag}
+          </WText>
+        </View>
+        {loading && (
+          <ActivityIndicator
+            color={Colors.primary}
+            style={{
+              alignItems: 'center',
+              height: '100%',
+              alignSelf: 'center',
+              position: 'absolute',
+            }}
+          />
+        )}
       </View>
     </TouchableOpacity>
   );

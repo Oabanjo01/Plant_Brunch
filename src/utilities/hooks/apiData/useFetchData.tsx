@@ -17,8 +17,8 @@ export const db = firestore();
 export const useFetchData = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [displayName, setDisplayName] = useState('');
-  const [plantList, setPlantList] = useState<Plant[]>();
-  const [plantDisease, setPlantDisease] = useState<PlantDiseaseType[]>();
+  const [plantList, setPlantList] = useState<Plant[]>([]);
+  const [plantDisease, setPlantDisease] = useState<PlantDiseaseType[]>([]);
 
   const userData = useSelector((state: RootState) => state.auth.user);
   const {displayName: storedUserName, email, uid} = userData;
@@ -30,14 +30,18 @@ export const useFetchData = () => {
       try {
         await retryWithBackoff(fetchHomePagedata, 2)
           .then((data: any) => {
+            console.log('response loading 1');
             setPlantList(data?.plantList);
             setPlantDisease(data?.plantDisease);
           })
           .catch((err: any) => {
+            console.log('response loading 2');
             showToast(err);
           });
+        console.log('response loading 3');
         setIsLoading(false);
       } catch (error) {
+        console.log(error, 'Error loading');
         console.error(error);
       } finally {
         setIsLoading(false);

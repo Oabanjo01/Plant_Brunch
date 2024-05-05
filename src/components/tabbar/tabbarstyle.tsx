@@ -1,6 +1,7 @@
 import {Colors} from '@app/constants/colors';
 import {Tabs} from '@app/constants/routes';
 import WText from '@app/utilities/customText';
+import React from 'react';
 import {
   ImageBackground,
   KeyboardAvoidingView,

@@ -14,8 +14,9 @@ export const SeparatorComponent = () => {
 
 const RenderPlantPictures = (
   item: Plant,
-  // pictureIsLoading: boolean,
   navigation: RootStackNavigationProp,
+  loadedPicture: () => void,
+  loading: boolean,
 ) => {
   return (
     <TouchableOpacity
@@ -29,8 +30,7 @@ const RenderPlantPictures = (
         justifyContent: 'center',
       }}>
       <FastImage
-        onLoad={() => console.log('onloadend')}
-        onLoadStart={() => console.log('onloadend')}
+        onLoadEnd={() => loadedPicture()}
         source={{
           uri: item.default_image.regular_url,
           priority: FastImage.priority.normal,
@@ -42,25 +42,6 @@ const RenderPlantPictures = (
           height: screenHeight * 0.22,
         }}
       />
-      {!item && (
-        <View
-          style={{
-            position: 'absolute',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100%',
-            height: '100%',
-          }}>
-          <ActivityIndicator
-            color={Colors.primary}
-            style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.2)',
-              borderRadius: 5,
-              padding: 10,
-            }}
-          />
-        </View>
-      )}
 
       <View
         style={{
@@ -80,6 +61,18 @@ const RenderPlantPictures = (
           # {item.common_name}
         </WText>
       </View>
+
+      {loading && (
+        <ActivityIndicator
+          color={Colors.primary}
+          style={{
+            alignItems: 'center',
+            height: '100%',
+            alignSelf: 'center',
+            position: 'absolute',
+          }}
+        />
+      )}
     </TouchableOpacity>
   );
 };

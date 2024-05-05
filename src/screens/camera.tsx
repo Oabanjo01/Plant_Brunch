@@ -8,20 +8,14 @@ import React, {useRef, useState} from 'react';
 import {
   Image,
   Platform,
-  Text,
+  StyleSheet,
   TouchableNativeFeedback,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import {StyleSheet, View} from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {
-  Camera,
-  PhotoFile,
-  Templates,
-  useCameraDevice,
-  useCameraFormat,
-} from 'react-native-vision-camera';
+import {Camera, PhotoFile, useCameraDevice} from 'react-native-vision-camera';
 
 const CameraScreen = ({navigation}: ScreenProps) => {
   const [photo, setPhoto] = useState<PhotoFile>();
