@@ -14,11 +14,11 @@ export const Routes: RootStackParamList = {
   PlantList: 'PlantList',
   Articles: 'Articles',
   ArticleDetails: 'ArticleDetails',
-  Camera: 'Camera',
+  CameraScreen: 'CameraScreen',
 };
 
 export const Tabs: TabParamList = {
   Home: 'Home',
   Profile: 'Profile',
-  CameraButton: 'Camera',
+  CameraButton: 'CameraButton',
 };

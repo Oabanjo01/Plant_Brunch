@@ -23,7 +23,7 @@ const CameraPage = ({navigation}: ScreenProps) => {
 
   const handlePermission = async () => {
     if (hasPermission) {
-      navigation.push(Routes.Camera);
+      navigation.push(Routes.CameraScreen);
     } else {
       await requestPermission()
         .then(permissionStatus => {

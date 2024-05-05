@@ -188,7 +188,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                   RenderSubTopics(items.item, () => {
                     switch (items.index) {
                       case 0:
-                        navigation.push(Routes.Camera);
+                        navigation.push(Routes.CameraScreen);
                         break;
                       case 1:
                         console.log('items');

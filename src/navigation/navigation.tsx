@@ -23,6 +23,7 @@ import ProfilePage from '@app/screens/tabscreens/profile/profile';
 import CameraPage from '@app/screens/tabscreens/uploadimage/uploadmethod';
 import {View} from 'react-native';
 import {useSelector} from 'react-redux';
+import CameraScreen from '@app/screens/camera';
 
 export type RootStackParamList = {
   Onboarding: any;
@@ -39,7 +40,7 @@ export type RootStackParamList = {
   Articles: any;
   ArticleDetails: any;
 
-  Camera: any;
+  CameraScreen: any;
 };
 
 export type RootStackNavigationProp =
@@ -115,7 +116,7 @@ const ScreenStack = () => {
         component={PlantDiseaseDetail}
       />
       <Stack.Screen name={Routes.Home} component={HomeTabNavigator} />
-      <Stack.Screen name={Routes.Camera} component={CameraPage} />
+      <Stack.Screen name={Routes.CameraScreen} component={CameraScreen} />
       <Stack.Screen name={Routes.Articles} component={Articles} />
     </Stack.Navigator>
   );
