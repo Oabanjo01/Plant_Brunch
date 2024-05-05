@@ -30,7 +30,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   response => {
-    console.log('wahaleaux: response', response);
+    console.log('good: response', response);
     return response;
   },
   error => {

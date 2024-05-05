@@ -14,7 +14,7 @@ export const SeparatorComponent = () => {
 
 const RenderPlantPictures = (
   item: Plant,
-  pictureIsLoading: boolean,
+  // pictureIsLoading: boolean,
   navigation: RootStackNavigationProp,
 ) => {
   return (
@@ -42,7 +42,7 @@ const RenderPlantPictures = (
           height: screenHeight * 0.22,
         }}
       />
-      {(pictureIsLoading || !item) && (
+      {!item && (
         <View
           style={{
             position: 'absolute',

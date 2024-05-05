@@ -34,7 +34,7 @@ const rootReducer = (
         auth: AuthState;
         onboarding: OnboardingState;
         theme: ThemeState;
-        fetchData: FetchedDataType;
+        // fetchData: FetchedDataType;
       }
     | undefined,
   action: any,
@@ -43,7 +43,7 @@ const rootReducer = (
     auth: authReducer,
     onboarding: onboardingReducer,
     theme: toggleThemeReducer,
-    fetchData: fetchedDataReducer,
+    // fetchData: fetchedDataReducer,
   });
 
   const rehydratedState:
@@ -51,7 +51,7 @@ const rootReducer = (
         auth: AuthState;
         onboarding: OnboardingState;
         theme: ThemeState;
-        fetchData: any;
+        // fetchData: any;
       }
     | undefined = combinedReducers(state, action);
   return rehydratedState;

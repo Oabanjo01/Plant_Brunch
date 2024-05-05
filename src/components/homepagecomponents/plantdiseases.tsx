@@ -1,10 +1,8 @@
 import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import {Fonts} from '@app/constants/fonts';
 import {RootStackNavigationProp} from '@app/navigation/navigation';
 import {PlantDiseaseType} from '@app/redux/types';
-import WText from '@app/utilities/customText';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
   Platform,
@@ -20,11 +18,10 @@ export const SeparatorComponent = () => {
 export const RenderDiseasePicture = (
   navigation: RootStackNavigationProp,
   plantDisease: PlantDiseaseType,
-  loading: boolean,
+  // loading: boolean,
 ) => {
   const image = plantDisease.images[0];
   const nametag = plantDisease.common_name;
-  // console.log(pictureIsLoading, pictureLoading);
 
   return (
     <TouchableOpacity
@@ -34,9 +31,9 @@ export const RenderDiseasePicture = (
         })
       }>
       <View>
-        {loading && (
+        {/* {loading && (
           <ActivityIndicator color={Colors.primary}></ActivityIndicator>
-        )}
+        )} */}
         <FastImage
           source={{
             uri: image?.regular_url,

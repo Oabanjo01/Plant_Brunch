@@ -44,53 +44,53 @@ export const onboardingAction = (payload: boolean) => {
   };
 };
 
-export const fetchData = () => {
-  return {
-    type: types.FETCHING_DATA,
-  };
-};
-export const fetchDataSuccess = (payload: any) => {
-  return {
-    type: types.FETCHED_DATA_SUCCESS,
-    payload: {
-      fetchedData: payload,
-    },
-  };
-};
-export const fetchDataFailure = (payload: string) => {
-  console.log('landed in actions error');
-  return {
-    type: types.FETCHED_DATA_FAILURE,
-    payload: {
-      error: payload,
-    },
-  };
-};
+// export const fetchData = () => {
+//   return {
+//     type: types.FETCHING_DATA,
+//   };
+// };
+// export const fetchDataSuccess = (payload: any) => {
+//   return {
+//     type: types.FETCHED_DATA_SUCCESS,
+//     payload: {
+//       fetchedData: payload,
+//     },
+//   };
+// };
+// export const fetchDataFailure = (payload: string) => {
+//   console.log('landed in actions error');
+//   return {
+//     type: types.FETCHED_DATA_FAILURE,
+//     payload: {
+//       error: payload,
+//     },
+//   };
+// };
 
-export const fetchHomeData = async (dispatch: any, getState: any) => {
-  console.log('heeeeee', getState());
-  dispatch(fetchData());
-  const allResponses = await axios.all([
-    speciesListResponse,
-    planDiseasesResponse,
-  ]);
-  const plantList = allResponses[0].data.data;
-  const plantDisease = allResponses[1].data.data;
-  // console.log(plantDisease, 'action');
-  try {
-    dispatch(
-      fetchDataSuccess({
-        plantList: plantList,
-        plantDisease: plantDisease,
-      }),
-    );
-    console.log('heeeeee 111', getState());
-    return;
-  } catch (error) {
-    if (typeof error === 'string') {
-      dispatch(fetchDataFailure(error));
-      return;
-    }
-    console.log('not an string error', error);
-  }
-};
+// export const fetchHomeData = async (dispatch: any, getState: any) => {
+//   console.log('heeeeee', getState());
+//   dispatch(fetchData());
+//   const allResponses = await axios.all([
+//     speciesListResponse,
+//     planDiseasesResponse,
+//   ]);
+//   const plantList = allResponses[0].data.data;
+//   const plantDisease = allResponses[1].data.data;
+//   // console.log(plantDisease, 'action');
+//   try {
+//     dispatch(
+//       fetchDataSuccess({
+//         plantList: plantList,
+//         plantDisease: plantDisease,
+//       }),
+//     );
+//     console.log('heeeeee 111', getState());
+//     return;
+//   } catch (error) {
+//     if (typeof error === 'string') {
+//       dispatch(fetchDataFailure(error));
+//       return;
+//     }
+//     console.log('not an string error', error);
+//   }
+// };

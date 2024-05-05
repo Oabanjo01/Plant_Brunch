@@ -2,6 +2,7 @@ import {Colors} from '@app/constants/colors';
 import {ItemProps} from '@app/constants/data/homepage';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import WText from '@app/utilities/customText';
+import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import Svg, {ClipPath, Defs, Path, Rect} from 'react-native-svg';
 
