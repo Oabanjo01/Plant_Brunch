@@ -1,5 +1,10 @@
 import {Colors} from '@app/constants';
 import {
+  PhotographyData,
+  PlantData,
+  PlantProps,
+} from '@app/constants/data/homepage';
+import {
   dashboardHeight,
   screenHeight,
   screenWidth,
@@ -9,15 +14,26 @@ import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import ProfileDashboard from '@assets/images/ProfileDashboard.svg';
 import React, {useState} from 'react';
-import {ScrollView, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  ImageSourcePropType,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 
+const imageWidth = screenWidth / 3;
 const ProfilePage = () => {
   const [activeButton, setActiveButton] = useState<0 | 1 | 2>(1);
   const userData = useSelector((state: RootState) => state.auth.user);
   const {displayName} = userData;
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -144,30 +160,97 @@ const ProfilePage = () => {
         }}>
         YOUR COLLECTED PLANTS
       </WText>
+
+      <FlatList
+        data={PlantData}
+        showsHorizontalScrollIndicator={false}
+        renderItem={renderCollectedPlantBox}
+        keyExtractor={item => item.id}
+      />
+    </ScrollView>
+  );
+};
+
+const renderCollectedPlantBox = ({item}: {item: any}) => {
+  console.log(item);
+  return (
+    <View style={styles.collectedPlantBoxStyle}>
       <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          marginTop: screenHeight * 0.02,
-          marginLeft: screenWidth * 0.04,
         }}>
-        <View
-          style={{
-            borderWidth: 3,
-            width: 10,
-            height: 10,
-            borderRadius: 10 / 2,
-            marginRight: screenWidth * 0.02,
-            borderColor: Colors.addPhotoButtonColor,
-          }}
-        />
-        <View>
-          <WText>Alagatre Plant</WText>
+        <View style={styles.radioButtonStyle} />
+        <View style={{marginBottom: screenHeight * 0.01}}>
+          <WText>{item.description1}</WText>
           <WText>02.01.2019</WText>
         </View>
       </View>
-    </ScrollView>
+      <View
+        style={
+          {
+            // flex: 1,
+          }
+        }>
+        <FlatList
+          data={PhotographyData}
+          numColumns={2}
+          showsHorizontalScrollIndicator={false}
+          renderItem={renderImage}
+          keyExtractor={item => item.id}
+          style={
+            {
+              // flex: 1,
+            }
+          }
+        />
+      </View>
+    </View>
   );
 };
+
+const renderImage = ({item, index}: {item: PlantProps; index: any}) => {
+  const isLastImage = index === PhotographyData.length - 1;
+  const remainingCount = isLastImage ? PhotographyData.length - 4 : 0;
+  console.log(item);
+  return (
+    <View
+      style={{
+        flex: 1,
+      }}>
+      <FastImage
+        source={item.imagePath}
+        resizeMode={'cover'}
+        style={{
+          borderTopLeftRadius: index === 0 ? 10 : 0,
+          borderTopRightRadius: index === 1 ? 10 : 0,
+          height: 150,
+          // width: 100,
+        }}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  collectedPlantBoxStyle: {
+    alignSelf: 'center',
+    height: screenHeight * 0.45,
+    marginTop: 10,
+    borderRadius: 10,
+    width: screenWidth * 0.9,
+    backgroundColor: Colors.whiteColor,
+    flex: 1,
+    padding: screenWidth * 0.03,
+  },
+  radioButtonStyle: {
+    borderWidth: 3,
+    width: 10,
+    height: 10,
+    borderRadius: 10 / 2,
+    marginRight: screenWidth * 0.02,
+    borderColor: Colors.addPhotoButtonColor,
+  },
+});
 
 export default ProfilePage;

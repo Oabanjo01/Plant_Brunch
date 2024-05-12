@@ -4,6 +4,7 @@ import {Platform, Text, ToastAndroid, View} from 'react-native';
 
 import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
 import WText from './customText';
+import React from 'react';
 
 interface ToastProps {
   text1: string;

@@ -1,3 +1,6 @@
+import {ImageSourcePropType} from 'react-native';
+import {Source} from 'react-native-fast-image';
+
 export interface ItemProps {
   id: string;
   image: string;
@@ -5,7 +8,7 @@ export interface ItemProps {
 }
 export interface PlantProps {
   id: string;
-  imagePath: string;
+  imagePath: Source;
   description1: string;
   subDescription2: string;
 }
@@ -27,7 +30,7 @@ export const Data: ItemProps[] = [
     description: 'Articles',
   },
 ];
-export const PlantData: PlantProps[] = [
+export const PlantData = [
   {
     id: '1',
     imagePath: 'images',
