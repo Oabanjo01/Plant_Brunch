@@ -13,16 +13,15 @@ import {Fonts} from '@app/constants/fonts';
 import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import ProfileDashboard from '@assets/images/ProfileDashboard.svg';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   FlatList,
-  Image,
-  ImageSourcePropType,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
+import SwiperFlatList from 'react-native-swiper-flatlist';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -30,12 +29,56 @@ import {useSelector} from 'react-redux';
 
 const imageWidth = screenWidth / 3;
 const ProfilePage = () => {
-  const [activeButton, setActiveButton] = useState<0 | 1 | 2>(1);
+  const [activeButton, setActiveButton] = useState<number>(1);
   const userData = useSelector((state: RootState) => state.auth.user);
   const {displayName} = userData;
 
+  const swiperFlatListRef = useRef<SwiperFlatList | null>(null);
+
+  const scrollToIndex = (index: number) => {
+    swiperFlatListRef.current?.scrollToIndex({animated: true, index});
+  };
+
+  const currentIndex = swiperFlatListRef.current?.getCurrentIndex();
+  console.log(currentIndex, 'currentIndex');
+
+  const buildTabHeader = (index: number, title: string) => {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          setActiveButton(index);
+          scrollToIndex(index);
+        }}
+        style={{
+          height: screenHeight * 0.05,
+          padding: 10,
+          marginHorizontal: index == 1 ? screenWidth * 0.04 : 0,
+          backgroundColor:
+            activeButton === index ? Colors.addPhotoButtonColor : 'transparent',
+          borderRadius: 20,
+        }}>
+        <WText
+          style={{
+            textAlign: 'center',
+            paddingHorizontal: 10,
+            color:
+              activeButton === index
+                ? Colors.whiteColor
+                : Colors.primaryTextColor,
+          }}>
+          {title}
+        </WText>
+      </TouchableOpacity>
+    );
+  };
   return (
     <ScrollView
+      scrollEnabled
+      nestedScrollEnabled
+      stickyHeaderIndices={[1]}
+      style={{
+        backgroundColor: Colors.screenColor,
+      }}
       showsVerticalScrollIndicator={false}
       contentInsetAdjustmentBehavior="never">
       <LinearGradient
@@ -58,9 +101,15 @@ const ProfilePage = () => {
             borderWidth: 2,
             borderColor: Colors.whiteColor,
             alignSelf: 'center',
+            alignItems: 'center',
             justifyContent: 'center',
-          }}
-        />
+          }}>
+          <Ionicons
+            name={'person-outline'}
+            size={35}
+            color={Colors.whiteColor}
+          />
+        </View>
         <WText
           style={{
             marginTop: 20,
@@ -88,93 +137,121 @@ const ProfilePage = () => {
           <ProfileDashboard />
         </View>
       </LinearGradient>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          marginTop: screenHeight * 0.04,
-        }}>
-        <TouchableOpacity
-          onPress={() => setActiveButton(0)}
-          style={{
-            padding: 10,
-            backgroundColor:
-              activeButton === 0 ? Colors.addPhotoButtonColor : 'transparent',
-            borderRadius: 20,
-          }}>
-          <WText
-            style={{
-              paddingHorizontal: 10,
-              color:
-                activeButton === 0
-                  ? Colors.whiteColor
-                  : Colors.primaryTextColor,
-            }}>
-            ARTICLES
-          </WText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setActiveButton(1)}
-          style={{
-            padding: 10,
-            backgroundColor:
-              activeButton === 1 ? Colors.addPhotoButtonColor : 'transparent',
-            borderRadius: 20,
-          }}>
-          <WText
-            style={{
-              paddingHorizontal: 10,
-              color:
-                activeButton === 1
-                  ? Colors.whiteColor
-                  : Colors.primaryTextColor,
-            }}>
-            SPECIES
-          </WText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setActiveButton(2)}
-          style={{
-            padding: 10,
-            backgroundColor:
-              activeButton === 2 ? Colors.addPhotoButtonColor : 'transparent',
-            borderRadius: 20,
-          }}>
-          <WText
-            style={{
-              paddingHorizontal: 10,
-              color:
-                activeButton === 2
-                  ? Colors.whiteColor
-                  : Colors.primaryTextColor,
-            }}>
-            LIKES
-          </WText>
-        </TouchableOpacity>
-      </View>
-      <WText
-        style={{
-          fontFamily: Fonts.semiBold,
-          marginTop: screenHeight * 0.02,
-          marginLeft: screenWidth * 0.04,
-        }}>
-        YOUR COLLECTED PLANTS
-      </WText>
 
-      <FlatList
-        data={PlantData}
-        showsHorizontalScrollIndicator={false}
-        renderItem={renderCollectedPlantBox}
-        keyExtractor={item => item.id}
-      />
+      <ScrollView
+        horizontal
+        scrollEnabled={false}
+        style={{
+          width: screenWidth - 10,
+          alignSelf: 'center',
+          alignItems: 'center',
+          height: screenHeight * 0.07,
+          backgroundColor: Colors.screenColor,
+          paddingVertical: screenHeight * 0.01,
+        }}>
+        {buildTabHeader(0, 'MY ARTICLES')}
+        {buildTabHeader(1, 'MY ITEMS')}
+        {buildTabHeader(2, 'MY LIKES')}
+      </ScrollView>
+
+      <SwiperFlatList
+        ref={swiperFlatListRef}
+        // StickyHeaderComponent={() => {
+        //   return (
+        //     <WText
+        //       style={{
+        //         fontFamily: Fonts.semiBold,
+        //         marginVertical: screenHeight * 0.02,
+        //         marginLeft: screenWidth * 0.04,
+        //       }}>
+        //       YOUR COLLECTED PLANTS
+        //     </WText>
+        //   );
+        // }}
+        //StickyHeaderComponent
+        // stickyHeaderIndices={[1]}
+        // ListHeaderComponent={() => {
+        //   return (
+        //     <View
+        //       style={{
+        //         flexDirection: 'row',
+        //         justifyContent: 'space-around',
+        //         marginTop: screenHeight * 0.04,
+        //       }}>
+        //       {buildTabHeader(0, 'MY ARTICLES')}
+        //       {buildTabHeader(1, 'MY ITEMS')}
+        //       {buildTabHeader(2, 'MY LIKES')}
+        //     </View>
+        //   );
+        // }}
+        index={1}
+        scrollEnabled
+        pagingEnabled
+        onChangeIndex={(item: {index: number; prevIndex: number}) => {
+          setActiveButton(item.index);
+        }}
+        horizontal
+        contentContainerStyle={{
+          justifyContent: 'center',
+        }}>
+        <View
+          style={{
+            width: screenWidth,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <WText>My Articles</WText>
+        </View>
+
+        <View
+          style={{
+            width: screenWidth,
+            height: screenHeight,
+          }}>
+          <View
+            style={{
+              height: screenHeight,
+            }}>
+            <WText
+              style={{
+                fontFamily: Fonts.semiBold,
+                marginVertical: screenHeight * 0.01,
+                marginLeft: screenWidth * 0.04,
+              }}>
+              YOUR COLLECTED PLANTS
+            </WText>
+            <FlatList
+              data={PlantData}
+              nestedScrollEnabled
+              showsVerticalScrollIndicator={false}
+              scrollEnabled
+              renderItem={renderCollectedPlantBox}
+              keyExtractor={item => item.id}
+            />
+          </View>
+        </View>
+
+        <View
+          style={{
+            width: screenWidth,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <WText>My Likes</WText>
+        </View>
+      </SwiperFlatList>
     </ScrollView>
   );
 };
 
-const renderCollectedPlantBox = ({item}: {item: any}) => {
-  console.log(item);
+const renderCollectedPlantBox = ({item, index}: {item: any; index: number}) => {
+  const isLastPlantBox = PlantData.length - index === 1;
   return (
-    <View style={styles.collectedPlantBoxStyle}>
+    <View
+      style={{
+        ...styles.collectedPlantBoxStyle,
+        marginBottom: isLastPlantBox ? screenHeight * 0.6 : 0,
+      }}>
       <View
         style={{
           flexDirection: 'row',
@@ -187,22 +264,17 @@ const renderCollectedPlantBox = ({item}: {item: any}) => {
         </View>
       </View>
       <View
-        style={
-          {
-            // flex: 1,
-          }
-        }>
+        style={{
+          width: '100%',
+          height: 100,
+        }}>
         <FlatList
-          data={PhotographyData}
+          data={PhotographyData.slice(0, 4)}
           numColumns={2}
-          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           renderItem={renderImage}
+          ItemSeparatorComponent={() => <View style={{height: 3}} />}
           keyExtractor={item => item.id}
-          style={
-            {
-              // flex: 1,
-            }
-          }
         />
       </View>
     </View>
@@ -210,22 +282,58 @@ const renderCollectedPlantBox = ({item}: {item: any}) => {
 };
 
 const renderImage = ({item, index}: {item: PlantProps; index: any}) => {
-  const isLastImage = index === PhotographyData.length - 1;
+  const isLastImage = index === 3;
   const remainingCount = isLastImage ? PhotographyData.length - 4 : 0;
-  console.log(item);
   return (
     <View
       style={{
-        flex: 1,
+        height:
+          PhotographyData.length < 3
+            ? screenHeight * 0.4
+            : (screenHeight * 0.4) / 2,
+        width: PhotographyData.length !== 1 ? '50%' : '100%',
       }}>
+      {PhotographyData.length > 4 && index === 3 && (
+        <View style={{backgroundColor: 'red'}}>
+          <WText
+            style={{
+              position: 'absolute',
+              justifyContent: 'center',
+              fontSize: 35,
+              color: Colors.primaryTextColor,
+            }}>
+            +{remainingCount}
+          </WText>
+        </View>
+      )}
       <FastImage
         source={item.imagePath}
-        resizeMode={'cover'}
+        resizeMode={PhotographyData.length === 2 ? 'cover' : 'stretch'}
         style={{
-          borderTopLeftRadius: index === 0 ? 10 : 0,
-          borderTopRightRadius: index === 1 ? 10 : 0,
-          height: 150,
-          // width: 100,
+          flex: PhotographyData.length === 1 ? 1 : undefined,
+          height: '100%',
+          marginRight:
+            (index === 0 || index === 2) && PhotographyData.length !== 1
+              ? 3
+              : 0,
+          borderTopLeftRadius:
+            index === 0 || PhotographyData.length === 1 ? 10 : 0,
+          borderTopRightRadius:
+            index === 1 || PhotographyData.length === 1 ? 10 : 0,
+          borderBottomLeftRadius:
+            index === 2 ||
+            ((PhotographyData.length === 1 || PhotographyData.length === 2) &&
+              index === 0)
+              ? 10
+              : 0,
+          borderBottomRightRadius:
+            index === 3 ||
+            ((PhotographyData.length === 1 || PhotographyData.length === 2) &&
+              (PhotographyData.length === 1 || index === 1))
+              ? 10
+              : 0,
+          opacity: index === 3 && PhotographyData.length > 4 ? 0.4 : 1,
+          backgroundColor: index === 3 ? Colors.primary : 'transparent',
         }}
       />
     </View>
@@ -235,7 +343,7 @@ const renderImage = ({item, index}: {item: PlantProps; index: any}) => {
 const styles = StyleSheet.create({
   collectedPlantBoxStyle: {
     alignSelf: 'center',
-    height: screenHeight * 0.45,
+    height: screenHeight * 0.5,
     marginTop: 10,
     borderRadius: 10,
     width: screenWidth * 0.9,

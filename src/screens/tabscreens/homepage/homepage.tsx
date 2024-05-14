@@ -11,18 +11,14 @@ import {
   screenWidth,
 } from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
-import {fetchHomePagedata} from '@app/index';
 import {ScreenProps} from '@app/navigation/navigation';
 import {logoutAction} from '@app/redux/actions/actions';
-import {RootState} from '@app/redux/store';
-import {Plant, PlantDiseaseType} from '@app/redux/types';
 import WText from '@app/utilities/customText';
 import {useFetchData} from '@app/utilities/hooks/apiData/useFetchData';
 import {showToast} from '@app/utilities/toast';
 import Dashboard from '@assets/images/Dashboard.svg';
-import Warning from '@assets/images/Warning.svg';
 import auth from '@react-native-firebase/auth';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -35,7 +31,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {Divider, TextInput} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 const HomePage = ({navigation}: ScreenProps) => {
   const {plantList, plantDisease, isLoading, storedUserName} = useFetchData();

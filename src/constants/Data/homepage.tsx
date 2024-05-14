@@ -49,6 +49,12 @@ export const PlantData = [
     description1: 'Species',
     subDescription2: 'Species',
   },
+  {
+    id: '4',
+    imagePath: 'images',
+    description1: 'Species',
+    subDescription2: 'Species',
+  },
 ];
 export const PhotographyData: PlantProps[] = [
   {
@@ -67,6 +73,18 @@ export const PhotographyData: PlantProps[] = [
     id: '3',
     imagePath: require('../../../assets/images/sampleplant3.jpg'),
     description1: 'Hyacinth',
+    subDescription2: 'Species',
+  },
+  {
+    id: '5',
+    imagePath: require('../../../assets/images/sampleplant2.jpg'),
+    description1: 'Water lily',
+    subDescription2: 'Species',
+  },
+  {
+    id: '5',
+    imagePath: require('../../../assets/images/sampleplant2.jpg'),
+    description1: 'Water lily',
     subDescription2: 'Species',
   },
 ];
