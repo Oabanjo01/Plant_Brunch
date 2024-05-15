@@ -34,12 +34,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
 
 const HomePage = ({navigation}: ScreenProps) => {
-  const {plantList, plantDisease, isLoading, storedUserName} = useFetchData();
+  const {plantList, plantDisease, isLoading, storedUserName, displayName} =
+    useFetchData();
   const dispatch = useDispatch();
 
   const [loadingPicture, setLoadingPicture] = useState<boolean>(true);
-
-  console.log('got here', loadingPicture);
 
   return (
     <>
@@ -79,7 +78,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                     color: Colors.lightTextColor,
                     fontSize: 28,
                   }}>
-                  Hello {storedUserName},
+                  Hello {displayName ?? ''},
                 </WText>
                 <WText
                   style={{
@@ -276,12 +275,13 @@ const HomePage = ({navigation}: ScreenProps) => {
                 <FlatList
                   data={plantDisease}
                   keyExtractor={item => item.id.toString()}
-                  renderItem={item => {
+                  renderItem={({item, index}) => {
                     return RenderDiseasePicture(
                       navigation,
-                      item.item,
+                      item,
                       () => setLoadingPicture(false),
                       loadingPicture,
+                      index,
                     );
                   }}
                   horizontal

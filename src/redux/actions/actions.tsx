@@ -13,6 +13,7 @@ export const toggleName = (newName: string) => {
 };
 
 export const loginAction = (payload: any) => {
+  console.log(payload);
   return {
     type: types.LOGIN_SUCCESS,
     payload: {

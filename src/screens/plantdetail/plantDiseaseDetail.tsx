@@ -2,7 +2,7 @@ import {Colors} from '@app/constants';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {FontSize, Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
-import {PlantDiseaseType} from '@app/redux/types';
+import {PlantDiseaseImageType, PlantDiseaseType} from '@app/redux/types';
 import WText from '@app/utilities/customText';
 import {
   capitalize,
@@ -13,9 +13,10 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {Platform, ScrollView, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {Divider} from 'react-native-paper';
+import {ActivityIndicator, Divider} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './plantListDetail';
+import {SwiperFlatList} from 'react-native-swiper-flatlist';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantDiseaseDetail'>;
 
@@ -23,6 +24,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
   const [showDescription, setShowDescription] = useState<boolean>(true);
   const [showSolutions, setShowSolutions] = useState<boolean>(true);
   const [isFavourited, setIsFavourited] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const item = route.params?.item;
 
   const {
@@ -35,8 +37,6 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     other_name,
     scientific_name,
   } = item as PlantDiseaseType;
-
-  const {original_url, regular_url} = images[0];
 
   const goBack = () => {
     navigation.goBack();
@@ -100,30 +100,72 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     );
   });
 
+  console.log(isLoading);
   return (
-    <View style={{flex: 1}}>
-      <View style={{marginBottom: (screenWidth * 0.15) / 2}}>
-        <View>
-          <FastImage
-            source={{
-              uri: regular_url,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
+    <View style={{flex: 1, backgroundColor: Colors.screenColor}}>
+      <View
+        style={{
+          marginBottom: (screenHeight * 0.1) / 2,
+          height: screenHeight * 0.4,
+          width: screenWidth,
+        }}>
+        {item?.images?.length === 0 || !item?.images ? (
+          <WText
             style={{
+              textAlign: 'center',
+              textAlignVertical: 'center',
               height: screenHeight * 0.4,
+              width: screenWidth,
+              borderBottomColor: Colors.disabledButtonColor,
+              borderBottomWidth: 1,
+            }}>
+            No Image Uploaded
+          </WText>
+        ) : (
+          <SwiperFlatList
+            index={0}
+            showPagination
+            paginationDefaultColor={Colors.screenColor}
+            paginationActiveColor={Colors.primary}
+            keyExtractor={item => item?.id?.toString()}
+            data={item?.images}
+            renderItem={({item}: {item: PlantDiseaseImageType}) => {
+              return (
+                <>
+                  <FastImage
+                    onLoadEnd={() => setIsLoading(false)}
+                    source={{
+                      uri: item.original_url,
+                      priority: FastImage.priority.normal,
+                    }}
+                    resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
+                    style={{height: screenHeight * 0.4, width: screenWidth}}
+                  />
+                  {isLoading && (
+                    <View
+                      style={{
+                        alignSelf: 'center',
+                        alignItems: 'center',
+                        width: screenWidth,
+                        position: 'absolute',
+                      }}>
+                      <ActivityIndicator color={Colors.primary} />
+                    </View>
+                  )}
+                </>
+              );
             }}
           />
-          <View style={styles.favouriteButton}>
-            <Ionicons
-              name={isFavourited ? 'heart' : 'heart-outline'}
-              size={28}
-              color={Colors.whiteColor}
-              onPress={() => {
-                setIsFavourited(!isFavourited);
-              }}
-            />
-          </View>
+        )}
+        <View style={styles.favouriteButton}>
+          <Ionicons
+            name={isFavourited ? 'heart' : 'heart-outline'}
+            size={28}
+            color={Colors.whiteColor}
+            onPress={() => {
+              setIsFavourited(!isFavourited);
+            }}
+          />
         </View>
         <View
           style={{
@@ -153,7 +195,6 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
       <ScrollView
         style={{
           paddingHorizontal: 20,
-          marginBottom: screenHeight * 0.06,
         }}>
         <View
           style={{
@@ -235,8 +276,10 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
       </ScrollView>
       <View
         style={{
-          bottom: 20,
+          bottom: 0,
+          paddingVertical: screenHeight * 0.02,
           position: 'absolute',
+          backgroundColor: Colors.screenColor,
           flexDirection: 'row',
           justifyContent: 'space-evenly',
           width: '100%',

@@ -21,11 +21,10 @@ export const RenderDiseasePicture = (
   plantDisease: PlantDiseaseType,
   loadedPicture: () => void,
   loading: boolean,
+  index?: number,
 ) => {
-  const image = plantDisease.images[0];
+  const image = plantDisease.images;
   const nametag = plantDisease.common_name;
-  console.log(loading);
-
   return (
     <TouchableOpacity
       onPress={() =>
@@ -40,13 +39,16 @@ export const RenderDiseasePicture = (
             height: screenHeight * 0.3,
             borderRadius: 10,
           }}
-          source={{
-            uri: image?.regular_url,
-          }}
+          source={
+            image.length > 0
+              ? {
+                  uri: image[0]?.regular_url,
+                }
+              : require('../../../assets/images/Picture.png')
+          }
           resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
           onLoadEnd={() => {
             loadedPicture();
-            console.log('loaded');
           }}
         />
         <View

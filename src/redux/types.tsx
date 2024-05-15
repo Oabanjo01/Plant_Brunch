@@ -52,6 +52,17 @@ export interface Plant {
   };
 }
 
+export interface PlantDiseaseImageType {
+  license: number;
+  license_name: string;
+  license_url: string;
+  medium_url: string;
+  original_url: string;
+  regular_url: string;
+  small_url: string;
+  thumbnail: string;
+}
+
 export interface PlantDiseaseType {
   common_name: string;
   description: {
@@ -61,16 +72,7 @@ export interface PlantDiseaseType {
   family: string | null;
   host: string[];
   id: number;
-  images: {
-    license: number;
-    license_name: string;
-    license_url: string;
-    medium_url: string;
-    original_url: string;
-    regular_url: string;
-    small_url: string;
-    thumbnail: string;
-  }[];
+  images: PlantDiseaseImageType[];
   other_name: string[];
   scientific_name: string;
   solution: {

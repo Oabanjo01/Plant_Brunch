@@ -30,11 +30,11 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   response => {
-    console.log('good: response', response);
+    // console.log('good: response', response);
     return response;
   },
   error => {
-    console.log('wahaleaux: error', error);
+    // console.log('wahaleaux: error', error);
     return Promise.reject(error);
   },
 );

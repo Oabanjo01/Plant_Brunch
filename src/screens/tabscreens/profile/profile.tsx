@@ -156,34 +156,6 @@ const ProfilePage = () => {
 
       <SwiperFlatList
         ref={swiperFlatListRef}
-        // StickyHeaderComponent={() => {
-        //   return (
-        //     <WText
-        //       style={{
-        //         fontFamily: Fonts.semiBold,
-        //         marginVertical: screenHeight * 0.02,
-        //         marginLeft: screenWidth * 0.04,
-        //       }}>
-        //       YOUR COLLECTED PLANTS
-        //     </WText>
-        //   );
-        // }}
-        //StickyHeaderComponent
-        // stickyHeaderIndices={[1]}
-        // ListHeaderComponent={() => {
-        //   return (
-        //     <View
-        //       style={{
-        //         flexDirection: 'row',
-        //         justifyContent: 'space-around',
-        //         marginTop: screenHeight * 0.04,
-        //       }}>
-        //       {buildTabHeader(0, 'MY ARTICLES')}
-        //       {buildTabHeader(1, 'MY ITEMS')}
-        //       {buildTabHeader(2, 'MY LIKES')}
-        //     </View>
-        //   );
-        // }}
         index={1}
         scrollEnabled
         pagingEnabled
@@ -194,56 +166,66 @@ const ProfilePage = () => {
         contentContainerStyle={{
           justifyContent: 'center',
         }}>
-        <View
-          style={{
-            width: screenWidth,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <WText>My Articles</WText>
-        </View>
+        {tabBodyDisplay(renderArticlesOrLikes, 'YOUR SAVED ARTICLES')}
 
-        <View
-          style={{
-            width: screenWidth,
-            height: screenHeight,
-          }}>
-          <View
-            style={{
-              height: screenHeight,
-            }}>
-            <WText
-              style={{
-                fontFamily: Fonts.semiBold,
-                marginVertical: screenHeight * 0.01,
-                marginLeft: screenWidth * 0.04,
-              }}>
-              YOUR COLLECTED PLANTS
-            </WText>
-            <FlatList
-              data={PlantData}
-              nestedScrollEnabled
-              showsVerticalScrollIndicator={false}
-              scrollEnabled
-              renderItem={renderCollectedPlantBox}
-              keyExtractor={item => item.id}
-            />
-          </View>
-        </View>
-
-        <View
-          style={{
-            width: screenWidth,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <WText>My Likes</WText>
-        </View>
+        {tabBodyDisplay(renderCollectedPlantBox, 'YOUR COLLECTED PLANTS')}
+        {tabBodyDisplay(renderArticlesOrLikes, 'YOUR LIKES')}
       </SwiperFlatList>
     </ScrollView>
   );
 };
 
+// render the article and the likes
+const renderArticlesOrLikes = ({item, index}: {item: any; index: number}) => {
+  return (
+    <View
+      style={{
+        borderRadius: 10,
+        backgroundColor: Colors.whiteColor,
+        height: screenHeight * 0.08,
+        paddingVertical: screenHeight * 0.02,
+        marginHorizontal: screenWidth * 0.05,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+        }}>
+        <FastImage
+          source={item.imagePath}
+          resizeMode={'cover'}
+          style={{
+            borderRadius: (screenWidth * 0.08) / 2,
+            height: screenWidth * 0.08,
+            width: screenWidth * 0.08,
+            marginLeft: screenWidth * 0.06,
+            marginRight: screenWidth * 0.04,
+          }}
+        />
+        <WText
+          style={{
+            fontSize: 16,
+          }}>
+          {item.description1}
+        </WText>
+      </View>
+      <Ionicons
+        name={'heart'}
+        size={24}
+        style={{
+          marginRight: screenWidth * 0.06,
+          color: Colors.favouriteButtonColor,
+        }}
+      />
+    </View>
+  );
+};
+
+// render the outer flatlist on My items
 const renderCollectedPlantBox = ({item, index}: {item: any; index: number}) => {
   const isLastPlantBox = PlantData.length - index === 1;
   return (
@@ -260,7 +242,7 @@ const renderCollectedPlantBox = ({item, index}: {item: any; index: number}) => {
         <View style={styles.radioButtonStyle} />
         <View style={{marginBottom: screenHeight * 0.01}}>
           <WText>{item.description1}</WText>
-          <WText>02.01.2019</WText>
+          <WText style={{color: Colors.addPhotoButtonColor}}>02.01.2019</WText>
         </View>
       </View>
       <View
@@ -281,6 +263,7 @@ const renderCollectedPlantBox = ({item, index}: {item: any; index: number}) => {
   );
 };
 
+// Render image in outer flatlist in my saved items
 const renderImage = ({item, index}: {item: PlantProps; index: any}) => {
   const isLastImage = index === 3;
   const remainingCount = isLastImage ? PhotographyData.length - 4 : 0;
@@ -291,14 +274,23 @@ const renderImage = ({item, index}: {item: PlantProps; index: any}) => {
           PhotographyData.length < 3
             ? screenHeight * 0.4
             : (screenHeight * 0.4) / 2,
-        width: PhotographyData.length !== 1 ? '50%' : '100%',
+        width:
+          PhotographyData.length === 1 ||
+          (index === 2 && PhotographyData.length === 3)
+            ? '100%'
+            : '50%',
       }}>
       {PhotographyData.length > 4 && index === 3 && (
-        <View style={{backgroundColor: 'red'}}>
+        <View
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: (screenHeight * 0.4) / 2,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <WText
             style={{
-              position: 'absolute',
-              justifyContent: 'center',
               fontSize: 35,
               color: Colors.primaryTextColor,
             }}>
@@ -308,12 +300,19 @@ const renderImage = ({item, index}: {item: PlantProps; index: any}) => {
       )}
       <FastImage
         source={item.imagePath}
-        resizeMode={PhotographyData.length === 2 ? 'cover' : 'stretch'}
+        resizeMode={
+          PhotographyData.length === 2 ||
+          (index === 2 && PhotographyData.length === 3)
+            ? 'cover'
+            : 'stretch'
+        }
         style={{
           flex: PhotographyData.length === 1 ? 1 : undefined,
           height: '100%',
           marginRight:
-            (index === 0 || index === 2) && PhotographyData.length !== 1
+            (index === 0 || index === 2) &&
+            PhotographyData.length !== 1 &&
+            !(index === 2 && PhotographyData.length === 3)
               ? 3
               : 0,
           borderTopLeftRadius:
@@ -362,3 +361,36 @@ const styles = StyleSheet.create({
 });
 
 export default ProfilePage;
+
+const tabBodyDisplay = (renderItem?: any, subTopic?: any) => {
+  return (
+    <View
+      style={{
+        width: screenWidth,
+        height: screenHeight,
+      }}>
+      <View
+        style={{
+          height: screenHeight,
+        }}>
+        <WText
+          style={{
+            fontFamily: Fonts.semiBold,
+            marginVertical: screenHeight * 0.01,
+            marginLeft: screenWidth * 0.04,
+          }}>
+          {subTopic}
+        </WText>
+        <FlatList
+          data={PlantData}
+          nestedScrollEnabled
+          showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={() => <View style={{height: 10}} />}
+          scrollEnabled
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      </View>
+    </View>
+  );
+};

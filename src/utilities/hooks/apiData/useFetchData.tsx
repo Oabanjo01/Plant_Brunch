@@ -28,6 +28,7 @@ export const useFetchData = () => {
       console.log(`Fetching plant`);
       setIsLoading(true);
       try {
+        setDisplayName(storedUserName);
         await retryWithBackoff(fetchHomePagedata, 2)
           .then((data: any) => {
             console.log('response loading 1');
@@ -51,5 +52,5 @@ export const useFetchData = () => {
     fetchdata();
   }, [email, uid]);
 
-  return {isLoading, plantList, plantDisease, storedUserName};
+  return {isLoading, plantList, plantDisease, storedUserName, displayName};
 };

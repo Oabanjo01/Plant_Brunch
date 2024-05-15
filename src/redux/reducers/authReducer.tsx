@@ -40,7 +40,7 @@ const authReducer = (
       return {
         ...state,
         isAuthenticated: false,
-        user: null,
+        // user: null,
       };
     case types.REMEMBER_ME:
       return {

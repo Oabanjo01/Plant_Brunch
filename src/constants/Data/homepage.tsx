@@ -75,16 +75,4 @@ export const PhotographyData: PlantProps[] = [
     description1: 'Hyacinth',
     subDescription2: 'Species',
   },
-  {
-    id: '5',
-    imagePath: require('../../../assets/images/sampleplant2.jpg'),
-    description1: 'Water lily',
-    subDescription2: 'Species',
-  },
-  {
-    id: '5',
-    imagePath: require('../../../assets/images/sampleplant2.jpg'),
-    description1: 'Water lily',
-    subDescription2: 'Species',
-  },
 ];
