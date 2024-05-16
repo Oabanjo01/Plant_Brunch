@@ -17,6 +17,7 @@ import {ActivityIndicator, Divider} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './plantListDetail';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
+import DropDown from '@app/utilities/dropDown';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantDiseaseDetail'>;
 
@@ -128,12 +129,13 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             paginationDefaultColor={Colors.screenColor}
             paginationActiveColor={Colors.primary}
             keyExtractor={item => item?.id?.toString()}
-            data={item?.images}
+            data={item?.images.slice(0, 5)}
             renderItem={({item}: {item: PlantDiseaseImageType}) => {
               return (
                 <>
                   <FastImage
                     onLoadEnd={() => setIsLoading(false)}
+                    onLoadStart={() => setIsLoading(true)}
                     source={{
                       uri: item.original_url,
                       priority: FastImage.priority.normal,
@@ -177,20 +179,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             <BackButton />
           </TouchableOpacity>
         </View>
-        <View
-          style={{
-            position: 'absolute',
-            top: screenHeight * 0.025,
-            right: screenWidth * 0.04,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <Ionicons
-              name="ellipsis-vertical-outline"
-              color={Colors.addPhotoButtonColor}
-              size={24}
-            />
-          </TouchableOpacity>
-        </View>
+        <DropDown />
       </View>
       <ScrollView
         style={{

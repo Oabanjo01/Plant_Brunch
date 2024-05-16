@@ -25,6 +25,7 @@ export const RenderDiseasePicture = (
 ) => {
   const image = plantDisease.images;
   const nametag = plantDisease.common_name;
+
   return (
     <TouchableOpacity
       onPress={() =>

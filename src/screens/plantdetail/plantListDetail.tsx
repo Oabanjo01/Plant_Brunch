@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Platform,
   ScrollView,
   StyleSheet,
@@ -11,7 +12,7 @@ import BackButton from '@assets/images/BackButton.svg';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {Colors} from '@app/constants';
-import {Plant, PlantDiseaseType} from '@app/redux/types';
+import {Plant, PlantDiseaseType, PlantListImageType} from '@app/redux/types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import FastImage from 'react-native-fast-image';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -23,12 +24,15 @@ import {
 import WText from '@app/utilities/customText';
 import {SubTopics} from './plantDiseaseDetail';
 import {Divider} from 'react-native-paper';
+import SwiperFlatList from 'react-native-swiper-flatlist';
+import DropDown from '@app/utilities/dropDown';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantListDetail'>;
 
 const PlantListDetail = ({route, navigation}: Props) => {
   const [showDescription, setShowDescription] = useState<boolean>(true);
   const [isFavourited, setIsFavourited] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const item = route.params?.item;
   const {
     default_image,
@@ -40,7 +44,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
     sunlight,
   } = item as Plant;
 
-  const {regular_url} = default_image;
+  const imageToList = [default_image];
 
   const goBack = () => {
     navigation.goBack();
@@ -82,29 +86,71 @@ const PlantListDetail = ({route, navigation}: Props) => {
 
   return (
     <View style={{flex: 1}}>
-      <View style={{marginBottom: (screenWidth * 0.15) / 2}}>
-        <View>
-          <FastImage
-            source={{
-              uri: regular_url,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
+      <View
+        style={{
+          marginBottom: (screenHeight * 0.1) / 2,
+          height: screenHeight * 0.4,
+          width: screenWidth,
+        }}>
+        {imageToList?.length === 0 || !imageToList ? (
+          <WText
             style={{
+              textAlign: 'center',
+              textAlignVertical: 'center',
               height: screenHeight * 0.4,
+              width: screenWidth,
+              borderBottomColor: Colors.disabledButtonColor,
+              borderBottomWidth: 1,
+            }}>
+            No Image Uploaded
+          </WText>
+        ) : (
+          <SwiperFlatList
+            index={0}
+            showPagination
+            paginationDefaultColor={Colors.screenColor}
+            paginationActiveColor={Colors.primary}
+            keyExtractor={item => item?.id?.toString()}
+            data={imageToList}
+            renderItem={({item}: {item: PlantListImageType}) => {
+              return (
+                <>
+                  <FastImage
+                    onLoadEnd={() => setIsLoading(false)}
+                    source={{
+                      uri: item.original_url,
+                      priority: FastImage.priority.normal,
+                    }}
+                    resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
+                    style={{height: screenHeight * 0.4, width: screenWidth}}
+                  />
+                  {isLoading && (
+                    <View
+                      style={{
+                        alignSelf: 'center',
+                        alignItems: 'center',
+                        width: screenWidth,
+                        position: 'absolute',
+                      }}>
+                      <ActivityIndicator color={Colors.primary} />
+                    </View>
+                  )}
+                </>
+              );
             }}
           />
-          <View style={styles.favouriteButton}>
-            <Ionicons
-              name={isFavourited ? 'heart' : 'heart-outline'}
-              size={28}
-              color={Colors.whiteColor}
-              onPress={() => {
-                setIsFavourited(!isFavourited);
-              }}
-            />
-          </View>
+        )}
+        <View style={styles.favouriteButton}>
+          <Ionicons
+            name={isFavourited ? 'heart' : 'heart-outline'}
+            size={28}
+            color={Colors.whiteColor}
+            onPress={() => {
+              setIsFavourited(!isFavourited);
+            }}
+          />
         </View>
+
         <View
           style={{
             position: 'absolute',
@@ -115,20 +161,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
             <BackButton />
           </TouchableOpacity>
         </View>
-        <View
-          style={{
-            position: 'absolute',
-            top: screenHeight * 0.025,
-            right: screenWidth * 0.04,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <Ionicons
-              name="ellipsis-vertical-outline"
-              color={Colors.addPhotoButtonColor}
-              size={24}
-            />
-          </TouchableOpacity>
-        </View>
+        <DropDown />
       </View>
       <ScrollView
         style={{

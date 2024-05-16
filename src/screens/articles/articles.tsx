@@ -9,6 +9,7 @@ import WText from '@app/utilities/customText';
 import ArticlesPage from '@assets/images/ArticlesPage.svg';
 import React from 'react';
 import {Image, Platform, ScrollView, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import {TextInput} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -81,65 +82,81 @@ const Articles = () => {
           </View>
         </LinearGradient>
         <Backbutton />
-        <View
-          style={{
-            marginTop: screenHeight * 0.09,
-            height: screenHeight * 0.36,
-            marginHorizontal: screenWidth * 0.05,
-            borderRadius: 20,
-            overflow: 'hidden',
-            flexDirection: 'column-reverse',
-            ...Platform.select({
-              ios: {
-                shadowColor: 'black',
-                shadowOffset: {width: 0, height: 4},
-                shadowOpacity: 0.5,
-                shadowRadius: 5,
-              },
-              android: {
-                elevation: 5,
-                shadowColor: Colors.primary,
-                shadowOffset: {width: 0, height: 4},
-                shadowOpacity: 0.2,
-                shadowRadius: 20,
-              },
-            }),
-          }}>
-          <View
-            style={{
-              backgroundColor: Colors.whiteColor,
-              height: screenHeight * 0.15,
-              borderBottomEndRadius: 20,
-              borderBottomStartRadius: 20,
-            }}>
-            <WText
-              style={{
-                textAlign: 'justify',
-                fontFamily: 'OpenSans-SemiBold',
-                fontSize: 12,
-                marginHorizontal: 10,
-                marginTop: 5,
-              }}>
-              Plants are nature's marvels, providing oxygen and beauty to our
-              surroundings.
-            </WText>
-            <View></View>
-          </View>
-          <Image
-            style={{
-              flex: 1,
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              width: screenWidth,
-              alignSelf: 'center',
-            }}
-            source={require('../../../assets/images/sampleplant3.jpg')}
-            resizeMode="cover"
-          />
-        </View>
+        {renderArticlesList()}
       </ScrollView>
     </View>
   );
 };
 
 export default Articles;
+function renderArticlesList() {
+  return (
+    <View
+      style={{
+        marginTop: screenHeight * 0.09,
+        height: screenHeight * 0.36,
+        marginHorizontal: screenWidth * 0.05,
+        borderRadius: 20,
+        overflow: 'hidden',
+        backgroundColor: Colors.screenColor,
+        flexDirection: 'column-reverse',
+        ...Platform.select({
+          ios: {
+            shadowColor: 'black',
+            shadowOffset: {width: 0, height: 4},
+            shadowOpacity: 0.5,
+            shadowRadius: 5,
+          },
+          android: {
+            elevation: 5,
+            shadowColor: Colors.primary,
+            shadowOffset: {width: 0, height: 4},
+            shadowOpacity: 0.2,
+            shadowRadius: 20,
+          },
+        }),
+      }}>
+      <View
+        style={{
+          backgroundColor: Colors.whiteColor,
+          height: screenHeight * 0.15,
+          borderBottomEndRadius: 20,
+          borderBottomStartRadius: 20,
+        }}>
+        <WText
+          style={{
+            textAlign: 'center',
+            fontFamily: 'OpenSans-SemiBold',
+            fontSize: 15,
+            marginHorizontal: 15,
+            marginTop: 5,
+            marginBottom: 10,
+          }}>
+          Plants are nature's marvels, providing oxygen and beauty to our
+          surroundings.
+        </WText>
+        <WText
+          style={{
+            textAlign: 'justify',
+            fontSize: 12,
+            marginHorizontal: 10,
+            marginTop: 5,
+          }}>
+          Plants are nature's marvels, providing oxygen and beauty to our
+          surroundings.
+        </WText>
+      </View>
+      <FastImage
+        style={{
+          flex: 1,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          width: screenWidth,
+          alignSelf: 'center',
+        }}
+        source={require('../../../assets/images/sampleplant3.jpg')}
+        resizeMode="cover"
+      />
+    </View>
+  );
+}

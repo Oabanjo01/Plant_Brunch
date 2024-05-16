@@ -1,13 +1,10 @@
-import {TouchableOpacity, View} from 'react-native';
-import React from 'react';
-import BackButton from '@assets/images/BackButton.svg';
-import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Colors} from '@app/constants/colors';
-import navigation, {
-  RootStackNavigationProp,
-  ScreenProps,
-} from '@app/navigation/navigation';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import {RootStackNavigationProp} from '@app/navigation/navigation';
+import BackButton from '@assets/images/BackButton.svg';
 import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import {TouchableOpacity, View} from 'react-native';
 
 const Backbutton = () => {
   const navigation = useNavigation<RootStackNavigationProp>();

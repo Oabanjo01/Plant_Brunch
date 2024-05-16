@@ -382,7 +382,7 @@ const tabBodyDisplay = (renderItem?: any, subTopic?: any) => {
           {subTopic}
         </WText>
         <FlatList
-          data={PlantData}
+          data={PhotographyData}
           nestedScrollEnabled
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => <View style={{height: 10}} />}
