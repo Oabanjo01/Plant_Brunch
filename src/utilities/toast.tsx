@@ -2,7 +2,11 @@ import {Colors} from '@app/constants';
 import {screenWidth} from '@app/constants/dimensions';
 import {Platform, Text, ToastAndroid, View} from 'react-native';
 
-import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
+import Toast, {
+  BaseToast,
+  ErrorToast,
+  ToastPosition,
+} from 'react-native-toast-message';
 import WText from './customText';
 import React from 'react';
 
@@ -10,6 +14,7 @@ interface ToastProps {
   text1: string;
   text2: string;
   type: 'success' | 'info' | 'error';
+  position?: ToastPosition;
 }
 
 export const toastConfig = {
@@ -51,12 +56,12 @@ const customToasts = ({
   );
 };
 
-export const showToast = ({type, text1, text2}: ToastProps) => {
+export const showToast = ({type, text1, text2, position}: ToastProps) => {
   Toast.hide();
   Toast.show({
     type: type,
     props: {text1: text1, text2: text2},
-    position: 'bottom',
+    position: position || 'bottom',
     visibilityTime: 5000,
     bottomOffset: 20,
     text1: text1,

@@ -23,6 +23,7 @@ import {
   ActivityIndicator,
   FlatList,
   Platform,
+  RefreshControl,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -34,11 +35,23 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
 
 const HomePage = ({navigation}: ScreenProps) => {
-  const {plantList, plantDisease, isLoading, storedUserName, displayName} =
-    useFetchData();
+  const {
+    plantList,
+    plantDisease,
+    isLoading,
+    storedUserName,
+    displayName,
+    fetchdata,
+    refreshing,
+    setRefreshing,
+  } = useFetchData();
   const dispatch = useDispatch();
 
   const [loadingPicture, setLoadingPicture] = useState<boolean>(true);
+
+  const onRefresh = () => {
+    fetchdata(true);
+  };
 
   return (
     <>
@@ -55,6 +68,13 @@ const HomePage = ({navigation}: ScreenProps) => {
             backgroundColor: Colors.screenColor,
           }}>
           <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={[Colors.primary]}
+              />
+            }
             showsVerticalScrollIndicator={false}
             contentInsetAdjustmentBehavior="never">
             <LinearGradient
@@ -177,6 +197,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 alignItems: 'center',
               }}>
               <FlatList
+                // onRefresh={}
                 data={Data}
                 keyExtractor={item => item.id}
                 renderItem={items =>

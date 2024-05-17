@@ -1,4 +1,4 @@
-import {Colors} from '@app/constants';
+import {Colors, Routes} from '@app/constants';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {FontSize, Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
@@ -8,7 +8,7 @@ import WText from '@app/utilities/customText';
 import DropDown from '@app/utilities/dropDown';
 import {capitalize} from '@app/utilities/sentenceHelpers';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Platform, ScrollView, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {ActivityIndicator, Divider} from 'react-native-paper';
@@ -99,6 +99,10 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
   });
 
   console.log(isLoading);
+
+  // useEffect(() => {
+  //   setIsFavourited(false)
+  // }, []);
   return (
     <View style={{flex: 1, backgroundColor: Colors.screenColor}}>
       <View
@@ -278,6 +282,9 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
           />
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => {
+            navigation.navigate(Routes.TransactionSummary);
+          }}
           style={{
             backgroundColor: Colors.primary,
             borderRadius: 20,

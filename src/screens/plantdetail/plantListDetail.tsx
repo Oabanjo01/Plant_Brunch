@@ -11,7 +11,7 @@ import {
   createSentenceFromArray,
 } from '@app/utilities/sentenceHelpers';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Platform,
@@ -25,6 +25,8 @@ import {Divider} from 'react-native-paper';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SubTopics} from './plantDiseaseDetail';
+import {useLikes} from '@app/utilities/hooks/likes/useLikes';
+import {showToast} from '@app/utilities/toast';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantListDetail'>;
 
@@ -83,6 +85,21 @@ const PlantListDetail = ({route, navigation}: Props) => {
     );
   });
 
+  const {
+    addLikes,
+    isLoading: likeLoading,
+    setIsLoading: setLikeLoading,
+    detectError,
+    setDetectError,
+  } = useLikes();
+
+  useEffect(() => {
+    if (detectError === 'An error occurred while adding the item') {
+      setIsFavourited(false);
+    }
+  }, [detectError]);
+
+  console.log(detectError, likeLoading, 'print statements');
   return (
     <View style={{flex: 1}}>
       <View
@@ -144,8 +161,17 @@ const PlantListDetail = ({route, navigation}: Props) => {
             name={isFavourited ? 'heart' : 'heart-outline'}
             size={28}
             color={Colors.whiteColor}
-            onPress={() => {
+            onPress={async () => {
               setIsFavourited(!isFavourited);
+              await addLikes(common_name, isFavourited).then(() => {
+                showToast({
+                  text1: 'Added',
+                  type: 'success',
+                  text2: 'Added to favorites',
+                  position: 'top',
+                });
+              });
+              console.log('Added to favorites');
             }}
           />
         </View>

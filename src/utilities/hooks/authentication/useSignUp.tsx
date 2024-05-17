@@ -6,6 +6,8 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {useState} from 'react';
 
+export const db = firestore();
+
 export const useSignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const handleSignIn = async (
@@ -21,7 +23,7 @@ export const useSignUp = () => {
       await userCredential.user.updateProfile({
         displayName: values.userName,
       });
-      await firestore()
+      await db
         .collection('Signups')
         .doc('Usernames')
         .collection(values.userEmail)
