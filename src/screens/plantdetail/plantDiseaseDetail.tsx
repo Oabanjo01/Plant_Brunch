@@ -3,21 +3,18 @@ import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {FontSize, Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {PlantDiseaseImageType, PlantDiseaseType} from '@app/redux/types';
+import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
-import {
-  capitalize,
-  createSentenceFromArray,
-} from '@app/utilities/sentenceHelpers';
-import BackButton from '@assets/images/BackButton.svg';
+import DropDown from '@app/utilities/dropDown';
+import {capitalize} from '@app/utilities/sentenceHelpers';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {Platform, ScrollView, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {ActivityIndicator, Divider} from 'react-native-paper';
+import {SwiperFlatList} from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './plantListDetail';
-import {SwiperFlatList} from 'react-native-swiper-flatlist';
-import DropDown from '@app/utilities/dropDown';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantDiseaseDetail'>;
 
@@ -169,16 +166,6 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             }}
           />
         </View>
-        <View
-          style={{
-            position: 'absolute',
-            top: screenHeight * 0.025,
-            left: screenWidth * 0.05,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <BackButton />
-          </TouchableOpacity>
-        </View>
         <DropDown />
       </View>
       <ScrollView
@@ -325,6 +312,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
           <Ionicons name="cart-outline" size={20} color={Colors.whiteColor} />
         </TouchableOpacity>
       </View>
+      <Backbutton />
     </View>
   );
 };

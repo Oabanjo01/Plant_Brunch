@@ -26,6 +26,7 @@ import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
+import DropDown from '@app/utilities/dropDown';
 
 const imageWidth = screenWidth / 3;
 const ProfilePage = () => {
@@ -136,6 +137,7 @@ const ProfilePage = () => {
         <View style={{position: 'absolute', right: 0}}>
           <ProfileDashboard />
         </View>
+        <DropDown color={Colors.whiteColor} />
       </LinearGradient>
 
       <ScrollView

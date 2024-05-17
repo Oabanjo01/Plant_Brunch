@@ -15,6 +15,8 @@ export const Routes: RootStackParamList = {
   Articles: 'Articles',
   ArticleDetails: 'ArticleDetails',
   CameraScreen: 'CameraScreen',
+  CartScreen: 'CartScreen',
+  TransactionSummary: 'TransactionSummary',
 };
 
 export const Tabs: TabParamList = {

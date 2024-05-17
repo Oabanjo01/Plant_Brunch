@@ -1,18 +1,24 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Colors, Routes} from '@app/constants';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Divider} from 'react-native-paper';
 import SelectDropdown from 'react-native-select-dropdown';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import WText from './customText';
-import {Colors} from '@app/constants';
-import {Divider} from 'react-native-paper';
+import {RootStackNavigationProp, ScreenProps} from '@app/navigation/navigation';
 
 interface DropDownData {
   label: string;
   value: string;
 }
-
-const DropDown = () => {
+interface DropDownProps {
+  color?: string;
+}
+const DropDown = (props?: DropDownProps) => {
+  //   const {navigation} = useNavigation<any>();
+  const navigation = useNavigation<RootStackNavigationProp>();
   const [selectedOption, setSelectedOption] = useState<string>('');
 
   const data: DropDownData[] = [
@@ -28,6 +34,7 @@ const DropDown = () => {
       console.log(value);
     } else if (value === 'cart') {
       console.log(value);
+      navigation.navigate(Routes.CartScreen);
     } else if (value === 'delete') {
       console.log(value);
     }
@@ -43,18 +50,14 @@ const DropDown = () => {
       ) => {
         return (
           <View style={styles.dropDownItem}>
-            <TouchableOpacity
-              onPress={() => handleOptionSelect(selectedItem.value)}>
-              <WText
-                style={{
-                  paddingVertical: 13,
-                  paddingLeft: 5,
-                  fontSize: 18,
-                  // flex: 1,
-                }}>
-                {selectedItem.label}
-              </WText>
-            </TouchableOpacity>
+            <WText
+              style={{
+                paddingVertical: 13,
+                paddingLeft: 5,
+                fontSize: 18,
+              }}>
+              {selectedItem.label}
+            </WText>
 
             {index <= 1 && <Divider bold />}
           </View>
@@ -66,17 +69,23 @@ const DropDown = () => {
             style={{
               position: 'absolute',
               top: screenHeight * 0.025,
-              right: screenWidth * 0.05,
+              backgroundColor: 'rgba(211, 211, 211, 0.5)',
+              borderRadius: 100,
+              padding: 5,
+              right: screenWidth * 0.025,
             }}>
             <Ionicons
               name="ellipsis-vertical-outline"
-              color={Colors.addPhotoButtonColor}
-              size={24}
+              color={props?.color ?? Colors.whiteColor}
+              size={30}
             />
           </View>
         );
       }}
-      onSelect={handleOptionSelect}
+      onSelect={(selectedItem: DropDownData, index: number) => {
+        console.log(selectedItem);
+        handleOptionSelect(selectedItem.value);
+      }}
       dropdownStyle={styles.dropdown}
     />
   );

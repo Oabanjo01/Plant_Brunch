@@ -24,6 +24,8 @@ import CameraPage from '@app/screens/tabscreens/uploadimage/uploadmethod';
 import {View} from 'react-native';
 import {useSelector} from 'react-redux';
 import CameraScreen from '@app/screens/camera';
+import CartScreen from '@app/screens/cartandSummary/cart';
+import TransactionSummary from '@app/screens/cartandSummary/summary';
 
 export type RootStackParamList = {
   Onboarding: any;
@@ -41,6 +43,8 @@ export type RootStackParamList = {
   ArticleDetails: any;
 
   CameraScreen: any;
+  CartScreen: any;
+  TransactionSummary: any;
 };
 
 export type RootStackNavigationProp =
@@ -118,6 +122,11 @@ const ScreenStack = () => {
       <Stack.Screen name={Routes.Home} component={HomeTabNavigator} />
       <Stack.Screen name={Routes.CameraScreen} component={CameraScreen} />
       <Stack.Screen name={Routes.Articles} component={Articles} />
+      <Stack.Screen name={Routes.CartScreen} component={CartScreen} />
+      <Stack.Screen
+        name={Routes.TransactionSummary}
+        component={TransactionSummary}
+      />
     </Stack.Navigator>
   );
 };

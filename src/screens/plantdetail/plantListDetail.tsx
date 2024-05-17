@@ -1,31 +1,30 @@
+import {Colors} from '@app/constants';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import {FontSize, Fonts} from '@app/constants/fonts';
+import {RootStackParamList} from '@app/navigation/navigation';
+import {Plant, PlantListImageType} from '@app/redux/types';
+import Backbutton from '@app/utilities/backbutton';
+import WText from '@app/utilities/customText';
+import DropDown from '@app/utilities/dropDown';
+import {
+  capitalize,
+  createSentenceFromArray,
+} from '@app/utilities/sentenceHelpers';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
-import BackButton from '@assets/images/BackButton.svg';
-import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import {RootStackParamList} from '@app/navigation/navigation';
-import {Colors} from '@app/constants';
-import {Plant, PlantDiseaseType, PlantListImageType} from '@app/redux/types';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import FastImage from 'react-native-fast-image';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {FontSize, Fonts} from '@app/constants/fonts';
-import {
-  capitalize,
-  createSentenceFromArray,
-} from '@app/utilities/sentenceHelpers';
-import WText from '@app/utilities/customText';
-import {SubTopics} from './plantDiseaseDetail';
 import {Divider} from 'react-native-paper';
 import SwiperFlatList from 'react-native-swiper-flatlist';
-import DropDown from '@app/utilities/dropDown';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {SubTopics} from './plantDiseaseDetail';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantListDetail'>;
 
@@ -151,16 +150,6 @@ const PlantListDetail = ({route, navigation}: Props) => {
           />
         </View>
 
-        <View
-          style={{
-            position: 'absolute',
-            top: screenHeight * 0.025,
-            left: screenWidth * 0.05,
-          }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <BackButton />
-          </TouchableOpacity>
-        </View>
         <DropDown />
       </View>
       <ScrollView
@@ -281,6 +270,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
           <Ionicons name="cart-outline" size={20} color={Colors.whiteColor} />
         </TouchableOpacity>
       </View>
+      <Backbutton />
     </View>
   );
 };
@@ -290,6 +280,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     paddingVertical: 2,
     paddingHorizontal: 4,
+    marginVertical: 2,
     marginRight: 5,
     borderRadius: 5,
     backgroundColor: 'rgba(47, 145, 235, 0.1)',

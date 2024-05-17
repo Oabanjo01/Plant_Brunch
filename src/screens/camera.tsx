@@ -128,7 +128,7 @@ const CameraScreen = ({navigation}: ScreenProps) => {
         </>
       ) : (
         <>
-          <View></View>
+          {/* <View></View> */}
           <Camera
             ref={camera}
             device={device}
