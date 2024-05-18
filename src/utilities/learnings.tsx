@@ -125,3 +125,5 @@
 //     />
 //   </View>
 // );
+
+// giving a type to a promise - async (): Promise<DataFromLikesCollection[]> => {}

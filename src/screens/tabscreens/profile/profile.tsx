@@ -12,8 +12,13 @@ import {
 import {Fonts} from '@app/constants/fonts';
 import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
+import DropDown from '@app/utilities/dropDown';
+import {
+  DataFromLikesCollection,
+  useLikes,
+} from '@app/utilities/hooks/likes/useLikes';
 import ProfileDashboard from '@assets/images/ProfileDashboard.svg';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   FlatList,
   ScrollView,
@@ -21,14 +26,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import SwiperFlatList from 'react-native-swiper-flatlist';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
+import {ActivityIndicator} from 'react-native-paper';
+import SwiperFlatList from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
-import DropDown from '@app/utilities/dropDown';
 
-const imageWidth = screenWidth / 3;
 const ProfilePage = () => {
   const [activeButton, setActiveButton] = useState<number>(1);
   const userData = useSelector((state: RootState) => state.auth.user);
@@ -41,7 +45,18 @@ const ProfilePage = () => {
   };
 
   const currentIndex = swiperFlatListRef.current?.getCurrentIndex();
-  console.log(currentIndex, 'currentIndex');
+
+  const {fetchAllLikes, isLoading, likesList, addorRemoveLikes} = useLikes();
+
+  useEffect(() => {
+    if (currentIndex === 2) {
+      fetchAllLikes();
+    }
+  }, [currentIndex]);
+
+  useEffect(() => {
+    fetchAllLikes();
+  }, []);
 
   const buildTabHeader = (index: number, title: string) => {
     return (
@@ -169,16 +184,83 @@ const ProfilePage = () => {
           justifyContent: 'center',
         }}>
         {tabBodyDisplay(renderArticlesOrLikes, 'YOUR SAVED ARTICLES')}
-
-        {tabBodyDisplay(renderCollectedPlantBox, 'YOUR COLLECTED PLANTS')}
-        {tabBodyDisplay(renderArticlesOrLikes, 'YOUR LIKES')}
+        {tabBodyDisplay(
+          renderCollectedPlantBox,
+          'YOUR COLLECTED PLANTS',
+          PlantData,
+        )}
+        {tabBodyDisplay(
+          renderArticlesOrLikes,
+          'YOUR LIKES',
+          likesList,
+          isLoading,
+        )}
       </SwiperFlatList>
     </ScrollView>
   );
 };
 
+// Tab body
+const tabBodyDisplay = (
+  renderItem?: any,
+  subTopic?: any,
+  data?: any,
+  isLoading?: boolean,
+) => {
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          height: screenHeight * 0.5,
+          width: screenWidth,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ActivityIndicator color={Colors.primary} />
+      </View>
+    );
+  } else {
+    return (
+      <View
+        style={{
+          width: screenWidth,
+          height: screenHeight,
+        }}>
+        <View
+          style={{
+            height: screenHeight,
+          }}>
+          <WText
+            style={{
+              fontFamily: Fonts.semiBold,
+              marginVertical: screenHeight * 0.01,
+              marginLeft: screenWidth * 0.04,
+            }}>
+            {subTopic}
+          </WText>
+          <FlatList
+            data={data}
+            nestedScrollEnabled
+            showsVerticalScrollIndicator={false}
+            ItemSeparatorComponent={() => <View style={{height: 10}} />}
+            scrollEnabled
+            renderItem={renderItem}
+            keyExtractor={item => item.itemName}
+          />
+        </View>
+      </View>
+    );
+  }
+};
+
 // render the article and the likes
-const renderArticlesOrLikes = ({item, index}: {item: any; index: number}) => {
+const renderArticlesOrLikes = ({
+  item,
+  index,
+}: {
+  item: DataFromLikesCollection;
+  index: number;
+}) => {
   return (
     <View
       style={{
@@ -198,7 +280,7 @@ const renderArticlesOrLikes = ({item, index}: {item: any; index: number}) => {
           justifyContent: 'flex-start',
         }}>
         <FastImage
-          source={item.imagePath}
+          source={{uri: item.image}}
           resizeMode={'cover'}
           style={{
             borderRadius: (screenWidth * 0.08) / 2,
@@ -208,15 +290,25 @@ const renderArticlesOrLikes = ({item, index}: {item: any; index: number}) => {
             marginRight: screenWidth * 0.04,
           }}
         />
-        <WText
-          style={{
-            fontSize: 16,
-          }}>
-          {item.description1}
-        </WText>
+        <View>
+          <WText
+            style={{
+              fontSize: 16,
+            }}>
+            {item.itemName}
+          </WText>
+          <WText
+            style={{
+              fontSize: 10,
+              color: Colors.addPhotoButtonColor,
+            }}>
+            {item.type}
+          </WText>
+        </View>
       </View>
       <Ionicons
         name={'heart'}
+        onPress={() => {}}
         size={24}
         style={{
           marginRight: screenWidth * 0.06,
@@ -363,36 +455,3 @@ const styles = StyleSheet.create({
 });
 
 export default ProfilePage;
-
-const tabBodyDisplay = (renderItem?: any, subTopic?: any) => {
-  return (
-    <View
-      style={{
-        width: screenWidth,
-        height: screenHeight,
-      }}>
-      <View
-        style={{
-          height: screenHeight,
-        }}>
-        <WText
-          style={{
-            fontFamily: Fonts.semiBold,
-            marginVertical: screenHeight * 0.01,
-            marginLeft: screenWidth * 0.04,
-          }}>
-          {subTopic}
-        </WText>
-        <FlatList
-          data={PhotographyData}
-          nestedScrollEnabled
-          showsVerticalScrollIndicator={false}
-          ItemSeparatorComponent={() => <View style={{height: 10}} />}
-          scrollEnabled
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
-      </View>
-    </View>
-  );
-};
