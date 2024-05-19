@@ -29,6 +29,11 @@ export const useLikes = () => {
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [detectError, setDetectError] = useState<string>('');
 
+  const collection = db
+    .collection('UserData')
+    .doc(uid)
+    .collection('ProfileItems');
+
   function fetchData(itemName: string, category: string) {
     console.log('Fetching', category, itemName);
     return db
@@ -43,17 +48,11 @@ export const useLikes = () => {
   const fetchAllLikes = async () => {
     setIsLoading(true);
     try {
-      const plantListSnapshot = await db
-        .collection('UserData')
-        .doc(uid)
-        .collection('ProfileItems')
+      const plantListSnapshot = await collection
         .doc('PlantList')
         .collection('Likes')
         .get();
-      const plantDiseaseSnapshot = await db
-        .collection('UserData')
-        .doc(uid)
-        .collection('ProfileItems')
+      const plantDiseaseSnapshot = await collection
         .doc('PlantDisease')
         .collection('Likes')
         .get();
@@ -79,7 +78,11 @@ export const useLikes = () => {
       return;
     } catch (error) {
       setIsLoading(false);
-      console.error('Error fetching likes:', error);
+      showToast({
+        type: 'error',
+        text1: 'Error',
+        text2: 'An error occurred while fetching your likes',
+      });
       return [];
     } finally {
       setIsLoading(false);
@@ -87,7 +90,6 @@ export const useLikes = () => {
   };
 
   const fetchLikeStatus = async (itemName: string, category: string) => {
-    console.log('fetchiiiinnnnnggg');
     try {
       const doc = await fetchData(itemName, category).get();
       if (doc.exists) {
@@ -102,7 +104,7 @@ export const useLikes = () => {
       showToast({
         type: 'error',
         text1: 'Error',
-        text2: 'An error occurred while fetching image',
+        text2: 'An error occurred while like status',
       });
     } finally {
       setIsFetching(false);
@@ -115,7 +117,6 @@ export const useLikes = () => {
     category: string,
     image: string,
   ) => {
-    console.log('Got here');
     setIsLoading(true);
     setIsFavourited(liked);
     const payload: AddLikesPayload = {
@@ -149,7 +150,6 @@ export const useLikes = () => {
         });
       }
       await fetchAllLikes();
-      setIsLoading(false);
     } catch (error) {
       console.error('There was an error', error);
       setIsLoading(false);

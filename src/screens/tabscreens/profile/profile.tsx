@@ -245,17 +245,30 @@ const tabBodyDisplay = (
             }}>
             {subTopic}
           </WText>
-          <FlatList
-            data={data}
-            nestedScrollEnabled
-            showsVerticalScrollIndicator={false}
-            ItemSeparatorComponent={() => <View style={{height: 10}} />}
-            scrollEnabled
-            renderItem={({item, index}) =>
-              renderItem({item, index, addOrRemoveLikes})
-            }
-            keyExtractor={item => item.itemName}
-          />
+
+          {data?.length === 0 || !data ? (
+            <View
+              style={{
+                height: screenHeight * 0.5,
+                width: screenWidth,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <WText>Currently no data</WText>
+            </View>
+          ) : (
+            <FlatList
+              data={data}
+              nestedScrollEnabled
+              showsVerticalScrollIndicator={false}
+              ItemSeparatorComponent={() => <View style={{height: 10}} />}
+              scrollEnabled
+              renderItem={({item, index}) =>
+                renderItem({item, index, addOrRemoveLikes})
+              }
+              keyExtractor={item => item.itemName}
+            />
+          )}
         </View>
       </View>
     );

@@ -27,6 +27,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SubTopics} from './plantDiseaseDetail';
 import {useLikes} from '@app/utilities/hooks/likes/useLikes';
 import {showToast} from '@app/utilities/toast';
+import useArticles from '@app/utilities/hooks/articles/useArticles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantListDetail'>;
 
@@ -85,25 +86,31 @@ const PlantListDetail = ({route, navigation}: Props) => {
     isLoading: likeLoading,
     setIsLoading: setLikeLoading,
     detectError,
-    setDetectError,
     isFavourited,
     setIsFavourited,
     fetchLikeStatus,
     isFetching,
   } = useLikes();
 
+  const {
+    addOrRemoveArticle,
+    fetchArticleStatus,
+
+    isBookmarked,
+    isFetching: isFetchingArticles,
+    isLoading: isLoadingArticles,
+  } = useArticles();
+
   useEffect(() => {
     if (detectError === 'An error occurred while adding the item') {
       setIsFavourited(false);
     }
-    console.log(isFavourited);
   }, [detectError]);
   useEffect(() => {
     fetchLikeStatus(common_name, 'PlantList');
+    fetchArticleStatus(common_name);
   }, []);
-
-  console.log(item);
-  if (isFetching) {
+  if (isFetchingArticles) {
     return (
       <View
         style={{
@@ -258,6 +265,13 @@ const PlantListDetail = ({route, navigation}: Props) => {
             width: '100%',
           }}>
           <TouchableOpacity
+            onPress={() => {
+              addOrRemoveArticle(
+                common_name,
+                !isBookmarked,
+                default_image.original_url,
+              );
+            }}
             style={{
               backgroundColor: Colors.primary,
               width: screenWidth * 0.12,
@@ -269,7 +283,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
               opacity: 0.9,
             }}>
             <Ionicons
-              name="bookmark-outline"
+              name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
               size={20}
               color={Colors.whiteColor}
             />
