@@ -13,6 +13,7 @@ interface AddLikesPayload {
 }
 
 export interface DataFromLikesCollection {
+  timeCreated?: string;
   image: string;
   itemName: string;
   liked: boolean;
@@ -35,14 +36,7 @@ export const useLikes = () => {
     .collection('ProfileItems');
 
   function fetchData(itemName: string, category: string) {
-    console.log('Fetching', category, itemName);
-    return db
-      .collection('UserData')
-      .doc(uid)
-      .collection('ProfileItems')
-      .doc(category)
-      .collection('Likes')
-      .doc(itemName);
+    return collection.doc(category).collection('Likes').doc(itemName);
   }
 
   const fetchAllLikes = async () => {
@@ -98,7 +92,6 @@ export const useLikes = () => {
         setIsFavourited(false);
       }
       setIsFetching(false);
-      console.log('Done fetching');
     } catch (error) {
       setIsFetching(false);
       showToast({
@@ -136,7 +129,6 @@ export const useLikes = () => {
           )}`,
           position: 'top',
         });
-        console.log('Got here - 2');
       } else {
         await fetchData(itemName, category).delete();
 
@@ -151,7 +143,6 @@ export const useLikes = () => {
       }
       await fetchAllLikes();
     } catch (error) {
-      console.error('There was an error', error);
       setIsLoading(false);
       setIsFavourited(!isFavourited);
       setDetectError('An error occurred while adding the item');

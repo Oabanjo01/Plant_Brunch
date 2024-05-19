@@ -6,11 +6,12 @@ import {useSelector} from 'react-redux';
 
 export const db = firestore();
 
-interface ArticleProps {
-  timeCreated: string;
+export interface ArticleProps {
+  timeCreated?: string;
   title: string;
   image: string;
   bookmarked?: boolean;
+  type: string;
 }
 
 const useArticles = () => {
@@ -62,11 +63,12 @@ const useArticles = () => {
     try {
       const userArticleSnapshot = await collection.get();
       const list: ArticleProps[] = userArticleSnapshot.docs.map(doc => ({
-        timeCreated: doc.data().timeCreated,
+        type: doc.data().type,
         title: doc.data().title,
         image: doc.data().image,
         description: doc.data().description,
       }));
+      setIsLoading(false);
       setArticleList(list);
     } catch (error) {
       showToast({
@@ -74,13 +76,17 @@ const useArticles = () => {
         text1: 'Error',
         text2: 'An error occurred while fetching your articles',
       });
+      setIsLoading(false);
       setArticleList([]);
+    } finally {
+      setIsLoading(false);
     }
   };
   const addOrRemoveArticle = async (
     articleName: string,
     liked: boolean,
     image: string,
+    type: string,
   ) => {
     setIsLoading(true);
     setIsBookmarked(liked);
@@ -88,7 +94,7 @@ const useArticles = () => {
       const exists = (await fetchData(articleName).get()).exists;
       const payload: ArticleProps = {
         image: image,
-        timeCreated: date.toString(),
+        type: type,
         title: articleName,
         bookmarked: true,
       };

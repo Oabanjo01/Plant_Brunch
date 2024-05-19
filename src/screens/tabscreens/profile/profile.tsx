@@ -13,6 +13,9 @@ import {Fonts} from '@app/constants/fonts';
 import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import DropDown from '@app/utilities/dropDown';
+import useArticles, {
+  ArticleProps,
+} from '@app/utilities/hooks/articles/useArticles';
 import {
   DataFromLikesCollection,
   useLikes,
@@ -47,17 +50,29 @@ const ProfilePage = () => {
   const currentIndex = swiperFlatListRef.current?.getCurrentIndex();
 
   const {fetchAllLikes, isLoading, likesList, addorRemoveLikes} = useLikes();
+  const {
+    fetchAllUserArticles,
+    isLoading: loadingArticles,
+    articleList,
+    addOrRemoveArticle,
+  } = useArticles();
 
   useEffect(() => {
     if (currentIndex === 2) {
       fetchAllLikes();
+      return;
+    }
+    if (currentIndex === 0) {
+      fetchAllUserArticles();
+      return;
     }
   }, [currentIndex]);
 
   useEffect(() => {
     fetchAllLikes();
+    fetchAllUserArticles();
   }, []);
-  console.log(isLoading, 'isLoading');
+  console.log(likesList, 'loadingArticles');
   const buildTabHeader = (index: number, title: string) => {
     return (
       <TouchableOpacity
@@ -183,7 +198,14 @@ const ProfilePage = () => {
         contentContainerStyle={{
           justifyContent: 'center',
         }}>
-        {tabBodyDisplay(renderArticlesOrLikes, 'YOUR SAVED ARTICLES')}
+        {tabBodyDisplay(
+          renderArticlesOrLikes,
+          'YOUR SAVED ARTICLES',
+          articleList,
+          loadingArticles,
+          addOrRemoveArticle,
+          true,
+        )}
         {tabBodyDisplay(
           renderCollectedPlantBox,
           'YOUR COLLECTED PLANTS',
@@ -213,6 +235,7 @@ const tabBodyDisplay = (
     category: string,
     image: string,
   ) => {},
+  isArticlesTab?: boolean,
 ) => {
   if (isLoading) {
     return (
@@ -264,7 +287,7 @@ const tabBodyDisplay = (
               ItemSeparatorComponent={() => <View style={{height: 10}} />}
               scrollEnabled
               renderItem={({item, index}) =>
-                renderItem({item, index, addOrRemoveLikes})
+                renderItem({item, index, addOrRemoveLikes, isArticlesTab})
               }
               keyExtractor={item => item.itemName}
             />
@@ -280,8 +303,9 @@ const renderArticlesOrLikes = ({
   item,
   index,
   addOrRemoveLikes,
+  isArticlesTab,
 }: {
-  item: DataFromLikesCollection;
+  item: any;
   index: number;
   addOrRemoveLikes: (
     itemName: string,
@@ -289,6 +313,7 @@ const renderArticlesOrLikes = ({
     category: string,
     image: string,
   ) => void;
+  isArticlesTab?: boolean;
 }) => {
   return (
     <View
@@ -324,25 +349,24 @@ const renderArticlesOrLikes = ({
             style={{
               fontSize: 16,
             }}>
-            {item.itemName}
+            {item.itemName || item.title}
           </WText>
           <WText
             style={{
               fontSize: 10,
               color: Colors.addPhotoButtonColor,
             }}>
-            {item.type}
+            {item.type || item.timeCreated}
           </WText>
         </View>
       </View>
       <Ionicons
-        name={'heart'}
+        name={isArticlesTab ? 'bookmark' : 'heart'}
         onPress={() => {
-          console.log('Press');
           addOrRemoveLikes(
-            item.itemName,
-            item.liked,
-            item.category,
+            item.itemName || item.title,
+            item.liked || item.bookmarked,
+            item.category || item.timeCreated,
             item.image,
           );
         }}

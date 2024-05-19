@@ -16,6 +16,7 @@ import {SwiperFlatList} from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './plantListDetail';
 import {useLikes} from '@app/utilities/hooks/likes/useLikes';
+import useArticles from '@app/utilities/hooks/articles/useArticles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantDiseaseDetail'>;
 
@@ -94,8 +95,6 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     );
   });
 
-  console.log(isLoading);
-
   const {
     addorRemoveLikes,
     isLoading: likeLoading,
@@ -108,18 +107,25 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     isFetching,
   } = useLikes();
 
+  const {
+    addOrRemoveArticle,
+    fetchArticleStatus,
+    isBookmarked,
+    isFetching: isFetchingArticles,
+    isLoading: isLoadingArticles,
+  } = useArticles();
+
   useEffect(() => {
     if (detectError === 'An error occurred while adding the item') {
       setIsFavourited(false);
     }
-    console.log(isFavourited);
   }, [detectError]);
   useEffect(() => {
     fetchLikeStatus(common_name, 'PlantDisease');
+    fetchArticleStatus(common_name);
   }, []);
 
-  console.log(isFetching, 'isFetching');
-  if (isFetching) {
+  if (isFetchingArticles || isFetching) {
     return (
       <View
         style={{
@@ -301,6 +307,14 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             width: '100%',
           }}>
           <TouchableOpacity
+            onPress={() => {
+              addOrRemoveArticle(
+                common_name,
+                !isBookmarked,
+                images[0]?.original_url || '',
+                'Photography',
+              );
+            }}
             style={{
               backgroundColor: Colors.primary,
               width: screenWidth * 0.12,
@@ -312,7 +326,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
               opacity: 0.9,
             }}>
             <Ionicons
-              name="bookmark-outline"
+              name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
               size={20}
               color={Colors.whiteColor}
             />

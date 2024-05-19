@@ -95,7 +95,6 @@ const PlantListDetail = ({route, navigation}: Props) => {
   const {
     addOrRemoveArticle,
     fetchArticleStatus,
-
     isBookmarked,
     isFetching: isFetchingArticles,
     isLoading: isLoadingArticles,
@@ -110,7 +109,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
     fetchLikeStatus(common_name, 'PlantList');
     fetchArticleStatus(common_name);
   }, []);
-  if (isFetchingArticles) {
+  if (isFetchingArticles || isFetching) {
     return (
       <View
         style={{
@@ -270,6 +269,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
                 common_name,
                 !isBookmarked,
                 default_image.original_url,
+                'Photography',
               );
             }}
             style={{
