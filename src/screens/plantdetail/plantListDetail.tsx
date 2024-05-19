@@ -28,6 +28,7 @@ import {SubTopics} from './plantDiseaseDetail';
 import {useLikes} from '@app/utilities/hooks/likes/useLikes';
 import {showToast} from '@app/utilities/toast';
 import useArticles from '@app/utilities/hooks/articles/useArticles';
+import useCart from '@app/utilities/hooks/useCart/useCart';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantListDetail'>;
 
@@ -100,6 +101,13 @@ const PlantListDetail = ({route, navigation}: Props) => {
     isLoading: isLoadingArticles,
   } = useArticles();
 
+  const {
+    addOrRemoveCartItem,
+    fetchCartStatus,
+    isCarted,
+    isFetching: isFetchingCartItems,
+  } = useCart();
+
   useEffect(() => {
     if (detectError === 'An error occurred while adding the item') {
       setIsFavourited(false);
@@ -108,8 +116,9 @@ const PlantListDetail = ({route, navigation}: Props) => {
   useEffect(() => {
     fetchLikeStatus(common_name, 'PlantList');
     fetchArticleStatus(common_name);
+    fetchCartStatus(common_name);
   }, []);
-  if (isFetchingArticles || isFetching) {
+  if (isFetchingArticles || isFetching || isFetchingCartItems) {
     return (
       <View
         style={{
@@ -310,6 +319,15 @@ const PlantListDetail = ({route, navigation}: Props) => {
             </WText>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => {
+              console.log('Press');
+              addOrRemoveCartItem(
+                common_name,
+                !isCarted,
+                default_image.original_url,
+                'Photography',
+              );
+            }}
             style={{
               backgroundColor: Colors.primary,
               width: screenWidth * 0.12,
@@ -320,7 +338,11 @@ const PlantListDetail = ({route, navigation}: Props) => {
               padding: 10,
               opacity: 0.9,
             }}>
-            <Ionicons name="cart-outline" size={20} color={Colors.whiteColor} />
+            <Ionicons
+              size={20}
+              color={Colors.whiteColor}
+              name={isCarted ? 'cart' : 'cart-outline'}
+            />
           </TouchableOpacity>
         </View>
         <Backbutton />
