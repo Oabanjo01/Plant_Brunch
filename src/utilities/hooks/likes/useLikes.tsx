@@ -148,6 +148,7 @@ export const useLikes = () => {
           position: 'top',
         });
       }
+      await fetchAllLikes();
       setIsLoading(false);
     } catch (error) {
       console.error('There was an error', error);
