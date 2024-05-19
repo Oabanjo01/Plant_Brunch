@@ -16,7 +16,8 @@ export interface DataFromLikesCollection {
   image: string;
   itemName: string;
   liked: boolean;
-  type: string;
+  type?: string;
+  category: string;
 }
 
 export const useLikes = () => {
@@ -29,6 +30,7 @@ export const useLikes = () => {
   const [detectError, setDetectError] = useState<string>('');
 
   function fetchData(itemName: string, category: string) {
+    console.log('Fetching', category, itemName);
     return db
       .collection('UserData')
       .doc(uid)
@@ -62,12 +64,14 @@ export const useLikes = () => {
           itemName: doc.data().itemName,
           liked: doc.data().liked,
           type: 'Photography',
+          category: 'PlantList',
         })),
         ...plantDiseaseSnapshot.docs.map(doc => ({
           image: doc.data().image,
           itemName: doc.data().itemName,
           liked: doc.data().liked,
           type: 'Plant Disease',
+          category: 'PlantDisease',
         })),
       ];
       setLikesList(allLikes);
@@ -111,6 +115,7 @@ export const useLikes = () => {
     category: string,
     image: string,
   ) => {
+    console.log('Got here');
     setIsLoading(true);
     setIsFavourited(liked);
     const payload: AddLikesPayload = {
@@ -130,24 +135,27 @@ export const useLikes = () => {
           )}`,
           position: 'top',
         });
-        setIsLoading(false);
+        console.log('Got here - 2');
       } else {
         await fetchData(itemName, category).delete();
 
         showToast({
           text1: 'Unliked',
           type: 'success',
-          text2: `This has been removed to your liked items ${String.fromCodePoint(
+          text2: `This has been removed from your liked items ${String.fromCodePoint(
             0x1f641,
           )}`,
           position: 'top',
         });
       }
+      setIsLoading(false);
     } catch (error) {
-      console.error('There was an error');
+      console.error('There was an error', error);
       setIsLoading(false);
       setIsFavourited(!isFavourited);
       setDetectError('An error occurred while adding the item');
+    } finally {
+      setIsLoading(false);
     }
   };
   return {

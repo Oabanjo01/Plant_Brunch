@@ -201,7 +201,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
                   common_name,
                   !isFavourited,
                   'PlantDisease',
-                  images[0].original_url,
+                  images[0]?.original_url || '',
                 );
               }}
             />

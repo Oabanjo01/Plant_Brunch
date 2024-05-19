@@ -57,7 +57,7 @@ const ProfilePage = () => {
   useEffect(() => {
     fetchAllLikes();
   }, []);
-
+  console.log(isLoading, 'isLoading');
   const buildTabHeader = (index: number, title: string) => {
     return (
       <TouchableOpacity
@@ -194,6 +194,7 @@ const ProfilePage = () => {
           'YOUR LIKES',
           likesList,
           isLoading,
+          addorRemoveLikes,
         )}
       </SwiperFlatList>
     </ScrollView>
@@ -206,6 +207,12 @@ const tabBodyDisplay = (
   subTopic?: any,
   data?: any,
   isLoading?: boolean,
+  addOrRemoveLikes?: (
+    itemName: string,
+    liked: boolean,
+    category: string,
+    image: string,
+  ) => {},
 ) => {
   if (isLoading) {
     return (
@@ -244,7 +251,9 @@ const tabBodyDisplay = (
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={() => <View style={{height: 10}} />}
             scrollEnabled
-            renderItem={renderItem}
+            renderItem={({item, index}) =>
+              renderItem({item, index, addOrRemoveLikes})
+            }
             keyExtractor={item => item.itemName}
           />
         </View>
@@ -257,9 +266,16 @@ const tabBodyDisplay = (
 const renderArticlesOrLikes = ({
   item,
   index,
+  addOrRemoveLikes,
 }: {
   item: DataFromLikesCollection;
   index: number;
+  addOrRemoveLikes: (
+    itemName: string,
+    liked: boolean,
+    category: string,
+    image: string,
+  ) => void;
 }) => {
   return (
     <View
@@ -308,7 +324,15 @@ const renderArticlesOrLikes = ({
       </View>
       <Ionicons
         name={'heart'}
-        onPress={() => {}}
+        onPress={() => {
+          console.log('Press');
+          addOrRemoveLikes(
+            item.itemName,
+            item.liked,
+            item.category,
+            item.image,
+          );
+        }}
         size={24}
         style={{
           marginRight: screenWidth * 0.06,
