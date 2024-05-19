@@ -1,3 +1,5 @@
+This one is for plant lovers. It uses react-native-vision-camera to enable end users upload lovely photos of plants. Which they can then sell, or allow other users use for free. 
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
