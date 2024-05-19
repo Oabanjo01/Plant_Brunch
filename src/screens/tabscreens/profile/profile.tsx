@@ -338,6 +338,8 @@ const renderArticlesOrLikes = ({
           resizeMode={'cover'}
           style={{
             borderRadius: (screenWidth * 0.08) / 2,
+            borderWidth: 1,
+            borderColor: Colors.primary,
             height: screenWidth * 0.08,
             width: screenWidth * 0.08,
             marginLeft: screenWidth * 0.06,
