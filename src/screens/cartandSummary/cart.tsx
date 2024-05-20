@@ -5,11 +5,12 @@ import {RootStackParamList} from '@app/navigation/navigation';
 import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
 import useCart, {CartProps} from '@app/utilities/hooks/useCart/useCart';
+import {truncateText} from '@app/utilities/sentenceHelpers';
+
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
 import {
   FlatList,
-  ScrollView,
   StyleSheet,
   TextStyle,
   TouchableOpacity,
@@ -49,7 +50,7 @@ const CartScreen = ({route, navigation}: Props) => {
         <Backbutton />
         <View
           style={{
-            paddingTop: screenHeight * 0.1,
+            paddingVertical: screenHeight * 0.1,
             height: screenHeight,
           }}>
           {cartedList.length === 0 ? (
@@ -90,7 +91,7 @@ const CartScreen = ({route, navigation}: Props) => {
     return (
       <View style={styles.cartItemStyle}>
         <WText style={styles.itemTitleStyle}>Item Name</WText>
-        {renderCartedItemDetails('Item Name', `${item.title}`)}
+        {renderCartedItemDetails('Item Name', truncateText(item.title, 24))}
         {renderCartedItemDetails('Date Added', `${item.timeCarted}`)}
         {renderCartedItemDetails('Amount', `${item.timeCarted}`)}
         {renderCartedItemDetails('Total', `$${amount * itemNo}`, {
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   cartItemStyle: {
-    width: screenWidth * 0.85,
+    width: screenWidth * 0.9,
     borderRadius: 20,
     alignSelf: 'center',
     backgroundColor: Colors.whiteColor,

@@ -77,7 +77,7 @@ const DropDown = (props?: DropDownProps) => {
               right: screenWidth * 0.025,
             }}>
             <Ionicons
-              name="ellipsis-vertical-outline"
+              name="ellipsis-vertical"
               color={props?.color ?? Colors.whiteColor}
               size={30}
             />

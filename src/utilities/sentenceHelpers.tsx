@@ -18,3 +18,10 @@ export const createSentenceFromArray = (
   }${capitalize(itemsString)}.`;
   return sentence;
 };
+
+export function truncateText(text: string, maxChars: number) {
+  if (text.length > maxChars) {
+    return `${text.substring(0, maxChars)}...`;
+  }
+  return text;
+}
