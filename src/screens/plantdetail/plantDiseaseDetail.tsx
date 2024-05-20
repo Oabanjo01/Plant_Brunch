@@ -17,6 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './plantListDetail';
 import {useLikes} from '@app/utilities/hooks/likes/useLikes';
 import useArticles from '@app/utilities/hooks/articles/useArticles';
+import useCart from '@app/utilities/hooks/useCart/useCart';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantDiseaseDetail'>;
 
@@ -115,6 +116,13 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     isLoading: isLoadingArticles,
   } = useArticles();
 
+  const {
+    addOrRemoveCartItem,
+    fetchCartStatus,
+    isCarted,
+    isFetching: isFetchingCartItems,
+  } = useCart();
+
   useEffect(() => {
     if (detectError === 'An error occurred while adding the item') {
       setIsFavourited(false);
@@ -123,9 +131,10 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
   useEffect(() => {
     fetchLikeStatus(common_name, 'PlantDisease');
     fetchArticleStatus(common_name);
+    fetchCartStatus(common_name);
   }, []);
 
-  if (isFetchingArticles || isFetching) {
+  if (isFetchingArticles || isFetching || isFetchingCartItems) {
     return (
       <View
         style={{
@@ -356,6 +365,14 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             </WText>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => {
+              addOrRemoveCartItem(
+                common_name,
+                !isCarted,
+                images[0]?.original_url || '',
+                'Plant Disease',
+              );
+            }}
             style={{
               backgroundColor: Colors.primary,
               width: screenWidth * 0.12,
@@ -366,7 +383,11 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
               padding: 10,
               opacity: 0.9,
             }}>
-            <Ionicons name="cart-outline" size={20} color={Colors.whiteColor} />
+            <Ionicons
+              name={isCarted ? 'cart' : 'cart-outline'}
+              size={20}
+              color={Colors.whiteColor}
+            />
           </TouchableOpacity>
         </View>
         <Backbutton />

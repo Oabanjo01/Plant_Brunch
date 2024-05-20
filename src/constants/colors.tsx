@@ -14,3 +14,22 @@ export const Colors = {
   onboardingInactiveIconColor: '#DBDBDB',
   tabBarTextColor: '#D2D2D2',
 };
+export const Theme = {
+  isDark: {},
+  isLight: {
+    screenColor: '#E5E5E5',
+    primary: '#2DDA93',
+    primaryTextColor: '#000000',
+    lightPrimaryTextColor: '#777777',
+    secondaryTextColor: '#6A6F7D',
+    inActiveUnderlineTextInputColor: '#A7A7A7',
+    lightTextColor: '#FFFFFF',
+    whiteColor: '#FFFFFF',
+    favouriteButtonColor: '#FF6262',
+    addPhotoButtonColor: '#48A2F5',
+    ratingIconColor: '#FFCD00',
+    disabledButtonColor: '#AAAAAA',
+    onboardingInactiveIconColor: '#DBDBDB',
+    tabBarTextColor: '#D2D2D2',
+  },
+};

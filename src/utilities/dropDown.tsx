@@ -25,6 +25,7 @@ const DropDown = (props?: DropDownProps) => {
     {label: 'Theme Mode', value: 'theme'},
     {label: 'Cart', value: 'cart'},
     {label: 'Delete Account', value: 'delete'},
+    {label: 'Toggle Theme', value: 'theme'},
   ];
 
   const handleOptionSelect = (value: string) => {
@@ -37,6 +38,7 @@ const DropDown = (props?: DropDownProps) => {
       navigation.navigate(Routes.CartScreen);
     } else if (value === 'delete') {
       console.log(value);
+    } else {
     }
   };
 
@@ -59,7 +61,7 @@ const DropDown = (props?: DropDownProps) => {
               {selectedItem.label}
             </WText>
 
-            {index <= 1 && <Divider bold />}
+            {index <= 2 && <Divider bold />}
           </View>
         );
       }}
