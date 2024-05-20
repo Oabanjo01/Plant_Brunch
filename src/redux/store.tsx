@@ -39,6 +39,7 @@ const rootReducer = (
     | undefined,
   action: any,
 ) => {
+  console.log(state);
   const combinedReducers = combineReducers({
     auth: authReducer,
     onboarding: onboardingReducer,

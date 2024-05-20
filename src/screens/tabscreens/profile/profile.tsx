@@ -35,18 +35,18 @@ import {ActivityIndicator} from 'react-native-paper';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
-
+import {useIsFocused} from '@react-navigation/native';
 const ProfilePage = () => {
   const [activeButton, setActiveButton] = useState<number>(1);
+
   const userData = useSelector((state: RootState) => state.auth.user);
   const {displayName} = userData;
+  const isFocused = useIsFocused();
 
   const swiperFlatListRef = useRef<SwiperFlatList | null>(null);
-
   const scrollToIndex = (index: number) => {
     swiperFlatListRef.current?.scrollToIndex({animated: true, index});
   };
-
   const currentIndex = swiperFlatListRef.current?.getCurrentIndex();
 
   const {fetchAllLikes, isLoading, likesList, addorRemoveLikes} = useLikes();
@@ -58,20 +58,26 @@ const ProfilePage = () => {
   } = useArticles();
 
   useEffect(() => {
-    if (currentIndex === 2) {
+    console.log('got here', isFocused);
+    if (isFocused && activeButton === 2) {
       fetchAllLikes();
       return;
     }
-    if (currentIndex === 0) {
+    if (isFocused && activeButton === 0) {
       fetchAllUserArticles();
       return;
     }
-  }, [currentIndex]);
+  }, [isFocused, activeButton]);
+  console.log(activeButton);
+  // useEffect(() => {
+  //   console.log('got here', isFocused);
+  //   if (isFocused && (currentIndex === 0 || currentIndex === 2)) {
+  //     fetchAllLikes();
+  //     fetchAllUserArticles();
+  //     return;
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    fetchAllLikes();
-    fetchAllUserArticles();
-  }, []);
   console.log(likesList, 'loadingArticles');
   const buildTabHeader = (index: number, title: string) => {
     return (
