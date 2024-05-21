@@ -34,7 +34,6 @@ const rootReducer = (
         auth: AuthState;
         onboarding: OnboardingState;
         theme: ThemeState;
-        // fetchData: FetchedDataType;
       }
     | undefined,
   action: any,
@@ -44,7 +43,6 @@ const rootReducer = (
     auth: authReducer,
     onboarding: onboardingReducer,
     theme: toggleThemeReducer,
-    // fetchData: fetchedDataReducer,
   });
 
   const rehydratedState:
@@ -52,7 +50,6 @@ const rootReducer = (
         auth: AuthState;
         onboarding: OnboardingState;
         theme: ThemeState;
-        // fetchData: any;
       }
     | undefined = combinedReducers(state, action);
   return rehydratedState;
@@ -66,8 +63,5 @@ export const store = createStore(
 );
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof rootReducer>;
-// store.dispatch(fetchHomeData);
 
-store.subscribe(() => {
-  // console.log(store.getState(), 'store console');
-});
+store.subscribe(() => {});

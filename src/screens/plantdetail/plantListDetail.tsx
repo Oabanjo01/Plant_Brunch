@@ -1,4 +1,5 @@
 import {Colors} from '@app/constants';
+import {getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {FontSize, Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
@@ -6,6 +7,9 @@ import {Plant, PlantListImageType} from '@app/redux/types';
 import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
 import DropDown from '@app/utilities/dropDown';
+import useArticles from '@app/utilities/hooks/articles/useArticles';
+import {useLikes} from '@app/utilities/hooks/likes/useLikes';
+import useCart from '@app/utilities/hooks/useCart/useCart';
 import {
   capitalize,
   createSentenceFromArray,
@@ -25,16 +29,14 @@ import {Divider} from 'react-native-paper';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SubTopics} from './plantDiseaseDetail';
-import {useLikes} from '@app/utilities/hooks/likes/useLikes';
-import {showToast} from '@app/utilities/toast';
-import useArticles from '@app/utilities/hooks/articles/useArticles';
-import useCart from '@app/utilities/hooks/useCart/useCart';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantListDetail'>;
 
 const PlantListDetail = ({route, navigation}: Props) => {
   const [showDescription, setShowDescription] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const theme = useSelector((state: RootState) => state.onboarding);
+
   const item = route.params?.item;
   const {
     default_image,
@@ -122,7 +124,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
     return (
       <View
         style={{
-          backgroundColor: Colors.screenColor,
+          backgroundColor: getThemeColor('screenColor'),
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',

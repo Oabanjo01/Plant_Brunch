@@ -1,13 +1,13 @@
 import {Colors, Routes} from '@app/constants';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import {RootStackNavigationProp} from '@app/navigation/navigation';
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Divider} from 'react-native-paper';
 import SelectDropdown from 'react-native-select-dropdown';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import WText from './customText';
-import {RootStackNavigationProp, ScreenProps} from '@app/navigation/navigation';
 
 interface DropDownData {
   label: string;
@@ -25,7 +25,6 @@ const DropDown = (props?: DropDownProps) => {
     {label: 'Theme Mode', value: 'theme'},
     {label: 'Cart', value: 'cart'},
     {label: 'Delete Account', value: 'delete'},
-    {label: 'Toggle Theme', value: 'theme'},
   ];
 
   const handleOptionSelect = (value: string) => {
@@ -38,7 +37,6 @@ const DropDown = (props?: DropDownProps) => {
       navigation.navigate(Routes.CartScreen);
     } else if (value === 'delete') {
       console.log(value);
-    } else {
     }
   };
 

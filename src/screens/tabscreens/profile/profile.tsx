@@ -36,6 +36,7 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
+import {truncateText} from '@app/utilities/sentenceHelpers';
 const ProfilePage = () => {
   const [activeButton, setActiveButton] = useState<number>(1);
 
@@ -68,17 +69,6 @@ const ProfilePage = () => {
       return;
     }
   }, [isFocused, activeButton]);
-  console.log(activeButton);
-  // useEffect(() => {
-  //   console.log('got here', isFocused);
-  //   if (isFocused && (currentIndex === 0 || currentIndex === 2)) {
-  //     fetchAllLikes();
-  //     fetchAllUserArticles();
-  //     return;
-  //   }
-  // }, []);
-
-  console.log(likesList, 'loadingArticles');
   const buildTabHeader = (index: number, title: string) => {
     return (
       <TouchableOpacity
@@ -357,7 +347,7 @@ const renderArticlesOrLikes = ({
             style={{
               fontSize: 16,
             }}>
-            {item.itemName || item.title}
+            {truncateText(item.itemName || item.title, 24)}
           </WText>
           <WText
             style={{

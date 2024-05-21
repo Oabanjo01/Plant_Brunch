@@ -15,15 +15,16 @@ const onboardingReducer = (
 ) => {
   switch (type) {
     case types.ONBOARDING_STATUS:
-      const newState = {
+      const newState: OnboardingData = {
         ...state,
-        onboardingStatus: payload.onboardingStatus,
+        onboardingStatus: payload,
       };
       return newState;
     case REHYDRATE:
+      const rehydratedStatus = payload?.onboarding?.onboardingStatus || false;
       return {
         ...state,
-        ...(payload?.onboarding || undefined),
+        onboardingStatus: rehydratedStatus,
       };
     default:
       return state;

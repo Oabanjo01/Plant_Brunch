@@ -88,9 +88,3 @@ export interface PlantListResponse {
 export interface PlantDiseaseResponse {
   data: PlantDiseaseType[];
 }
-
-export type UserData = {
-  isAuthenticated: boolean;
-  user: FirebaseAuthTypes.UserCredential | null;
-  rememberUser: boolean;
-};

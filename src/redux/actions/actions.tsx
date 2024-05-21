@@ -1,14 +1,12 @@
-import axios from 'axios';
 import types from '../types';
-import {planDiseasesResponse, speciesListResponse} from '@app/index';
 
 // These functions are action creators, they return an action - {type, payload}
 // action creators, functions returning an action. An action is an object with a type property
 
-export const toggleName = (newName: string) => {
+export const toggleName = (newTheme: string) => {
   return {
     type: types.TOGGLE_STATUS, // all actions must have a type
-    payload: newName,
+    payload: newTheme,
   };
 };
 
@@ -39,9 +37,7 @@ export const rememberUserAction = (payload: boolean) => {
 export const onboardingAction = (payload: boolean) => {
   return {
     type: types.ONBOARDING_STATUS,
-    payload: {
-      onboardingStatus: payload,
-    },
+    payload: payload,
   };
 };
 

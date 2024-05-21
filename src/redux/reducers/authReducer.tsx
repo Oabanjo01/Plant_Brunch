@@ -1,5 +1,6 @@
 import {REHYDRATE} from 'redux-persist';
-import types, {UserData} from '../types';
+import types from '../types';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 // NOTE:
 // It is important to pass an initial state as default to
@@ -8,6 +9,11 @@ import types, {UserData} from '../types';
 // state might be undefined
 // Reducers specify how the application state changes in response to actions from the store
 // action = {type, payload}
+type UserData = {
+  isAuthenticated: boolean;
+  user: FirebaseAuthTypes.UserCredential | null;
+  rememberUser: boolean;
+};
 const initialState: UserData = {
   isAuthenticated: false,
   user: null,
@@ -24,6 +30,7 @@ const authReducer = (
         ...state,
         isAuthenticated: true,
         user: payload.user,
+        rememberUser: true,
       };
     case types.LOGIN_FAILURE:
       return {
@@ -40,6 +47,8 @@ const authReducer = (
       return {
         ...state,
         isAuthenticated: false,
+        user: null,
+        rememberUser: false,
         // user: null,
       };
     case types.REMEMBER_ME:
@@ -48,10 +57,13 @@ const authReducer = (
         rememberUser: payload.rememberUser,
       };
     case REHYDRATE:
-      const incomingState = payload ? payload?.auth : undefined;
+      const rehydratedStatus = payload?.auth || initialState;
+      console.log(rehydratedStatus, 'rehydratedstatus');
       return {
         ...state,
-        ...(payload?.auth ?? undefined),
+        isAuthenticated: rehydratedStatus?.isAuthenticated,
+        rememberUser: rehydratedStatus?.rememberUser,
+        user: rehydratedStatus?.user,
       };
     default:
       return state;
