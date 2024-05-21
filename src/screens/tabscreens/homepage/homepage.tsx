@@ -1,11 +1,13 @@
 import RenderPlantPictures, {
   SeparatorComponent,
 } from '@app/components/homepagecomponents/photography';
-import {RenderSubTopics} from '@app/components/homepagecomponents/plantcategories';
+import {
+  SubTopics,
+  RenderSubTopics,
+} from '@app/components/homepagecomponents/plantcategories';
 import {RenderDiseasePicture} from '@app/components/homepagecomponents/plantdiseases';
 import {Colors, Routes} from '@app/constants';
 import {DarkColors} from '@app/constants/colors';
-import {Data} from '@app/constants/data/homepage';
 import {
   dashboardHeight,
   screenHeight,
@@ -20,7 +22,7 @@ import LoadingIndicator from '@app/utilities/loadingIndicator';
 import {showToast} from '@app/utilities/toast';
 import Dashboard from '@assets/images/Dashboard.svg';
 import auth from '@react-native-firebase/auth';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -41,7 +43,6 @@ const HomePage = ({navigation}: ScreenProps) => {
     plantList,
     plantDisease,
     isLoading,
-    storedUserName,
     displayName,
     fetchdata,
     refreshing,
@@ -49,12 +50,10 @@ const HomePage = ({navigation}: ScreenProps) => {
   } = useFetchData();
   const dispatch = useDispatch();
 
-  const [loadingPicture, setLoadingPicture] = useState<boolean>(true);
-
   const onRefresh = () => {
     fetchdata(true);
   };
-
+  console.log(displayName, 'displayName');
   return (
     <>
       {isLoading ? (
@@ -202,26 +201,17 @@ const HomePage = ({navigation}: ScreenProps) => {
               }}>
               <FlatList
                 // onRefresh={}
-                data={Data}
+                data={SubTopics}
                 keyExtractor={item => item.id}
-                renderItem={items =>
-                  RenderSubTopics(items.item, () => {
-                    switch (items.index) {
-                      case 0:
-                        navigation.push(Routes.CameraScreen);
-                        break;
-                      case 1:
-                        console.log('items');
-                        break;
-                      case 2:
-                        navigation.navigate(Routes.Articles);
-                        break;
-
-                      default:
-                        break;
-                    }
-                  })
-                }
+                renderItem={({item, index}) => {
+                  return (
+                    <RenderSubTopics
+                      index={index}
+                      item={item}
+                      navigation={navigation}
+                    />
+                  );
+                }}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 ItemSeparatorComponent={SeparatorComponent}
@@ -248,12 +238,12 @@ const HomePage = ({navigation}: ScreenProps) => {
                 <FlatList
                   data={plantList}
                   keyExtractor={item => item.id.toString()}
-                  renderItem={item => {
-                    return RenderPlantPictures(
-                      item.item,
-                      navigation,
-                      () => setLoadingPicture(false),
-                      loadingPicture,
+                  renderItem={({item}) => {
+                    return (
+                      <RenderPlantPictures
+                        item={item}
+                        navigation={navigation}
+                      />
                     );
                   }}
                   horizontal
@@ -302,13 +292,12 @@ const HomePage = ({navigation}: ScreenProps) => {
                 <FlatList
                   data={plantDisease}
                   keyExtractor={item => item.id.toString()}
-                  renderItem={({item, index}) => {
-                    return RenderDiseasePicture(
-                      navigation,
-                      item,
-                      () => setLoadingPicture(false),
-                      loadingPicture,
-                      index,
+                  renderItem={({item}) => {
+                    return (
+                      <RenderDiseasePicture
+                        plantDisease={item}
+                        navigation={navigation}
+                      />
                     );
                   }}
                   horizontal

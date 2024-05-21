@@ -4,7 +4,7 @@ import {Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
-import useCart, {CartProps} from '@app/utilities/hooks/useCart/useCart';
+import useCart, {CartProps} from '@app/utilities/hooks/cart/useCart';
 import {truncateText} from '@app/utilities/sentenceHelpers';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';

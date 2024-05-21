@@ -169,10 +169,7 @@ const CameraScreen = ({navigation}: ScreenProps) => {
                   size={30}
                   color={Colors.primary}
                 />
-                <TouchableNativeFeedback
-                  onPress={() => {
-                    onTakePicture();
-                  }}>
+                <TouchableNativeFeedback onPress={onTakePicture}>
                   <View style={styles.cameraButton}></View>
                 </TouchableNativeFeedback>
               </>

@@ -69,9 +69,8 @@ const themes = {
 };
 
 export const getThemeColor = (
-  color: ColorKey,
   theme: 'lightTheme' | 'darkTheme' = 'lightTheme',
 ) => {
-  const themeMode = themes[theme][color];
+  const themeMode = themes[theme];
   return themeMode;
 };
