@@ -2,52 +2,65 @@ interface ColorProps {
   screenColor: string;
   primary: string;
   primaryTextColor: string;
-  lightPrimaryTextColor: string;
+  lighterBlack: string;
   secondaryTextColor: string;
   inActiveUnderlineTextInputColor: string;
-  lightTextColor: string;
+  tertiaryTextColor: string;
   whiteColor: string;
+  lightPrimaryColor: string;
   favouriteButtonColor: string;
   addPhotoButtonColor: string;
   ratingIconColor: string;
   disabledButtonColor: string;
   onboardingInactiveIconColor: string;
   tabBarTextColor: string;
+  tabColor: string;
 }
 export const Colors: ColorProps = {
   screenColor: '#E5E5E5',
-  primary: '#2DDA93',
   primaryTextColor: '#000000',
-  lightPrimaryTextColor: '#777777',
+  lighterBlack: '#CCCCCC',
   secondaryTextColor: '#6A6F7D',
+  tertiaryTextColor: '#FFFFFF',
+  tabColor: '#FFFFFF',
+  // fixed colors
+  ratingIconColor: '#FFCD00',
+  primary: '#2DDA93',
+  disabledButtonColor: '#AAAAAA',
+  onboardingInactiveIconColor: '#DBDBDB',
   inActiveUnderlineTextInputColor: '#A7A7A7',
-  lightTextColor: '#FFFFFF',
+  lightPrimaryColor: '#61D2C4',
+  tabBarTextColor: '#D2D2D2',
   whiteColor: '#FFFFFF',
   favouriteButtonColor: '#FF6262',
   addPhotoButtonColor: '#48A2F5',
-  ratingIconColor: '#FFCD00',
-  disabledButtonColor: '#AAAAAA',
-  onboardingInactiveIconColor: '#DBDBDB',
-  tabBarTextColor: '#D2D2D2',
 };
 
 type ColorKey = keyof ColorProps; // represents the union of all keys in the ColorProps interface
 
 export const DarkColors: ColorProps = {
-  screenColor: '#1B1C1E',
-  primary: '#2DDA93',
   primaryTextColor: '#FFFFFF',
-  lightPrimaryTextColor: '#E0E0E0',
-  secondaryTextColor: '#C0C0C0',
+  tertiaryTextColor: '#1E1E1E',
+  secondaryTextColor: '#F5F5F5',
+  screenColor: '#1B1C1E',
+  lighterBlack: '#777777',
+  tabColor: '#FFFFFF',
+
+  // screenColor: '#1B1B1B',
+  // secondaryTextColor: '#C0C0C0',
+  // primaryTextColor: '#FFFFFF',
+  // tertiaryTextColor: '#FFFFFF',
+  // fixed colors
+  ratingIconColor: '#FFCD00',
+  primary: '#2DDA93',
+  disabledButtonColor: '#AAAAAA',
+  lightPrimaryColor: '#61D2C4',
+  onboardingInactiveIconColor: '#DBDBDB',
   inActiveUnderlineTextInputColor: '#A7A7A7',
-  lightTextColor: '#FFFFFF',
+  tabBarTextColor: '#D2D2D2',
   whiteColor: '#FFFFFF',
   favouriteButtonColor: '#FF6262',
   addPhotoButtonColor: '#48A2F5',
-  ratingIconColor: '#FFCD00',
-  disabledButtonColor: '#AAAAAA',
-  onboardingInactiveIconColor: '#DBDBDB',
-  tabBarTextColor: '#D2D2D2',
 };
 
 const themes = {

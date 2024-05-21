@@ -355,7 +355,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             }}>
             <WText
               style={{
-                color: Colors.lightTextColor,
+                color: Colors.tertiaryTextColor,
                 fontFamily: Fonts.semiBold,
                 fontSize: 16,
                 textAlign: 'center',

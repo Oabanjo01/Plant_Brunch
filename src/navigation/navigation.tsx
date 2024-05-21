@@ -15,6 +15,9 @@ import {Plant, PlantDiseaseType} from '@app/redux/types';
 import Articles from '@app/screens/articles/articles';
 import LoginScreen from '@app/screens/auth/login';
 import SignUpScreen from '@app/screens/auth/signup';
+import CameraScreen from '@app/screens/camera';
+import CartScreen from '@app/screens/cartandSummary/cart';
+import TransactionSummary from '@app/screens/cartandSummary/summary';
 import OnboardingScreens from '@app/screens/onboarding';
 import PlantDiseaseDetail from '@app/screens/plantdetail/plantDiseaseDetail';
 import PlantListDetail from '@app/screens/plantdetail/plantListDetail';
@@ -23,9 +26,7 @@ import ProfilePage from '@app/screens/tabscreens/profile/profile';
 import CameraPage from '@app/screens/tabscreens/uploadimage/uploadmethod';
 import {View} from 'react-native';
 import {useSelector} from 'react-redux';
-import CameraScreen from '@app/screens/camera';
-import CartScreen from '@app/screens/cartandSummary/cart';
-import TransactionSummary from '@app/screens/cartandSummary/summary';
+import {DarkColors} from '@app/constants/colors';
 
 export type RootStackParamList = {
   Onboarding: any;
@@ -88,7 +89,7 @@ const HomeTabNavigator: React.FC = () => {
             shadowOffset: {width: -1, height: -1},
             paddingTop: 10,
             paddingBottom: 10,
-            backgroundColor: Colors.whiteColor,
+            backgroundColor: DarkColors.tertiaryTextColor,
             height: screenHeight * 0.08,
           },
         })}

@@ -75,7 +75,7 @@ const CartScreen = ({route, navigation}: Props) => {
           }}>
           <WText
             style={{
-              color: Colors.lightTextColor,
+              color: Colors.tertiaryTextColor,
               fontSize: 16,
               fontFamily: Fonts.semiBold,
             }}>

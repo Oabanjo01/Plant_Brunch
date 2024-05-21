@@ -17,7 +17,6 @@ interface DropDownProps {
   color?: string;
 }
 const DropDown = (props?: DropDownProps) => {
-  //   const {navigation} = useNavigation<any>();
   const navigation = useNavigation<RootStackNavigationProp>();
   const [selectedOption, setSelectedOption] = useState<string>('');
 

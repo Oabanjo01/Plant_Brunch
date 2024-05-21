@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'OpenSans-Bold',
     fontSize: 15,
-    color: Colors.lightTextColor,
+    color: Colors.tertiaryTextColor,
   },
   dotContainer: {
     alignItems: 'center',

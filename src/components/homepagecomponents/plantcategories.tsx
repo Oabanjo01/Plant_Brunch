@@ -1,4 +1,4 @@
-import {Colors} from '@app/constants/colors';
+import {Colors, DarkColors} from '@app/constants/colors';
 import {ItemProps} from '@app/constants/data/homepage';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import WText from '@app/utilities/customText';
@@ -84,7 +84,7 @@ export const RenderSubTopics = (props: ItemProps, onPress: () => void) => {
           alignItems: 'center',
           justifyContent: 'center',
           width: screenWidth * 0.26,
-          backgroundColor: Colors.whiteColor,
+          backgroundColor: DarkColors.lighterBlack,
           borderRadius: 10,
           shadowColor: Colors.primary,
         }}>
@@ -93,7 +93,7 @@ export const RenderSubTopics = (props: ItemProps, onPress: () => void) => {
           style={{
             fontSize: 14,
             marginTop: screenHeight * 0.01,
-            color: Colors.primaryTextColor,
+            color: DarkColors.primaryTextColor,
           }}>
           {description}
         </WText>

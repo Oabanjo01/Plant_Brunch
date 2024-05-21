@@ -45,11 +45,19 @@ const customToasts = ({
         borderRadius: 15,
       }}>
       <WText
-        style={{color: Colors.lightTextColor, fontWeight: '600', fontSize: 18}}>
+        style={{
+          color: Colors.tertiaryTextColor,
+          fontWeight: '600',
+          fontSize: 18,
+        }}>
         {props.text1}
       </WText>
       <WText
-        style={{color: Colors.lightTextColor, fontWeight: '400', fontSize: 14}}>
+        style={{
+          color: Colors.tertiaryTextColor,
+          fontWeight: '400',
+          fontSize: 14,
+        }}>
         {props.text2}
       </WText>
     </View>
