@@ -40,7 +40,7 @@ const TransactionSummary = ({route, navigation}: Props) => {
       <View style={styles.buttonStyle}>
         <WText
           style={{
-            color: Colors.lightTextColor,
+            color: Colors.tertiaryTextColor,
             fontSize: 16,
             fontFamily: Fonts.semiBold,
           }}>

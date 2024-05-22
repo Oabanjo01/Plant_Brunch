@@ -1,23 +1,32 @@
+import React, {useState} from 'react';
+import {Platform, TouchableOpacity, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import {ActivityIndicator} from 'react-native-paper';
 import {Colors} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootStackNavigationProp} from '@app/navigation/navigation';
 import {Plant} from '@app/redux/types';
 import WText from '@app/utilities/customText';
-import React from 'react';
-import {Platform, TouchableOpacity, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
-import {ActivityIndicator} from 'react-native-paper';
 
 export const SeparatorComponent = () => {
   return <View style={{width: screenWidth * 0.05}} />;
 };
 
-const RenderPlantPictures = (
-  item: Plant,
-  navigation: RootStackNavigationProp,
-  loadedPicture: () => void,
-  loading: boolean,
-) => {
+const RenderPlantPictures = ({
+  item,
+  navigation,
+}: {
+  item: Plant;
+  navigation: RootStackNavigationProp;
+}) => {
+  const [loading, setLoading] = useState(true);
+
+  const loadedPicture = () => {
+    setLoading(false);
+  };
+  const loadingPicture = () => {
+    setLoading(true);
+  };
   return (
     <TouchableOpacity
       onPress={() => {
@@ -30,7 +39,8 @@ const RenderPlantPictures = (
         justifyContent: 'center',
       }}>
       <FastImage
-        onLoadEnd={() => loadedPicture()}
+        onLoadStart={loadingPicture}
+        onLoadEnd={loadedPicture}
         source={{
           uri: item.default_image.regular_url,
           priority: FastImage.priority.normal,

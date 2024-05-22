@@ -2,6 +2,19 @@ import {REHYDRATE} from 'redux-persist';
 import types from '../types';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
+export interface UserDataProps {
+  uid: string | null;
+  displayName: string | null;
+  email: string | null;
+  emailVerified: boolean;
+}
+
+const userData: UserDataProps = {
+  displayName: '',
+  email: '',
+  emailVerified: false,
+  uid: '',
+};
 // NOTE:
 // It is important to pass an initial state as default to
 // the state parameter to handle the case of calling
@@ -11,12 +24,12 @@ import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 // action = {type, payload}
 type UserData = {
   isAuthenticated: boolean;
-  user: FirebaseAuthTypes.UserCredential | null;
+  user: UserDataProps;
   rememberUser: boolean;
 };
 const initialState: UserData = {
   isAuthenticated: false,
-  user: null,
+  user: userData,
   rememberUser: false,
 };
 
@@ -36,18 +49,20 @@ const authReducer = (
       return {
         ...state,
         isAuthenticated: false,
-        user: false,
+        user: userData,
       };
     case types.LOGOUT_FAILURE:
       return {
         ...state,
         isAuthenticated: true,
+        user: userData,
+        rememberUser: false,
       };
     case types.LOGOUT_SUCCESS:
       return {
         ...state,
         isAuthenticated: false,
-        user: null,
+        user: userData,
         rememberUser: false,
         // user: null,
       };

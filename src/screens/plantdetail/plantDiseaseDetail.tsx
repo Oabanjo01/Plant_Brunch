@@ -17,7 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from './plantListDetail';
 import {useLikes} from '@app/utilities/hooks/likes/useLikes';
 import useArticles from '@app/utilities/hooks/articles/useArticles';
-import useCart from '@app/utilities/hooks/useCart/useCart';
+import useCart from '@app/utilities/hooks/cart/useCart';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantDiseaseDetail'>;
 
@@ -355,7 +355,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             }}>
             <WText
               style={{
-                color: Colors.lightTextColor,
+                color: Colors.tertiaryTextColor,
                 fontFamily: Fonts.semiBold,
                 fontSize: 16,
                 textAlign: 'center',

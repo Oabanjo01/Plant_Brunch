@@ -1,16 +1,42 @@
-import {Colors} from '@app/constants/colors';
-import {ItemProps} from '@app/constants/data/homepage';
+import {Colors, DarkColors} from '@app/constants/colors';
+import {SubTopicProps} from '@app/constants/data/homepage';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import {Routes} from '@app/constants/routes';
+import {RootStackNavigationProp} from '@app/navigation/navigation';
 import WText from '@app/utilities/customText';
+import useCameraDevice from '@app/utilities/hooks/camera/useCamera';
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import Svg, {ClipPath, Defs, Path, Rect} from 'react-native-svg';
 
-export const RenderSubTopics = (props: ItemProps, onPress: () => void) => {
-  const {id, image, description} = props;
+export const SubTopics: SubTopicProps[] = [
+  {
+    id: '1',
+    description: 'Identify',
+  },
+  {
+    id: '2',
+    description: 'Sc Names',
+  },
+  {
+    id: '3',
+    description: 'Articles',
+  },
+];
+
+export const RenderSubTopics = ({
+  item,
+  index,
+  navigation,
+}: {
+  item: SubTopicProps;
+  index: number;
+  navigation: RootStackNavigationProp;
+}) => {
   let svgToRender;
-  switch (props.id) {
-    case '1':
+  const {handlePhoneVersion} = useCameraDevice();
+  switch (index) {
+    case 0:
       svgToRender = (
         <Svg width={'20'} height={'20'} viewBox="0 0 21 21" fill="none">
           <Defs>
@@ -25,7 +51,7 @@ export const RenderSubTopics = (props: ItemProps, onPress: () => void) => {
         </Svg>
       );
       break;
-    case '2':
+    case 1:
       svgToRender = (
         <Svg width={'20'} height={'20'} viewBox="0 0 21 21" fill="none">
           <Defs>
@@ -45,7 +71,7 @@ export const RenderSubTopics = (props: ItemProps, onPress: () => void) => {
         </Svg>
       );
       break;
-    case '3':
+    case 2:
       svgToRender = (
         <Svg width={'16'} height={'16'} viewBox="0 0 21 21" fill="none">
           <Path
@@ -71,11 +97,25 @@ export const RenderSubTopics = (props: ItemProps, onPress: () => void) => {
     default:
       break;
   }
+
+  const SubTopics = (index: number) => {
+    switch (index) {
+      case 0:
+        handlePhoneVersion(navigation);
+        break;
+      case 1:
+        console.log('items');
+        break;
+      case 2:
+        navigation.navigate(Routes.Articles);
+        break;
+
+      default:
+        break;
+    }
+  };
   return (
-    <TouchableOpacity
-      onPress={() => {
-        onPress();
-      }}>
+    <TouchableOpacity onPress={() => SubTopics(index)}>
       <View
         style={{
           flexDirection: 'column',
@@ -84,7 +124,7 @@ export const RenderSubTopics = (props: ItemProps, onPress: () => void) => {
           alignItems: 'center',
           justifyContent: 'center',
           width: screenWidth * 0.26,
-          backgroundColor: Colors.whiteColor,
+          backgroundColor: DarkColors.lighterBlack,
           borderRadius: 10,
           shadowColor: Colors.primary,
         }}>
@@ -93,9 +133,9 @@ export const RenderSubTopics = (props: ItemProps, onPress: () => void) => {
           style={{
             fontSize: 14,
             marginTop: screenHeight * 0.01,
-            color: Colors.primaryTextColor,
+            color: DarkColors.primaryTextColor,
           }}>
-          {description}
+          {item.description}
         </WText>
       </View>
     </TouchableOpacity>

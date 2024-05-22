@@ -16,15 +16,24 @@ export const SeparatorComponent = () => {
   return <View style={{width: screenWidth * 0.05}} />;
 };
 
-export const RenderDiseasePicture = (
-  navigation: RootStackNavigationProp,
-  plantDisease: PlantDiseaseType,
-  loadedPicture: () => void,
-  loading: boolean,
-  index?: number,
-) => {
+export const RenderDiseasePicture = ({
+  plantDisease,
+  navigation,
+}: {
+  plantDisease: PlantDiseaseType;
+  navigation: RootStackNavigationProp;
+}) => {
   const image = plantDisease.images;
   const nametag = plantDisease.common_name;
+
+  const [loading, setLoading] = useState(true);
+
+  const loadedPicture = () => {
+    setLoading(false);
+  };
+  const loadingPicture = () => {
+    setLoading(true);
+  };
 
   return (
     <TouchableOpacity
@@ -48,9 +57,8 @@ export const RenderDiseasePicture = (
               : require('../../../assets/images/Picture.png')
           }
           resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
-          onLoadEnd={() => {
-            loadedPicture();
-          }}
+          onLoadEnd={loadedPicture}
+          onLoadStart={loadingPicture}
         />
         <View
           style={{

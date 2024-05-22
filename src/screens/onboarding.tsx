@@ -61,21 +61,24 @@ const OnboardingScreens = ({navigation}: ScreenProps) => {
 
   const handleNextPress = () => {
     if (currentIndex.current < randomData.length - 1) {
+      console.log('got here', 1);
       currentIndex.current += 1;
       screenFlatListRef.current?.scrollToIndex({
         index: currentIndex.current,
         animated: true,
       });
-
-      return;
+    } else {
+      console.log('got here', currentIndex.current, randomData.length);
+      dispatch(onboardingAction(true));
+      goToLoginScreen();
     }
-    dispatch(onboardingAction(true));
-    goToLoginScreen();
   };
 
   const goToLoginScreen = () => {
+    console.log('got here');
     navigation.navigate(Routes.Login);
   };
+
   return (
     <View style={styles.parentContainer}>
       <FlatList
@@ -83,22 +86,19 @@ const OnboardingScreens = ({navigation}: ScreenProps) => {
         data={randomData}
         keyExtractor={item => item.id}
         onMomentumScrollEnd={handleGetIndex}
-        renderItem={items => {
+        renderItem={({item, index}) => {
+          console.log(index);
           return (
             <OnboardScreen
-              bodyText={items.item.bodyText}
-              titleText={items.item.titleText}
-              index={items.index}
-              onPress={() => {
-                items.index <= 2
-                  ? handleNextPress()
-                  : dispatch(onboardingAction(true));
-              }}
+              bodyText={item.bodyText}
+              titleText={item.titleText}
+              index={index}
+              onPress={handleNextPress}
               skip={() => {
                 dispatch(onboardingAction(true));
                 navigation.navigate(Routes.Login);
               }}
-              activeIndex={(items.index += 1)}
+              activeIndex={(index += 1)}
             />
           );
         }}
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'OpenSans-Bold',
     fontSize: 15,
-    color: Colors.lightTextColor,
+    color: Colors.tertiaryTextColor,
   },
 });
 

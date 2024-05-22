@@ -1,10 +1,13 @@
 import RenderPlantPictures, {
   SeparatorComponent,
 } from '@app/components/homepagecomponents/photography';
-import {RenderSubTopics} from '@app/components/homepagecomponents/plantcategories';
+import {
+  SubTopics,
+  RenderSubTopics,
+} from '@app/components/homepagecomponents/plantcategories';
 import {RenderDiseasePicture} from '@app/components/homepagecomponents/plantdiseases';
 import {Colors, Routes} from '@app/constants';
-import {Data} from '@app/constants/data/homepage';
+import {DarkColors} from '@app/constants/colors';
 import {
   dashboardHeight,
   screenHeight,
@@ -15,10 +18,11 @@ import {ScreenProps} from '@app/navigation/navigation';
 import {logoutAction} from '@app/redux/actions/actions';
 import WText from '@app/utilities/customText';
 import {useFetchData} from '@app/utilities/hooks/apiData/useFetchData';
+import LoadingIndicator from '@app/utilities/loadingIndicator';
 import {showToast} from '@app/utilities/toast';
 import Dashboard from '@assets/images/Dashboard.svg';
 import auth from '@react-native-firebase/auth';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -39,7 +43,6 @@ const HomePage = ({navigation}: ScreenProps) => {
     plantList,
     plantDisease,
     isLoading,
-    storedUserName,
     displayName,
     fetchdata,
     refreshing,
@@ -47,32 +50,26 @@ const HomePage = ({navigation}: ScreenProps) => {
   } = useFetchData();
   const dispatch = useDispatch();
 
-  const [loadingPicture, setLoadingPicture] = useState<boolean>(true);
-
   const onRefresh = () => {
     fetchdata(true);
   };
 
   return (
     <>
-      {isLoading ? (
-        <ActivityIndicator
-          size={40}
-          color={Colors.primary}
-          style={{justifyContent: 'center', alignItems: 'center', flex: 1}}
-        />
+      {isLoading || !displayName ? (
+        <LoadingIndicator size={40} />
       ) : (
         <View
           style={{
             flex: 1,
-            backgroundColor: Colors.screenColor,
+            backgroundColor: DarkColors.screenColor,
           }}>
           <ScrollView
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
                 onRefresh={onRefresh}
-                colors={[Colors.primary]}
+                colors={[DarkColors.primary]}
               />
             }
             showsVerticalScrollIndicator={false}
@@ -81,7 +78,7 @@ const HomePage = ({navigation}: ScreenProps) => {
               start={{x: 0, y: 0}}
               end={{x: 1, y: 1}}
               locations={[0.1, 1]}
-              colors={['#61D2C4', '#29D890']}
+              colors={[DarkColors.screenColor, '#29D890']}
               style={{
                 opacity: 1,
                 height: dashboardHeight,
@@ -95,7 +92,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 <WText
                   style={{
                     fontFamily: Fonts.semiBold,
-                    color: Colors.lightTextColor,
+                    color: DarkColors.secondaryTextColor,
                     fontSize: 28,
                   }}>
                   Hello {displayName ?? ''},
@@ -103,7 +100,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 <WText
                   style={{
                     marginTop: 5,
-                    color: Colors.lightTextColor,
+                    color: DarkColors.secondaryTextColor,
                     fontSize: 17,
                   }}>
                   Let’s Learn More About Plants
@@ -140,8 +137,14 @@ const HomePage = ({navigation}: ScreenProps) => {
                   top: dashboardHeight * 0.3,
                   right: 20,
                 }}>
-                <Ionicons name="log-out" color={Colors.whiteColor} size={40} />
-                <WText style={{color: Colors.whiteColor}}>Logout</WText>
+                <Ionicons
+                  name="log-out"
+                  color={DarkColors.secondaryTextColor}
+                  size={40}
+                />
+                <WText style={{color: DarkColors.secondaryTextColor}}>
+                  Logout
+                </WText>
               </TouchableOpacity>
               <View
                 style={{
@@ -151,7 +154,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                   right: screenWidth * 0.05,
                   bottom: -dashboardHeight * 0.1,
                   flexDirection: 'row',
-                  backgroundColor: Colors.whiteColor,
+                  backgroundColor: DarkColors.secondaryTextColor,
                   alignItems: 'center',
                   borderRadius: 40,
                   paddingHorizontal: screenWidth * 0.03,
@@ -170,14 +173,14 @@ const HomePage = ({navigation}: ScreenProps) => {
                 <Ionicons
                   size={26}
                   style={{marginLeft: 10}}
-                  color={Colors.primary}
+                  color={DarkColors.primary}
                   name={'search-outline'}
                 />
                 <TextInput
                   underlineColor="transparent"
                   activeUnderlineColor="transparent"
-                  selectionColor={Colors.primary}
-                  cursorColor={Colors.primary}
+                  selectionColor={DarkColors.primary}
+                  cursorColor={DarkColors.primary}
                   maxLength={24}
                   style={{
                     backgroundColor: 'transparent',
@@ -198,26 +201,17 @@ const HomePage = ({navigation}: ScreenProps) => {
               }}>
               <FlatList
                 // onRefresh={}
-                data={Data}
+                data={SubTopics}
                 keyExtractor={item => item.id}
-                renderItem={items =>
-                  RenderSubTopics(items.item, () => {
-                    switch (items.index) {
-                      case 0:
-                        navigation.push(Routes.CameraScreen);
-                        break;
-                      case 1:
-                        console.log('items');
-                        break;
-                      case 2:
-                        navigation.navigate(Routes.Articles);
-                        break;
-
-                      default:
-                        break;
-                    }
-                  })
-                }
+                renderItem={({item, index}) => {
+                  return (
+                    <RenderSubTopics
+                      index={index}
+                      item={item}
+                      navigation={navigation}
+                    />
+                  );
+                }}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 ItemSeparatorComponent={SeparatorComponent}
@@ -232,6 +226,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 style={{
                   fontSize: 17,
                   marginBottom: screenHeight * 0.01,
+                  color: DarkColors.primaryTextColor,
                 }}>
                 Photography
               </WText>
@@ -243,12 +238,12 @@ const HomePage = ({navigation}: ScreenProps) => {
                 <FlatList
                   data={plantList}
                   keyExtractor={item => item.id.toString()}
-                  renderItem={item => {
-                    return RenderPlantPictures(
-                      item.item,
-                      navigation,
-                      () => setLoadingPicture(false),
-                      loadingPicture,
+                  renderItem={({item}) => {
+                    return (
+                      <RenderPlantPictures
+                        item={item}
+                        navigation={navigation}
+                      />
                     );
                   }}
                   horizontal
@@ -263,7 +258,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                         style={{
                           textAlign: 'center',
                           fontFamily: Fonts.italic,
-                          color: Colors.addPhotoButtonColor,
+                          color: DarkColors.addPhotoButtonColor,
                         }}>
                         Not able to fetch plant images at this time, come back
                         some other time.
@@ -284,6 +279,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 style={{
                   fontSize: 17,
                   marginBottom: screenHeight * 0.01,
+                  color: DarkColors.primaryTextColor,
                 }}>
                 Plant Diseases
               </WText>
@@ -296,13 +292,12 @@ const HomePage = ({navigation}: ScreenProps) => {
                 <FlatList
                   data={plantDisease}
                   keyExtractor={item => item.id.toString()}
-                  renderItem={({item, index}) => {
-                    return RenderDiseasePicture(
-                      navigation,
-                      item,
-                      () => setLoadingPicture(false),
-                      loadingPicture,
-                      index,
+                  renderItem={({item}) => {
+                    return (
+                      <RenderDiseasePicture
+                        plantDisease={item}
+                        navigation={navigation}
+                      />
                     );
                   }}
                   horizontal
@@ -317,7 +312,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                         style={{
                           textAlign: 'center',
                           fontFamily: Fonts.italic,
-                          color: Colors.addPhotoButtonColor,
+                          color: DarkColors.addPhotoButtonColor,
                         }}>
                         Not able to fetch plant diseases at this time, come back
                         some other time.
@@ -328,14 +323,13 @@ const HomePage = ({navigation}: ScreenProps) => {
                   ItemSeparatorComponent={SeparatorComponent}
                 />
               </View>
-              <Divider />
               <WText
                 style={{
                   fontSize: 14,
                   alignItems: 'center',
                   textAlign: 'center',
                   flex: 1,
-                  color: Colors.primary,
+                  color: DarkColors.primary,
                   marginTop: screenHeight * 0.03,
                   marginBottom: screenHeight * 0.05,
                 }}>

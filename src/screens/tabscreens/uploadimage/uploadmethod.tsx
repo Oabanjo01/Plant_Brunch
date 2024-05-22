@@ -1,6 +1,7 @@
 import {Colors, Routes} from '@app/constants';
 import {ScreenProps} from '@app/navigation/navigation';
 import WText from '@app/utilities/customText';
+import useCameraDevice from '@app/utilities/hooks/camera/useCamera';
 import {showToast} from '@app/utilities/toast';
 import React from 'react';
 import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
@@ -8,38 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useCameraPermission} from 'react-native-vision-camera';
 
 const CameraPage = ({navigation}: ScreenProps) => {
-  const {hasPermission, requestPermission} = useCameraPermission();
-
-  const handlePhoneVersion = () => {
-    return (Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 12) ||
-      (Platform.OS === 'android' && Platform.Version >= 26)
-      ? handlePermission()
-      : showToast({
-          text1: 'Denied',
-          text2: 'You cannot access this feature',
-          type: 'info',
-        });
-  };
-
-  const handlePermission = async () => {
-    if (hasPermission) {
-      navigation.push(Routes.CameraScreen);
-    } else {
-      await requestPermission()
-        .then(permissionStatus => {
-          if (!permissionStatus) {
-            showToast({
-              text1: 'Camera permission denied',
-              text2: 'Grant camera permission',
-              type: 'info',
-            });
-          }
-        })
-        .catch(error => {
-          console.error('Error requesting camera permission:', error);
-        });
-    }
-  };
+  const {handlePermission, handlePhoneVersion} = useCameraDevice();
   return (
     <View
       style={{
@@ -50,7 +20,7 @@ const CameraPage = ({navigation}: ScreenProps) => {
       }}>
       {
         <TouchableOpacity
-          onPress={handlePhoneVersion}
+          onPress={() => handlePhoneVersion(navigation)}
           style={{
             borderWidth: 2,
             padding: 10,

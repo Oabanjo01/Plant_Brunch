@@ -69,7 +69,7 @@ const TextFields = (props: TextFieldProps) => {
       }
       theme={{
         colors: {
-          onSurfaceVariant: Colors.lightPrimaryTextColor,
+          onSurfaceVariant: Colors.lighterBlack,
           placeholder: Colors.inActiveUnderlineTextInputColor,
         },
         fonts: {

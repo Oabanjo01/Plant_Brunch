@@ -1,4 +1,4 @@
-import {Colors} from '@app/constants/colors';
+import {Colors, DarkColors} from '@app/constants/colors';
 import {Tabs} from '@app/constants/routes';
 import WText from '@app/utilities/customText';
 import React from 'react';
@@ -30,7 +30,7 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
       <View
         style={{
           flexDirection: 'row',
-          backgroundColor: Colors.whiteColor,
+          backgroundColor: DarkColors.lighterBlack,
           height: screenHeight * 0.1,
         }}>
         <ImageBackground
@@ -44,7 +44,7 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
             justifyContent: 'flex-start',
             alignContent: 'center',
           }}
-          source={require('@assets/images/Union.jpg')}
+          source={require('@assets/images/DarkModeUnion.png')}
           resizeMode="cover"
         />
         {state.routes.map((route: any, index: number) => {
@@ -97,7 +97,7 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
                     borderColor: isFocused ? 'transparent' : Colors.primary,
                     backgroundColor: isFocused
                       ? Colors.addPhotoButtonColor
-                      : Colors.whiteColor,
+                      : DarkColors.screenColor,
                     borderRadius: (screenWidth * 0.2) / 2,
                     justifyContent: 'center',
                     alignItems: 'center',

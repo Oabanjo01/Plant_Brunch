@@ -1,4 +1,3 @@
-import {ImageSourcePropType} from 'react-native';
 import {Source} from 'react-native-fast-image';
 
 export interface SubTopicProps {
@@ -11,21 +10,6 @@ export interface PlantProps {
   description1: string;
   subDescription2: string;
 }
-
-export const Data: SubTopicProps[] = [
-  {
-    id: '1',
-    description: 'Identify',
-  },
-  {
-    id: '2',
-    description: 'Species',
-  },
-  {
-    id: '3',
-    description: 'Articles',
-  },
-];
 export const PlantData = [
   {
     id: '1',

@@ -9,7 +9,7 @@ import WText from '@app/utilities/customText';
 import DropDown from '@app/utilities/dropDown';
 import useArticles from '@app/utilities/hooks/articles/useArticles';
 import {useLikes} from '@app/utilities/hooks/likes/useLikes';
-import useCart from '@app/utilities/hooks/useCart/useCart';
+import useCart from '@app/utilities/hooks/cart/useCart';
 import {
   capitalize,
   createSentenceFromArray,
@@ -311,7 +311,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
             }}>
             <WText
               style={{
-                color: Colors.lightTextColor,
+                color: Colors.tertiaryTextColor,
                 fontFamily: Fonts.semiBold,
                 fontSize: 16,
                 textAlign: 'center',
