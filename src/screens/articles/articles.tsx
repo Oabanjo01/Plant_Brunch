@@ -1,9 +1,11 @@
-import {Colors} from '@app/constants';
+import {Colors as StaticColors} from '@app/constants';
+import {ColorProps, getThemeColor} from '@app/constants/colors';
 import {
   dashboardHeight,
   screenHeight,
   screenWidth,
 } from '@app/constants/dimensions';
+import {RootState} from '@app/redux/store';
 import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
 import ArticlesPage from '@assets/images/ArticlesPage.svg';
@@ -13,8 +15,13 @@ import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import {TextInput} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Articles = () => {
+  const dispatch = useDispatch();
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
   return (
     <View
       style={{
@@ -82,14 +89,14 @@ const Articles = () => {
           </View>
         </LinearGradient>
         <Backbutton />
-        {renderArticlesList()}
+        {renderArticlesList(Colors)}
       </ScrollView>
     </View>
   );
 };
 
 export default Articles;
-function renderArticlesList() {
+function renderArticlesList(color: ColorProps) {
   return (
     <View
       style={{
@@ -98,7 +105,7 @@ function renderArticlesList() {
         marginHorizontal: screenWidth * 0.05,
         borderRadius: 20,
         overflow: 'hidden',
-        backgroundColor: Colors.screenColor,
+        backgroundColor: color.screenColor,
         flexDirection: 'column-reverse',
         ...Platform.select({
           ios: {
@@ -109,7 +116,7 @@ function renderArticlesList() {
           },
           android: {
             elevation: 5,
-            shadowColor: Colors.primary,
+            shadowColor: color.primary,
             shadowOffset: {width: 0, height: 4},
             shadowOpacity: 0.2,
             shadowRadius: 20,
@@ -118,7 +125,7 @@ function renderArticlesList() {
       }}>
       <View
         style={{
-          backgroundColor: Colors.whiteColor,
+          backgroundColor: color.lighterBlack,
           height: screenHeight * 0.15,
           borderBottomEndRadius: 20,
           borderBottomStartRadius: 20,

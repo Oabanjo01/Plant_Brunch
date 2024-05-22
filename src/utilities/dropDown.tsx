@@ -1,4 +1,4 @@
-import {Colors, Routes} from '@app/constants';
+import {Colors as StaticColors, Routes} from '@app/constants';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootStackNavigationProp} from '@app/navigation/navigation';
 import {useNavigation} from '@react-navigation/native';
@@ -8,6 +8,10 @@ import {Divider} from 'react-native-paper';
 import SelectDropdown from 'react-native-select-dropdown';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import WText from './customText';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '@app/redux/store';
+import {toggleTheme} from '@app/redux/actions/actions';
+import {getThemeColor} from '@app/constants/colors';
 
 interface DropDownData {
   label: string;
@@ -26,11 +30,33 @@ const DropDown = (props?: DropDownProps) => {
     {label: 'Delete Account', value: 'delete'},
   ];
 
+  const dispatch = useDispatch();
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
+
+  const styles = StyleSheet.create({
+    dropDownItem: {
+      paddingHorizontal: screenWidth * 0.04,
+    },
+    dropdown: {
+      backgroundColor: Colors.screenColor,
+      position: 'absolute',
+      left: screenWidth * 0.55,
+      marginTop: screenHeight * 0.02,
+      borderRadius: 8,
+      paddingVertical: 8,
+      width: screenWidth * 0.4,
+    },
+  });
+
   const handleOptionSelect = (value: string) => {
     setSelectedOption(value);
 
     if (value === 'theme') {
-      console.log(value);
+      dispatch(
+        toggleTheme(theme === 'lightTheme' ? 'darkTheme' : 'lightTheme'),
+      );
     } else if (value === 'cart') {
       console.log(value);
       navigation.navigate(Routes.CartScreen);
@@ -58,7 +84,7 @@ const DropDown = (props?: DropDownProps) => {
               {selectedItem.label}
             </WText>
 
-            {index <= 2 && <Divider bold />}
+            {index <= 1 && <Divider bold />}
           </View>
         );
       }}
@@ -89,20 +115,5 @@ const DropDown = (props?: DropDownProps) => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  dropDownItem: {
-    paddingHorizontal: screenWidth * 0.04,
-  },
-  dropdown: {
-    backgroundColor: Colors.whiteColor,
-    position: 'absolute',
-    left: screenWidth * 0.55,
-    marginTop: screenHeight * 0.02,
-    borderRadius: 8,
-    paddingVertical: 8,
-    width: screenWidth * 0.4,
-  },
-});
 
 export default DropDown;

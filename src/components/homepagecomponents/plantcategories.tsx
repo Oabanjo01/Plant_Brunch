@@ -1,13 +1,15 @@
-import {Colors, DarkColors} from '@app/constants/colors';
+import {getThemeColor} from '@app/constants/colors';
 import {SubTopicProps} from '@app/constants/data/homepage';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Routes} from '@app/constants/routes';
 import {RootStackNavigationProp} from '@app/navigation/navigation';
+import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import useCameraDevice from '@app/utilities/hooks/camera/useCamera';
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import Svg, {ClipPath, Defs, Path, Rect} from 'react-native-svg';
+import {useSelector} from 'react-redux';
 
 export const SubTopics: SubTopicProps[] = [
   {
@@ -35,6 +37,9 @@ export const RenderSubTopics = ({
 }) => {
   let svgToRender;
   const {handlePhoneVersion} = useCameraDevice();
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
   switch (index) {
     case 0:
       svgToRender = (
@@ -124,7 +129,7 @@ export const RenderSubTopics = ({
           alignItems: 'center',
           justifyContent: 'center',
           width: screenWidth * 0.26,
-          backgroundColor: DarkColors.lighterBlack,
+          backgroundColor: Colors.lighterBlack,
           borderRadius: 10,
           shadowColor: Colors.primary,
         }}>
@@ -133,7 +138,7 @@ export const RenderSubTopics = ({
           style={{
             fontSize: 14,
             marginTop: screenHeight * 0.01,
-            color: DarkColors.primaryTextColor,
+            color: Colors.primaryTextColor,
           }}>
           {item.description}
         </WText>

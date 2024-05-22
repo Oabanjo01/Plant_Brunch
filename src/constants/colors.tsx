@@ -1,4 +1,4 @@
-interface ColorProps {
+export interface ColorProps {
   screenColor: string;
   primary: string;
   primaryTextColor: string;
@@ -15,13 +15,17 @@ interface ColorProps {
   onboardingInactiveIconColor: string;
   tabBarTextColor: string;
   tabColor: string;
+  gradientColor: string;
 }
 export const Colors: ColorProps = {
   screenColor: '#E5E5E5',
   primaryTextColor: '#000000',
-  lighterBlack: '#CCCCCC',
-  secondaryTextColor: '#6A6F7D',
+  // lighterBlack: '#CCCCCC',
+  lighterBlack: '#FFFFFF',
+  // secondaryTextColor: '#6A6F7D',
+  secondaryTextColor: '#FFFFFF',
   tertiaryTextColor: '#FFFFFF',
+  gradientColor: '#61D2C4',
   tabColor: '#FFFFFF',
   // fixed colors
   ratingIconColor: '#FFCD00',
@@ -55,6 +59,7 @@ export const DarkColors: ColorProps = {
   primary: '#2DDA93',
   disabledButtonColor: '#AAAAAA',
   lightPrimaryColor: '#61D2C4',
+  gradientColor: '#1B1C1E',
   onboardingInactiveIconColor: '#DBDBDB',
   inActiveUnderlineTextInputColor: '#A7A7A7',
   tabBarTextColor: '#D2D2D2',
