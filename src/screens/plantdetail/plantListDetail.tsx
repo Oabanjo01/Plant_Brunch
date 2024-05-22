@@ -89,10 +89,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
         style={{
           ...styles.tagTextStyle,
           marginRight: 10,
-          backgroundColor:
-            theme === 'lightTheme'
-              ? 'rgba(47, 145, 235, 0.1)'
-              : Colors.addPhotoButtonColor,
+          backgroundColor: Colors.addPhotoButtonColor,
         }}>
         {item}
       </WText>

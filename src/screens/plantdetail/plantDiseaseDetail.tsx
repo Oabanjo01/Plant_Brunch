@@ -99,7 +99,14 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
 
   const otherName = other_name?.map(item => {
     return (
-      <WText style={{...styles.tagTextStyle, marginRight: 10}}>{item}</WText>
+      <WText
+        style={{
+          ...styles.tagTextStyle,
+          marginRight: 10,
+          backgroundColor: Colors.addPhotoButtonColor,
+        }}>
+        {item}
+      </WText>
     );
   });
 
@@ -240,7 +247,14 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
               flexWrap: 'wrap',
               alignItems: 'flex-start',
             }}>
-            {family && <WText style={styles.tagTextStyle}>{family}</WText>}
+            {family && (
+              <WText
+                style={{
+                  ...styles.tagTextStyle,
+                }}>
+                {family}
+              </WText>
+            )}
             <WText
               style={{
                 ...styles.tagTextStyle,
@@ -362,7 +376,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             }}>
             <WText
               style={{
-                color: Colors.primaryTextColor,
+                color: Colors.whiteColor,
                 fontFamily: Fonts.semiBold,
                 fontSize: 16,
                 textAlign: 'center',
