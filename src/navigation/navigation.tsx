@@ -24,7 +24,7 @@ import PlantListDetail from '@app/screens/plantdetail/plantListDetail';
 import HomePage from '@app/screens/tabscreens/homepage/homepage';
 import ProfilePage from '@app/screens/tabscreens/profile/profile';
 import CameraPage from '@app/screens/tabscreens/uploadimage/uploadmethod';
-import {View} from 'react-native';
+import {KeyboardAvoidingView, Platform, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {DarkColors} from '@app/constants/colors';
 
@@ -64,11 +64,12 @@ export type TabParamList = {
 
 const HomeTabNavigator: React.FC = () => {
   return (
-    <View
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.select({ios: 0, android: -150})}
       style={{
-        // flex: 1,
+        flex: 1,
         width: screenWidth,
-        height: screenHeight,
       }}>
       <TabStack.Navigator
         tabBar={props => {
@@ -98,7 +99,7 @@ const HomeTabNavigator: React.FC = () => {
         <TabStack.Screen name={Tabs.CameraButton} component={CameraPage} />
         <TabStack.Screen name={Tabs.Profile} component={ProfilePage} />
       </TabStack.Navigator>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

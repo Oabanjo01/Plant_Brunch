@@ -1,4 +1,4 @@
-import {Colors, Routes} from '@app/constants';
+import {Colors as StaticColors, Routes} from '@app/constants';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {FontSize, Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
@@ -18,6 +18,9 @@ import {styles} from './plantListDetail';
 import {useLikes} from '@app/utilities/hooks/likes/useLikes';
 import useArticles from '@app/utilities/hooks/articles/useArticles';
 import useCart from '@app/utilities/hooks/cart/useCart';
+import {useSelector} from 'react-redux';
+import {RootState} from '@app/redux/store';
+import {getThemeColor} from '@app/constants/colors';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantDiseaseDetail'>;
 
@@ -26,6 +29,10 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
   const [showSolutions, setShowSolutions] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const item = route.params?.item;
+
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
 
   const {
     description,
@@ -355,7 +362,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             }}>
             <WText
               style={{
-                color: Colors.tertiaryTextColor,
+                color: Colors.primaryTextColor,
                 fontFamily: Fonts.semiBold,
                 fontSize: 16,
                 textAlign: 'center',
@@ -424,6 +431,7 @@ export const SubTopics = ({
       </WText>
       <Ionicons
         name={showNote ? 'chevron-down-outline' : 'chevron-forward-outline'}
+        color={StaticColors.whiteColor}
         size={18}
         onPress={() => {
           toggleShowNote(!showNote);

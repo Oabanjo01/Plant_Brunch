@@ -1,5 +1,4 @@
-import {Colors} from '@app/constants';
-import {getThemeColor} from '@app/constants/colors';
+import {Colors as StaticColors, getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {FontSize, Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
@@ -29,6 +28,8 @@ import {Divider} from 'react-native-paper';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SubTopics} from './plantDiseaseDetail';
+import {useSelector} from 'react-redux';
+import {RootState} from '@app/redux/store';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantListDetail'>;
 
@@ -78,9 +79,23 @@ const PlantListDetail = ({route, navigation}: Props) => {
     return stars;
   };
 
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
+
   const otherName = other_name?.map(item => {
     return (
-      <WText style={{...styles.tagTextStyle, marginRight: 10}}>{item}</WText>
+      <WText
+        style={{
+          ...styles.tagTextStyle,
+          marginRight: 10,
+          backgroundColor:
+            theme === 'lightTheme'
+              ? 'rgba(47, 145, 235, 0.1)'
+              : Colors.addPhotoButtonColor,
+        }}>
+        {item}
+      </WText>
     );
   });
 
@@ -120,11 +135,12 @@ const PlantListDetail = ({route, navigation}: Props) => {
     fetchArticleStatus(common_name);
     fetchCartStatus(common_name);
   }, []);
+
   if (isFetchingArticles || isFetching || isFetchingCartItems) {
     return (
       <View
         style={{
-          backgroundColor: getThemeColor('screenColor'),
+          backgroundColor: Colors.screenColor,
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
@@ -134,7 +150,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
     );
   } else {
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: Colors.screenColor}}>
         <View
           style={{
             marginBottom: (screenHeight * 0.1) / 2,
@@ -212,6 +228,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
         <ScrollView
           style={{
             paddingHorizontal: 20,
+            backgroundColor: Colors.screenColor,
             marginBottom: screenHeight * 0.06,
           }}>
           <View
@@ -224,14 +241,17 @@ const PlantListDetail = ({route, navigation}: Props) => {
               style={{
                 ...styles.tagTextStyle,
                 backgroundColor: Colors.favouriteButtonColor,
-                color: Colors.whiteColor,
                 marginBottom: 4,
               }}>
               {scientific_name}
             </WText>
             {(otherName?.length > 0 || !otherName) && otherName}
           </View>
-          <WText style={{fontSize: 25, fontFamily: Fonts.semiBold}}>
+          <WText
+            style={{
+              fontSize: 25,
+              fontFamily: Fonts.semiBold,
+            }}>
             {common_name}
           </WText>
           <View style={{flexDirection: 'row'}}>
@@ -311,7 +331,6 @@ const PlantListDetail = ({route, navigation}: Props) => {
             }}>
             <WText
               style={{
-                color: Colors.tertiaryTextColor,
                 fontFamily: Fonts.semiBold,
                 fontSize: 16,
                 textAlign: 'center',
@@ -352,7 +371,6 @@ const PlantListDetail = ({route, navigation}: Props) => {
     );
   }
 };
-
 export const styles = StyleSheet.create({
   tagTextStyle: {
     alignSelf: 'flex-start',
@@ -361,13 +379,12 @@ export const styles = StyleSheet.create({
     marginVertical: 2,
     marginRight: 5,
     borderRadius: 5,
-    backgroundColor: 'rgba(47, 145, 235, 0.1)',
-    color: Colors.addPhotoButtonColor,
+    color: StaticColors.whiteColor,
     fontFamily: 'OpenSans-SemiBold',
   },
   favouriteButton: {
     position: 'absolute',
-    backgroundColor: Colors.favouriteButtonColor,
+    backgroundColor: StaticColors.favouriteButtonColor,
     width: screenWidth * 0.15,
     height: screenWidth * 0.15,
     borderRadius: (screenWidth * 0.15) / 2,

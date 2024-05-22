@@ -16,11 +16,12 @@ const App = () => {
     <>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          {/* <StatusBar
-            barStyle="dark-content"
-            backgroundColor="rgba(255, 255, 255, 0.7)"
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor="transparent"
             translucent
-          /> */}
+            animated
+          />
           <PaperProvider>
             {/* <Toast. */}
             <NavigationContainer>

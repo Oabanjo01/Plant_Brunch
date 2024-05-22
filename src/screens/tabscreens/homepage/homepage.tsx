@@ -2,12 +2,12 @@ import RenderPlantPictures, {
   SeparatorComponent,
 } from '@app/components/homepagecomponents/photography';
 import {
-  SubTopics,
   RenderSubTopics,
+  SubTopics,
 } from '@app/components/homepagecomponents/plantcategories';
 import {RenderDiseasePicture} from '@app/components/homepagecomponents/plantdiseases';
-import {Colors, Routes} from '@app/constants';
-import {DarkColors} from '@app/constants/colors';
+import {Routes} from '@app/constants';
+import {getThemeColor} from '@app/constants/colors';
 import {
   dashboardHeight,
   screenHeight,
@@ -16,15 +16,15 @@ import {
 import {Fonts} from '@app/constants/fonts';
 import {ScreenProps} from '@app/navigation/navigation';
 import {logoutAction} from '@app/redux/actions/actions';
+import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import {useFetchData} from '@app/utilities/hooks/apiData/useFetchData';
 import LoadingIndicator from '@app/utilities/loadingIndicator';
 import {showToast} from '@app/utilities/toast';
 import Dashboard from '@assets/images/Dashboard.svg';
 import auth from '@react-native-firebase/auth';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
-  ActivityIndicator,
   FlatList,
   Platform,
   RefreshControl,
@@ -34,9 +34,9 @@ import {
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Divider, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 const HomePage = ({navigation}: ScreenProps) => {
   const {
@@ -54,6 +54,10 @@ const HomePage = ({navigation}: ScreenProps) => {
     fetchdata(true);
   };
 
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
+
   return (
     <>
       {isLoading || !displayName ? (
@@ -62,14 +66,14 @@ const HomePage = ({navigation}: ScreenProps) => {
         <View
           style={{
             flex: 1,
-            backgroundColor: DarkColors.screenColor,
+            backgroundColor: Colors.screenColor,
           }}>
           <ScrollView
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
                 onRefresh={onRefresh}
-                colors={[DarkColors.primary]}
+                colors={[Colors.primary]}
               />
             }
             showsVerticalScrollIndicator={false}
@@ -78,7 +82,7 @@ const HomePage = ({navigation}: ScreenProps) => {
               start={{x: 0, y: 0}}
               end={{x: 1, y: 1}}
               locations={[0.1, 1]}
-              colors={[DarkColors.screenColor, '#29D890']}
+              colors={[Colors.gradientColor, '#29D890']}
               style={{
                 opacity: 1,
                 height: dashboardHeight,
@@ -92,7 +96,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 <WText
                   style={{
                     fontFamily: Fonts.semiBold,
-                    color: DarkColors.secondaryTextColor,
+                    color: Colors.secondaryTextColor,
                     fontSize: 28,
                   }}>
                   Hello {displayName ?? ''},
@@ -100,7 +104,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 <WText
                   style={{
                     marginTop: 5,
-                    color: DarkColors.secondaryTextColor,
+                    color: Colors.secondaryTextColor,
                     fontSize: 17,
                   }}>
                   Let’s Learn More About Plants
@@ -139,12 +143,10 @@ const HomePage = ({navigation}: ScreenProps) => {
                 }}>
                 <Ionicons
                   name="log-out"
-                  color={DarkColors.secondaryTextColor}
+                  color={Colors.secondaryTextColor}
                   size={40}
                 />
-                <WText style={{color: DarkColors.secondaryTextColor}}>
-                  Logout
-                </WText>
+                <WText style={{color: Colors.secondaryTextColor}}>Logout</WText>
               </TouchableOpacity>
               <View
                 style={{
@@ -154,7 +156,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                   right: screenWidth * 0.05,
                   bottom: -dashboardHeight * 0.1,
                   flexDirection: 'row',
-                  backgroundColor: DarkColors.secondaryTextColor,
+                  backgroundColor: Colors.whiteColor,
                   alignItems: 'center',
                   borderRadius: 40,
                   paddingHorizontal: screenWidth * 0.03,
@@ -173,14 +175,14 @@ const HomePage = ({navigation}: ScreenProps) => {
                 <Ionicons
                   size={26}
                   style={{marginLeft: 10}}
-                  color={DarkColors.primary}
+                  color={Colors.primary}
                   name={'search-outline'}
                 />
                 <TextInput
                   underlineColor="transparent"
                   activeUnderlineColor="transparent"
-                  selectionColor={DarkColors.primary}
-                  cursorColor={DarkColors.primary}
+                  selectionColor={Colors.primary}
+                  cursorColor={Colors.primary}
                   maxLength={24}
                   style={{
                     backgroundColor: 'transparent',
@@ -226,7 +228,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 style={{
                   fontSize: 17,
                   marginBottom: screenHeight * 0.01,
-                  color: DarkColors.primaryTextColor,
+                  color: Colors.primaryTextColor,
                 }}>
                 Photography
               </WText>
@@ -258,7 +260,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                         style={{
                           textAlign: 'center',
                           fontFamily: Fonts.italic,
-                          color: DarkColors.addPhotoButtonColor,
+                          color: Colors.addPhotoButtonColor,
                         }}>
                         Not able to fetch plant images at this time, come back
                         some other time.
@@ -279,7 +281,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                 style={{
                   fontSize: 17,
                   marginBottom: screenHeight * 0.01,
-                  color: DarkColors.primaryTextColor,
+                  color: Colors.primaryTextColor,
                 }}>
                 Plant Diseases
               </WText>
@@ -312,7 +314,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                         style={{
                           textAlign: 'center',
                           fontFamily: Fonts.italic,
-                          color: DarkColors.addPhotoButtonColor,
+                          color: Colors.addPhotoButtonColor,
                         }}>
                         Not able to fetch plant diseases at this time, come back
                         some other time.
@@ -329,7 +331,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                   alignItems: 'center',
                   textAlign: 'center',
                   flex: 1,
-                  color: DarkColors.primary,
+                  color: Colors.primary,
                   marginTop: screenHeight * 0.03,
                   marginBottom: screenHeight * 0.05,
                 }}>
