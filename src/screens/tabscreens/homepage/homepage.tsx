@@ -53,10 +53,10 @@ const HomePage = ({navigation}: ScreenProps) => {
   const onRefresh = () => {
     fetchdata(true);
   };
-  console.log(displayName, 'displayName');
+
   return (
     <>
-      {isLoading ? (
+      {isLoading || !displayName ? (
         <LoadingIndicator size={40} />
       ) : (
         <View
