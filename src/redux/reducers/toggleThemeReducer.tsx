@@ -2,11 +2,11 @@ import {REHYDRATE} from 'redux-persist';
 import types from '../types';
 
 export type ThemeData = {
-  theme: 'lightTheme' | 'darkTheme';
+  theme: 'light' | 'dark';
 };
 
 const initialState: ThemeData = {
-  theme: 'lightTheme',
+  theme: 'light',
 };
 
 // type ThemeData = keyof ThemeData;

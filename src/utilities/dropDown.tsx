@@ -3,7 +3,7 @@ import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootStackNavigationProp} from '@app/navigation/navigation';
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, useColorScheme} from 'react-native';
 import {Divider} from 'react-native-paper';
 import SelectDropdown from 'react-native-select-dropdown';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -28,12 +28,15 @@ const DropDown = (props?: DropDownProps) => {
     {label: 'Theme Mode', value: 'theme'},
     {label: 'Cart', value: 'cart'},
     {label: 'Delete Account', value: 'delete'},
+    {label: 'Use System Theme', value: 'system'},
   ];
 
   const dispatch = useDispatch();
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
+
+  const systemTheme = useColorScheme();
 
   const styles = StyleSheet.create({
     dropDownItem: {
@@ -54,14 +57,15 @@ const DropDown = (props?: DropDownProps) => {
     setSelectedOption(value);
 
     if (value === 'theme') {
-      dispatch(
-        toggleTheme(theme === 'lightTheme' ? 'darkTheme' : 'lightTheme'),
-      );
+      dispatch(toggleTheme(theme === 'light' ? 'dark' : 'light'));
     } else if (value === 'cart') {
       console.log(value);
       navigation.navigate(Routes.CartScreen);
     } else if (value === 'delete') {
       console.log(value);
+    } else if (value === 'system') {
+      console.log(value, systemTheme);
+      dispatch(toggleTheme(systemTheme === 'light' ? 'light' : 'dark'));
     }
   };
 
