@@ -6,8 +6,6 @@ import firestore from '@react-native-firebase/firestore';
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
-export const db = firestore();
-
 export const useFetchData = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -48,7 +46,7 @@ export const useFetchData = () => {
   };
   useEffect(() => {
     fetchdata();
-  }, [email, uid]);
+  }, []);
 
   return {
     isLoading,

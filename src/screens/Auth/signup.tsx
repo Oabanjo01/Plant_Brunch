@@ -2,11 +2,12 @@ import {LargeButton} from '@app/components/login/buttons';
 import TextFields from '@app/components/login/textInput';
 import React, {useState} from 'react';
 
-import {Colors} from '@app/constants/colors';
+import {getThemeColor} from '@app/constants/colors';
 import {screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {Routes} from '@app/constants/routes';
 import {ScreenProps} from '@app/navigation/navigation';
+import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import {useSignUp} from '@app/utilities/hooks/authentication/useSignUp';
 import {Formik} from 'formik';
@@ -20,6 +21,7 @@ import {
 import {useTheme} from 'react-native-paper';
 import SelectDropdown from 'react-native-select-dropdown';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
 import * as yup from 'yup';
 import {styles} from './login';
 
@@ -77,7 +79,7 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
       .required('Confirm Password is required'),
   });
 
-  const theme = useTheme();
+  const secondaryTheme = useTheme();
 
   const {handleSignIn, isLoading} = useSignUp();
 
@@ -85,6 +87,10 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
     {title: 'Male', icon: 'man-outline'},
     {title: 'Female', icon: 'woman-outline'},
   ];
+
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
 
   return (
     <Formik
@@ -107,7 +113,8 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
         isValid,
         setFieldValue,
       }) => (
-        <View style={styles.container}>
+        <View
+          style={{...styles.container, backgroundColor: Colors.screenColor}}>
           <KeyboardAvoidingView
             behavior="position"
             keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}>
@@ -123,7 +130,7 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
               Sign up now! Let’s Learn More About Plants
             </WText>
             <TextFields
-              theme={theme}
+              secondaryTheme={secondaryTheme}
               onFocused={() => setUsernamePlaceHolder('')}
               placeHolderText={usernamePlacHolder}
               valueText={values.userName}
@@ -136,7 +143,7 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
               </WText>
             )}
             <TextFields
-              theme={theme}
+              secondaryTheme={secondaryTheme}
               onFocused={() => setUserEmailPlaceHolder('')}
               placeHolderText={userEmailPlacHolder}
               valueText={values.userEmail}
@@ -232,7 +239,7 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
               }}
             />
             <TextFields
-              theme={theme}
+              secondaryTheme={secondaryTheme}
               onFocused={() => setPasswordPlaceHolder('')}
               placeHolderText={passwordPlacHolder}
               valueText={values.userEmail}
@@ -248,7 +255,7 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
               </WText>
             )}
             <TextFields
-              theme={theme}
+              secondaryTheme={secondaryTheme}
               onFocused={() => setConfirmPasswordPlaceHolder('')}
               placeHolderText={confirmPasswordPlacHolder}
               valueText={values.confirmPassword}
@@ -316,6 +323,6 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
     </Formik>
   );
 };
-// };
 
 export default SignUpScreen;
+// };

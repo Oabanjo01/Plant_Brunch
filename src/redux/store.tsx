@@ -8,9 +8,6 @@ import {createLogger} from 'redux-logger';
 import {persistReducer, persistStore} from 'redux-persist';
 import {thunk} from 'redux-thunk';
 import authReducer from './reducers/authReducer';
-import fetchedDataReducer, {
-  FetchedDataType,
-} from './reducers/fetchedDataReducer';
 import onboardingReducer from './reducers/onboardingReducer';
 import toggleThemeReducer from './reducers/toggleThemeReducer';
 

@@ -13,7 +13,7 @@ const LoadingIndicator = ({size}: {size: number}) => {
     <View
       style={{
         backgroundColor: Colors.screenColor,
-        height: screenHeight,
+        height: '100%',
         width: screenWidth,
         alignItems: 'center',
         justifyContent: 'center',
