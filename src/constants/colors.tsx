@@ -69,12 +69,13 @@ export const DarkColors: ColorProps = {
 };
 
 const themes = {
-  lightTheme: {...Colors},
-  darkTheme: {...DarkColors},
+  light: {...Colors},
+  dark: {...DarkColors},
 };
 
 export const getThemeColor = (
-  theme: 'lightTheme' | 'darkTheme' = 'lightTheme',
+  theme: 'light' | 'dark' = 'light',
+  useSystemTheme?: 'light' | 'dark',
 ) => {
   const themeMode = themes[theme];
   return themeMode;
