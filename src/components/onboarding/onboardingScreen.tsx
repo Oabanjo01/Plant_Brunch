@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 
-import {Colors} from '@app/constants/colors';
+import {Colors, getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import WText from '@app/utilities/customText';
 import Onboarding1 from '@assets/images/Onboarding1.svg';
@@ -9,6 +9,8 @@ import Onboarding2 from '@assets/images/Onboarding2.svg';
 import Onboarding3 from '@assets/images/Onboarding3.svg';
 import {LargeButton} from '../login/buttons';
 import IndicatorDot from './indicatorDots';
+import {useSelector} from 'react-redux';
+import {RootState} from '@app/redux/store';
 
 type OnboardingProps = {
   bodyText: string;
@@ -43,8 +45,13 @@ const OnboardScreen = ({
     default:
       break;
   }
+
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
   return (
-    <View style={styles.parentContainer}>
+    <View
+      style={{...styles.parentContainer, backgroundColor: Colors.screenColor}}>
       {svgToRender}
       <WText style={styles.titleTextStyle}>{titleText}</WText>
       <WText style={styles.bodyTextStyle}>{bodyText}</WText>

@@ -19,9 +19,9 @@ const toggleThemeReducer = (
     case types.TOGGLE_STATUS:
       return {...state, theme: payload};
     case REHYDRATE:
-      console.log('rehydrate Theme', payload?.theme, payload, state);
-      const rehydratedTheme = payload?.theme || 'lightTheme';
-      return {...state, theme: rehydratedTheme.theme};
+      console.log(payload, 'payload', state, 'state');
+      const rehydratedTheme = payload?.theme || initialState;
+      return {...state, theme: rehydratedTheme?.theme};
     default:
       return state;
   }

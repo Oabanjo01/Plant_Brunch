@@ -1,30 +1,29 @@
+import {RenderCartItem} from '@app/components/cart/cartItem';
 import {Colors, Routes} from '@app/constants';
+import {getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
+import {RootState} from '@app/redux/store';
 import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
-import useCart, {CartProps} from '@app/utilities/hooks/cart/useCart';
-import {truncateText} from '@app/utilities/sentenceHelpers';
+import useCart from '@app/utilities/hooks/cart/useCart';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  TextStyle,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
+import {useSelector} from 'react-redux';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CartScreen'>;
 
 const CartScreen = ({route, navigation}: Props) => {
-  const amount = 300;
-  const itemNo = 3;
   const {fetchAllUserCartedItems, cartedList, isLoading, isFetching} =
     useCart();
+
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
 
   useEffect(() => {
     fetchAllUserCartedItems();
@@ -50,7 +49,7 @@ const CartScreen = ({route, navigation}: Props) => {
         <Backbutton />
         <View
           style={{
-            paddingVertical: screenHeight * 0.1,
+            paddingVertical: screenHeight * 0.075,
             height: screenHeight,
           }}>
           {cartedList.length === 0 ? (
@@ -60,7 +59,9 @@ const CartScreen = ({route, navigation}: Props) => {
           ) : (
             <FlatList
               data={cartedList}
-              renderItem={renderCartItem}
+              renderItem={({item, index}: {item: any; index: number}) => (
+                <RenderCartItem index={index} item={item} />
+              )}
               showsVerticalScrollIndicator={false}
               ItemSeparatorComponent={() => <View style={{height: 10}} />}
               keyExtractor={item => `${item.title}-${item.timeCarted}`}
@@ -75,7 +76,7 @@ const CartScreen = ({route, navigation}: Props) => {
           }}>
           <WText
             style={{
-              color: Colors.tertiaryTextColor,
+              color: Colors.secondaryTextColor,
               fontSize: 16,
               fontFamily: Fonts.semiBold,
             }}>
@@ -85,45 +86,13 @@ const CartScreen = ({route, navigation}: Props) => {
       </View>
     );
   }
-
-  function renderCartItem({item, index}: {item: CartProps; index: number}) {
-    console.log(item.title);
-    return (
-      <View style={styles.cartItemStyle}>
-        <WText style={styles.itemTitleStyle}>Item Name</WText>
-        {renderCartedItemDetails('Item Name', truncateText(item.title, 24))}
-        {renderCartedItemDetails('Date Added', `${item.timeCarted}`)}
-        {renderCartedItemDetails('Amount', `${item.timeCarted}`)}
-        {renderCartedItemDetails('Total', `$${amount * itemNo}`, {
-          fontFamily: Fonts.semiBold,
-        })}
-      </View>
-    );
-  }
 };
-function renderCartedItemDetails(
-  title: string,
-  specifics: string | number,
-  titleStyle?: TextStyle,
-) {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: screenHeight * 0.005,
-      }}>
-      <WText style={titleStyle}>{title}</WText>
-      <WText>{specifics}</WText>
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   buttonStyle: {
     marginTop: screenHeight * 0.05,
     position: 'absolute',
-    bottom: 10,
+    bottom: screenHeight * 0.03,
     backgroundColor: Colors.primary,
     borderRadius: 15,
     height: screenHeight * 0.06,

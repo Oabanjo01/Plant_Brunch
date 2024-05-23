@@ -57,6 +57,7 @@ const HomePage = ({navigation}: ScreenProps) => {
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
+  console.log(isLoading, 'heree', displayName, 'heerrrree');
 
   return (
     <>
@@ -119,13 +120,13 @@ const HomePage = ({navigation}: ScreenProps) => {
                   auth()
                     .signOut()
                     .then(() => {
-                      dispatch(logoutAction());
                       navigation.replace(Routes.Login);
                       showToast({
                         type: 'success',
                         text1: 'Logged out',
                         text2: 'You have been logged out',
                       });
+                      dispatch(logoutAction());
                     })
                     .catch((error: string) => {
                       showToast({

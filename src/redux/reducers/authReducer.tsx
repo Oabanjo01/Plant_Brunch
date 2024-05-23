@@ -39,6 +39,7 @@ const authReducer = (
 ) => {
   switch (type) {
     case types.LOGIN_SUCCESS:
+      console.log(payload, 'login success');
       return {
         ...state,
         isAuthenticated: true,

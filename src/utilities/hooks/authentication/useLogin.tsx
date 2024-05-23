@@ -33,7 +33,14 @@ export const useLogin = () => {
       }
 
       navigation.replace(Routes.Home);
-      dispatch(loginAction(userCredential.user));
+      dispatch(
+        loginAction({
+          displayName: userCredential.user.displayName,
+          email: userCredential.user.email,
+          emailVerified: userCredential.user.emailVerified,
+          uid: userCredential.user.uid,
+        }),
+      );
       setIsLoading(false);
     } catch (error: any) {
       setIsLoading(false);

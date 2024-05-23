@@ -1,7 +1,7 @@
 import {LargeButton} from '@app/components/login/buttons';
 import TextFields from '@app/components/login/textInput';
 import {Routes} from '@app/constants';
-import {Colors} from '@app/constants/colors';
+import {Colors, getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {ScreenProps} from '@app/navigation/navigation';
@@ -9,6 +9,7 @@ import {rememberUserAction} from '@app/redux/actions/actions';
 import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import {useLogin} from '@app/utilities/hooks/authentication/useLogin';
+import LoadingIndicator from '@app/utilities/loadingIndicator';
 import auth from '@react-native-firebase/auth';
 import {Formik} from 'formik';
 import React, {useEffect, useState} from 'react';
@@ -36,18 +37,23 @@ const LoginScreen = ({navigation}: ScreenProps) => {
   const handleFieldBlur = (fieldName: any) => {};
   const {handleLogin, isLoading, setIsLoading} = useLogin();
 
-  const theme = useTheme();
   const dispatch = useDispatch();
   const checkedStatus = useSelector(
     (state: RootState) => state.auth.rememberUser,
   );
+
+  const secondaryTheme = useTheme();
+
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
 
   useEffect(() => {
     setUserAuthState(false);
     const unsubscribe = auth().onAuthStateChanged(user => {
       if (user && user.emailVerified) {
         setUserAuthState(true);
-        navigation.navigate(Routes.Home);
+        navigation.replace(Routes.Home);
       } else {
         setUserAuthState('notAuthenticated');
       }
@@ -68,14 +74,8 @@ const LoginScreen = ({navigation}: ScreenProps) => {
       .required('Password is required'),
   });
 
-  if (userAuthState === false) {
-    return (
-      <ActivityIndicator
-        size={40}
-        color={Colors.primary}
-        style={{justifyContent: 'center', alignItems: 'center', flex: 1}}
-      />
-    );
+  if (!userAuthState) {
+    return <LoadingIndicator size={40} />;
   } else if (userAuthState === 'notAuthenticated') {
     return (
       <Formik
@@ -97,7 +97,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
           setFieldValue,
         }) => (
           <ScrollView
-            style={styles.container}
+            style={{...styles.container, backgroundColor: Colors.screenColor}}
             keyboardShouldPersistTaps="never">
             <WText
               style={{
@@ -117,7 +117,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
               Let’s Learn More About Plants
             </WText>
             <TextFields
-              theme={theme}
+              secondaryTheme={secondaryTheme}
               onFocused={() => setEmailPlaceHolder('')}
               placeHolderText={emailPlacHolder}
               valueText={values.email}
@@ -130,7 +130,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
               <WText style={{fontSize: 12, color: 'red'}}>{errors.email}</WText>
             )}
             <TextFields
-              theme={theme}
+              secondaryTheme={secondaryTheme}
               onFocused={() => setPasswordPlaceHolder('')}
               placeHolderText={passwordPlacHolder}
               valueText={values.password}
@@ -237,7 +237,6 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.disabledButtonColor,
   },
   container: {
-    backgroundColor: Colors.screenColor,
     flexDirection: 'column',
     paddingTop: '15%',
     paddingLeft: '7%',

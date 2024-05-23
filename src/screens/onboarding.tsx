@@ -9,12 +9,13 @@ import {
 
 import OnboardScreen from '@app/components/onboarding/onboardingScreen';
 import {Routes} from '@app/constants';
-import {Colors} from '@app/constants/colors';
+import {Colors, getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {ScreenProps} from '@app/navigation/navigation';
 import {onboardingAction} from '@app/redux/actions/actions';
 import {RootState} from '@app/redux/store';
 import {useDispatch, useSelector} from 'react-redux';
+import {Fonts} from '@app/constants/fonts';
 
 type ItemProps = {
   id: string;
@@ -52,6 +53,9 @@ const OnboardingScreens = ({navigation}: ScreenProps) => {
   const onboardingStatus = useSelector(
     (state: RootState) => state.onboarding.onboardingStatus,
   );
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
 
   const handleGetIndex = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     let offsetX = e.nativeEvent.contentOffset.x;
@@ -80,7 +84,8 @@ const OnboardingScreens = ({navigation}: ScreenProps) => {
   };
 
   return (
-    <View style={styles.parentContainer}>
+    <View
+      style={{...styles.parentContainer, backgroundColor: Colors.screenColor}}>
       <FlatList
         ref={screenFlatListRef}
         data={randomData}
@@ -115,22 +120,20 @@ const styles = StyleSheet.create({
     flex: 1,
     height: screenHeight,
     width: screenWidth,
-    backgroundColor: Colors.screenColor,
     alignItems: 'center',
     justifyContent: 'center',
   },
   titleTextStyle: {
     color: '#36455A',
     fontSize: 19,
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: Fonts.semiBold,
     marginBottom: '7%',
     marginTop: '16%',
   },
   bodyTextStyle: {
     opacity: 0.8,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: Fonts.Regular,
     fontSize: 13,
-    color: Colors.secondaryTextColor,
     marginHorizontal: '10%',
     textAlign: 'center',
   },
@@ -144,7 +147,7 @@ const styles = StyleSheet.create({
   },
   buttonTextStyle: {
     textAlign: 'center',
-    fontFamily: 'OpenSans-Bold',
+    fontFamily: Fonts.Bold,
     fontSize: 15,
     color: Colors.tertiaryTextColor,
   },

@@ -1,15 +1,16 @@
 import {MD3Theme, TextInput, useTheme} from 'react-native-paper';
 import {useState} from 'react';
-import {Colors} from '@app/constants/colors';
+import {Colors, getThemeColor} from '@app/constants/colors';
 import {KeyboardTypeOptions} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {screenHeight} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import React from 'react';
+import {useSelector} from 'react-redux';
+import {RootState} from '@app/redux/store';
 
 interface TextFieldProps {
   onFocused: () => void;
-  theme: MD3Theme;
   placeHolderText: string;
   valueText: string;
   labelText: string;
@@ -18,6 +19,7 @@ interface TextFieldProps {
   onBlur?: (e: any) => void;
   displayRightIcon?: boolean;
   displayPassword?: boolean;
+  secondaryTheme?: MD3Theme;
   togglePasswordDisplay?: () => void;
 }
 
@@ -28,13 +30,17 @@ const TextFields = (props: TextFieldProps) => {
     labelText,
     callBack,
     onBlur,
-    theme,
     keyboardType,
     displayRightIcon,
+    secondaryTheme,
     displayPassword,
     togglePasswordDisplay,
   } = props;
   const [text, setText] = useState('');
+
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
   return (
     <TextInput
       label={labelText}
@@ -69,8 +75,8 @@ const TextFields = (props: TextFieldProps) => {
       }
       theme={{
         colors: {
-          onSurfaceVariant: Colors.lighterBlack,
-          placeholder: Colors.inActiveUnderlineTextInputColor,
+          onSurfaceVariant: Colors.primaryTextColor,
+          placeholder: Colors.favouriteButtonColor,
         },
         fonts: {
           regular: {
@@ -83,7 +89,7 @@ const TextFields = (props: TextFieldProps) => {
       underlineColorAndroid={Colors.inActiveUnderlineTextInputColor}
       activeOutlineColor={Colors.primary}
       style={{
-        backgroundColor: Colors.screenColor,
+        backgroundColor: 'transparent',
         fontFamily: Fonts.Bold,
         marginBottom: screenHeight * 0.018,
       }}
