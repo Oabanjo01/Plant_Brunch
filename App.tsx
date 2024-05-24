@@ -4,33 +4,36 @@ import {Platform, StatusBar, StyleSheet} from 'react-native';
 import ScreenStack from '@app/navigation/navigation';
 import {NavigationContainer} from '@react-navigation/native';
 import {PaperProvider} from 'react-native-paper';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 
-import {persistor, store} from '@app/redux/store';
+import {RootState, persistor, store} from '@app/redux/store';
 import {toastConfig} from '@app/utilities/toast';
 import Toast from 'react-native-toast-message';
 import {PersistGate} from 'redux-persist/integration/react';
+import {getThemeColor} from '@app/constants/colors';
+import ThemeProvider from '@app/themeProvider';
 
 const App = () => {
   return (
     <>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor="transparent"
-            translucent
-            animated
-          />
           <PaperProvider>
             {/* <Toast. */}
             <NavigationContainer>
-              {/* <View style={generalStyles.safeAreaStyle}> */}
-              {/* <SafeAreaView
-                style={{flex: 1, backgroundColor: Colors.screenColor}}> */}
+              <ThemeProvider />
+              {/* <StatusBar
+                barStyle={theme === 'light' ? 'dark-content' : 'light-content'}
+                backgroundColor="transparent"
+                translucent
+                animated
+              />
+              <View style={generalStyles.safeAreaStyle}>
+              <SafeAreaView
+                style={{flex: 1, backgroundColor: Colors.screenColor}}>
               <ScreenStack />
-              {/* </SafeAreaView> */}
-              {/* </View> */}
+              </SafeAreaView>
+              </View> */}
             </NavigationContainer>
             <Toast config={toastConfig} />
           </PaperProvider>

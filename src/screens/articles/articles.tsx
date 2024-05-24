@@ -1,4 +1,3 @@
-import {Colors as StaticColors} from '@app/constants';
 import {ColorProps, getThemeColor} from '@app/constants/colors';
 import {
   dashboardHeight,
@@ -10,7 +9,7 @@ import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
 import ArticlesPage from '@assets/images/ArticlesPage.svg';
 import React from 'react';
-import {Image, Platform, ScrollView, View} from 'react-native';
+import {Platform, ScrollView, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import {TextInput} from 'react-native-paper';
