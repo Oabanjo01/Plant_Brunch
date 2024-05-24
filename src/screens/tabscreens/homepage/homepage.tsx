@@ -84,70 +84,77 @@ const HomePage = ({navigation}: ScreenProps) => {
               locations={[0.1, 1]}
               colors={[Colors.gradientColor, '#29D890']}
               style={{
+                paddingTop: screenHeight * 0.025,
                 opacity: 1,
                 height: dashboardHeight,
                 width: screenWidth,
               }}>
-              <View
-                style={{
-                  marginTop: dashboardHeight * 0.3,
-                  marginLeft: screenWidth * 0.06,
-                }}>
-                <WText
+              <View>
+                <View
                   style={{
-                    fontFamily: Fonts.semiBold,
-                    color: Colors.secondaryTextColor,
-                    fontSize: 28,
+                    marginTop: dashboardHeight * 0.3,
+                    marginLeft: screenWidth * 0.06,
                   }}>
-                  Hello {displayName ?? ''},
-                </WText>
-                <WText
+                  <WText
+                    style={{
+                      fontFamily: Fonts.semiBold,
+                      color: Colors.secondaryTextColor,
+                      fontSize: 28,
+                    }}>
+                    Hello {displayName ?? ''},
+                  </WText>
+                  <WText
+                    style={{
+                      marginTop: 5,
+                      color: Colors.secondaryTextColor,
+                      fontSize: 17,
+                    }}>
+                    Let’s Learn More About Plants
+                  </WText>
+                </View>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    auth()
+                      .signOut()
+                      .then(() => {
+                        navigation.replace(Routes.Login);
+                        showToast({
+                          type: 'success',
+                          text1: 'Logged out',
+                          text2: 'You have been logged out',
+                        });
+                        dispatch(logoutAction());
+                      })
+                      .catch((error: string) => {
+                        showToast({
+                          type: 'error',
+                          text1: 'Could not log out',
+                          text2: 'An error occurred while logging out',
+                        });
+                      });
+                  }}
                   style={{
-                    marginTop: 5,
-                    color: Colors.secondaryTextColor,
-                    fontSize: 17,
+                    alignItems: 'center',
+                    position: 'absolute',
+                    top: dashboardHeight * 0.3,
+                    right: 20,
                   }}>
-                  Let’s Learn More About Plants
-                </WText>
+                  <Ionicons
+                    name="log-out"
+                    color={Colors.secondaryTextColor}
+                    size={40}
+                  />
+                  <WText style={{color: Colors.secondaryTextColor}}>
+                    Logout
+                  </WText>
+                </TouchableOpacity>
               </View>
 
               <View style={{position: 'absolute', right: 0}}>
                 <Dashboard />
               </View>
-              <TouchableOpacity
-                onPress={() => {
-                  auth()
-                    .signOut()
-                    .then(() => {
-                      navigation.replace(Routes.Login);
-                      showToast({
-                        type: 'success',
-                        text1: 'Logged out',
-                        text2: 'You have been logged out',
-                      });
-                      dispatch(logoutAction());
-                    })
-                    .catch((error: string) => {
-                      showToast({
-                        type: 'error',
-                        text1: 'Could not log out',
-                        text2: 'An error occurred while logging out',
-                      });
-                    });
-                }}
-                style={{
-                  alignItems: 'center',
-                  position: 'absolute',
-                  top: dashboardHeight * 0.3,
-                  right: 20,
-                }}>
-                <Ionicons
-                  name="log-out"
-                  color={Colors.secondaryTextColor}
-                  size={40}
-                />
-                <WText style={{color: Colors.secondaryTextColor}}>Logout</WText>
-              </TouchableOpacity>
+
               <View
                 style={{
                   flex: 1,

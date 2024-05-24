@@ -1,6 +1,8 @@
 import {Colors} from '@app/constants';
+import {getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {ScreenProps} from '@app/navigation/navigation';
+import {RootState} from '@app/redux/store';
 import {showToast} from '@app/utilities/toast';
 import {useAppState} from '@react-native-community/hooks';
 import {useIsFocused} from '@react-navigation/native';
@@ -16,6 +18,7 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Camera, PhotoFile, useCameraDevice} from 'react-native-vision-camera';
+import {useSelector} from 'react-redux';
 
 const CameraScreen = ({navigation}: ScreenProps) => {
   const [photo, setPhoto] = useState<PhotoFile>();
@@ -32,6 +35,10 @@ const CameraScreen = ({navigation}: ScreenProps) => {
   const isFocused = useIsFocused();
   const appState = useAppState();
   const isActive = isFocused && appState === 'active';
+
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme} = userTheme;
+  const Colors = getThemeColor(theme);
 
   const onTakePicture = async () => {
     const photo = await camera.current?.takePhoto({
@@ -59,6 +66,7 @@ const CameraScreen = ({navigation}: ScreenProps) => {
               source={{uri: `file://${photo.path}`}}
               style={{
                 flex: 1,
+                marginTop: screenHeight * 0.1,
                 resizeMode: 'cover',
               }}
             />
@@ -69,7 +77,11 @@ const CameraScreen = ({navigation}: ScreenProps) => {
                 onPress={() => {
                   navigation.goBack();
                 }}
-                color={Colors.whiteColor}
+                color={
+                  theme === 'light'
+                    ? Colors.primaryTextColor
+                    : Colors.whiteColor
+                }
               />
             </View>
           </View>
@@ -89,8 +101,11 @@ const CameraScreen = ({navigation}: ScreenProps) => {
                 width: 55,
                 height: 55,
                 borderRadius: 55 / 2,
-                borderColor: Colors.whiteColor,
-                borderWidth: 3,
+                borderColor:
+                  theme === 'light'
+                    ? Colors.primaryTextColor
+                    : Colors.whiteColor,
+                borderWidth: 1,
                 marginLeft: 50,
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -110,8 +125,11 @@ const CameraScreen = ({navigation}: ScreenProps) => {
                 width: 55,
                 height: 55,
                 borderRadius: 55 / 2,
-                borderColor: Colors.whiteColor,
-                borderWidth: 3,
+                borderColor:
+                  theme === 'light'
+                    ? Colors.primaryTextColor
+                    : Colors.whiteColor,
+                borderWidth: 1,
                 marginRight: 50,
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -133,7 +151,7 @@ const CameraScreen = ({navigation}: ScreenProps) => {
             ref={camera}
             device={device}
             isActive={isActive}
-            style={{flex: 1}}
+            style={{flex: 1, marginTop: screenHeight * 0.1}}
             photo={true}
           />
           <View
@@ -149,7 +167,9 @@ const CameraScreen = ({navigation}: ScreenProps) => {
                 <Ionicons
                   name={flashActive ? 'flash-outline' : 'flash-off-outline'}
                   style={{position: 'absolute', left: screenWidth * 0.15}}
-                  onPress={() => setFlashactive(!flashActive)}
+                  onPress={() =>
+                    setFlashactive(previousState => !previousState)
+                  }
                   size={30}
                   color={Colors.primary}
                 />
@@ -157,7 +177,14 @@ const CameraScreen = ({navigation}: ScreenProps) => {
                   onPress={() => {
                     onTakePicture();
                   }}>
-                  <View style={styles.cameraButton}></View>
+                  <View
+                    style={{
+                      ...styles.cameraButton,
+                      borderColor:
+                        theme === 'light'
+                          ? Colors.primaryTextColor
+                          : Colors.whiteColor,
+                    }}></View>
                 </TouchableOpacity>
               </>
             ) : (
@@ -170,7 +197,14 @@ const CameraScreen = ({navigation}: ScreenProps) => {
                   color={Colors.primary}
                 />
                 <TouchableNativeFeedback onPress={onTakePicture}>
-                  <View style={styles.cameraButton}></View>
+                  <View
+                    style={{
+                      ...styles.cameraButton,
+                      borderColor:
+                        theme === 'light'
+                          ? Colors.primaryTextColor
+                          : Colors.whiteColor,
+                    }}></View>
                 </TouchableNativeFeedback>
               </>
             )}
@@ -183,11 +217,10 @@ const CameraScreen = ({navigation}: ScreenProps) => {
 
 const styles = StyleSheet.create({
   cameraButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: Colors.whiteColor,
-    borderWidth: 3,
+    borderWidth: 1,
     width: 75,
     height: 75,
     borderRadius: 75 / 2,

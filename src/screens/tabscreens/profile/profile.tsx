@@ -104,6 +104,7 @@ const ProfilePage = () => {
         locations={[0.1, 1]}
         colors={[Colors.gradientColor, '#29D890']}
         style={{
+          paddingTop: screenHeight * 0.05,
           opacity: 1,
           height: dashboardHeight,
           width: screenWidth,
@@ -153,7 +154,7 @@ const ProfilePage = () => {
         <View style={{position: 'absolute', right: 0}}>
           <ProfileDashboard />
         </View>
-        <DropDown color={Colors.whiteColor} />
+        <DropDown />
       </LinearGradient>
 
       <ScrollView
