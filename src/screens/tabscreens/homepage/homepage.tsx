@@ -57,7 +57,6 @@ const HomePage = ({navigation}: ScreenProps) => {
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
-  console.log(isLoading, 'heree', displayName, 'heerrrree');
 
   return (
     <>

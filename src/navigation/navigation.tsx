@@ -27,6 +27,8 @@ import CameraPage from '@app/screens/tabscreens/uploadimage/uploadmethod';
 import {KeyboardAvoidingView, Platform, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {DarkColors} from '@app/constants/colors';
+import {Asset} from 'react-native-image-picker';
+import PhotoView from '@app/screens/photo';
 
 export type RootStackParamList = {
   Onboarding: any;
@@ -46,6 +48,7 @@ export type RootStackParamList = {
   CameraScreen: any;
   CartScreen: any;
   TransactionSummary: any;
+  PhotoView: {photo: Asset[]} | undefined;
 };
 
 export type RootStackNavigationProp =
@@ -129,6 +132,7 @@ const ScreenStack = () => {
         name={Routes.TransactionSummary}
         component={TransactionSummary}
       />
+      <Stack.Screen name={'PhotoView'} component={PhotoView} />
     </Stack.Navigator>
   );
 };

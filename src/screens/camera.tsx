@@ -51,7 +51,7 @@ const CameraScreen = ({navigation}: ScreenProps) => {
   return !device ? (
     handleNoCameraDevice()
   ) : (
-    <View style={{flex: 1, backgroundColor: Colors.primaryTextColor}}>
+    <View style={{flex: 1, backgroundColor: Colors.screenColor}}>
       {photo ? (
         <>
           <View style={{flex: 1}}>
