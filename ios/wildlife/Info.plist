@@ -98,6 +98,10 @@
 		<string>OpenSans_SemiCondensed-SemiBoldItalic.ttf</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>PlantApp needs access to your Camera.</string>
+	<string>$(PRODUCT_NAME) needs access to your Camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow $(PRODUCT_NAME) access to the photo library for selecting images</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+    <string>$(PRODUCT_NAME) would like to save photos to your photo gallery</string>
 </dict>
 </plist>

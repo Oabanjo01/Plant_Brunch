@@ -17,6 +17,8 @@ export const Routes: RootStackParamList = {
   CameraScreen: 'CameraScreen',
   CartScreen: 'CartScreen',
   TransactionSummary: 'TransactionSummary',
+
+  PhotoView: undefined,
 };
 
 export const Tabs: TabParamList = {
