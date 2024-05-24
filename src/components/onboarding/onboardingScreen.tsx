@@ -53,8 +53,16 @@ const OnboardScreen = ({
     <View
       style={{...styles.parentContainer, backgroundColor: Colors.screenColor}}>
       {svgToRender}
-      <WText style={styles.titleTextStyle}>{titleText}</WText>
-      <WText style={styles.bodyTextStyle}>{bodyText}</WText>
+      <WText style={{...styles.titleTextStyle, color: Colors.primaryTextColor}}>
+        {titleText}
+      </WText>
+      <WText
+        style={{
+          ...styles.bodyTextStyle,
+          color: Colors.primaryTextColor,
+        }}>
+        {bodyText}
+      </WText>
       <View style={styles.dotContainer}>
         <IndicatorDot
           dotStyle={
@@ -97,7 +105,6 @@ const styles = StyleSheet.create({
   activeDotColor: {backgroundColor: Colors.primary},
   inActiveDotColor: {backgroundColor: Colors.onboardingInactiveIconColor},
   titleTextStyle: {
-    color: '#36455A',
     fontSize: 19,
     fontFamily: 'OpenSans-SemiBold',
     marginBottom: '7%',
@@ -107,7 +114,6 @@ const styles = StyleSheet.create({
     opacity: 0.8,
     fontFamily: 'OpenSans-Regular',
     fontSize: 13,
-    color: Colors.secondaryTextColor,
     marginHorizontal: '10%',
     textAlign: 'center',
   },

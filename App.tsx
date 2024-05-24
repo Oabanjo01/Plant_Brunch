@@ -1,17 +1,15 @@
 import React from 'react';
 import {Platform, StatusBar, StyleSheet} from 'react-native';
 
-import ScreenStack from '@app/navigation/navigation';
 import {NavigationContainer} from '@react-navigation/native';
 import {PaperProvider} from 'react-native-paper';
-import {Provider, useSelector} from 'react-redux';
+import {Provider} from 'react-redux';
 
-import {RootState, persistor, store} from '@app/redux/store';
+import {persistor, store} from '@app/redux/store';
+import ThemeProvider from '@app/themeProvider';
 import {toastConfig} from '@app/utilities/toast';
 import Toast from 'react-native-toast-message';
 import {PersistGate} from 'redux-persist/integration/react';
-import {getThemeColor} from '@app/constants/colors';
-import ThemeProvider from '@app/themeProvider';
 
 const App = () => {
   return (
@@ -22,18 +20,6 @@ const App = () => {
             {/* <Toast. */}
             <NavigationContainer>
               <ThemeProvider />
-              {/* <StatusBar
-                barStyle={theme === 'light' ? 'dark-content' : 'light-content'}
-                backgroundColor="transparent"
-                translucent
-                animated
-              />
-              <View style={generalStyles.safeAreaStyle}>
-              <SafeAreaView
-                style={{flex: 1, backgroundColor: Colors.screenColor}}>
-              <ScreenStack />
-              </SafeAreaView>
-              </View> */}
             </NavigationContainer>
             <Toast config={toastConfig} />
           </PaperProvider>
@@ -51,3 +37,18 @@ export const generalStyles = StyleSheet.create({
 });
 
 export default App;
+
+{
+  /* <StatusBar
+                barStyle={theme === 'light' ? 'dark-content' : 'light-content'}
+                backgroundColor="transparent"
+                translucent
+                animated
+              />
+              <View style={generalStyles.safeAreaStyle}>
+              <SafeAreaView
+                style={{flex: 1, backgroundColor: Colors.screenColor}}>
+              <ScreenStack />
+              </SafeAreaView>
+              </View> */
+}
