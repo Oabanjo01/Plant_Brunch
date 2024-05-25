@@ -97,15 +97,15 @@ const DropDown = (props?: DropDownProps) => {
           <View
             style={{
               position: 'absolute',
-              top: screenHeight * 0.025,
-              backgroundColor: 'rgba(211, 211, 211, 0.5)',
+              top: screenHeight * 0.05,
+              backgroundColor: Colors.lighterBlack,
               borderRadius: 100,
               padding: 5,
               right: screenWidth * 0.025,
             }}>
             <Ionicons
               name="ellipsis-vertical"
-              color={props?.color ?? Colors.whiteColor}
+              color={Colors.primary}
               size={30}
             />
           </View>

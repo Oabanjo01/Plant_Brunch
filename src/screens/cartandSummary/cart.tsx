@@ -49,7 +49,8 @@ const CartScreen = ({route, navigation}: Props) => {
         <Backbutton />
         <View
           style={{
-            paddingVertical: screenHeight * 0.075,
+            paddingTop: screenHeight * 0.14,
+            paddingBottom: screenHeight * 0.07,
             height: screenHeight,
           }}>
           {cartedList.length === 0 ? (
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
   buttonStyle: {
     marginTop: screenHeight * 0.05,
     position: 'absolute',
-    bottom: screenHeight * 0.03,
+    bottom: screenHeight * 0.02,
     backgroundColor: Colors.primary,
     borderRadius: 15,
     height: screenHeight * 0.06,

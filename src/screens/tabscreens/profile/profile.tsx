@@ -10,20 +10,29 @@ import {
   screenWidth,
 } from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
+import {ScreenProps} from '@app/navigation/navigation';
 import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import DropDown from '@app/utilities/dropDown';
 import useArticles from '@app/utilities/hooks/articles/useArticles';
 import {useLikes} from '@app/utilities/hooks/likes/useLikes';
+import {UsePickImage} from '@app/utilities/hooks/pickImage/usePickImage';
 import ProfileDashboard from '@assets/images/ProfileDashboard.svg';
 import {useIsFocused} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
-const ProfilePage = () => {
+const ProfilePage = (navigation: ScreenProps) => {
   const [activeButton, setActiveButton] = useState<number>(1);
 
   const userData = useSelector((state: RootState) => state.auth.user);
@@ -47,6 +56,8 @@ const ProfilePage = () => {
     articleList,
     addOrRemoveArticle,
   } = useArticles();
+
+  const {selectImage} = UsePickImage(navigation);
 
   useEffect(() => {
     console.log('got here', isFocused);
@@ -104,13 +115,21 @@ const ProfilePage = () => {
         locations={[0.1, 1]}
         colors={[Colors.gradientColor, '#29D890']}
         style={{
+          paddingTop: screenHeight * 0.05,
+
           opacity: 1,
           height: dashboardHeight,
           width: screenWidth,
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <View
+        <View style={{position: 'absolute', right: 0}}>
+          <ProfileDashboard />
+        </View>
+        <DropDown />
+        <TouchableHighlight
+          onPress={selectImage}
+          underlayColor={Colors.screenColor}
           style={{
             height: dashboardHeight * 0.4,
             width: dashboardHeight * 0.4,
@@ -123,10 +142,10 @@ const ProfilePage = () => {
           }}>
           <Ionicons
             name={'person-outline'}
-            size={35}
+            size={40}
             color={Colors.secondaryTextColor}
           />
-        </View>
+        </TouchableHighlight>
         <WText
           style={{
             marginTop: 20,
@@ -150,10 +169,6 @@ const ProfilePage = () => {
             Okunade street
           </WText>
         </View>
-        <View style={{position: 'absolute', right: 0}}>
-          <ProfileDashboard />
-        </View>
-        <DropDown color={Colors.whiteColor} />
       </LinearGradient>
 
       <ScrollView
