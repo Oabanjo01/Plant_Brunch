@@ -14,6 +14,7 @@ export const UsePickImage = ({navigation}: ScreenProps) => {
 
   const selectImage = async () => {
     setOpening(true);
+    console.log('selected');
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
       selectionLimit: 5,
