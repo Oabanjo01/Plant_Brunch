@@ -99,6 +99,7 @@ const ProfilePage = (navigation: ScreenProps) => {
       </TouchableOpacity>
     );
   };
+  // TODO: Add firebase storage support for pictures
   return (
     <ScrollView
       scrollEnabled
@@ -127,6 +128,7 @@ const ProfilePage = (navigation: ScreenProps) => {
           <ProfileDashboard />
         </View>
         <DropDown />
+        // TODO: Add support modal for camera or file picker
         <TouchableHighlight
           onPress={selectImage}
           underlayColor={Colors.screenColor}
