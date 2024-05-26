@@ -58,6 +58,8 @@ const HomePage = ({navigation}: ScreenProps) => {
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
 
+  // TODO: add firebase storage for pictures
+  // TODO: find a way to create a new list that includes previous api list and new ones user creates.
   return (
     <>
       {isLoading || !displayName ? (
