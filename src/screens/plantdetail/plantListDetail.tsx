@@ -330,6 +330,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
               style={{
                 fontFamily: Fonts.semiBold,
                 fontSize: 16,
+                color: Colors.whiteColor,
                 textAlign: 'center',
                 textAlignVertical: 'center',
               }}>

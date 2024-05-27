@@ -84,7 +84,7 @@ const HomePage = ({navigation}: ScreenProps) => {
               start={{x: 0, y: 0}}
               end={{x: 1, y: 1}}
               locations={[0.1, 1]}
-              colors={[Colors.gradientColor, '#29D890']}
+              colors={[Colors.gradientColor, Colors.primary]}
               style={{
                 paddingTop: screenHeight * 0.025,
                 opacity: 1,

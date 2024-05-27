@@ -29,7 +29,7 @@ const TransactionSummary = ({route, navigation}: Props) => {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <Backbutton />
+      <Backbutton containsTitle title="Summary" />
       <View
         style={{...styles.cartItemStyle, backgroundColor: Colors.lighterBlack}}>
         <WText style={styles.itemTitleStyle}>Item Name</WText>

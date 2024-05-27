@@ -46,7 +46,7 @@ const CartScreen = ({route, navigation}: Props) => {
           flex: 1,
           backgroundColor: Colors.screenColor,
         }}>
-        <Backbutton />
+        <Backbutton title="Carted Items" containsTitle />
         <View
           style={{
             paddingTop: screenHeight * 0.14,
