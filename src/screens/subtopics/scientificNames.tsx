@@ -9,6 +9,7 @@ import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {useFetchData} from '@app/utilities/hooks/apiData/useFetchData';
 import LoadingIndicator from '@app/utilities/loadingIndicator';
+import {showToast} from '@app/utilities/toast';
 
 interface SectionType {
   title: string;
@@ -38,7 +39,11 @@ const PlantList = () => {
         await fetchdata();
         getScientificNamesInSections();
       } catch (error) {
-        console.error('Error fetching and processing data:', error);
+        showToast({
+          text1: 'Error',
+          text2: 'An error occurred while fetching list',
+          type: 'error',
+        });
       } finally {
         setIsLoading(false);
       }
