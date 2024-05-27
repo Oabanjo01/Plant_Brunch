@@ -30,6 +30,7 @@ import {DarkColors} from '@app/constants/colors';
 import {Asset} from 'react-native-image-picker';
 import PhotoView from '@app/screens/photo';
 
+// TODO: Add a settings page containing Delete account, log out, change password/Email/displayname tiles
 export type RootStackParamList = {
   Onboarding: any;
   Login: any;

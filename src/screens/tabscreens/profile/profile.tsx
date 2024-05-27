@@ -99,7 +99,7 @@ const ProfilePage = (navigation: ScreenProps) => {
       </TouchableOpacity>
     );
   };
-  // TODO: Add firebase storage support for pictures
+  // TODO: figure out a way to navigate users to the product details screens
   return (
     <ScrollView
       scrollEnabled
@@ -130,7 +130,7 @@ const ProfilePage = (navigation: ScreenProps) => {
         <DropDown />
         // TODO: Add support modal for camera or file picker
         <TouchableHighlight
-          onPress={selectImage}
+          onPress={selectImage} // TODO: Upload profile picture to firebase storage
           underlayColor={Colors.screenColor}
           style={{
             height: dashboardHeight * 0.4,
@@ -160,6 +160,7 @@ const ProfilePage = (navigation: ScreenProps) => {
         </WText>
         <View style={{flexDirection: 'row'}}>
           <Ionicons name={'location'} size={30} color={Colors.whiteColor} />
+          // TODO: Fetch user location after requesting for access
           <WText
             style={{
               color: Colors.secondaryTextColor,
@@ -216,7 +217,7 @@ const ProfilePage = (navigation: ScreenProps) => {
           addOrRemoveLikes={addOrRemoveArticle}
           isArticlesTab={true}
         />
-
+        // TODO: Add bought image items to my items list
         <TabBodyDisplay
           renderItem={({item, index}: {item: string; index: number}) => (
             <RenderCollectedPlantBox index={index} item={item} />

@@ -16,6 +16,7 @@ export const SubTopics: SubTopicProps[] = [
     id: '1',
     description: 'Identify',
   },
+  // TODO: Display a list of plant names
   {
     id: '2',
     description: 'Sc Names',
