@@ -100,6 +100,10 @@ const ProfilePage = (navigation: ScreenProps) => {
     );
   };
   // TODO: figure out a way to navigate users to the product details screens
+  // TODO: Add support modal for camera or file picker
+  // TODO: Upload profile picture to firebase storage
+  // TODO: Fetch user location after requesting for access
+  // TODO: Add bought image items to my items list
   return (
     <ScrollView
       scrollEnabled
@@ -114,7 +118,7 @@ const ProfilePage = (navigation: ScreenProps) => {
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}
         locations={[0.1, 1]}
-        colors={[Colors.gradientColor, '#29D890']}
+        colors={[Colors.gradientColor, Colors.primary]}
         style={{
           paddingTop: screenHeight * 0.05,
 
@@ -128,9 +132,8 @@ const ProfilePage = (navigation: ScreenProps) => {
           <ProfileDashboard />
         </View>
         <DropDown />
-        // TODO: Add support modal for camera or file picker
         <TouchableHighlight
-          onPress={selectImage} // TODO: Upload profile picture to firebase storage
+          onPress={selectImage}
           underlayColor={Colors.screenColor}
           style={{
             height: dashboardHeight * 0.4,
@@ -160,7 +163,6 @@ const ProfilePage = (navigation: ScreenProps) => {
         </WText>
         <View style={{flexDirection: 'row'}}>
           <Ionicons name={'location'} size={30} color={Colors.whiteColor} />
-          // TODO: Fetch user location after requesting for access
           <WText
             style={{
               color: Colors.secondaryTextColor,
@@ -217,7 +219,7 @@ const ProfilePage = (navigation: ScreenProps) => {
           addOrRemoveLikes={addOrRemoveArticle}
           isArticlesTab={true}
         />
-        // TODO: Add bought image items to my items list
+
         <TabBodyDisplay
           renderItem={({item, index}: {item: string; index: number}) => (
             <RenderCollectedPlantBox index={index} item={item} />

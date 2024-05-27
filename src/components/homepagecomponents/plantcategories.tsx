@@ -110,7 +110,7 @@ export const RenderSubTopics = ({
         handlePhoneVersion(navigation);
         break;
       case 1:
-        console.log('items');
+        navigation.navigate(Routes.PlantList);
         break;
       case 2:
         navigation.navigate(Routes.Articles);

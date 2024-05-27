@@ -12,7 +12,7 @@ import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Tabs} from '@app/constants/routes';
 import {RootState} from '@app/redux/store';
 import {Plant, PlantDiseaseType} from '@app/redux/types';
-import Articles from '@app/screens/articles/articles';
+import Articles from '@app/screens/subtopics/articles';
 import LoginScreen from '@app/screens/auth/login';
 import SignUpScreen from '@app/screens/auth/signup';
 import CameraScreen from '@app/screens/camera';
@@ -29,6 +29,7 @@ import {useSelector} from 'react-redux';
 import {DarkColors} from '@app/constants/colors';
 import {Asset} from 'react-native-image-picker';
 import PhotoView from '@app/screens/photo';
+import PlantList from '@app/screens/subtopics/scientificNames';
 
 // TODO: Add a settings page containing Delete account, log out, change password/Email/displayname tiles
 export type RootStackParamList = {
@@ -50,6 +51,7 @@ export type RootStackParamList = {
   CartScreen: any;
   TransactionSummary: any;
   PhotoView: {photo: Asset[]} | undefined;
+  PhotoList: any;
 };
 
 export type RootStackNavigationProp =
@@ -134,6 +136,7 @@ const ScreenStack = () => {
         component={TransactionSummary}
       />
       <Stack.Screen name={'PhotoView'} component={PhotoView} />
+      <Stack.Screen name={'PlantList'} component={PlantList} />
     </Stack.Navigator>
   );
 };

@@ -17,11 +17,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 
 const Articles = () => {
-  const dispatch = useDispatch();
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
-  // TODO: Integrate mock api for articles
+  // NOTE: Integrate mock api for articles
   return (
     <View
       style={{
@@ -35,7 +34,7 @@ const Articles = () => {
           start={{x: 0, y: 0}}
           end={{x: 1, y: 1}}
           locations={[0.1, 1]}
-          colors={['#61D2C4', '#29D890']}
+          colors={[Colors.gradientColor, Colors.primary]}
           style={{
             opacity: 1,
             height: dashboardHeight,

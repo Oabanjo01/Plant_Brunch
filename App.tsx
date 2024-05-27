@@ -12,13 +12,13 @@ import Toast from 'react-native-toast-message';
 import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
+  // TODO: : Fix theming
   return (
     <>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <PaperProvider>
             {/* <Toast. */}
-            // TODO: : Fix theming
             <NavigationContainer>
               <ThemeProvider />
             </NavigationContainer>

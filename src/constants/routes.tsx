@@ -19,6 +19,7 @@ export const Routes: RootStackParamList = {
   TransactionSummary: 'TransactionSummary',
 
   PhotoView: undefined,
+  PhotoList: 'PhotoList',
 };
 
 export const Tabs: TabParamList = {
