@@ -20,6 +20,7 @@ const CameraPage = ({navigation}: ScreenProps) => {
   const Colors = getThemeColor(theme);
 
   const {selectImage, selectedImages, opening} = UsePickImage({navigation});
+  // TODO: Create an add product screen, that user is directed to, after taking image. Should contain every essential information.
   if (opening) {
     return <LoadingIndicator size={40} />;
   } else {

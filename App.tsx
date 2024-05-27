@@ -18,6 +18,7 @@ const App = () => {
         <PersistGate persistor={persistor}>
           <PaperProvider>
             {/* <Toast. */}
+            // TODO: : Fix theming
             <NavigationContainer>
               <ThemeProvider />
             </NavigationContainer>

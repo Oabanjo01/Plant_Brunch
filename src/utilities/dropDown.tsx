@@ -69,6 +69,11 @@ const DropDown = (props?: DropDownProps) => {
     }
   };
 
+  // TODO: display different floating drop down lists based on where user is in different screens
+
+  // TODO: Alert modal to confirm deletion of account, then dispatch log out
+
+  // TODO: Edit modal to change username, email and password
   return (
     <SelectDropdown
       data={data}

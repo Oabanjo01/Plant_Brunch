@@ -15,7 +15,6 @@ const userData: UserDataProps = {
   emailVerified: false,
   uid: '',
 };
-// NOTE:
 // It is important to pass an initial state as default to
 // the state parameter to handle the case of calling
 // the reducers for the first time when the
