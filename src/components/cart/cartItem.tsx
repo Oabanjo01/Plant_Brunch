@@ -26,7 +26,9 @@ export const RenderCartItem = ({
   return (
     <View
       style={{...styles.cartItemStyle, backgroundColor: Colors.lighterBlack}}>
-      <WText style={styles.itemTitleStyle}>Item Name</WText>
+      <WText style={styles.itemTitleStyle}>
+        {truncateText(item.title, 35)}
+      </WText>
       <RenderCartedItemDetails
         specifics={truncateText(item.title, 24)}
         title={'Item Name'}

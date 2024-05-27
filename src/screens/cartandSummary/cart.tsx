@@ -73,7 +73,9 @@ const CartScreen = ({route, navigation}: Props) => {
         <TouchableOpacity
           style={styles.buttonStyle}
           onPress={() => {
-            navigation.navigate(Routes.TransactionSummary);
+            navigation.navigate('TransactionSummary', {
+              itemNo: cartedList.length,
+            });
           }}>
           <WText
             style={{

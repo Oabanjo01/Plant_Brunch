@@ -8,14 +8,15 @@ import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
-import {StyleSheet, TextStyle, View} from 'react-native';
+import {Pressable, StyleSheet, TextStyle, View} from 'react-native';
 import {Divider} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'CartScreen'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'TransactionSummary'>;
 const TransactionSummary = ({route, navigation}: Props) => {
+  const itemNo = route.params?.itemNo ?? 0;
   const amount = 300;
-  const itemNo = 3;
+
   const date = '12-09-1999';
 
   const userTheme = useSelector((state: RootState) => state.theme);
@@ -46,7 +47,13 @@ const TransactionSummary = ({route, navigation}: Props) => {
           fontFamily: Fonts.semiBold,
         })}
       </View>
-      <View style={styles.buttonStyle}>
+      <Pressable
+        style={{
+          ...styles.buttonStyle,
+          backgroundColor:
+            itemNo === 0 ? Colors.disabledButtonColor : Colors.primary,
+        }}
+        onPress={itemNo !== 0 ? () => {} : null}>
         <WText
           style={{
             color: Colors.secondaryTextColor,
@@ -55,7 +62,7 @@ const TransactionSummary = ({route, navigation}: Props) => {
           }}>
           Make Payment
         </WText>
-      </View>
+      </Pressable>
     </View>
   );
 };
@@ -80,7 +87,6 @@ function renderCartedItemDetails(
 const styles = StyleSheet.create({
   buttonStyle: {
     marginTop: screenHeight * 0.05,
-    backgroundColor: Colors.primary,
     borderRadius: 15,
     height: screenHeight * 0.06,
     width: screenWidth * 0.8,

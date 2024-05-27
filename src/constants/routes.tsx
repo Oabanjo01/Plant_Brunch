@@ -16,10 +16,12 @@ export const Routes: RootStackParamList = {
   ArticleDetails: 'ArticleDetails',
   CameraScreen: 'CameraScreen',
   CartScreen: 'CartScreen',
-  TransactionSummary: 'TransactionSummary',
+  TransactionSummary: {
+    itemNo: 0,
+  },
 
   PhotoView: undefined,
-  PhotoList: 'PhotoList',
+  AddNewItem: 'AddNewItem',
 };
 
 export const Tabs: TabParamList = {

@@ -24,8 +24,8 @@ export const UsePickImage = ({navigation}: ScreenProps) => {
       await launchImageLibrary(options, response => {
         if (response.didCancel) {
           showToast({
-            type: 'error',
-            text1: 'Error',
+            type: 'info',
+            text1: 'Cancelled',
             text2: 'Cancelled image selection process',
             position: 'bottom',
           });

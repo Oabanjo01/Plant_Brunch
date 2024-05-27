@@ -49,9 +49,9 @@ export type RootStackParamList = {
 
   CameraScreen: any;
   CartScreen: any;
-  TransactionSummary: any;
+  TransactionSummary: {itemNo: number} | undefined;
   PhotoView: {photo: Asset[]} | undefined;
-  PhotoList: any;
+  AddNewItem: any;
 };
 
 export type RootStackNavigationProp =
@@ -132,7 +132,7 @@ const ScreenStack = () => {
       <Stack.Screen name={Routes.Articles} component={Articles} />
       <Stack.Screen name={Routes.CartScreen} component={CartScreen} />
       <Stack.Screen
-        name={Routes.TransactionSummary}
+        name={'TransactionSummary'}
         component={TransactionSummary}
       />
       <Stack.Screen name={'PhotoView'} component={PhotoView} />
