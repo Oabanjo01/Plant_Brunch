@@ -80,7 +80,7 @@ const ProfilePage = (navigation: ScreenProps) => {
         style={{
           height: screenHeight * 0.05,
           padding: 10,
-          marginHorizontal: index == 1 ? screenWidth * 0.04 : 0,
+          marginHorizontal: index === 1 ? screenWidth * 0.04 : 0,
           backgroundColor:
             activeButton === index ? Colors.addPhotoButtonColor : 'transparent',
           borderRadius: 20,
@@ -121,7 +121,6 @@ const ProfilePage = (navigation: ScreenProps) => {
         colors={[Colors.gradientColor, Colors.primary]}
         style={{
           paddingTop: screenHeight * 0.05,
-
           opacity: 1,
           height: dashboardHeight,
           width: screenWidth,
@@ -180,12 +179,12 @@ const ProfilePage = (navigation: ScreenProps) => {
         horizontal
         scrollEnabled={false}
         style={{
-          width: screenWidth - 10,
-          alignSelf: 'center',
+          width: screenWidth,
           alignItems: 'center',
-          height: screenHeight * 0.07,
+          justifyContent: 'flex-end',
+          height: screenHeight * 0.12,
+          paddingTop: screenHeight * 0.05,
           backgroundColor: Colors.screenColor,
-          paddingVertical: screenHeight * 0.01,
         }}>
         {buildTabHeader(0, 'MY ARTICLES')}
         {buildTabHeader(1, 'MY ITEMS')}
