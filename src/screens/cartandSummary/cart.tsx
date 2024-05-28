@@ -8,6 +8,7 @@ import {RootState} from '@app/redux/store';
 import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
 import useCart from '@app/utilities/hooks/cart/useCart';
+import LoadingIndicator from '@app/utilities/loadingIndicator';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
@@ -28,17 +29,9 @@ const CartScreen = ({route, navigation}: Props) => {
   useEffect(() => {
     fetchAllUserCartedItems();
   }, []);
-  console.log(isFetching);
+  console.log(isFetching, isLoading);
   if (isLoading) {
-    <View
-      style={{
-        height: screenHeight,
-        width: screenWidth,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <ActivityIndicator color={Colors.primary} />
-    </View>;
+    return <LoadingIndicator size={40} />;
   } else {
     return (
       <View

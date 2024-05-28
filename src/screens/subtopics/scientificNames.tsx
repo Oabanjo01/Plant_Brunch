@@ -115,6 +115,15 @@ const PlantList = () => {
               paddingBottom: screenHeight * 0.05,
             }}
             sections={scientificNamesList}
+            ListEmptyComponent={
+              <View
+                style={{
+                  height: '100%',
+                  alignSelf: 'center',
+                }}>
+                <WText>We can't fetch these names now</WText>
+              </View>
+            }
             keyExtractor={(item, index) => item + index}
             renderItem={({item, section}) => (
               <View

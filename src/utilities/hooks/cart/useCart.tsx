@@ -18,11 +18,10 @@ const useCart = () => {
   const [cartedList, setCartedList] = useState<CartProps[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [isCarted, setIsCarted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [detectError, setDetectError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const userData = useSelector((state: RootState) => state.auth.user);
-  const {displayName: storedUserName, email, uid} = userData;
+  const {uid} = userData;
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -58,7 +57,6 @@ const useCart = () => {
   };
 
   const fetchAllUserCartedItems = async () => {
-    setIsLoading(true);
     try {
       const userCartedSnapshot = await collection.get();
       const list: CartProps[] = userCartedSnapshot.docs.map(doc => ({
@@ -68,9 +66,7 @@ const useCart = () => {
         description: doc.data().description,
         timeCarted: doc.data().timeCarted,
       }));
-      setIsLoading(false);
       setCartedList(list);
-      console.log('got here');
     } catch (error) {
       showToast({
         type: 'error',
@@ -124,7 +120,6 @@ const useCart = () => {
       }
       await fetchAllUserCartedItems();
     } catch (error) {
-      setIsLoading(false);
       setIsCarted(!liked);
     } finally {
       setIsLoading(false);

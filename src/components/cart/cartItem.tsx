@@ -19,7 +19,6 @@ export const RenderCartItem = ({
 }) => {
   const amount = 300;
   const itemNo = 3;
-  console.log(item.title);
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
