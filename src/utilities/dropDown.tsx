@@ -25,10 +25,9 @@ const DropDown = (props?: DropDownProps) => {
   const [selectedOption, setSelectedOption] = useState<string>('');
 
   const data: DropDownData[] = [
-    {label: 'Theme Mode', value: 'theme'},
+    {label: 'Settings', value: 'settings'},
     {label: 'Cart', value: 'cart'},
-    {label: 'Delete Account', value: 'delete'},
-    {label: 'Use System Theme', value: 'system'},
+    {label: 'Theme', value: 'theme'},
   ];
 
   const dispatch = useDispatch();
@@ -46,8 +45,7 @@ const DropDown = (props?: DropDownProps) => {
       backgroundColor: Colors.screenColor,
       position: 'absolute',
       left: screenWidth * 0.55,
-      marginTop: screenHeight * 0.02,
-      borderRadius: 8,
+      borderRadius: 10,
       paddingVertical: 8,
       width: screenWidth * 0.4,
     },
@@ -59,14 +57,14 @@ const DropDown = (props?: DropDownProps) => {
     if (value === 'theme') {
       dispatch(toggleTheme(theme === 'light' ? 'dark' : 'light'));
     } else if (value === 'cart') {
-      console.log(value);
       navigation.navigate(Routes.CartScreen);
-    } else if (value === 'delete') {
-      console.log(value);
-    } else if (value === 'system') {
-      console.log(value, systemTheme);
-      dispatch(toggleTheme(systemTheme === 'light' ? 'light' : 'dark'));
+    } else if (value === 'settings') {
+      console.log('settings');
     }
+    // else if (value === 'system') {
+    //   console.log(value, systemTheme);
+    //   dispatch(toggleTheme(systemTheme === 'light' ? 'light' : 'dark'));
+    // }
   };
 
   // TODO: display different floating drop down lists based on where user is in different screens
@@ -93,7 +91,7 @@ const DropDown = (props?: DropDownProps) => {
               {selectedItem.label}
             </WText>
 
-            {index <= 1 && <Divider bold />}
+            {index < 2 && <Divider bold />}
           </View>
         );
       }}
@@ -102,7 +100,7 @@ const DropDown = (props?: DropDownProps) => {
           <View
             style={{
               position: 'absolute',
-              top: screenHeight * 0.05,
+              top: screenHeight * 0.06,
               backgroundColor: Colors.lighterBlack,
               borderRadius: 100,
               padding: 5,
@@ -117,7 +115,6 @@ const DropDown = (props?: DropDownProps) => {
         );
       }}
       onSelect={(selectedItem: DropDownData, index: number) => {
-        console.log(selectedItem);
         handleOptionSelect(selectedItem.value);
       }}
       dropdownStyle={styles.dropdown}

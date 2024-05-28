@@ -20,7 +20,7 @@ const Articles = () => {
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
-  // NOTE: Integrate mock api for articles
+  // TODO: Integrate mock api for articles
   return (
     <View
       style={{
