@@ -91,11 +91,19 @@ const HomePage = ({navigation}: ScreenProps) => {
                 height: dashboardHeight,
                 width: screenWidth,
               }}>
-              <View>
+              <View style={{position: 'absolute', right: 0}}>
+                <Dashboard />
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  marginTop: dashboardHeight * 0.3,
+                }}>
                 <View
                   style={{
-                    marginTop: dashboardHeight * 0.3,
-                    marginLeft: screenWidth * 0.06,
+                    marginHorizontal: screenWidth * 0.06,
+                    justifyContent: 'center',
                   }}>
                   <WText
                     style={{
@@ -116,8 +124,12 @@ const HomePage = ({navigation}: ScreenProps) => {
                 </View>
 
                 <TouchableOpacity
-                  onPress={() => {
-                    auth()
+                  style={{
+                    alignItems: 'center',
+                  }}
+                  onPress={async () => {
+                    console.log('Press');
+                    await auth()
                       .signOut()
                       .then(() => {
                         navigation.replace(Routes.Login);
@@ -135,12 +147,6 @@ const HomePage = ({navigation}: ScreenProps) => {
                           text2: 'An error occurred while logging out',
                         });
                       });
-                  }}
-                  style={{
-                    alignItems: 'center',
-                    position: 'absolute',
-                    top: dashboardHeight * 0.3,
-                    right: 20,
                   }}>
                   <Ionicons
                     name="log-out"
@@ -151,10 +157,6 @@ const HomePage = ({navigation}: ScreenProps) => {
                     Logout
                   </WText>
                 </TouchableOpacity>
-              </View>
-
-              <View style={{position: 'absolute', right: 0}}>
-                <Dashboard />
               </View>
 
               <View
@@ -353,15 +355,5 @@ const HomePage = ({navigation}: ScreenProps) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  fab: {
-    position: 'relative',
-    margin: 16,
-    marginTop: 40,
-    right: 0,
-    bottom: 0,
-  },
-});
 
 export default HomePage;

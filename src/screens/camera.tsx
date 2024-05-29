@@ -1,4 +1,4 @@
-import {Colors} from '@app/constants';
+import {Colors, Routes} from '@app/constants';
 import {getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {ScreenProps} from '@app/navigation/navigation';
@@ -134,7 +134,9 @@ const CameraScreen = ({navigation}: ScreenProps) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              onPress={() => {}}>
+              onPress={() => {
+                navigation.push(Routes.AddNewItem);
+              }}>
               <Ionicons
                 name={'checkmark-outline'}
                 style={{alignSelf: 'center'}}

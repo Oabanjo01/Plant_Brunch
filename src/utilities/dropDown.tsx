@@ -25,9 +25,9 @@ const DropDown = (props?: DropDownProps) => {
   const [selectedOption, setSelectedOption] = useState<string>('');
 
   const data: DropDownData[] = [
-    {label: 'Settings', value: 'settings'},
     {label: 'Cart', value: 'cart'},
     {label: 'Theme', value: 'theme'},
+    {label: 'Settings', value: 'settings'},
   ];
 
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const DropDown = (props?: DropDownProps) => {
       backgroundColor: Colors.screenColor,
       position: 'absolute',
       left: screenWidth * 0.55,
-      borderRadius: 10,
+      borderRadius: 20,
       paddingVertical: 8,
       width: screenWidth * 0.4,
     },
@@ -73,52 +73,62 @@ const DropDown = (props?: DropDownProps) => {
 
   // TODO: Edit modal to change username, email and password
   return (
-    <SelectDropdown
-      data={data}
-      renderItem={(
-        selectedItem: DropDownData,
-        index: number,
-        isSelected: boolean,
-      ) => {
-        return (
-          <View style={styles.dropDownItem}>
-            <WText
+    <View
+      style={{
+        position: 'absolute',
+        top: screenHeight * 0.07,
+        right: screenWidth * 0.03,
+      }}>
+      <SelectDropdown
+        data={data}
+        statusBarTranslucent
+        renderItem={(
+          selectedItem: DropDownData,
+          index: number,
+          isSelected: boolean,
+        ) => {
+          return (
+            <View
               style={{
-                paddingVertical: 13,
-                paddingLeft: 5,
-                fontSize: 18,
+                ...styles.dropDownItem,
+                borderBottomWidth: 1,
+                borderBottomColor: Colors.primary,
               }}>
-              {selectedItem.label}
-            </WText>
-
-            {index < 2 && <Divider bold />}
-          </View>
-        );
-      }}
-      renderButton={() => {
-        return (
-          <View
-            style={{
-              position: 'absolute',
-              top: screenHeight * 0.06,
-              backgroundColor: Colors.lighterBlack,
-              borderRadius: 100,
-              padding: 5,
-              right: screenWidth * 0.025,
-            }}>
-            <Ionicons
-              name="ellipsis-vertical"
-              color={Colors.primary}
-              size={30}
-            />
-          </View>
-        );
-      }}
-      onSelect={(selectedItem: DropDownData, index: number) => {
-        handleOptionSelect(selectedItem.value);
-      }}
-      dropdownStyle={styles.dropdown}
-    />
+              <WText
+                style={{
+                  paddingVertical: 13,
+                  paddingLeft: 5,
+                  fontSize: 18,
+                }}>
+                {selectedItem.label}
+              </WText>
+            </View>
+          );
+        }}
+        dropdownOverlayColor="transparent"
+        renderButton={() => {
+          return (
+            <View
+              style={{
+                alignItems: 'flex-end',
+                backgroundColor: Colors.lighterBlack,
+                borderRadius: 100,
+                padding: 5,
+              }}>
+              <Ionicons
+                name="ellipsis-vertical"
+                color={Colors.primary}
+                size={30}
+              />
+            </View>
+          );
+        }}
+        onSelect={(selectedItem: DropDownData, index: number) => {
+          handleOptionSelect(selectedItem.value);
+        }}
+        dropdownStyle={styles.dropdown}
+      />
+    </View>
   );
 };
 
