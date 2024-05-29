@@ -25,8 +25,8 @@ const Backbutton = ({
     <View
       style={{
         position: 'absolute',
-        top: screenHeight * 0.05,
-        left: screenWidth * 0.025,
+        top: screenHeight * 0.07,
+        left: screenWidth * 0.03,
         backgroundColor: Colors.lighterBlack,
         borderRadius: 100,
         padding: 5,
