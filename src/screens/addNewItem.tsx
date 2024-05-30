@@ -1,6 +1,7 @@
 import {Colors, getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootState} from '@app/redux/store';
+import ConfirmButton from '@app/utilities/CofirmButton';
 import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
 import React from 'react';
@@ -93,6 +94,11 @@ const AddNewItem = () => {
           placeholderTextColor={Colors.lightPrimaryColor}
         />
       </View>
+
+      <ConfirmButton
+        buttonText="Add a new Item"
+        onPress={console.log('Pressed')}
+      />
     </ScrollView>
   );
 };
