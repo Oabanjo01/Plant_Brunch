@@ -4,6 +4,7 @@ import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {RootState} from '@app/redux/store';
+import ConfirmButton from '@app/utilities/ConfirmButton';
 import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -47,30 +48,22 @@ const TransactionSummary = ({route, navigation}: Props) => {
           fontFamily: Fonts.semiBold,
         })}
       </View>
-      <Pressable
-        style={{
-          ...styles.buttonStyle,
+      <ConfirmButton
+        buttonText="Make Payment"
+        newStyle={{
           backgroundColor:
             itemNo === 0 ? Colors.disabledButtonColor : Colors.primary,
         }}
-        onPress={itemNo !== 0 ? () => {} : null}>
-        <WText
-          style={{
-            color: Colors.secondaryTextColor,
-            fontSize: 16,
-            fontFamily: Fonts.semiBold,
-          }}>
-          Make Payment
-        </WText>
-      </Pressable>
+        onPress={itemNo !== 0 ? () => {} : null}
+      />
     </View>
   );
 };
-function renderCartedItemDetails(
+const renderCartedItemDetails = (
   title: string,
   specifics: string | number,
   titleStyle?: TextStyle,
-) {
+) => {
   return (
     <View
       style={{
@@ -82,18 +75,9 @@ function renderCartedItemDetails(
       <WText style={{color: Colors.addPhotoButtonColor}}>{specifics}</WText>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  buttonStyle: {
-    marginTop: screenHeight * 0.05,
-    borderRadius: 15,
-    height: screenHeight * 0.06,
-    width: screenWidth * 0.8,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   cartItemStyle: {
     width: screenWidth * 0.85,
     borderRadius: 20,

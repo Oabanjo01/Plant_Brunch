@@ -66,11 +66,16 @@ const CameraScreen = ({navigation}: ScreenProps) => {
               source={{uri: `file://${photo.path}`}}
               style={{
                 flex: 1,
-                marginTop: screenHeight * 0.1,
+                marginTop: screenHeight * 0.15,
                 resizeMode: 'cover',
               }}
             />
-            <View style={{position: 'absolute', top: 20, right: 20}}>
+            <View
+              style={{
+                position: 'absolute',
+                top: screenHeight * 0.075,
+                right: screenWidth * 0.06,
+              }}>
               <Ionicons
                 name={'close-outline'}
                 size={30}

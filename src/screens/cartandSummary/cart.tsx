@@ -5,6 +5,8 @@ import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {RootState} from '@app/redux/store';
+import ConfirmButton from '@app/utilities/ConfirmButton';
+
 import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
 import useCart from '@app/utilities/hooks/cart/useCart';
@@ -63,40 +65,19 @@ const CartScreen = ({route, navigation}: Props) => {
           )}
         </View>
 
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() => {
-            navigation.navigate('TransactionSummary', {
-              itemNo: cartedList.length,
-            });
-          }}>
-          <WText
-            style={{
-              color: Colors.secondaryTextColor,
-              fontSize: 16,
-              fontFamily: Fonts.semiBold,
-            }}>
-            Proceed to Buy
-          </WText>
-        </TouchableOpacity>
+        <ConfirmButton
+          buttonText="Proceed to Buy"
+          // newStyle={{}}
+          onPress={navigation.navigate('TransactionSummary', {
+            itemNo: cartedList.length,
+          })}
+        />
       </View>
     );
   }
 };
 
 const styles = StyleSheet.create({
-  buttonStyle: {
-    marginTop: screenHeight * 0.05,
-    position: 'absolute',
-    bottom: screenHeight * 0.02,
-    backgroundColor: Colors.primary,
-    borderRadius: 15,
-    height: screenHeight * 0.06,
-    width: screenWidth * 0.8,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   cartItemStyle: {
     width: screenWidth * 0.9,
     borderRadius: 20,
