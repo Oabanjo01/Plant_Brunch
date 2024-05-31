@@ -5,8 +5,8 @@ import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {RootState} from '@app/redux/store';
-import ConfirmButton from '@app/utilities/CofirmButton';
-import CofirmButton from '@app/utilities/CofirmButton';
+import ConfirmButton from '@app/utilities/ConfirmButton';
+
 import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
 import useCart from '@app/utilities/hooks/cart/useCart';
