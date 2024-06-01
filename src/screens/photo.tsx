@@ -18,6 +18,13 @@ const PhotoView = ({navigation, route}: Props) => {
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
+
+  const imageUriList = params?.map(item => {
+    return item.uri;
+  });
+
+  console.log(imageUriList);
+
   return (
     <View
       style={{
@@ -92,7 +99,9 @@ const PhotoView = ({navigation, route}: Props) => {
             alignItems: 'center',
           }}
           onPress={() => {
-            navigation.push(Routes.AddNewItem);
+            navigation.push('PlantPhotoType', {
+              uri: imageUriList,
+            });
           }}>
           <Ionicons
             name={'checkmark-outline'}

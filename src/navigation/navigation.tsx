@@ -30,7 +30,8 @@ import {DarkColors} from '@app/constants/colors';
 import {Asset} from 'react-native-image-picker';
 import PhotoView from '@app/screens/photo';
 import PlantList from '@app/screens/subtopics/scientificNames';
-import AddNewItem from '@app/screens/addNewItem';
+import AddNewItem from '@app/screens/addNewPlantPhoto/addNewItem';
+import PlantPhotoType from '@app/screens/addNewPlantPhoto/plantPhotoType';
 
 // TODO: Add a settings page containing Delete account, log out, change password/Email/displayname tiles
 export type RootStackParamList = {
@@ -52,7 +53,8 @@ export type RootStackParamList = {
   CartScreen: any;
   TransactionSummary: {itemNo: number} | undefined;
   PhotoView: {photo: Asset[]} | undefined;
-  AddNewItem: any;
+  PlantPhotoType: {uri: (string | undefined)[] | undefined};
+  AddNewItem: {photoType: string; uri: (string | undefined)[]};
 };
 
 export type RootStackNavigationProp =
@@ -139,6 +141,7 @@ const ScreenStack = () => {
       <Stack.Screen name={'PhotoView'} component={PhotoView} />
       <Stack.Screen name={'PlantList'} component={PlantList} />
       <Stack.Screen name={'AddNewItem'} component={AddNewItem} />
+      <Stack.Screen name={'PlantPhotoType'} component={PlantPhotoType} />
     </Stack.Navigator>
   );
 };

@@ -140,7 +140,9 @@ const CameraScreen = ({navigation}: ScreenProps) => {
                 alignItems: 'center',
               }}
               onPress={() => {
-                navigation.push(Routes.AddNewItem);
+                navigation.push('PlantPhotoType', {
+                  uri: [photo.path],
+                });
               }}>
               <Ionicons
                 name={'checkmark-outline'}

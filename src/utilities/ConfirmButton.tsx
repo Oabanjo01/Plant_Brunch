@@ -40,8 +40,9 @@ const ConfirmButton = ({
 const styles = StyleSheet.create({
   buttonStyle: {
     marginTop: screenHeight * 0.05,
-    position: 'absolute',
-    bottom: screenHeight * 0.02,
+    marginBottom: screenHeight * 0.025,
+    // position: 'absolute',
+    // bottom: screenHeight * 0.02,
     backgroundColor: Colors.primary,
     borderRadius: 15,
     height: screenHeight * 0.06,

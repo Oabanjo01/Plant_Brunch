@@ -20,8 +20,9 @@ export const Routes: RootStackParamList = {
     itemNo: 0,
   },
 
-  PhotoView: undefined,
-  AddNewItem: 'AddNewItem',
+  PhotoView: {photo: []},
+  AddNewItem: {photoType: '', uri: []},
+  PlantPhotoType: {uri: []},
 };
 
 export const Tabs: TabParamList = {
