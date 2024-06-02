@@ -170,7 +170,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
             <SwiperFlatList
               index={0}
               showPagination
-              paginationDefaultColor={Colors.screenColor}
+              paginationDefaultColor={Colors.lighterBlack}
               paginationActiveColor={Colors.primary}
               keyExtractor={item => item?.id?.toString()}
               data={imageToList}

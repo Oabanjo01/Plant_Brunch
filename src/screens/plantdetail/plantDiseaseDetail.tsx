@@ -185,7 +185,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             <SwiperFlatList
               index={0}
               showPagination
-              paginationDefaultColor={Colors.screenColor}
+              paginationDefaultColor={Colors.lighterBlack}
               paginationActiveColor={Colors.primary}
               keyExtractor={item => item?.id?.toString()}
               data={item?.images.slice(0, 5)}
@@ -363,7 +363,9 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate(Routes.TransactionSummary);
+              navigation.navigate('TransactionSummary', {
+                itemNo: 1,
+              });
             }}
             style={{
               backgroundColor: Colors.primary,
