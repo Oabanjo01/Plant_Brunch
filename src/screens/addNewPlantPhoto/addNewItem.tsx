@@ -1,4 +1,4 @@
-import InputList from '@app/components/addNewPlantPhoto/groupedTextInput';
+import GroupedTextInput from '@app/components/addNewPlantPhoto/groupedTextInput';
 import WTextInput from '@app/components/addNewPlantPhoto/textInput';
 import {getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
@@ -8,7 +8,7 @@ import ConfirmButton from '@app/utilities/ConfirmButton';
 import Backbutton from '@app/utilities/backbutton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Formik} from 'formik';
-import React from 'react';
+import React, {useState} from 'react';
 import {KeyboardAvoidingView, Platform, ScrollView, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
@@ -20,10 +20,37 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AddNewItem'>;
 const AddNewItem = ({navigation, route}: Props) => {
   const params = route.params;
   const {photoType, uri} = params;
+
+  const [groupedInputs, setGroupedInputs] = useState([
+    {id: '1', title: '', description: ''},
+  ]);
+  const [groupedSolutionInputs, setGroupedSolutionInputs] = useState([
+    {id: '1', title: '', description: ''},
+  ]);
+
+  const addGroupedInput = () => {
+    const newInput = {
+      id: String(`description - ${groupedInputs.length + 1}`),
+      title: '',
+      description: '',
+    };
+    setGroupedInputs(previousState => [...previousState, newInput]);
+  };
+
+  const addGroupedSolutionInput = () => {
+    const newInput = {
+      id: String(`solution - ${groupedSolutionInputs.length + 1}`),
+      title: '',
+      description: '',
+    };
+    setGroupedSolutionInputs(previousState => [...previousState, newInput]);
+  };
+
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
   console.log(params);
+
   const validationSchema = Yup.object().shape({
     price: Yup.string().required('No price set').trim(),
     common_name: Yup.string()
@@ -43,6 +70,7 @@ const AddNewItem = ({navigation, route}: Props) => {
       .required('Intensity of sunlight is a required field')
       .trim(),
   });
+  console.log(groupedInputs, groupedSolutionInputs, 'identifier');
   return (
     <Formik
       initialValues={{
@@ -53,14 +81,25 @@ const AddNewItem = ({navigation, route}: Props) => {
         cycle: '',
         watering: '',
         sunlight: '',
-        title: '',
-        description: '',
+        groupedInputs: groupedInputs,
+        groupedSolutionInputs: groupedSolutionInputs,
+        family: '',
+        host: '',
+        solution: '',
       }}
       validationSchema={validationSchema}
       onSubmit={values => {
         console.log(values);
       }}>
-      {({handleChange, handleBlur, handleSubmit, values, errors, touched}) => (
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        errors,
+        touched,
+        setFieldValue,
+      }) => (
         <KeyboardAvoidingView
           style={{flex: 1, backgroundColor: Colors.screenColor}}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -152,6 +191,92 @@ const AddNewItem = ({navigation, route}: Props) => {
                   />
                 </>
               )}
+
+              {photoType === 'plantDisease' && (
+                <>
+                  <WTextInput
+                    handleBlur={handleBlur('family')}
+                    handleChangeText={handleChange('family')}
+                    placeholder={'Family'}
+                    showError={errors.family && touched.family}
+                    errorMessage={errors.family}
+                  />
+                  <WTextInput
+                    handleBlur={handleBlur('host')}
+                    handleChangeText={handleChange('host')}
+                    placeholder={'Host'}
+                    showError={errors.host && touched.host}
+                    errorMessage={errors.host}
+                  />
+                  <WTextInput
+                    handleBlur={handleBlur('solution')}
+                    handleChangeText={handleChange('solution')}
+                    placeholder={'Solution'}
+                    showError={errors.solution && touched.solution}
+                    errorMessage={errors.solution}
+                  />
+                  {groupedInputs.map((input, index) => (
+                    <GroupedTextInput
+                      headerTitle="Need to add a catchy detail?"
+                      key={1}
+                      error={
+                        errors.groupedInputs && errors.groupedInputs[index]
+                      }
+                      handleBlur={() => {
+                        handleBlur(`groupedInputs[${index}].title`);
+                        handleBlur(`groupedInputs[${index}].description`);
+                      }}
+                      handleChangeTextTitle={(text: string) => {
+                        setFieldValue(`groupedInputs[${index}].title`, text);
+                      }}
+                      handleChangeTextDescription={(text: string) => {
+                        setFieldValue(
+                          `groupedInputs[${index}].description`,
+                          text,
+                        );
+                      }}
+                      inputListLength={groupedInputs.length}
+                      createTextInput={() => {
+                        addGroupedInput();
+                      }}
+                    />
+                  ))}
+                  {groupedSolutionInputs.map((input, index) => (
+                    <GroupedTextInput
+                      headerTitle="Need to add a catchy detail?"
+                      key={input.id}
+                      error={
+                        errors.groupedSolutionInputs &&
+                        errors.groupedSolutionInputs[index]
+                      }
+                      handleBlur={() => {
+                        handleBlur(`groupedSolutionInputs[${index}].title`);
+                        handleBlur(
+                          `groupedSolutionInputs[${index}].description`,
+                        );
+                      }}
+                      handleChangeTextTitle={(text: string) => {
+                        setFieldValue(
+                          `groupedSolutionInputs[${index}].title`,
+                          text,
+                        );
+                      }}
+                      handleChangeTextDescription={(text: string) => {
+                        setFieldValue(
+                          `groupedSolutionInputs[${index}].description`,
+                          text,
+                        );
+                      }}
+                      inputListLength={groupedSolutionInputs.length}
+                      createTextInput={() => {
+                        console.log('createTextInput');
+                        addGroupedSolutionInput();
+                      }}
+                    />
+                  ))}
+                </>
+              )}
+
               <WTextInput
                 handleBlur={handleBlur('price')}
                 handleChangeText={handleChange('price')}
@@ -160,20 +285,17 @@ const AddNewItem = ({navigation, route}: Props) => {
                 errorMessage={errors.price}
                 keyboardType="numeric"
               />
-
-              <InputList
-                handleChangeText={handleChange('title')}
-                // error={'Error'}
-                // handleBlur={undefined}
-                // handleChangeText={undefined}
-              />
+            </View>
+            <View style={{width: screenWidth, backgroundColor: 'red'}}>
               <ConfirmButton
-                buttonText="Add a new Item"
-                onPress={handleSubmit}
+                buttonText="Add a New Item"
+                onPress={() => {
+                  handleSubmit();
+                }}
               />
             </View>
-            <Backbutton containsTitle title="Add a New Plant" />
           </ScrollView>
+          <Backbutton containsTitle title="Add a New Plant" />
         </KeyboardAvoidingView>
       )}
     </Formik>

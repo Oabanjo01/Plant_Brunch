@@ -1,30 +1,31 @@
-import React, {useState} from 'react';
-import {Pressable, View} from 'react-native';
-import WTextInput from './textInput';
 import {Colors} from '@app/constants';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import WText from '@app/utilities/customText';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Fonts} from '@app/constants/fonts';
+import WText from '@app/utilities/customText';
+import React from 'react';
+import {View} from 'react-native';
+import WTextInput from './textInput';
+import {Pressable} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {showToast} from '@app/utilities/toast';
 
-const InputList = ({handleChangeText}: {handleChangeText: any}) => {
-  const [inputs, setInputs] = useState([
-    {id: 1, error: '', handleBlur: () => {}, handleChangeText: () => {}},
-  ]);
-  const addInput = () => {
-    const newInput = {
-      id: inputs.length + 1,
-      error: '',
-      handleBlur: () => {},
-      handleChangeText: () => {},
-    };
-    setInputs(prevState => [...prevState, newInput]);
-  };
-  //   const handleBlur = (id: number) => {};
-  //   const handleChangeText = (id, text) => {
-  //     // Custom change text handling logic
-  //   };
-  console.log(inputs.length);
+const GroupedTextInput = ({
+  error,
+  headerTitle,
+  handleBlur,
+  handleChangeTextTitle,
+  handleChangeTextDescription,
+  inputListLength,
+  createTextInput,
+}: {
+  error: any;
+  headerTitle: string;
+  handleBlur: any;
+  handleChangeTextTitle: any;
+  handleChangeTextDescription: any;
+  inputListLength: number;
+  createTextInput: any;
+}) => {
   return (
     <>
       <View
@@ -34,6 +35,7 @@ const InputList = ({handleChangeText}: {handleChangeText: any}) => {
           paddingVertical: screenHeight * 0.01,
           marginHorizontal: screenWidth * 0.05,
           borderRadius: 20,
+          marginBottom: screenHeight * 0.015,
         }}>
         <WText
           style={{
@@ -41,34 +43,39 @@ const InputList = ({handleChangeText}: {handleChangeText: any}) => {
             marginLeft: screenWidth * 0.05,
             fontFamily: Fonts.semiBold,
           }}>
-          Need to add a catchy detail?
+          {headerTitle}
         </WText>
-        {inputs.map((input, index) => (
-          <View
-            style={{
-              marginBottom: inputs.length > 1 ? screenHeight * 0.015 : 0,
-            }}>
-            <GroupedTextInput
-              key={input.id}
-              error={input.error}
-              //   handleBlur={() => handleBlur(input.id)}
-              //   handleChangeText={(text: string) =>
-              //     handleChangeText(input.id, text)
-              //   }
-              index={index}
-              handleBlurTitle={`title-${index}`}
-              handleBlurDescription={`description-${index}`}
-              handleChangeTextTitle={handleChangeText}
-              handleChangeTextDescription={undefined}
-            />
-          </View>
-        ))}
+        <WTextInput
+          placeholder="Title"
+          errorMessage="Imagine what a shiny title could do to your post?"
+          showError={error}
+          handleBlur={handleBlur}
+          handleChangeText={handleChangeTextTitle}
+        />
+        <WTextInput
+          placeholder="Description"
+          errorMessage="Take your prospective buyer through a tour"
+          showError={error}
+          handleBlur={handleBlur}
+          handleChangeText={handleChangeTextDescription}
+          numberOfLines={10}
+        />
       </View>
-      <Pressable onPress={() => addInput()}>
+      <Pressable
+        onPress={() => {
+          inputListLength < 5
+            ? createTextInput()
+            : showToast({
+                text1: 'Limit Reached',
+                text2: 'You can only add 5 details at a time',
+                type: 'info',
+                position: 'top',
+              });
+        }}>
         <Ionicons
           name="add-circle-outline"
           style={{
-            marginTop: 10,
+            marginBottom: screenHeight * 0.015,
             alignSelf: 'flex-end',
             marginRight: screenWidth * 0.05,
           }}
@@ -80,41 +87,4 @@ const InputList = ({handleChangeText}: {handleChangeText: any}) => {
   );
 };
 
-const GroupedTextInput = ({
-  error,
-  handleBlurTitle,
-  handleBlurDescription,
-  handleChangeTextTitle,
-  handleChangeTextDescription,
-  index,
-}: {
-  error: string;
-  handleBlurTitle: any;
-  handleBlurDescription: any;
-  handleChangeTextTitle: any;
-  handleChangeTextDescription: any;
-  index: number;
-}) => {
-  console.log(index, 'index');
-  return (
-    <>
-      <WTextInput
-        placeholder="Title"
-        errorMessage="Imagine what a shiny title could do to your post?"
-        showError={error}
-        handleBlur={handleBlurTitle}
-        handleChangeText={handleChangeTextTitle}
-      />
-      <WTextInput
-        placeholder="Description"
-        errorMessage="Take your prospective buyer through a tour"
-        showError={error}
-        handleBlur={handleBlurDescription}
-        handleChangeText={handleChangeTextDescription}
-        numberOfLines={10}
-      />
-    </>
-  );
-};
-
-export default InputList;
+export default GroupedTextInput;
