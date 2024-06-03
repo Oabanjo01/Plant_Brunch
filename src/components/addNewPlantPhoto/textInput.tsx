@@ -20,6 +20,7 @@ const WTextInput = ({
   errorMessage,
   handleBlur,
   keyboardType,
+  numberOfLines = 1,
 }: {
   handleChangeText: any;
   placeholder: string;
@@ -27,6 +28,7 @@ const WTextInput = ({
   errorMessage?: string;
   handleBlur: any;
   keyboardType?: KeyboardTypeOptions;
+  numberOfLines?: number;
 }) => {
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
@@ -38,6 +40,7 @@ const WTextInput = ({
       <TextInput
         cursorColor={Colors.primaryTextColor}
         selectionColor={Colors.primary}
+        numberOfLines={numberOfLines}
         style={{
           ...styles.textInput,
           borderColor:
@@ -46,6 +49,7 @@ const WTextInput = ({
               : Colors.inActiveUnderlineTextInputColor,
           color: Colors.primaryTextColor,
           marginBottom: screenHeight * 0.01,
+          textAlignVertical: numberOfLines > 1 ? 'top' : 'center',
         }}
         onBlur={handleBlur}
         onChangeText={(text: string) => {

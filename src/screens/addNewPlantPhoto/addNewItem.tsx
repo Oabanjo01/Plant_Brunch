@@ -1,3 +1,4 @@
+import InputList from '@app/components/addNewPlantPhoto/groupedTextInput';
 import WTextInput from '@app/components/addNewPlantPhoto/textInput';
 import {getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
@@ -8,13 +9,7 @@ import Backbutton from '@app/utilities/backbutton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Formik} from 'formik';
 import React from 'react';
-import {
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  View,
-} from 'react-native';
+import {KeyboardAvoidingView, Platform, ScrollView, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 import {useSelector} from 'react-redux';
@@ -31,6 +26,9 @@ const AddNewItem = ({navigation, route}: Props) => {
   console.log(params);
   const validationSchema = Yup.object().shape({
     price: Yup.string().required('No price set').trim(),
+    common_name: Yup.string()
+      .required('What is this popularly known as?')
+      .trim(),
     scientific_Name: Yup.string()
       .required('Scientific name is a required field')
       .trim(),
@@ -50,10 +48,13 @@ const AddNewItem = ({navigation, route}: Props) => {
       initialValues={{
         price: '',
         scientific_Name: '',
+        common_name: '',
         other_Name: '',
         cycle: '',
         watering: '',
         sunlight: '',
+        title: '',
+        description: '',
       }}
       validationSchema={validationSchema}
       onSubmit={values => {
@@ -104,7 +105,6 @@ const AddNewItem = ({navigation, route}: Props) => {
                   }}
                 />
               </View>
-
               <WTextInput
                 handleBlur={handleBlur('scientific_Name')}
                 handleChangeText={handleChange('scientific_Name')}
@@ -116,30 +116,42 @@ const AddNewItem = ({navigation, route}: Props) => {
                 handleBlur={handleBlur('other_Name')}
                 handleChangeText={handleChange('other_Name')}
                 placeholder={'Other Name'}
-                showError={errors.other_Name}
+                showError={errors.other_Name && touched.other_Name}
                 errorMessage={errors.other_Name}
               />
               <WTextInput
-                handleBlur={handleBlur('cycle')}
-                handleChangeText={handleChange('cycle')}
-                placeholder={'Cycle'}
-                showError={errors.cycle && touched.cycle}
-                errorMessage={errors.cycle}
+                handleBlur={handleBlur('common_name')}
+                handleChangeText={handleChange('common_name')}
+                placeholder={'Common Name'}
+                showError={errors.common_name && touched.common_name}
+                errorMessage={errors.common_name}
               />
-              <WTextInput
-                handleBlur={handleBlur('watering')}
-                handleChangeText={handleChange('watering')}
-                placeholder={'Watering'}
-                showError={errors.watering && touched.watering}
-                errorMessage={errors.watering}
-              />
-              <WTextInput
-                handleBlur={handleBlur('sunlight')}
-                handleChangeText={handleChange('sunlight')}
-                placeholder={'Sunlight'}
-                showError={errors.sunlight && touched.sunlight}
-                errorMessage={errors.sunlight}
-              />
+
+              {photoType === 'plantPhotograph' && (
+                <>
+                  <WTextInput
+                    handleBlur={handleBlur('cycle')}
+                    handleChangeText={handleChange('cycle')}
+                    placeholder={'Cycle'}
+                    showError={errors.cycle && touched.cycle}
+                    errorMessage={errors.cycle}
+                  />
+                  <WTextInput
+                    handleBlur={handleBlur('watering')}
+                    handleChangeText={handleChange('watering')}
+                    placeholder={'Watering'}
+                    showError={errors.watering && touched.watering}
+                    errorMessage={errors.watering}
+                  />
+                  <WTextInput
+                    handleBlur={handleBlur('sunlight')}
+                    handleChangeText={handleChange('sunlight')}
+                    placeholder={'Sunlight'}
+                    showError={errors.sunlight && touched.sunlight}
+                    errorMessage={errors.sunlight}
+                  />
+                </>
+              )}
               <WTextInput
                 handleBlur={handleBlur('price')}
                 handleChangeText={handleChange('price')}
@@ -147,6 +159,13 @@ const AddNewItem = ({navigation, route}: Props) => {
                 showError={errors.price && touched.price}
                 errorMessage={errors.price}
                 keyboardType="numeric"
+              />
+
+              <InputList
+                handleChangeText={handleChange('title')}
+                // error={'Error'}
+                // handleBlur={undefined}
+                // handleChangeText={undefined}
               />
               <ConfirmButton
                 buttonText="Add a new Item"

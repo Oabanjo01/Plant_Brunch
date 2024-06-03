@@ -148,6 +148,8 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     fetchCartStatus(common_name);
   }, []);
 
+  console.log(item);
+
   if (isFetchingArticles || isFetching || isFetchingCartItems) {
     return (
       <View

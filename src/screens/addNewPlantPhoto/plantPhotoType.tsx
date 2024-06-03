@@ -19,7 +19,10 @@ const PlantPhotoType = ({navigation, route}: Props) => {
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
 
-  const plantTypeButtons = (text: string, phototype: string) => {
+  const plantTypeButtons = (
+    text: string,
+    phototype: 'plantPhotograph' | 'plantDisease',
+  ) => {
     return (
       <Pressable
         onPress={() =>
