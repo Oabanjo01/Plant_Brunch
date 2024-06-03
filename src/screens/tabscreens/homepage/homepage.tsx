@@ -4,7 +4,7 @@ import RenderPlantPictures, {
 import {
   RenderSubTopics,
   SubTopics,
-} from '@app/components/homepagecomponents/plantcategories';
+} from '@app/components/homepagecomponents/subTopics';
 import {RenderDiseasePicture} from '@app/components/homepagecomponents/plantdiseases';
 import {Routes} from '@app/constants';
 import {getThemeColor} from '@app/constants/colors';
@@ -132,13 +132,13 @@ const HomePage = ({navigation}: ScreenProps) => {
                     await auth()
                       .signOut()
                       .then(() => {
+                        dispatch(logoutAction());
                         navigation.replace(Routes.Login);
                         showToast({
                           type: 'success',
                           text1: 'Logged out',
                           text2: 'You have been logged out',
                         });
-                        dispatch(logoutAction());
                       })
                       .catch((error: string) => {
                         showToast({

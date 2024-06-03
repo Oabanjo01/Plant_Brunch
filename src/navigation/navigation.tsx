@@ -54,7 +54,10 @@ export type RootStackParamList = {
   TransactionSummary: {itemNo: number} | undefined;
   PhotoView: {photo: Asset[]} | undefined;
   PlantPhotoType: {uri: (string | undefined)[] | undefined};
-  AddNewItem: {photoType: string; uri: (string | undefined)[]};
+  AddNewItem: {
+    photoType: 'plantPhotograph' | 'plantDisease';
+    uri: (string | undefined)[];
+  };
 };
 
 export type RootStackNavigationProp =

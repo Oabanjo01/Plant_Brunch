@@ -11,23 +11,26 @@ const useCameraDevice = () => {
     if (hasPermission) {
       navigation.push(Routes.CameraScreen);
     } else {
-      await requestPermission()
-        .then(permissionStatus => {
-          if (!permissionStatus) {
-            showToast({
-              text1: 'Camera permission denied',
-              text2: 'Grant camera permission',
-              type: 'info',
-            });
-            return;
-          }
-          if (permissionStatus) {
-            navigation.push(Routes.CameraScreen);
-          }
-        })
-        .catch(error => {
-          console.error('Error requesting camera permission:', error);
+      const permissionStatus = await requestPermission();
+      try {
+        if (!permissionStatus) {
+          showToast({
+            text1: 'Camera permission denied',
+            text2: 'Grant camera permission',
+            type: 'info',
+          });
+          return;
+        }
+        if (permissionStatus) {
+          navigation.push(Routes.CameraScreen);
+        }
+      } catch (error) {
+        showToast({
+          text1: 'Error',
+          text2: 'An error occurred while opening camera',
+          type: 'error',
         });
+      }
     }
   };
 

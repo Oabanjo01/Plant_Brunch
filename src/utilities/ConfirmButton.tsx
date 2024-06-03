@@ -30,7 +30,6 @@ const ConfirmButton = ({
           fontSize: 16,
           fontFamily: Fonts.semiBold,
         }}>
-        {/* Proceed to Buy */}
         {buttonText}
       </WText>
     </Pressable>
@@ -39,10 +38,8 @@ const ConfirmButton = ({
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    marginTop: screenHeight * 0.05,
+    marginTop: screenHeight * 0.025,
     marginBottom: screenHeight * 0.025,
-    // position: 'absolute',
-    // bottom: screenHeight * 0.02,
     backgroundColor: Colors.primary,
     borderRadius: 15,
     height: screenHeight * 0.06,
