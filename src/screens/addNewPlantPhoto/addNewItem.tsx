@@ -88,9 +88,7 @@ const AddNewItem = ({navigation, route}: Props) => {
         solution: '',
       }}
       validationSchema={validationSchema}
-      onSubmit={values => {
-        console.log(values);
-      }}>
+      onSubmit={values => {}}>
       {({
         handleChange,
         handleBlur,
@@ -100,203 +98,192 @@ const AddNewItem = ({navigation, route}: Props) => {
         touched,
         setFieldValue,
       }) => (
-        <KeyboardAvoidingView
-          style={{flex: 1, backgroundColor: Colors.screenColor}}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <ScrollView keyboardShouldPersistTaps="never">
+        <View
+          style={{
+            backgroundColor: Colors.screenColor,
+            flex: 1,
+            paddingTop: screenHeight * 0.1,
+          }}>
+          <ScrollView keyboardShouldPersistTaps="never" style={{flexGrow: 1}}>
             <View
               style={{
-                backgroundColor: Colors.screenColor,
-                height: '100%',
-                paddingTop: screenHeight * 0.2,
+                alignItems: 'center',
+                alignSelf: 'center',
+                width: screenWidth * 0.9,
+                marginBottom: screenHeight * 0.025,
               }}>
-              <View
-                style={{
-                  alignItems: 'center',
-                  alignSelf: 'center',
-                  width: screenWidth * 0.9,
-                  marginBottom: screenHeight * 0.025,
-                }}>
-                <SwiperFlatList
-                  index={0}
-                  showPagination
-                  paginationDefaultColor={Colors.lighterBlack}
-                  paginationActiveColor={Colors.primary}
-                  keyExtractor={item => item}
-                  data={uri}
-                  renderItem={({item}: {item: string}) => {
-                    return (
-                      <FastImage
-                        source={{uri: `file://${item}`}}
-                        resizeMode={
-                          Platform.OS === 'android' ? 'cover' : 'contain'
-                        }
-                        style={{
-                          height: screenHeight * 0.4,
-                          width: screenWidth * 0.9,
-                          borderWidth: 1,
-                          borderColor: Colors.lighterBlack,
-                          marginBottom: screenHeight * 0.05,
-                          borderRadius: 20,
-                        }}
-                      />
-                    );
-                  }}
-                />
-              </View>
-              <WTextInput
-                handleBlur={handleBlur('scientific_Name')}
-                handleChangeText={handleChange('scientific_Name')}
-                placeholder={'Scientific Name'}
-                showError={errors.scientific_Name && touched.scientific_Name}
-                errorMessage={errors.scientific_Name}
-              />
-              <WTextInput
-                handleBlur={handleBlur('other_Name')}
-                handleChangeText={handleChange('other_Name')}
-                placeholder={'Other Name'}
-                showError={errors.other_Name && touched.other_Name}
-                errorMessage={errors.other_Name}
-              />
-              <WTextInput
-                handleBlur={handleBlur('common_name')}
-                handleChangeText={handleChange('common_name')}
-                placeholder={'Common Name'}
-                showError={errors.common_name && touched.common_name}
-                errorMessage={errors.common_name}
-              />
-
-              {photoType === 'plantPhotograph' && (
-                <>
-                  <WTextInput
-                    handleBlur={handleBlur('cycle')}
-                    handleChangeText={handleChange('cycle')}
-                    placeholder={'Cycle'}
-                    showError={errors.cycle && touched.cycle}
-                    errorMessage={errors.cycle}
-                  />
-                  <WTextInput
-                    handleBlur={handleBlur('watering')}
-                    handleChangeText={handleChange('watering')}
-                    placeholder={'Watering'}
-                    showError={errors.watering && touched.watering}
-                    errorMessage={errors.watering}
-                  />
-                  <WTextInput
-                    handleBlur={handleBlur('sunlight')}
-                    handleChangeText={handleChange('sunlight')}
-                    placeholder={'Sunlight'}
-                    showError={errors.sunlight && touched.sunlight}
-                    errorMessage={errors.sunlight}
-                  />
-                </>
-              )}
-
-              {photoType === 'plantDisease' && (
-                <>
-                  <WTextInput
-                    handleBlur={handleBlur('family')}
-                    handleChangeText={handleChange('family')}
-                    placeholder={'Family'}
-                    showError={errors.family && touched.family}
-                    errorMessage={errors.family}
-                  />
-                  <WTextInput
-                    handleBlur={handleBlur('host')}
-                    handleChangeText={handleChange('host')}
-                    placeholder={'Host'}
-                    showError={errors.host && touched.host}
-                    errorMessage={errors.host}
-                  />
-                  <WTextInput
-                    handleBlur={handleBlur('solution')}
-                    handleChangeText={handleChange('solution')}
-                    placeholder={'Solution'}
-                    showError={errors.solution && touched.solution}
-                    errorMessage={errors.solution}
-                  />
-                  {groupedInputs.map((input, index) => (
-                    <GroupedTextInput
-                      headerTitle="Need to add a catchy detail?"
-                      key={1}
-                      error={
-                        errors.groupedInputs && errors.groupedInputs[index]
+              <SwiperFlatList
+                index={0}
+                showPagination
+                paginationDefaultColor={Colors.lighterBlack}
+                paginationActiveColor={Colors.primary}
+                keyExtractor={item => item}
+                data={uri}
+                renderItem={({item}: {item: string}) => {
+                  return (
+                    <FastImage
+                      source={{uri: `file://${item}`}}
+                      resizeMode={
+                        Platform.OS === 'android' ? 'cover' : 'contain'
                       }
-                      handleBlur={() => {
-                        handleBlur(`groupedInputs[${index}].title`);
-                        handleBlur(`groupedInputs[${index}].description`);
-                      }}
-                      handleChangeTextTitle={(text: string) => {
-                        setFieldValue(`groupedInputs[${index}].title`, text);
-                      }}
-                      handleChangeTextDescription={(text: string) => {
-                        setFieldValue(
-                          `groupedInputs[${index}].description`,
-                          text,
-                        );
-                      }}
-                      inputListLength={groupedInputs.length}
-                      createTextInput={() => {
-                        addGroupedInput();
+                      style={{
+                        height: screenHeight * 0.4,
+                        width: screenWidth * 0.85,
+                        borderWidth: 1,
+                        borderColor: Colors.lighterBlack,
+                        marginBottom: screenHeight * 0.05,
+                        borderRadius: 20,
                       }}
                     />
-                  ))}
-                  {groupedSolutionInputs.map((input, index) => (
-                    <GroupedTextInput
-                      headerTitle="Need to add a catchy detail?"
-                      key={input.id}
-                      error={
-                        errors.groupedSolutionInputs &&
-                        errors.groupedSolutionInputs[index]
-                      }
-                      handleBlur={() => {
-                        handleBlur(`groupedSolutionInputs[${index}].title`);
-                        handleBlur(
-                          `groupedSolutionInputs[${index}].description`,
-                        );
-                      }}
-                      handleChangeTextTitle={(text: string) => {
-                        setFieldValue(
-                          `groupedSolutionInputs[${index}].title`,
-                          text,
-                        );
-                      }}
-                      handleChangeTextDescription={(text: string) => {
-                        setFieldValue(
-                          `groupedSolutionInputs[${index}].description`,
-                          text,
-                        );
-                      }}
-                      inputListLength={groupedSolutionInputs.length}
-                      createTextInput={() => {
-                        console.log('createTextInput');
-                        addGroupedSolutionInput();
-                      }}
-                    />
-                  ))}
-                </>
-              )}
-
-              <WTextInput
-                handleBlur={handleBlur('price')}
-                handleChangeText={handleChange('price')}
-                placeholder={'Price'}
-                showError={errors.price && touched.price}
-                errorMessage={errors.price}
-                keyboardType="numeric"
-              />
-            </View>
-            <View style={{width: screenWidth, backgroundColor: 'red'}}>
-              <ConfirmButton
-                buttonText="Add a New Item"
-                onPress={() => {
-                  handleSubmit();
+                  );
                 }}
               />
             </View>
+            <WTextInput
+              handleBlur={handleBlur('scientific_Name')}
+              handleChangeText={handleChange('scientific_Name')}
+              placeholder={'Scientific Name'}
+              showError={errors.scientific_Name && touched.scientific_Name}
+              errorMessage={errors.scientific_Name}
+            />
+            <WTextInput
+              handleBlur={handleBlur('other_Name')}
+              handleChangeText={handleChange('other_Name')}
+              placeholder={'Other Name'}
+              showError={errors.other_Name && touched.other_Name}
+              errorMessage={errors.other_Name}
+            />
+            <WTextInput
+              handleBlur={handleBlur('common_name')}
+              handleChangeText={handleChange('common_name')}
+              placeholder={'Common Name'}
+              showError={errors.common_name && touched.common_name}
+              errorMessage={errors.common_name}
+            />
+
+            {photoType === 'plantPhotograph' && (
+              <>
+                <WTextInput
+                  handleBlur={handleBlur('cycle')}
+                  handleChangeText={handleChange('cycle')}
+                  placeholder={'Cycle'}
+                  showError={errors.cycle && touched.cycle}
+                  errorMessage={errors.cycle}
+                />
+                <WTextInput
+                  handleBlur={handleBlur('watering')}
+                  handleChangeText={handleChange('watering')}
+                  placeholder={'Watering'}
+                  showError={errors.watering && touched.watering}
+                  errorMessage={errors.watering}
+                />
+                <WTextInput
+                  handleBlur={handleBlur('sunlight')}
+                  handleChangeText={handleChange('sunlight')}
+                  placeholder={'Sunlight'}
+                  showError={errors.sunlight && touched.sunlight}
+                  errorMessage={errors.sunlight}
+                />
+              </>
+            )}
+
+            {photoType === 'plantDisease' && (
+              <>
+                <WTextInput
+                  handleBlur={handleBlur('family')}
+                  handleChangeText={handleChange('family')}
+                  placeholder={'Family'}
+                  showError={errors.family && touched.family}
+                  errorMessage={errors.family}
+                />
+                <WTextInput
+                  handleBlur={handleBlur('host')}
+                  handleChangeText={handleChange('host')}
+                  placeholder={'Host'}
+                  showError={errors.host && touched.host}
+                  errorMessage={errors.host}
+                />
+                <WTextInput
+                  handleBlur={handleBlur('solution')}
+                  handleChangeText={handleChange('solution')}
+                  placeholder={'Solution'}
+                  showError={errors.solution && touched.solution}
+                  errorMessage={errors.solution}
+                />
+                {groupedInputs.map((input, index) => (
+                  <GroupedTextInput
+                    headerTitle="Need to add a catchy detail?"
+                    key={1}
+                    error={errors.groupedInputs && errors.groupedInputs[index]}
+                    handleBlur={() => {
+                      handleBlur(`groupedInputs[${index}].title`);
+                      handleBlur(`groupedInputs[${index}].description`);
+                    }}
+                    handleChangeTextTitle={(text: string) => {
+                      setFieldValue(`groupedInputs[${index}].title`, text);
+                    }}
+                    handleChangeTextDescription={(text: string) => {
+                      setFieldValue(
+                        `groupedInputs[${index}].description`,
+                        text,
+                      );
+                    }}
+                    inputListLength={groupedInputs.length}
+                    createTextInput={() => {
+                      addGroupedInput();
+                    }}
+                  />
+                ))}
+                {groupedSolutionInputs.map((input, index) => (
+                  <GroupedTextInput
+                    headerTitle="Need to add a catchy detail?"
+                    key={input.id}
+                    error={
+                      errors.groupedSolutionInputs &&
+                      errors.groupedSolutionInputs[index]
+                    }
+                    handleBlur={() => {
+                      handleBlur(`groupedSolutionInputs[${index}].title`);
+                      handleBlur(`groupedSolutionInputs[${index}].description`);
+                    }}
+                    handleChangeTextTitle={(text: string) => {
+                      setFieldValue(
+                        `groupedSolutionInputs[${index}].title`,
+                        text,
+                      );
+                    }}
+                    handleChangeTextDescription={(text: string) => {
+                      setFieldValue(
+                        `groupedSolutionInputs[${index}].description`,
+                        text,
+                      );
+                    }}
+                    inputListLength={groupedSolutionInputs.length}
+                    createTextInput={() => {
+                      console.log('createTextInput');
+                      addGroupedSolutionInput();
+                    }}
+                  />
+                ))}
+              </>
+            )}
+
+            <WTextInput
+              handleBlur={handleBlur('price')}
+              handleChangeText={handleChange('price')}
+              placeholder={'Price'}
+              showError={errors.price && touched.price}
+              errorMessage={errors.price}
+              keyboardType="numeric"
+            />
           </ScrollView>
+          <KeyboardAvoidingView
+            style={{backgroundColor: Colors.screenColor}}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <ConfirmButton buttonText="Add a new Item" onPress={handleSubmit} />
+          </KeyboardAvoidingView>
           <Backbutton containsTitle title="Add a New Plant" />
-        </KeyboardAvoidingView>
+        </View>
       )}
     </Formik>
   );

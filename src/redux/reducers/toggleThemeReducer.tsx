@@ -2,7 +2,7 @@ import {REHYDRATE} from 'redux-persist';
 import types from '../types';
 
 export type ThemeData = {
-  theme: 'light' | 'dark';
+  theme: 'light' | 'dark' | 'system';
 };
 
 const initialState: ThemeData = {

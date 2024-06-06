@@ -3,7 +3,12 @@ import {Tabs} from '@app/constants/routes';
 import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import React from 'react';
-import {ImageBackground, TouchableOpacity, View} from 'react-native';
+import {
+  ImageBackground,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 
@@ -25,6 +30,7 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
+  const systemTheme = useColorScheme();
   return (
     // <KeyboardAvoidingView>
     <View
@@ -45,7 +51,7 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
           alignContent: 'center',
         }}
         source={
-          theme === 'light'
+          theme === 'light' || systemTheme === 'light'
             ? require('@assets/images/Union.jpg')
             : require('@assets/images/DarkModeUnion.png')
         }
