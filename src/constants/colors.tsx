@@ -1,3 +1,8 @@
+import {RootState} from '@app/redux/store';
+import {ColorSchemeName, useColorScheme} from 'react-native';
+import {useSelector} from 'react-redux';
+
+type ColorKey = keyof ColorProps; // represents the union of all keys in the ColorProps interface
 export interface ColorProps {
   screenColor: string;
   primary: string;
@@ -40,8 +45,6 @@ export const Colors: ColorProps = {
   addPhotoButtonColor: '#48A2F5',
 };
 
-type ColorKey = keyof ColorProps; // represents the union of all keys in the ColorProps interface
-
 export const DarkColors: ColorProps = {
   primaryTextColor: '#FFFFFF',
   tertiaryTextColor: '#1E1E1E',
@@ -73,10 +76,18 @@ const themes = {
   dark: {...DarkColors},
 };
 
-export const getThemeColor = (
-  theme: 'light' | 'dark' = 'light',
-  useSystemTheme?: 'light' | 'dark',
-) => {
-  const themeMode = themes[theme];
-  return themeMode;
+export const getThemeColor = (theme: 'light' | 'dark' = 'light') => {
+  const systemTheme = useColorScheme() || 'light';
+  const userTheme = useSelector((state: RootState) => state.theme);
+  const {theme: storedTheme} = userTheme;
+  let themeMode;
+
+  if (storedTheme === 'system') {
+    console.log(systemTheme, 'system theme');
+    const themeMode = themes[systemTheme];
+    return themeMode;
+  } else {
+    const themeMode = themes[theme];
+    return themeMode;
+  }
 };

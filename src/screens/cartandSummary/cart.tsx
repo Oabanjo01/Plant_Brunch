@@ -68,9 +68,11 @@ const CartScreen = ({route, navigation}: Props) => {
         <ConfirmButton
           buttonText="Proceed to Buy"
           // newStyle={{}}
-          onPress={navigation.navigate('TransactionSummary', {
-            itemNo: cartedList.length,
-          })}
+          onPress={() => {
+            navigation.navigate('TransactionSummary', {
+              itemNo: cartedList.length,
+            });
+          }}
         />
       </View>
     );

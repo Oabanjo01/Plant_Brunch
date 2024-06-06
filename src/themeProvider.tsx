@@ -1,13 +1,13 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {RootState} from './redux/store';
-import {StatusBar} from 'react-native';
+import {StatusBar, useColorScheme} from 'react-native';
 import ScreenStack from './navigation/navigation';
 
 const ThemeProvider: React.FC = () => {
   const userTheme = useSelector((state: RootState) => state.theme);
-  const {theme} = userTheme;
-  console.log(theme);
+  const theme = useColorScheme();
+  console.log(theme, 'themee');
   return (
     <>
       <StatusBar

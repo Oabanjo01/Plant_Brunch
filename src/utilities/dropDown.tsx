@@ -35,8 +35,6 @@ const DropDown = (props?: DropDownProps) => {
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
 
-  const systemTheme = useColorScheme();
-
   const styles = StyleSheet.create({
     dropDownItem: {
       paddingHorizontal: screenWidth * 0.04,
@@ -59,7 +57,7 @@ const DropDown = (props?: DropDownProps) => {
     } else if (value === 'cart') {
       navigation.navigate(Routes.CartScreen);
     } else if (value === 'settings') {
-      console.log('settings');
+      dispatch(toggleTheme('system'));
     }
     // else if (value === 'system') {
     //   console.log(value, systemTheme);

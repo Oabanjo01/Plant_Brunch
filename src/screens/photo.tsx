@@ -18,6 +18,7 @@ const PhotoView = ({navigation, route}: Props) => {
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
+  console.log(params);
 
   const imageUriList = params?.map(item => {
     return item.uri;

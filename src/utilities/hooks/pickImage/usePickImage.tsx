@@ -18,6 +18,7 @@ export const UsePickImage = ({navigation}: ScreenProps) => {
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
       selectionLimit: 5,
+      includeBase64: true,
     };
     console.log('hereee');
     try {
