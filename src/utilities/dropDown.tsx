@@ -24,12 +24,6 @@ const DropDown = (props?: DropDownProps) => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const [selectedOption, setSelectedOption] = useState<string>('');
 
-  const data: DropDownData[] = [
-    {label: 'Cart', value: 'cart'},
-    {label: 'Theme', value: 'theme'},
-    {label: 'Settings', value: 'settings'},
-  ];
-
   const dispatch = useDispatch();
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
@@ -49,6 +43,12 @@ const DropDown = (props?: DropDownProps) => {
     },
   });
 
+  const data: DropDownData[] = [
+    {label: 'Cart', value: 'cart'},
+    {label: theme === 'light' ? 'Dark' : 'Light', value: 'theme'},
+    {label: 'System', value: 'System'},
+  ];
+
   const handleOptionSelect = (value: string) => {
     setSelectedOption(value);
 
@@ -56,16 +56,10 @@ const DropDown = (props?: DropDownProps) => {
       dispatch(toggleTheme(theme === 'light' ? 'dark' : 'light'));
     } else if (value === 'cart') {
       navigation.navigate(Routes.CartScreen);
-    } else if (value === 'settings') {
+    } else if (value === 'System') {
       dispatch(toggleTheme('system'));
     }
-    // else if (value === 'system') {
-    //   console.log(value, systemTheme);
-    //   dispatch(toggleTheme(systemTheme === 'light' ? 'light' : 'dark'));
-    // }
   };
-
-  // TODO: display different floating drop down lists based on where user is in different screens
 
   // TODO: Alert modal to confirm deletion of account, then dispatch log out
 

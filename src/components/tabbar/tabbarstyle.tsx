@@ -51,7 +51,7 @@ const TabBarStyle: React.FC<CustomTabBarProps> = ({
           alignContent: 'center',
         }}
         source={
-          theme === 'light' || systemTheme === 'light'
+          theme === 'light' || (systemTheme === 'light' && theme === 'system')
             ? require('@assets/images/Union.jpg')
             : require('@assets/images/DarkModeUnion.png')
         }
