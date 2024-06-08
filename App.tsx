@@ -12,7 +12,7 @@ import Toast from 'react-native-toast-message';
 import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
-  // TODO: Fix theming using system default settings
+  // [ ]: Fix theming using system default settings
   return (
     <>
       <Provider store={store}>
