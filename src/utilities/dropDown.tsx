@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@app/redux/store';
 import {toggleTheme} from '@app/redux/actions/actions';
 import {getThemeColor} from '@app/constants/colors';
+import BottomSheetModal from '@app/components/modals/bottomSheetModal';
 
 interface DropDownData {
   label: string;
@@ -67,10 +68,9 @@ const DropDown = (props?: DropDownProps) => {
   return (
     <View
       style={{
-        position: 'absolute',
-        top: screenHeight * 0.07,
-        right: screenWidth * 0.03,
+        width: screenWidth,
       }}>
+      <BottomSheetModal />
       <SelectDropdown
         data={data}
         statusBarTranslucent
@@ -105,6 +105,9 @@ const DropDown = (props?: DropDownProps) => {
                 alignItems: 'flex-end',
                 backgroundColor: Colors.lighterBlack,
                 borderRadius: 100,
+                width: screenWidth * 0.1,
+                alignSelf: 'flex-end',
+                marginRight: screenWidth * 0.05,
                 padding: 5,
               }}>
               <Ionicons
