@@ -31,9 +31,8 @@ import {Asset} from 'react-native-image-picker';
 import PhotoView from '@app/screens/photo';
 import PlantList from '@app/screens/subtopics/scientificNames';
 import AddNewItem from '@app/screens/addNewPlantPhoto/addNewItem';
-import PlantPhotoType from '@app/screens/addNewPlantPhoto/plantPhotoType';
-
-// TODO: Add a settings page containing Delete account, log out, change password/Email/displayname tiles
+import PlantPhotoType from '@app/screens/addNewPlantPhoto/plantPhotoType'; // TODO: Add a settings page containing Delete account, log out, change password/Email/displayname tiles
+import {useVisibility} from '@app/themeProvider';
 export type RootStackParamList = {
   Onboarding: any;
   Login: any;
@@ -75,6 +74,7 @@ export type TabParamList = {
 };
 
 const HomeTabNavigator: React.FC = () => {
+  const {isBottomSheetVisible} = useVisibility();
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -85,6 +85,7 @@ const HomeTabNavigator: React.FC = () => {
       }}>
       <TabStack.Navigator
         tabBar={props => {
+          if (isBottomSheetVisible) return null;
           return (
             <TabBarStyle
               {...props}
@@ -98,6 +99,7 @@ const HomeTabNavigator: React.FC = () => {
           tabBarActiveTintColor: Colors.primary,
           tabBarInactiveTintColor: Colors.inActiveUnderlineTextInputColor,
           tabBarStyle: {
+            display: 'none',
             shadowOpacity: 0.4,
             shadowOffset: {width: -1, height: -1},
             paddingTop: 10,

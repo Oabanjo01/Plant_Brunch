@@ -32,7 +32,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
-const ProfilePage = (navigation: ScreenProps) => {
+
+const ProfilePage = ({
+  navigation,
+  route,
+}: {
+  navigation: ScreenProps;
+  route: any;
+}) => {
   const [activeButton, setActiveButton] = useState<number>(1);
 
   const userData = useSelector((state: RootState) => state.auth.user);

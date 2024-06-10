@@ -1,21 +1,21 @@
 import {RenderCartItem} from '@app/components/cart/cartItem';
-import {Colors, Routes} from '@app/constants';
+import BottomSheetModal from '@app/components/modals/bottomSheetModal';
+import {Colors} from '@app/constants';
 import {getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {RootState} from '@app/redux/store';
 import ConfirmButton from '@app/utilities/ConfirmButton';
-
 import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
+
 import useCart from '@app/utilities/hooks/cart/useCart';
 import LoadingIndicator from '@app/utilities/loadingIndicator';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
-import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {ActivityIndicator} from 'react-native-paper';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CartScreen'>;
