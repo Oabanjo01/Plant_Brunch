@@ -1,3 +1,4 @@
+import Backbutton from '@app/components/backbutton';
 import {RenderCartItem} from '@app/components/cart/cartItem';
 import BottomSheetModal from '@app/components/modals/bottomSheetModal';
 import {Colors} from '@app/constants';
@@ -7,7 +8,7 @@ import {Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {RootState} from '@app/redux/store';
 import ConfirmButton from '@app/utilities/ConfirmButton';
-import Backbutton from '@app/utilities/backbutton';
+
 import WText from '@app/utilities/customText';
 
 import useCart from '@app/utilities/hooks/cart/useCart';
@@ -31,7 +32,7 @@ const CartScreen = ({route, navigation}: Props) => {
   useEffect(() => {
     fetchAllUserCartedItems();
   }, []);
-  console.log(isFetching, isLoading);
+
   if (isLoading) {
     return <LoadingIndicator size={40} />;
   } else {

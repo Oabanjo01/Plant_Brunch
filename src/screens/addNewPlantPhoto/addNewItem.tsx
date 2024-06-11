@@ -1,11 +1,11 @@
 import GroupedTextInput from '@app/components/addNewPlantPhoto/groupedTextInput';
 import WTextInput from '@app/components/addNewPlantPhoto/textInput';
+import Backbutton from '@app/components/backbutton';
 import {getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {RootState} from '@app/redux/store';
 import ConfirmButton from '@app/utilities/ConfirmButton';
-import Backbutton from '@app/utilities/backbutton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
@@ -49,7 +49,6 @@ const AddNewItem = ({navigation, route}: Props) => {
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
-  console.log(params);
 
   const validationSchema = Yup.object().shape({
     price: Yup.string().required('No price set').trim(),
@@ -70,7 +69,7 @@ const AddNewItem = ({navigation, route}: Props) => {
       .required('Intensity of sunlight is a required field')
       .trim(),
   });
-  console.log(groupedInputs, groupedSolutionInputs, 'identifier');
+
   return (
     <Formik
       initialValues={{
@@ -260,7 +259,6 @@ const AddNewItem = ({navigation, route}: Props) => {
                     }}
                     inputListLength={groupedSolutionInputs.length}
                     createTextInput={() => {
-                      console.log('createTextInput');
                       addGroupedSolutionInput();
                     }}
                   />

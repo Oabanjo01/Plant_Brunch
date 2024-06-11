@@ -4,12 +4,13 @@ import WText from '@app/utilities/customText';
 import {useSelector} from 'react-redux';
 import {RootState} from '@app/redux/store';
 import {getThemeColor} from '@app/constants/colors';
-import Backbutton from '@app/utilities/backbutton';
+
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {useFetchData} from '@app/utilities/hooks/apiData/useFetchData';
 import LoadingIndicator from '@app/utilities/loadingIndicator';
 import {showToast} from '@app/utilities/toast';
+import Backbutton from '@app/components/backbutton';
 
 interface SectionType {
   title: string;
@@ -92,13 +93,9 @@ const PlantList = () => {
     }
   };
 
-  console.log(scientificNamesList);
-
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
-
-  console.log(isLoading, isFetching);
   return (
     <>
       {isLoading || isFetching ? (

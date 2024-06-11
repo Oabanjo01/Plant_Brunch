@@ -11,7 +11,6 @@ export const toggleTheme = (newTheme: string) => {
 };
 
 export const loginAction = (payload: any) => {
-  console.log(payload);
   return {
     type: types.LOGIN_SUCCESS,
     payload: {

@@ -24,15 +24,13 @@ export const useFetchData = () => {
     try {
       await retryWithBackoff(fetchHomePagedata, 2)
         .then((data: any) => {
-          console.log('response loading 1');
           setPlantList(data?.plantList);
           setPlantDisease(data?.plantDisease);
         })
         .catch((err: any) => {
-          console.log('response loading 2');
           showToast(err);
         });
-      console.log('response loading 3');
+
       setIsLoading(false);
       setRefreshing(false);
     } catch (error) {

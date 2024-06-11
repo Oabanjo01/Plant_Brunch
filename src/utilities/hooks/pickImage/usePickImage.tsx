@@ -14,13 +14,13 @@ export const UsePickImage = ({navigation}: ScreenProps) => {
 
   const selectImage = async () => {
     setOpening(true);
-    console.log('selected');
+
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
       selectionLimit: 5,
       includeBase64: true,
     };
-    console.log('hereee');
+
     try {
       await launchImageLibrary(options, response => {
         if (response.didCancel) {
@@ -56,7 +56,6 @@ export const UsePickImage = ({navigation}: ScreenProps) => {
           if (response.assets.length > 0) {
             navigation.navigate('PhotoView', {photo: response.assets});
           }
-          console.log(response.assets);
         }
       });
     } catch (error) {

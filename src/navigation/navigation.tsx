@@ -85,14 +85,19 @@ const HomeTabNavigator: React.FC = () => {
       }}>
       <TabStack.Navigator
         tabBar={props => {
-          if (isBottomSheetVisible) return null;
-          return (
-            <TabBarStyle
-              {...props}
-              screenHeight={screenHeight}
-              screenWidth={screenWidth}
-            />
-          );
+          if (isBottomSheetVisible) {
+            console.log('No tab bar visible');
+            return null;
+          } else {
+            console.log('Tab bar visible');
+            return (
+              <TabBarStyle
+                {...props}
+                screenHeight={screenHeight}
+                screenWidth={screenWidth}
+              />
+            );
+          }
         }}
         screenOptions={({route}) => ({
           headerShown: false,

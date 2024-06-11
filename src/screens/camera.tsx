@@ -24,8 +24,6 @@ const CameraScreen = ({navigation}: ScreenProps) => {
   const [photo, setPhoto] = useState<PhotoFile>();
   const [flashActive, setFlashactive] = useState<boolean>(false);
 
-  console.log(photo);
-
   const camera = useRef<Camera>(null);
   const device = useCameraDevice('back', {
     physicalDevices: [

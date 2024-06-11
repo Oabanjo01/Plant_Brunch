@@ -38,7 +38,6 @@ const authReducer = (
 ) => {
   switch (type) {
     case types.LOGIN_SUCCESS:
-      console.log(payload, 'login success');
       return {
         ...state,
         isAuthenticated: true,
@@ -73,7 +72,7 @@ const authReducer = (
       };
     case REHYDRATE:
       const rehydratedStatus = payload?.auth || initialState;
-      console.log(rehydratedStatus, 'rehydratedstatus');
+
       return {
         ...state,
         isAuthenticated: rehydratedStatus?.isAuthenticated,

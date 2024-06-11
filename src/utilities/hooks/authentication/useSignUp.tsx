@@ -49,7 +49,6 @@ export const useSignUp = () => {
         });
       setIsLoading(false);
     } catch (error: any) {
-      console.log(error);
       setIsLoading(false);
       handleFirebaseError(error);
     }
