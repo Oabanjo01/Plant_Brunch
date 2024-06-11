@@ -1,10 +1,11 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect, useImperativeHandle} from 'react';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
   Easing,
   Extrapolation,
   interpolate,
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -15,18 +16,49 @@ import {useSelector} from 'react-redux';
 import {RootState} from '@app/redux/store';
 import {getThemeColor} from '@app/constants/colors';
 import {useVisibility} from '@app/themeProvider';
+import WText from '@app/utilities/customText';
 
-const BottomSheetModal = () => {
-  const {setBottomSheetVisible} = useVisibility();
+type BottomSheetProps = {
+  children: React.ReactNode;
+};
+export type BottomSheetRefProps = {
+  scrollTo: (scrollheight: number, damping: number) => void;
+};
 
+const BottomSheetModal = React.forwardRef<
+  BottomSheetRefProps,
+  BottomSheetProps
+>((props, ref) => {
+  const {children} = props;
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
+
+  const {setBottomSheetVisible, isBottomSheetVisible} = useVisibility();
 
   const bottomSheetFullHeight = -screenHeight + 100;
 
   const translationY = useSharedValue(0);
   const previousYaxisValue = useSharedValue({y: 0});
+
+  const scrollTo = useCallback((scrollheight: number, damping: number) => {
+    'worklet';
+    translationY.value = withSpring(scrollheight, {damping: damping});
+    if (scrollheight === 0) {
+      runOnJS(setBottomSheetVisible)(false);
+    }
+  }, []);
+
+  // const closeBottomSheet = useCallback(() => {
+  //   'worklet';
+  //   // setTimeout(() => {
+  //   scrollTo(0, 50);
+  //   // }, 1000);
+
+  // }, []);
+
+  // exposes the ref to the parent component, i.e dropdown in this case
+  useImperativeHandle(ref, () => ({scrollTo}), [scrollTo]);
 
   const gesture = Gesture.Pan()
     .onStart(() => {
@@ -37,10 +69,10 @@ const BottomSheetModal = () => {
       translationY.value = Math.max(translationY.value, bottomSheetFullHeight);
     })
     .onEnd(() => {
-      if (translationY.value > -screenHeight / 5) {
-        translationY.value = withSpring(0, {damping: 50});
+      if (translationY.value > -screenHeight / 3) {
+        scrollTo(0, 50);
       } else if (translationY.value < -screenHeight / 1.5) {
-        translationY.value = withSpring(bottomSheetFullHeight, {damping: 50});
+        scrollTo(bottomSheetFullHeight, 50);
       }
     });
 
@@ -57,12 +89,12 @@ const BottomSheetModal = () => {
     };
   });
 
-  useEffect(() => {
-    translationY.value = withSpring(-screenHeight / 2.5, {
-      damping: 50,
-    });
-    setBottomSheetVisible(true);
-  }, []);
+  // useEffect(() => {
+  //   console.log(got here)
+  //   if (translationY.value === 0) {
+  //     setBottomSheetVisible(false);
+  //   }
+  // }, [translationY.value]);
 
   return (
     <View style={{flex: 1, backgroundColor: Colors.screenColor, zIndex: 9999}}>
@@ -77,13 +109,15 @@ const BottomSheetModal = () => {
             style={{
               ...styles.bottomSheetLineAnchor,
               backgroundColor: Colors.screenColor,
+              marginBottom: screenHeight * 0.1,
             }}
           />
+          {children}
         </Animated.View>
       </GestureDetector>
     </View>
   );
-};
+});
 
 export default BottomSheetModal;
 

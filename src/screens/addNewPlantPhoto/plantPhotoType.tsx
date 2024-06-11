@@ -16,9 +16,9 @@ import {Fonts} from '@app/constants/fonts';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {Routes} from '@app/constants';
-import Backbutton from '@app/utilities/backbutton';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import PlantTypeButtons from '@app/components/addNewPlantPhoto/photoTypeButton';
+import Backbutton from '@app/components/backbutton';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantPhotoType'>;
 

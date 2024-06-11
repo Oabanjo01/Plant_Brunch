@@ -83,7 +83,6 @@ export const getThemeColor = (theme: 'light' | 'dark' = 'light') => {
   let themeMode;
 
   if (storedTheme === 'system') {
-    console.log(systemTheme, 'system theme');
     const themeMode = themes[systemTheme];
     return themeMode;
   } else {

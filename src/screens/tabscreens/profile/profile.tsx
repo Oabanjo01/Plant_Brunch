@@ -1,3 +1,4 @@
+import DropDown from '@app/components/dropDown';
 import {RenderArticlesOrLikes} from '@app/components/profile/myArticlesandLikes';
 import {RenderCollectedPlantBox} from '@app/components/profile/myItemBox';
 import {TabBodyDisplay} from '@app/components/profile/tabBody';
@@ -12,8 +13,8 @@ import {
 import {Fonts} from '@app/constants/fonts';
 import {ScreenProps} from '@app/navigation/navigation';
 import {RootState} from '@app/redux/store';
+import {useVisibility} from '@app/themeProvider';
 import WText from '@app/utilities/customText';
-import DropDown from '@app/utilities/dropDown';
 import useArticles from '@app/utilities/hooks/articles/useArticles';
 import {useLikes} from '@app/utilities/hooks/likes/useLikes';
 import {UsePickImage} from '@app/utilities/hooks/pickImage/usePickImage';
@@ -41,6 +42,7 @@ const ProfilePage = ({
   route: any;
 }) => {
   const [activeButton, setActiveButton] = useState<number>(1);
+  const {setBottomSheetVisible, isBottomSheetVisible} = useVisibility();
 
   const userData = useSelector((state: RootState) => state.auth.user);
   const {displayName} = userData;
@@ -67,13 +69,17 @@ const ProfilePage = ({
   const {selectImage} = UsePickImage(navigation);
 
   useEffect(() => {
-    console.log('got here', isFocused);
+    // console.log('got here', isFocused);
     if (isFocused && activeButton === 2) {
       fetchAllLikes();
       return;
     }
     if (isFocused && activeButton === 0) {
       fetchAllUserArticles();
+      return;
+    }
+    if (isFocused === false) {
+      setBottomSheetVisible(false);
       return;
     }
   }, [isFocused, activeButton]);
@@ -127,7 +133,6 @@ const ProfilePage = ({
         locations={[0.1, 1]}
         colors={[Colors.gradientColor, Colors.primary]}
         style={{
-          paddingTop: screenHeight * 0.05,
           opacity: 1,
           height: dashboardHeight,
           width: screenWidth,
@@ -137,13 +142,23 @@ const ProfilePage = ({
         <View style={{position: 'absolute', right: 0}}>
           <ProfileDashboard />
         </View>
-        <DropDown />
+
+        <View
+          style={{
+            paddingTop: screenHeight * 0.07,
+            position: 'absolute',
+            top: 0,
+          }}>
+          <DropDown affectBottomTab={true} />
+        </View>
         <TouchableHighlight
           onPress={selectImage}
           underlayColor={Colors.screenColor}
           style={{
             height: dashboardHeight * 0.4,
             width: dashboardHeight * 0.4,
+            marginTop: screenHeight * 0.1,
+
             borderRadius: (dashboardHeight * 0.4) / 2,
             borderWidth: 2,
             borderColor: Colors.secondaryTextColor,
@@ -167,7 +182,7 @@ const ProfilePage = ({
           }}>
           {displayName}
         </WText>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', marginBottom: screenHeight * 0.05}}>
           <Ionicons name={'location'} size={30} color={Colors.whiteColor} />
           <WText
             style={{

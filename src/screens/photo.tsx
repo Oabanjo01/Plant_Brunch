@@ -4,12 +4,12 @@ import FastImage from 'react-native-fast-image';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootStackParamList, ScreenProps} from '@app/navigation/navigation';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import Backbutton from '@app/utilities/backbutton';
 import {Colors, getThemeColor} from '@app/constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Routes} from '@app/constants';
 import {useSelector} from 'react-redux';
 import {RootState} from '@app/redux/store';
+import Backbutton from '@app/components/backbutton';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PhotoView'>;
 
@@ -18,13 +18,10 @@ const PhotoView = ({navigation, route}: Props) => {
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
-  console.log(params);
 
   const imageUriList = params?.map(item => {
     return item.uri;
   });
-
-  console.log(imageUriList);
 
   return (
     <View
@@ -42,7 +39,6 @@ const PhotoView = ({navigation, route}: Props) => {
         horizontal
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => {
-          console.log(item, 'bla bl');
           return (
             <FastImage
               source={{uri: `file://${item.uri}`}}

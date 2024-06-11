@@ -3,9 +3,8 @@ import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {FontSize, Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {PlantDiseaseImageType, PlantDiseaseType} from '@app/redux/types';
-import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
-import DropDown from '@app/utilities/dropDown';
+
 import {capitalize} from '@app/utilities/sentenceHelpers';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
@@ -21,6 +20,8 @@ import useCart from '@app/utilities/hooks/cart/useCart';
 import {useSelector} from 'react-redux';
 import {RootState} from '@app/redux/store';
 import {getThemeColor} from '@app/constants/colors';
+import DropDown from '@app/components/dropDown';
+import Backbutton from '@app/components/backbutton';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantDiseaseDetail'>;
 
@@ -148,8 +149,6 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     fetchCartStatus(common_name);
   }, []);
 
-  console.log(item);
-
   if (isFetchingArticles || isFetching || isFetchingCartItems) {
     return (
       <View
@@ -237,7 +236,6 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
               }}
             />
           </View>
-          <DropDown />
         </View>
         <ScrollView
           style={{
@@ -414,6 +412,9 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
               color={Colors.whiteColor}
             />
           </TouchableOpacity>
+        </View>
+        <View style={{top: screenHeight * 0.07, position: 'absolute'}}>
+          <DropDown />
         </View>
         <Backbutton />
       </View>

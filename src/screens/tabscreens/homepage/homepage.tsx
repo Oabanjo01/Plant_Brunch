@@ -128,7 +128,6 @@ const HomePage = ({navigation}: ScreenProps) => {
                     alignItems: 'center',
                   }}
                   onPress={async () => {
-                    console.log('Press');
                     await auth()
                       .signOut()
                       .then(() => {

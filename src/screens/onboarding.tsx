@@ -65,21 +65,18 @@ const OnboardingScreens = ({navigation}: ScreenProps) => {
 
   const handleNextPress = () => {
     if (currentIndex.current < randomData.length - 1) {
-      console.log('got here', 1);
       currentIndex.current += 1;
       screenFlatListRef.current?.scrollToIndex({
         index: currentIndex.current,
         animated: true,
       });
     } else {
-      console.log('got here', currentIndex.current, randomData.length);
       dispatch(onboardingAction(true));
       goToLoginScreen();
     }
   };
 
   const goToLoginScreen = () => {
-    console.log('got here');
     navigation.navigate(Routes.Login);
   };
 
@@ -92,7 +89,6 @@ const OnboardingScreens = ({navigation}: ScreenProps) => {
         keyExtractor={item => item.id}
         onMomentumScrollEnd={handleGetIndex}
         renderItem={({item, index}) => {
-          console.log(index);
           return (
             <OnboardScreen
               bodyText={item.bodyText}

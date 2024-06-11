@@ -3,9 +3,7 @@ import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {FontSize, Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {Plant, PlantListImageType} from '@app/redux/types';
-import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
-import DropDown from '@app/utilities/dropDown';
 import useArticles from '@app/utilities/hooks/articles/useArticles';
 import {useLikes} from '@app/utilities/hooks/likes/useLikes';
 import useCart from '@app/utilities/hooks/cart/useCart';
@@ -30,6 +28,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SubTopics} from './plantDiseaseDetail';
 import {useSelector} from 'react-redux';
 import {RootState} from '@app/redux/store';
+import DropDown from '@app/components/dropDown';
+import Backbutton from '@app/components/backbutton';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantListDetail'>;
 
@@ -220,7 +220,9 @@ const PlantListDetail = ({route, navigation}: Props) => {
             />
           </View>
 
-          <DropDown />
+          <View style={{top: screenHeight * 0.07, position: 'absolute'}}>
+            <DropDown />
+          </View>
         </View>
         <ScrollView
           style={{
@@ -339,7 +341,6 @@ const PlantListDetail = ({route, navigation}: Props) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              console.log('Press');
               addOrRemoveCartItem(
                 common_name,
                 !isCarted,

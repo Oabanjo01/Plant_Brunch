@@ -7,8 +7,8 @@ import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '@app/redux/store';
-import WText from './customText';
 import {Fonts} from '@app/constants/fonts';
+import WText from '@app/utilities/customText';
 
 const Backbutton = ({
   title,

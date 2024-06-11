@@ -1,3 +1,4 @@
+import Backbutton from '@app/components/backbutton';
 import {ColorProps, getThemeColor} from '@app/constants/colors';
 import {
   dashboardHeight,
@@ -5,7 +6,6 @@ import {
   screenWidth,
 } from '@app/constants/dimensions';
 import {RootState} from '@app/redux/store';
-import Backbutton from '@app/utilities/backbutton';
 import WText from '@app/utilities/customText';
 import ArticlesPage from '@assets/images/ArticlesPage.svg';
 import React from 'react';

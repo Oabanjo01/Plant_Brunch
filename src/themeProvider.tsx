@@ -24,7 +24,6 @@ const ThemeProvider: React.FC = () => {
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const systemTheme = useColorScheme();
-  console.log(theme, 'themee');
 
   const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
 
