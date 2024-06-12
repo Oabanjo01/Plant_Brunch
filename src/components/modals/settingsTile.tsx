@@ -9,21 +9,20 @@ import {RootState} from '@app/redux/store';
 import {toggleTheme} from '@app/redux/actions/actions';
 
 interface SettingsTileProps {
-  tileTitle?: string;
-  iconName?: string;
+  tileTitle?: boolean;
   onPressed: () => void;
-  value?: number;
+  value: number;
   clicked?: number;
   optionalBackgroundColor?: ColorValue;
   topSpacing?: number;
 }
+
 const SettingsTile = (props: SettingsTileProps) => {
   const dispatch = useDispatch();
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
   const {
-    iconName,
     optionalBackgroundColor = Colors.screenColor,
     tileTitle,
     onPressed,
@@ -32,7 +31,54 @@ const SettingsTile = (props: SettingsTileProps) => {
     topSpacing,
   } = props;
 
-  //   console.log(checked, clicked, value, 'checked');
+  const handle = [
+    {
+      1: 'System Default',
+      2: theme === 'dark' ? 'Light' : 'Dark',
+      3: 'Delete Account',
+    },
+    {
+      1: 'phone-portrait-outline',
+      2: theme === 'dark' ? 'sunny-outline' : 'moon-outline',
+      3: 'trash-outline',
+    },
+  ];
+
+  const handleTitle = (value: number, handleNo: number) => {
+    switch (value) {
+      case 1:
+        return String(handle[handleNo][1]);
+      case 2:
+        if (theme === 'light' || theme === 'dark') {
+          return String(handle[handleNo][2]);
+        } else {
+          if (handleNo === 0) {
+            return 'Light/Dark Mode';
+          }
+          if (handleNo === 1) {
+            return 'contrast-outline';
+          }
+        }
+      case 3:
+        return String(handle[handleNo][3]);
+
+      default:
+        break;
+    }
+  };
+  const handlePress = (value: number) => {
+    switch (value) {
+      case 1:
+        return dispatch(toggleTheme('system'));
+      case 2:
+        return dispatch(toggleTheme(theme === 'light' ? 'dark' : 'light'));
+      case 3:
+        return console.log('Press');
+
+      default:
+        break;
+    }
+  };
   return (
     <Pressable
       style={{
@@ -40,41 +86,20 @@ const SettingsTile = (props: SettingsTileProps) => {
         backgroundColor: optionalBackgroundColor,
         marginTop: topSpacing,
       }}
-      onPress={
-        () => {
-          onPressed();
-          tileTitle === 'System'
-            ? dispatch(toggleTheme('system'))
-            : dispatch(toggleTheme(theme === 'light' ? 'dark' : 'light'));
-        }
-        // console.log('Check');
-      }>
+      onPress={() => {
+        onPressed();
+        handlePress(value);
+      }}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Ionicons
           color={Colors.primary}
-          name={
-            tileTitle
-              ? iconName
-              : theme === 'dark'
-              ? 'sunny-outline'
-              : 'moon-outline'
-          }
+          name={handleTitle(value, 1) || 'contrast-outline'}
           size={25}
           style={{marginRight: screenWidth * 0.05}}
         />
-        <WText style={{fontSize: 16}}>
-          {tileTitle ? 'System Default' : theme === 'light' ? 'Dark' : 'Light'}
-        </WText>
+        <WText style={{fontSize: 16}}>{handleTitle(value, 0)}</WText>
       </View>
-      {clicked === value && (
-        <Pressable
-          style={styles.checkBox}
-          onPress={() => {
-            console.log('Check');
-            onPressed;
-          }}
-        />
-      )}
+      {clicked === value && <View style={styles.checkBox} />}
     </Pressable>
   );
 };

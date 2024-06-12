@@ -21,6 +21,7 @@ import BottomSheetComponent from './modals/bottomSheetComponent';
 interface DropDownData {
   label: string;
   value: string;
+  icon: string;
 }
 interface DropDownProps {
   color?: string;
@@ -45,7 +46,7 @@ const DropDown = ({
   console.log(isBottomSheetVisible, 'isBottomSheetVisible');
 
   const ref = useRef<BottomSheetRefProps>(null);
-  const onPress = useCallback(() => {
+  const showModal = useCallback(() => {
     if (isBottomSheetVisible === false) {
       affectBottomTab ? setBottomSheetVisible(true) : null;
       ref?.current?.scrollTo(-screenHeight / 1.5, 50);
@@ -70,24 +71,17 @@ const DropDown = ({
   });
 
   const data: DropDownData[] = [
-    {label: 'Cart', value: 'cart'},
-    {label: theme === 'light' ? 'Dark' : 'Light', value: 'theme'},
-    {label: 'System', value: 'System'},
-    {label: 'Settings', value: 'settings'},
+    {label: 'Cart', value: 'cart', icon: 'cart-outline'},
+    {label: 'Settings', value: 'settings', icon: 'settings-outline'},
   ];
 
   const handleOptionSelect = (value: string) => {
     setSelectedOption(value);
-
-    if (value === 'theme') {
-      dispatch(toggleTheme(theme === 'light' ? 'dark' : 'light'));
-    } else if (value === 'cart') {
+    if (value === 'cart') {
+      ref?.current?.scrollTo(0, 50);
       navigation.navigate(Routes.CartScreen);
-    } else if (value === 'System') {
-      dispatch(toggleTheme('system'));
-    }
-    if (value === 'settings') {
-      onPress();
+    } else if (value === 'settings') {
+      showModal();
     }
   };
 
@@ -105,18 +99,22 @@ const DropDown = ({
       <SelectDropdown
         data={data}
         statusBarTranslucent
-        renderItem={(
-          selectedItem: DropDownData,
-          index: number,
-          isSelected: boolean,
-        ) => {
+        renderItem={(selectedItem: DropDownData) => {
           return (
             <View
               style={{
                 ...styles.dropDownItem,
+                flexDirection: 'row',
+                alignItems: 'center',
                 borderBottomWidth: 1,
                 borderBottomColor: Colors.primary,
               }}>
+              <Ionicons
+                name={selectedItem.icon}
+                size={22}
+                color={Colors.primary}
+                style={{paddingRight: screenWidth * 0.025}}
+              />
               <WText
                 style={{
                   paddingVertical: 13,
