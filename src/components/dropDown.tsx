@@ -21,6 +21,7 @@ import BottomSheetComponent from './modals/bottomSheetComponent';
 interface DropDownData {
   label: string;
   value: string;
+  icon: string;
 }
 interface DropDownProps {
   color?: string;
@@ -35,25 +36,42 @@ const DropDown = ({
   const navigation = useNavigation<RootStackNavigationProp>();
   const [selectedOption, setSelectedOption] = useState<string>('');
 
-  const {setBottomSheetVisible, isBottomSheetVisible} = useVisibility();
+  const {
+    setBottomSheetVisible,
+    isBottomSheetVisible,
+    forceCloseModal,
+    setForceCloseModal,
+  } = useVisibility();
 
-  const dispatch = useDispatch();
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
 
-  console.log(isBottomSheetVisible, 'isBottomSheetVisible');
+  console.log(isBottomSheetVisible, forceCloseModal, 'isBottomSheetVisible');
+
+  const handleOpenModal = () => {
+    console.log('got her');
+    affectBottomTab ? setBottomSheetVisible(true) : null;
+    setForceCloseModal(true);
+  };
+  const handleCloseModal = () => {
+    console.log('got her2');
+    affectBottomTab ? setBottomSheetVisible(false) : null;
+    setForceCloseModal(false);
+  };
 
   const ref = useRef<BottomSheetRefProps>(null);
-  const onPress = useCallback(() => {
-    if (isBottomSheetVisible === false) {
-      affectBottomTab ? setBottomSheetVisible(true) : null;
+  const showModal = useCallback(() => {
+    if (isBottomSheetVisible === false && forceCloseModal === false) {
+      handleOpenModal();
       ref?.current?.scrollTo(-screenHeight / 1.5, 50);
-    } else if (isBottomSheetVisible === true) {
-      affectBottomTab ? setBottomSheetVisible(false) : null;
-      ref?.current?.scrollTo(0, 50);
+      return;
+    } else if (isBottomSheetVisible === true || forceCloseModal) {
+      handleCloseModal();
+      ref?.current?.scrollTo(2000, 50);
+      return;
     }
-  }, [isBottomSheetVisible]);
+  }, [isBottomSheetVisible, forceCloseModal]);
 
   const styles = StyleSheet.create({
     dropDownItem: {
@@ -70,24 +88,17 @@ const DropDown = ({
   });
 
   const data: DropDownData[] = [
-    {label: 'Cart', value: 'cart'},
-    {label: theme === 'light' ? 'Dark' : 'Light', value: 'theme'},
-    {label: 'System', value: 'System'},
-    {label: 'Settings', value: 'settings'},
+    {label: 'Cart', value: 'cart', icon: 'cart-outline'},
+    {label: 'Settings', value: 'settings', icon: 'settings-outline'},
   ];
 
   const handleOptionSelect = (value: string) => {
     setSelectedOption(value);
-
-    if (value === 'theme') {
-      dispatch(toggleTheme(theme === 'light' ? 'dark' : 'light'));
-    } else if (value === 'cart') {
+    if (value === 'cart') {
+      ref?.current?.scrollTo(2000, 50);
       navigation.navigate(Routes.CartScreen);
-    } else if (value === 'System') {
-      dispatch(toggleTheme('system'));
-    }
-    if (value === 'settings') {
-      onPress();
+    } else if (value === 'settings') {
+      showModal();
     }
   };
 
@@ -105,18 +116,22 @@ const DropDown = ({
       <SelectDropdown
         data={data}
         statusBarTranslucent
-        renderItem={(
-          selectedItem: DropDownData,
-          index: number,
-          isSelected: boolean,
-        ) => {
+        renderItem={(selectedItem: DropDownData) => {
           return (
             <View
               style={{
                 ...styles.dropDownItem,
+                flexDirection: 'row',
+                alignItems: 'center',
                 borderBottomWidth: 1,
                 borderBottomColor: Colors.primary,
               }}>
+              <Ionicons
+                name={selectedItem.icon}
+                size={22}
+                color={Colors.primary}
+                style={{paddingRight: screenWidth * 0.025}}
+              />
               <WText
                 style={{
                   paddingVertical: 13,

@@ -17,17 +17,6 @@ const BottomSheetComponent = () => {
 
   const [checked, setChecked] = useState<boolean>(false);
   const [clicked, setClicked] = useState<number>(theme === 'system' ? 1 : 2);
-  // const SettingsStyle = (
-  //   tileTitle: string,
-  //   iconName: string,
-  //   checkBox?: boolean,
-  //   optionalBackgroundColor: ColorValue = Colors.disabledButtonColor,
-  //   topSpacing?: number,
-  // ) => {
-  //   return (
-
-  //   );
-  // };
 
   return (
     <View
@@ -37,8 +26,7 @@ const BottomSheetComponent = () => {
       }}>
       <SettingsTile
         clicked={clicked}
-        tileTitle={'System'}
-        iconName={'phone-portrait-outline'}
+        tileTitle={true}
         onPressed={() => {
           console.log('prsses', clicked);
           setClicked(1);
@@ -49,14 +37,12 @@ const BottomSheetComponent = () => {
         clicked={clicked}
         value={2}
         onPressed={() => {
-          console.log(clicked, 'clicked');
           setClicked(2);
         }}
       />
       <SettingsTile
         onPressed={() => {}}
-        tileTitle={'Delete Account'}
-        iconName={'trash-outline'}
+        value={3}
         optionalBackgroundColor={Colors.favouriteButtonColor}
         topSpacing={screenHeight * 0.025}
       />

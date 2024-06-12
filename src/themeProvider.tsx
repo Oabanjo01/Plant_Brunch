@@ -8,13 +8,21 @@ import {RootState} from './redux/store';
 const VisibilityContext = createContext({
   isBottomSheetVisible: false,
   setBottomSheetVisible: (visible: boolean) => {},
+  forceCloseModal: false,
+  setForceCloseModal: (visible: boolean) => {},
 });
 
-export const VisibilityProvider: React.FC = ({children}) => {
+export const VisibilityProvider: React.FC = ({children}: any) => {
   const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const [forceCloseModal, setForceCloseModal] = useState(false);
   return (
     <VisibilityContext.Provider
-      value={{isBottomSheetVisible, setBottomSheetVisible}}>
+      value={{
+        isBottomSheetVisible,
+        setBottomSheetVisible,
+        forceCloseModal,
+        setForceCloseModal,
+      }}>
       {children}
     </VisibilityContext.Provider>
   );
@@ -26,6 +34,7 @@ const ThemeProvider: React.FC = () => {
   const systemTheme = useColorScheme();
 
   const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const [forceCloseModal, setForceCloseModal] = useState(false);
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
@@ -41,7 +50,12 @@ const ThemeProvider: React.FC = () => {
         animated
       />
       <VisibilityContext.Provider
-        value={{isBottomSheetVisible, setBottomSheetVisible}}>
+        value={{
+          isBottomSheetVisible,
+          setBottomSheetVisible,
+          forceCloseModal,
+          setForceCloseModal,
+        }}>
         <ScreenStack />
       </VisibilityContext.Provider>
     </GestureHandlerRootView>

@@ -34,7 +34,7 @@ const BottomSheetModal = React.forwardRef<
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
 
-  const {setBottomSheetVisible, isBottomSheetVisible} = useVisibility();
+  const {setBottomSheetVisible, setForceCloseModal} = useVisibility();
 
   const bottomSheetFullHeight = -screenHeight + 100;
 
@@ -44,18 +44,11 @@ const BottomSheetModal = React.forwardRef<
   const scrollTo = useCallback((scrollheight: number, damping: number) => {
     'worklet';
     translationY.value = withSpring(scrollheight, {damping: damping});
-    if (scrollheight === 0) {
+    if (scrollheight > 0) {
       runOnJS(setBottomSheetVisible)(false);
+      runOnJS(setForceCloseModal)(false);
     }
   }, []);
-
-  // const closeBottomSheet = useCallback(() => {
-  //   'worklet';
-  //   // setTimeout(() => {
-  //   scrollTo(0, 50);
-  //   // }, 1000);
-
-  // }, []);
 
   // exposes the ref to the parent component, i.e dropdown in this case
   useImperativeHandle(ref, () => ({scrollTo}), [scrollTo]);
@@ -70,7 +63,7 @@ const BottomSheetModal = React.forwardRef<
     })
     .onEnd(() => {
       if (translationY.value > -screenHeight / 3) {
-        scrollTo(0, 50);
+        scrollTo(2000, 50);
       } else if (translationY.value < -screenHeight / 1.5) {
         scrollTo(bottomSheetFullHeight, 50);
       }
