@@ -36,25 +36,42 @@ const DropDown = ({
   const navigation = useNavigation<RootStackNavigationProp>();
   const [selectedOption, setSelectedOption] = useState<string>('');
 
-  const {setBottomSheetVisible, isBottomSheetVisible} = useVisibility();
+  const {
+    setBottomSheetVisible,
+    isBottomSheetVisible,
+    forceCloseModal,
+    setForceCloseModal,
+  } = useVisibility();
 
-  const dispatch = useDispatch();
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
 
-  console.log(isBottomSheetVisible, 'isBottomSheetVisible');
+  console.log(isBottomSheetVisible, forceCloseModal, 'isBottomSheetVisible');
+
+  const handleOpenModal = () => {
+    console.log('got her');
+    affectBottomTab ? setBottomSheetVisible(true) : null;
+    setForceCloseModal(true);
+  };
+  const handleCloseModal = () => {
+    console.log('got her2');
+    affectBottomTab ? setBottomSheetVisible(false) : null;
+    setForceCloseModal(false);
+  };
 
   const ref = useRef<BottomSheetRefProps>(null);
   const showModal = useCallback(() => {
-    if (isBottomSheetVisible === false) {
-      affectBottomTab ? setBottomSheetVisible(true) : null;
+    if (isBottomSheetVisible === false && forceCloseModal === false) {
+      handleOpenModal();
       ref?.current?.scrollTo(-screenHeight / 1.5, 50);
-    } else if (isBottomSheetVisible === true) {
-      affectBottomTab ? setBottomSheetVisible(false) : null;
+      return;
+    } else if (isBottomSheetVisible === true || forceCloseModal) {
+      handleCloseModal();
       ref?.current?.scrollTo(2000, 50);
+      return;
     }
-  }, [isBottomSheetVisible]);
+  }, [isBottomSheetVisible, forceCloseModal]);
 
   const styles = StyleSheet.create({
     dropDownItem: {

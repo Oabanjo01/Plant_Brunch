@@ -34,7 +34,7 @@ const BottomSheetModal = React.forwardRef<
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
 
-  const {setBottomSheetVisible, isBottomSheetVisible} = useVisibility();
+  const {setBottomSheetVisible, setForceCloseModal} = useVisibility();
 
   const bottomSheetFullHeight = -screenHeight + 100;
 
@@ -46,6 +46,7 @@ const BottomSheetModal = React.forwardRef<
     translationY.value = withSpring(scrollheight, {damping: damping});
     if (scrollheight > 0) {
       runOnJS(setBottomSheetVisible)(false);
+      runOnJS(setForceCloseModal)(false);
     }
   }, []);
 
