@@ -89,13 +89,6 @@ const BottomSheetModal = React.forwardRef<
     };
   });
 
-  // useEffect(() => {
-  //   console.log(got here)
-  //   if (translationY.value === 0) {
-  //     setBottomSheetVisible(false);
-  //   }
-  // }, [translationY.value]);
-
   return (
     <View style={{flex: 1, backgroundColor: Colors.screenColor, zIndex: 9999}}>
       <GestureDetector gesture={gesture}>
@@ -109,7 +102,6 @@ const BottomSheetModal = React.forwardRef<
             style={{
               ...styles.bottomSheetLineAnchor,
               backgroundColor: Colors.screenColor,
-              marginBottom: screenHeight * 0.1,
             }}
           />
           {children}
