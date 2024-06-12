@@ -52,7 +52,7 @@ const DropDown = ({
       ref?.current?.scrollTo(-screenHeight / 1.5, 50);
     } else if (isBottomSheetVisible === true) {
       affectBottomTab ? setBottomSheetVisible(false) : null;
-      ref?.current?.scrollTo(0, 50);
+      ref?.current?.scrollTo(2000, 50);
     }
   }, [isBottomSheetVisible]);
 
@@ -78,7 +78,7 @@ const DropDown = ({
   const handleOptionSelect = (value: string) => {
     setSelectedOption(value);
     if (value === 'cart') {
-      ref?.current?.scrollTo(0, 50);
+      ref?.current?.scrollTo(2000, 50);
       navigation.navigate(Routes.CartScreen);
     } else if (value === 'settings') {
       showModal();
