@@ -38,7 +38,7 @@ const BottomSheetModal = React.forwardRef<
 
   const bottomSheetFullHeight = -screenHeight + 100;
 
-  const translationY = useSharedValue(0);
+  const translationY = useSharedValue(screenHeight);
   const previousYaxisValue = useSharedValue({y: 0});
 
   const scrollTo = useCallback((scrollheight: number, damping: number) => {
@@ -109,7 +109,7 @@ export default BottomSheetModal;
 const styles = StyleSheet.create({
   bottomSheetStyle: {
     position: 'absolute',
-    height: screenHeight,
+    height: screenHeight * 1.2,
     width: screenWidth,
     top: screenHeight,
     alignItems: 'center',

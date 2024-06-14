@@ -43,7 +43,7 @@ export const RenderCollectedPlantBox = ({
           height: 100,
         }}>
         <FlatList
-          data={PhotographyData.slice(0, 4)}
+          data={PhotographyData.slice(0)}
           numColumns={2}
           showsVerticalScrollIndicator={false}
           renderItem={RenderImage}

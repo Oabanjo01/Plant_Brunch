@@ -48,7 +48,7 @@ export const TabBodyDisplay = ({
       <View
         style={{
           width: screenWidth,
-          height: screenHeight,
+          height: screenHeight * 0.9,
         }}>
         <View
           style={{
