@@ -42,7 +42,7 @@ const ProfilePage = ({
   route: any;
 }) => {
   const [activeButton, setActiveButton] = useState<number>(1);
-  const {setBottomSheetVisible, isBottomSheetVisible} = useVisibility();
+  const {setBottomSheetVisible, setForceCloseModal} = useVisibility();
 
   const userData = useSelector((state: RootState) => state.auth.user);
   const {displayName} = userData;
@@ -246,7 +246,7 @@ const ProfilePage = ({
             <RenderCollectedPlantBox index={index} item={item} />
           )}
           subTopic={'YOUR COLLECTED PLANTS'}
-          data={PlantData}
+          data={PlantData.slice(0, 0)}
         />
         <TabBodyDisplay
           renderItem={({item, index}: {item: string; index: number}) => (

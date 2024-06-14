@@ -68,7 +68,7 @@ const DropDown = ({
       return;
     } else if (isBottomSheetVisible === true || forceCloseModal) {
       handleCloseModal();
-      ref?.current?.scrollTo(2000, 50);
+      ref?.current?.scrollTo(screenHeight, 50);
       return;
     }
   }, [isBottomSheetVisible, forceCloseModal]);

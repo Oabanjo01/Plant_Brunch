@@ -31,7 +31,7 @@ import {Asset} from 'react-native-image-picker';
 import PhotoView from '@app/screens/photo';
 import PlantList from '@app/screens/subtopics/scientificNames';
 import AddNewItem from '@app/screens/addNewPlantPhoto/addNewItem';
-import PlantPhotoType from '@app/screens/addNewPlantPhoto/plantPhotoType'; // TODO: Add a settings page containing Delete account, log out, change password/Email/displayname tiles
+import PlantPhotoType from '@app/screens/addNewPlantPhoto/plantPhotoType';
 import {useVisibility} from '@app/themeProvider';
 export type RootStackParamList = {
   Onboarding: any;
