@@ -1,49 +1,74 @@
 import GroupedTextInput from '@app/components/addNewPlantPhoto/groupedTextInput';
 import WTextInput from '@app/components/addNewPlantPhoto/textInput';
 import Backbutton from '@app/components/backbutton';
-import {getThemeColor} from '@app/constants/colors';
+import {Colors, getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {RootState} from '@app/redux/store';
 import ConfirmButton from '@app/utilities/ConfirmButton';
+import WText from '@app/utilities/customText';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
-import {KeyboardAvoidingView, Platform, ScrollView, View} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import {err} from 'react-native-svg';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 import {useSelector} from 'react-redux';
 import * as Yup from 'yup';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AddNewItem'>;
 
+interface GroupedInputProps {
+  id: string;
+  title: string;
+  description: string;
+}
+interface GroupedInputProps {
+  id: string;
+  title: string;
+  description: string;
+}
+
 const AddNewItem = ({navigation, route}: Props) => {
   const params = route.params;
   const {photoType, uri} = params;
 
-  const [groupedInputs, setGroupedInputs] = useState([
-    {id: '1', title: '', description: ''},
-  ]);
-  const [groupedSolutionInputs, setGroupedSolutionInputs] = useState([
-    {id: '1', title: '', description: ''},
-  ]);
+  const [groupedInputs, setGroupedInputs] = useState<GroupedInputProps[]>([]);
+  const [groupedSolutionInputs, setGroupedSolutionInputs] = useState<
+    GroupedInputProps[]
+  >([]);
+  const [uniqueIdCounter, setUniqueIdCounter] = useState(0);
 
   const addGroupedInput = () => {
-    const newInput = {
-      id: String(`description - ${groupedInputs.length + 1}`),
-      title: '',
-      description: '',
-    };
-    setGroupedInputs(previousState => [...previousState, newInput]);
+    setGroupedInputs(previousState => [
+      ...previousState,
+      {
+        id: String(`description - ${uniqueIdCounter}`),
+        title: '',
+        description: '',
+      },
+    ]);
+    setUniqueIdCounter(prevCounter => prevCounter + 1);
   };
 
   const addGroupedSolutionInput = () => {
-    const newInput = {
-      id: String(`solution - ${groupedSolutionInputs.length + 1}`),
-      title: '',
-      description: '',
-    };
-    setGroupedSolutionInputs(previousState => [...previousState, newInput]);
+    setGroupedSolutionInputs(previousState => [
+      ...previousState,
+      {
+        id: String(`solution - ${groupedSolutionInputs.length + 1}`),
+        title: '',
+        description: '',
+      },
+    ]);
+    setUniqueIdCounter(prevCounter => prevCounter + 1);
   };
 
   const userTheme = useSelector((state: RootState) => state.theme);
@@ -61,33 +86,55 @@ const AddNewItem = ({navigation, route}: Props) => {
     other_Name: Yup.string()
       .required('"Other" name is a required field')
       .trim(),
-    cycle: Yup.string().required('Plant cycle is a required field').trim(),
-    watering: Yup.string()
-      .required('Rate of watering is a required field')
-      .trim(),
-    sunlight: Yup.string()
-      .required('Intensity of sunlight is a required field')
-      .trim(),
+    cycle: Yup.string().test(
+      'cyclePlantTypeCheck',
+      'Plant cycle is a required field',
+      (value, context) => photoType !== 'plantPhotograph' || !!value?.trim(),
+    ),
+    watering: Yup.string().test(
+      'watering',
+      'Rate of watering is a required field',
+      (value, context) => photoType !== 'plantPhotograph' || !!value?.trim(),
+    ),
+    sunlight: Yup.string().test(
+      'sunlight',
+      'Intensity of sunlight is a required field',
+      (value, context) => photoType !== 'plantPhotograph' || !!value?.trim(),
+    ),
+    family: Yup.string().test(
+      'family',
+      'Family of this plant is a required field',
+      (value, context) => photoType !== 'plantDisease' || !!value?.trim(),
+    ),
+    host: Yup.string().test(
+      'host',
+      'Host of this plant is a required field',
+      (value, context) => photoType !== 'plantDisease' || !!value?.trim(),
+    ),
   });
 
+  const initialValues = {
+    price: '',
+    scientific_Name: '',
+    common_name: '',
+    other_Name: '',
+    cycle: '', // regular
+    watering: '', // regular
+    sunlight: '', // regular
+    groupedInputs: groupedInputs, // disease
+    groupedSolutionInputs: groupedSolutionInputs,
+    family: '', // disease
+    host: '', // disease
+  };
+
+  console.log(groupedSolutionInputs, 'groupedInput');
   return (
     <Formik
-      initialValues={{
-        price: '',
-        scientific_Name: '',
-        common_name: '',
-        other_Name: '',
-        cycle: '',
-        watering: '',
-        sunlight: '',
-        groupedInputs: groupedInputs,
-        groupedSolutionInputs: groupedSolutionInputs,
-        family: '',
-        host: '',
-        solution: '',
-      }}
+      initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={values => {}}>
+      onSubmit={values => {
+        console.log(values);
+      }}>
       {({
         handleChange,
         handleBlur,
@@ -100,16 +147,18 @@ const AddNewItem = ({navigation, route}: Props) => {
         <View
           style={{
             backgroundColor: Colors.screenColor,
-            flex: 1,
-            paddingTop: screenHeight * 0.1,
+            height: '100%',
           }}>
-          <ScrollView keyboardShouldPersistTaps="never" style={{flexGrow: 1}}>
+          <ScrollView
+            keyboardShouldPersistTaps="never"
+            showsVerticalScrollIndicator={false}>
             <View
               style={{
                 alignItems: 'center',
                 alignSelf: 'center',
                 width: screenWidth * 0.9,
-                marginBottom: screenHeight * 0.025,
+                // marginBottom: screenHeight * 0.025,
+                paddingTop: screenHeight * 0.15,
               }}>
               <SwiperFlatList
                 index={0}
@@ -202,17 +251,21 @@ const AddNewItem = ({navigation, route}: Props) => {
                   showError={errors.host && touched.host}
                   errorMessage={errors.host}
                 />
-                <WTextInput
-                  handleBlur={handleBlur('solution')}
-                  handleChangeText={handleChange('solution')}
-                  placeholder={'Solution'}
-                  showError={errors.solution && touched.solution}
-                  errorMessage={errors.solution}
-                />
+
+                <Pressable
+                  style={{...styles.addInputStyle, marginTop: 10}}
+                  onPress={
+                    groupedInputs.length === 0 ? () => addGroupedInput() : null
+                  }>
+                  <View>
+                    <WText>Description - {groupedInputs.length}</WText>
+                  </View>
+                </Pressable>
                 {groupedInputs.map((input, index) => (
                   <GroupedTextInput
                     headerTitle="Need to add a catchy detail?"
-                    key={1}
+                    index={index}
+                    key={input.id}
                     error={errors.groupedInputs && errors.groupedInputs[index]}
                     handleBlur={() => {
                       handleBlur(`groupedInputs[${index}].title`);
@@ -231,12 +284,29 @@ const AddNewItem = ({navigation, route}: Props) => {
                     createTextInput={() => {
                       addGroupedInput();
                     }}
+                    deleteItem={() => {
+                      setGroupedInputs(prev =>
+                        prev.filter((_, i) => i !== index),
+                      );
+                    }}
                   />
                 ))}
+                <Pressable
+                  style={styles.addInputStyle}
+                  onPress={
+                    groupedSolutionInputs.length === 0
+                      ? () => addGroupedSolutionInput()
+                      : null
+                  }>
+                  <View>
+                    <WText>Solution - {groupedSolutionInputs.length}</WText>
+                  </View>
+                </Pressable>
                 {groupedSolutionInputs.map((input, index) => (
                   <GroupedTextInput
                     headerTitle="Need to add a catchy detail?"
                     key={input.id}
+                    index={index}
                     error={
                       errors.groupedSolutionInputs &&
                       errors.groupedSolutionInputs[index]
@@ -261,6 +331,11 @@ const AddNewItem = ({navigation, route}: Props) => {
                     createTextInput={() => {
                       addGroupedSolutionInput();
                     }}
+                    deleteItem={() =>
+                      setGroupedSolutionInputs(prev =>
+                        prev.filter((_, i) => i !== index),
+                      )
+                    }
                   />
                 ))}
               </>
@@ -274,17 +349,38 @@ const AddNewItem = ({navigation, route}: Props) => {
               errorMessage={errors.price}
               keyboardType="numeric"
             />
+
+            <Backbutton containsTitle title="Add a New Plant" />
           </ScrollView>
           <KeyboardAvoidingView
-            style={{backgroundColor: Colors.screenColor}}
+            style={{
+              backgroundColor: Colors.screenColor,
+            }}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <ConfirmButton buttonText="Add a new Item" onPress={handleSubmit} />
+            <ConfirmButton
+              buttonText="Add a new Item"
+              onPress={() => {
+                console.log(errors);
+                handleSubmit();
+              }}
+            />
           </KeyboardAvoidingView>
-          <Backbutton containsTitle title="Add a New Plant" />
         </View>
       )}
     </Formik>
   );
 };
+
+const styles = StyleSheet.create({
+  addInputStyle: {
+    borderWidth: 1,
+    paddingHorizontal: screenWidth * 0.1,
+    paddingVertical: 12,
+    marginBottom: 10,
+    backgroundColor: Colors.primary,
+    borderRadius: 10,
+    alignSelf: 'center',
+  },
+});
 
 export default AddNewItem;
