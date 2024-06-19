@@ -13,6 +13,7 @@ pod 'FirebaseCoreInternal', :modular_headers => true
 pod 'GoogleUtilities', :modular_headers => true
 pod 'FirebaseCore', :modular_headers => true
 pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+pod 'RNFS', :path => '../node_modules/react-native-fs'
 $RNFirebaseAsStaticFramework = true
 prepare_react_native_project!
 
