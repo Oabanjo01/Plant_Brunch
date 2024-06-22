@@ -122,7 +122,7 @@ const AddNewItem = ({navigation, route}: Props) => {
     watering: '', // regular
     sunlight: '', // regular
     groupedInputs: groupedInputs, // disease
-    groupedSolutionInputs: groupedSolutionInputs,
+    groupedSolutionInputs: groupedSolutionInputs, // disease
     family: '', // disease
     host: '', // disease
   };
@@ -345,6 +345,7 @@ const AddNewItem = ({navigation, route}: Props) => {
               handleBlur={handleBlur('price')}
               handleChangeText={handleChange('price')}
               placeholder={'Price'}
+              isAmount
               showError={errors.price && touched.price}
               errorMessage={errors.price}
               keyboardType="numeric"
