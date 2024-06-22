@@ -1,4 +1,7 @@
-export const formatAmount: (value: string) => string = (value: string) => {
+export const formatAmount: (value: string) => {
+  formattedValue: string;
+  numbersOnly: string;
+} = (value: string) => {
   // Remove any non-numeric characters except the decimal point
   const numbersOnly = value.replace(/[^\d.]/g, '');
   console.log(numbersOnly, 'numbersOnly');
@@ -25,6 +28,6 @@ export const formatAmount: (value: string) => string = (value: string) => {
     : integerPart;
 
   // Return both formatted value for display and raw value for further use
-  return formattedValue;
+  return {formattedValue, numbersOnly};
   //   }
 };

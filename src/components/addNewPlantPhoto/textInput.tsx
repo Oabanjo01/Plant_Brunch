@@ -78,9 +78,9 @@ const WTextInput = ({
             const dotCount = (validText.match(/\./g) || []).length;
 
             if (dotCount < 2 && isAmount) {
-              const amount = formatAmount(text);
-              handleChangeText(amount);
-              setInputValue(amount);
+              const {formattedValue} = formatAmount(text);
+              handleChangeText(formattedValue);
+              setInputValue(formattedValue);
             } else if (dotCount === 2) {
               return text;
             } else {

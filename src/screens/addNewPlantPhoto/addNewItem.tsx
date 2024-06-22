@@ -361,7 +361,6 @@ const AddNewItem = ({navigation, route}: Props) => {
             <ConfirmButton
               buttonText="Add a new Item"
               onPress={() => {
-                console.log(errors);
                 handleSubmit();
               }}
             />
