@@ -55,7 +55,7 @@ export type RootStackParamList = {
   PlantPhotoType: {uri: (string | undefined)[] | undefined};
   AddNewItem: {
     photoType: 'plantPhotograph' | 'plantDisease';
-    uri: (string | undefined)[];
+    uri: string[] | undefined;
   };
 };
 

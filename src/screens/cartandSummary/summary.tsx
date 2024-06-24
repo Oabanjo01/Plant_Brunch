@@ -5,7 +5,7 @@ import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {RootState} from '@app/redux/store';
-import ConfirmButton from '@app/utilities/ConfirmButton';
+import ConfirmButton from '@app/utilities/confirmButton';
 
 import WText from '@app/utilities/customText';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';

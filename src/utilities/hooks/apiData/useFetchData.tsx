@@ -2,7 +2,6 @@ import {fetchHomePagedata, retryWithBackoff} from '@app/index';
 import {RootState} from '@app/redux/store';
 import {Plant, PlantDiseaseType} from '@app/redux/types';
 import {showToast} from '@app/utilities/toast';
-import firestore from '@react-native-firebase/firestore';
 import {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
