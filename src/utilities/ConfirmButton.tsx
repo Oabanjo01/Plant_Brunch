@@ -1,19 +1,11 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ViewProps,
-  ViewStyle,
-} from 'react-native';
-import React from 'react';
-import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Colors, getThemeColor} from '@app/constants/colors';
-import WText from './customText';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
-import {Pressable} from 'react-native';
-import {useSelector} from 'react-redux';
 import {RootState} from '@app/redux/store';
+import React from 'react';
+import {Pressable, StyleSheet, View, ViewStyle} from 'react-native';
+import {useSelector} from 'react-redux';
+import WText from './customText';
 
 const ConfirmButton = ({
   newStyle,
