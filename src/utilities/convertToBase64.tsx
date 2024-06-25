@@ -7,11 +7,13 @@ export const useConvertToBase64 = (uri: string[] | undefined) => {
 
   const convertToBase64 = () => {
     try {
-      let newList;
-      newList = uri?.map(async (item, i) => {
-        for (let i = 0; i < uri.length; i++) {
-          const newList = await RNFS.readFile(item, 'base64');
-          setbase64List(prev => [...prev, newList]);
+      let newImage;
+      newImage = uri?.map(async (item, index) => {
+        for (let i = index; i < uri.length; i++) {
+          const newImage = await RNFS.readFile(item, 'base64');
+          const modifiedImage = `data:image/jpeg;base64,${newImage}`;
+          console.log('got here', modifiedImage);
+          setbase64List(prev => [...prev, modifiedImage]);
         }
       });
     } catch (error) {
@@ -25,7 +27,7 @@ export const useConvertToBase64 = (uri: string[] | undefined) => {
 
   useEffect(() => {
     convertToBase64();
-  }, []);
+  }, [uri]);
 
   return {
     base64List,

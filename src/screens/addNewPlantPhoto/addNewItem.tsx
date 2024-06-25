@@ -31,12 +31,12 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AddNewItem'>;
 
 interface GroupedInputProps {
   id: string;
-  title: string;
+  subtitle: string;
   description: string;
 }
 interface GroupedInputProps {
   id: string;
-  title: string;
+  subtitle: string;
   description: string;
 }
 
@@ -55,7 +55,7 @@ const AddNewItem = ({navigation, route}: Props) => {
       ...previousState,
       {
         id: String(`description - ${uniqueIdCounter}`),
-        title: '',
+        subtitle: '',
         description: '',
       },
     ]);
@@ -67,7 +67,7 @@ const AddNewItem = ({navigation, route}: Props) => {
       ...previousState,
       {
         id: String(`solution - ${groupedSolutionInputs.length + 1}`),
-        title: '',
+        subtitle: '',
         description: '',
       },
     ]);
@@ -131,6 +131,7 @@ const AddNewItem = ({navigation, route}: Props) => {
   };
 
   const {base64List} = useConvertToBase64(uri);
+  console.log(base64List);
   const {addNewItem, isLoading} = useAddNewItem();
   if (isLoading) {
     return <LoadingIndicator size={25} />;
@@ -140,25 +141,33 @@ const AddNewItem = ({navigation, route}: Props) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={values => {
-          console.log(values);
+          console.log(
+            values.groupedInputs,
+            values.groupedSolutionInputs,
+            'heree',
+          );
           const regularPayload = {
             price: values.price,
             scientific_Name: values.scientific_Name,
             common_name: values.common_name,
             other_Name: values.other_Name,
             cycle: values.cycle,
+            type: 'regular',
             watering: values.watering,
             sunlight: values.sunlight,
+            images: base64List,
           };
           const diseasePayload = {
             price: values.price,
             scientific_Name: values.scientific_Name,
             common_name: values.common_name,
             other_Name: values.other_Name,
-            groupedInputs: groupedInputs,
-            groupedSolutionInputs: groupedSolutionInputs,
+            type: 'disease',
+            groupedInputs: values.groupedInputs,
+            groupedSolutionInputs: values.groupedSolutionInputs,
             family: values.family,
             host: values.host,
+            images: base64List,
           };
           addNewItem(
             values.common_name,
@@ -169,7 +178,6 @@ const AddNewItem = ({navigation, route}: Props) => {
           handleChange,
           handleBlur,
           handleSubmit,
-          values,
           errors,
           touched,
           setFieldValue,
@@ -187,7 +195,6 @@ const AddNewItem = ({navigation, route}: Props) => {
                   alignItems: 'center',
                   alignSelf: 'center',
                   width: screenWidth * 0.9,
-                  // marginBottom: screenHeight * 0.025,
                   paddingTop: screenHeight * 0.15,
                 }}>
                 <SwiperFlatList
@@ -302,11 +309,11 @@ const AddNewItem = ({navigation, route}: Props) => {
                         errors.groupedInputs && errors.groupedInputs[index]
                       }
                       handleBlur={() => {
-                        handleBlur(`groupedInputs[${index}].title`);
+                        handleBlur(`groupedInputs[${index}].subtitle`);
                         handleBlur(`groupedInputs[${index}].description`);
                       }}
                       handleChangeTextTitle={(text: string) => {
-                        setFieldValue(`groupedInputs[${index}].title`, text);
+                        setFieldValue(`groupedInputs[${index}].subtitle`, text);
                       }}
                       handleChangeTextDescription={(text: string) => {
                         setFieldValue(
@@ -346,14 +353,14 @@ const AddNewItem = ({navigation, route}: Props) => {
                         errors.groupedSolutionInputs[index]
                       }
                       handleBlur={() => {
-                        handleBlur(`groupedSolutionInputs[${index}].title`);
+                        handleBlur(`groupedSolutionInputs[${index}].subtitle`);
                         handleBlur(
                           `groupedSolutionInputs[${index}].description`,
                         );
                       }}
                       handleChangeTextTitle={(text: string) => {
                         setFieldValue(
-                          `groupedSolutionInputs[${index}].title`,
+                          `groupedSolutionInputs[${index}].subtitle`,
                           text,
                         );
                       }}

@@ -45,6 +45,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     other_name,
     scientific_name,
   } = item as PlantDiseaseType;
+  // console.log(description);
 
   const renderStarIcons = (rating: number) => {
     const stars = [];
@@ -80,6 +81,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
 
   const combinedSolution = solution.map(item => {
     const joinedDescription = item.description.replace(/\n/g, '');
+    console.log(item);
     return (
       <>
         <WText style={{fontFamily: Fonts.italic, fontSize: 15}}>
