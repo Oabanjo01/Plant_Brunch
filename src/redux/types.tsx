@@ -41,29 +41,10 @@ export interface Plant {
   watering: string;
   sunlight: string[];
   default_image: PlantListImageType;
+  item_Owner?: string;
+  price?: string;
+  date_Added?: string;
 }
-
-export interface PlantListImageType {
-  license: number;
-  license_name: string;
-  license_url: string;
-  original_url: string;
-  regular_url: string;
-  medium_url: string;
-  small_url: string;
-  thumbnail: string;
-}
-export interface PlantDiseaseImageType {
-  license: number;
-  license_name: string;
-  license_url: string;
-  medium_url: string;
-  original_url: string;
-  regular_url: string;
-  small_url: string;
-  thumbnail: string;
-}
-
 export interface PlantDiseaseType {
   common_name: string;
   description: {
@@ -75,11 +56,35 @@ export interface PlantDiseaseType {
   id: number;
   images: PlantDiseaseImageType[];
   other_name: string[];
+  item_Owner: string;
   scientific_name: string;
   solution: {
     description: string;
     subtitle: string;
   }[];
+  price?: string;
+  date_Added?: string;
+}
+
+export interface PlantListImageType {
+  license?: number;
+  license_name?: string;
+  license_url?: string;
+  original_url?: string;
+  regular_url?: string;
+  medium_url?: string;
+  small_url?: string;
+  thumbnail?: string;
+}
+export interface PlantDiseaseImageType {
+  license?: number;
+  license_name?: string;
+  license_url?: string;
+  medium_url?: string;
+  original_url?: string;
+  regular_url?: string;
+  small_url?: string;
+  thumbnail?: string;
 }
 
 export interface PlantListResponse {

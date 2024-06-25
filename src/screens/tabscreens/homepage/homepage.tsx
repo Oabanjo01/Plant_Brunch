@@ -23,7 +23,7 @@ import LoadingIndicator from '@app/utilities/loadingIndicator';
 import {showToast} from '@app/utilities/toast';
 import Dashboard from '@assets/images/Dashboard.svg';
 import auth from '@react-native-firebase/auth';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   FlatList,
   Platform,
@@ -37,6 +37,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {TextInput} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
+import {useIsFocused} from '@react-navigation/native';
 
 const HomePage = ({navigation}: ScreenProps) => {
   const {
@@ -49,17 +50,23 @@ const HomePage = ({navigation}: ScreenProps) => {
     setRefreshing,
   } = useFetchData();
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const onRefresh = () => {
     fetchdata(true);
   };
 
+  useEffect(() => {
+    if (isFocused) {
+      onRefresh();
+    }
+  }, [isFocused]);
+
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
 
-  // TODO: add firebase storage for pictures
-  // TODO: find a way to create a new list that includes previous api list and new ones user creates.
+  // [ ]: find a way to create a new list that includes previous api list and new ones user creates.
   return (
     <>
       {isLoading || !displayName ? (
@@ -251,6 +258,7 @@ const HomePage = ({navigation}: ScreenProps) => {
                   data={plantList}
                   keyExtractor={item => item.id.toString()}
                   renderItem={({item}) => {
+                    // console.log(item.default_image.original_url, 'got here');
                     return (
                       <RenderPlantPictures
                         item={item}

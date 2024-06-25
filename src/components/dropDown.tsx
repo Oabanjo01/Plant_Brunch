@@ -1,21 +1,19 @@
-import {Colors as StaticColors, Routes} from '@app/constants';
-import {screenHeight, screenWidth} from '@app/constants/dimensions';
-import {RootStackNavigationProp} from '@app/navigation/navigation';
-import {useNavigation} from '@react-navigation/native';
-import React, {useCallback, useRef, useState} from 'react';
-import {StyleSheet, View, useColorScheme} from 'react-native';
-import {Divider} from 'react-native-paper';
-import SelectDropdown from 'react-native-select-dropdown';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import WText from '../utilities/customText';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '@app/redux/store';
-import {toggleTheme} from '@app/redux/actions/actions';
-import {getThemeColor} from '@app/constants/colors';
 import BottomSheetModal, {
   BottomSheetRefProps,
 } from '@app/components/modals/bottomSheetModal';
+import {Routes} from '@app/constants';
+import {getThemeColor} from '@app/constants/colors';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import {RootStackNavigationProp} from '@app/navigation/navigation';
+import {RootState} from '@app/redux/store';
 import {useVisibility} from '@app/themeProvider';
+import {useNavigation} from '@react-navigation/native';
+import React, {useCallback, useRef, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import SelectDropdown from 'react-native-select-dropdown';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
+import WText from '../utilities/customText';
 import BottomSheetComponent from './modals/bottomSheetComponent';
 
 interface DropDownData {

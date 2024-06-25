@@ -34,7 +34,7 @@ export const RenderDiseasePicture = ({
   const loadingPicture = () => {
     setLoading(true);
   };
-
+  // console.log(plantDisease.description, 'plantDisease');
   return (
     <TouchableOpacity
       onPress={() =>

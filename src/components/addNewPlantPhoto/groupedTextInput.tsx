@@ -50,7 +50,7 @@ const GroupedTextInput = ({
         }}>
         <View style={{flexDirection: 'row-reverse'}}>
           <Ionicons
-            name={inputListLength - 1 === index && 'add-circle-outline'}
+            name={inputListLength - 1 === index ? 'add-circle-outline' : null}
             color={Colors.primary}
             size={30}
             onPress={() => {

@@ -19,7 +19,7 @@ const useArticles = () => {
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [detectError, setDetectError] = useState<string>('');
+  // const [detectError, setDetectError] = useState<string>('');
 
   const userData = useSelector((state: RootState) => state.auth.user);
   const {displayName: storedUserName, email, uid} = userData;
