@@ -99,7 +99,7 @@ const PlantList = () => {
   return (
     <>
       {isLoading || isFetching ? (
-        <LoadingIndicator size={40} />
+        <LoadingIndicator size={40} showIcon />
       ) : (
         <View
           style={{

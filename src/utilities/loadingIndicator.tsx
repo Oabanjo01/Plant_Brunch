@@ -1,11 +1,18 @@
 import {getThemeColor} from '@app/constants/colors';
-import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import {screenWidth} from '@app/constants/dimensions';
 import {RootState} from '@app/redux/store';
+import CustomLogo from '@assets/images/CustomLogo.svg';
 import React from 'react';
 import {ActivityIndicator, View} from 'react-native';
 import {useSelector} from 'react-redux';
 
-const LoadingIndicator = ({size}: {size: number}) => {
+const LoadingIndicator = ({
+  size,
+  showIcon,
+}: {
+  size: number;
+  showIcon?: boolean;
+}) => {
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
@@ -18,7 +25,11 @@ const LoadingIndicator = ({size}: {size: number}) => {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-      <ActivityIndicator color={Colors.primary} size={size} />
+      {showIcon ? (
+        <CustomLogo />
+      ) : (
+        <ActivityIndicator color={Colors.primary} size={size} />
+      )}
     </View>
   );
 };

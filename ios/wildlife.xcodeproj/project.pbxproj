@@ -51,6 +51,7 @@
 		F5BC67652B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D92C1AD06FB4B45A9BAD676 /* OpenSans_SemiCondensed-Regular.ttf */; };
 		F5BC67662B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C7D339DF01B4CAD9BE54F91 /* OpenSans_SemiCondensed-SemiBold.ttf */; };
 		F5BC67672B7BFE9E00BB9AF5 /* OpenSans_SemiCondensed-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A7504546EED414F93288E1A /* OpenSans_SemiCondensed-SemiBoldItalic.ttf */; };
+		6ACE4136D8524970AFA12907 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 022777D25050423B95153C68 /* BootSplash.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		F5789DBC2B6A974500DBE158 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F86C0A187FD14DB1A146C3B9 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Light.ttf"; path = "../assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		FFA06DD265F54720870C48D2 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBold.ttf"; path = "../assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		022777D25050423B95153C68 /* BootSplash.storyboard */ = {isa = PBXFileReference; name = "BootSplash.storyboard"; path = "wildlife/BootSplash.storyboard"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				022777D25050423B95153C68 /* BootSplash.storyboard */,
 			);
 			name = wildlife;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				F5789DBD2B6A974500DBE158 /* GoogleService-Info.plist in Resources */,
+				6ACE4136D8524970AFA12907 /* BootSplash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
