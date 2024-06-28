@@ -34,7 +34,7 @@ const CartScreen = ({route, navigation}: Props) => {
   }, []);
 
   if (isLoading) {
-    return <LoadingIndicator size={40} />;
+    return <LoadingIndicator size={40} showIcon />;
   } else {
     return (
       <View

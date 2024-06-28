@@ -76,7 +76,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
   });
 
   if (!userAuthState) {
-    return <LoadingIndicator size={40} />;
+    return <LoadingIndicator size={40} showIcon />;
   } else if (userAuthState === 'notAuthenticated') {
     return (
       <Formik

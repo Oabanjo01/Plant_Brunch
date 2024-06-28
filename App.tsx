@@ -6,6 +6,7 @@ import {PaperProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
 
 import {persistor, store} from '@app/redux/store';
+import BootSplash from 'react-native-bootsplash';
 import ThemeProvider from '@app/themeProvider';
 import {toastConfig} from '@app/utilities/toast';
 import Toast from 'react-native-toast-message';
@@ -19,7 +20,7 @@ const App = () => {
         <PersistGate persistor={persistor}>
           <PaperProvider>
             {/* <Toast. */}
-            <NavigationContainer>
+            <NavigationContainer onReady={() => BootSplash.hide({fade: true})}>
               <ThemeProvider />
             </NavigationContainer>
             <Toast config={toastConfig} />

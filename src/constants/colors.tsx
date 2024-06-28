@@ -25,14 +25,11 @@ export interface ColorProps {
 export const Colors: ColorProps = {
   screenColor: '#E5E5E5',
   primaryTextColor: '#000000',
-  // lighterBlack: '#CCCCCC',
   lighterBlack: '#FFFFFF',
-  // secondaryTextColor: '#6A6F7D',
   secondaryTextColor: '#FFFFFF',
   tertiaryTextColor: '#FFFFFF',
   gradientColor: '#61D2C4',
   tabColor: '#FFFFFF',
-  // fixed colors
   ratingIconColor: '#FFCD00',
   primary: '#2DDA93',
   disabledButtonColor: '#AAAAAA',
@@ -53,11 +50,6 @@ export const DarkColors: ColorProps = {
   lighterBlack: '#777777',
   tabColor: '#FFFFFF',
 
-  // screenColor: '#1B1B1B',
-  // secondaryTextColor: '#C0C0C0',
-  // primaryTextColor: '#FFFFFF',
-  // tertiaryTextColor: '#FFFFFF',
-  // fixed colors
   ratingIconColor: '#FFCD00',
   primary: '#2DDA93',
   disabledButtonColor: '#AAAAAA',

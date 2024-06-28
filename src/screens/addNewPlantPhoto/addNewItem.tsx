@@ -134,7 +134,7 @@ const AddNewItem = ({navigation, route}: Props) => {
   console.log(base64List);
   const {addNewItem, isLoading} = useAddNewItem();
   if (isLoading) {
-    return <LoadingIndicator size={25} />;
+    return <LoadingIndicator size={25} showIcon />;
   } else {
     return (
       <Formik

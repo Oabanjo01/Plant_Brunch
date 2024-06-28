@@ -119,7 +119,7 @@ export const useFetchData = () => {
           ]);
         })
         .catch((err: any) => {
-          showToast(err);
+          // showToast(err);
         });
 
       setIsLoading(false);

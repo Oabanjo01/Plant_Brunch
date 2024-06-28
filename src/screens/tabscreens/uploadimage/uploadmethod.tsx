@@ -22,7 +22,7 @@ const CameraPage = ({navigation}: ScreenProps) => {
   const {selectImage, selectedImages, opening} = UsePickImage({navigation});
   // [ ]: Create an add product screen, that user is directed to, after taking image. Should contain every essential information.
   if (opening) {
-    return <LoadingIndicator size={40} />;
+    return <LoadingIndicator size={40} showIcon />;
   } else {
     return (
       <View
