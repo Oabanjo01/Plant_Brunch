@@ -1,6 +1,7 @@
 import {RootState} from '@app/redux/store';
 import {showToast} from '@app/utilities/toast';
 import firestore from '@react-native-firebase/firestore';
+import {useLoadingIndicator} from '../../../../App';
 import {useState} from 'react';
 import {useSelector} from 'react-redux';
 
@@ -18,9 +19,9 @@ const useCart = () => {
   const [cartedList, setCartedList] = useState<CartProps[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [isCarted, setIsCarted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const userData = useSelector((state: RootState) => state.auth.user);
+  const {isLoading, setIsLoading} = useLoadingIndicator();
   const {uid} = userData;
   const today = new Date();
   const year = today.getFullYear();

@@ -49,7 +49,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
   const Colors = getThemeColor(theme);
 
   useEffect(() => {
-    // TODO: Add a splash screen as the loading indicator
+    // [ ]: Add a splash screen as the loading indicator
     setUserAuthState(false);
     const unsubscribe = auth().onAuthStateChanged(user => {
       if (user && user.emailVerified) {
