@@ -11,6 +11,7 @@ import {useFetchData} from '@app/utilities/hooks/apiData/useFetchData';
 import LoadingIndicator from '@app/utilities/loadingIndicator';
 import {showToast} from '@app/utilities/toast';
 import Backbutton from '@app/components/backbutton';
+import {useLoadingIndicator} from '../../../App';
 
 interface SectionType {
   title: string;
@@ -21,7 +22,7 @@ const PlantList = () => {
   const [scientificNamesList, setScientificNameList] = useState<SectionType[]>(
     [],
   );
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const {isLoading, setIsLoading} = useLoadingIndicator();
 
   const {
     plantList,
@@ -34,8 +35,8 @@ const PlantList = () => {
   } = useFetchData();
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchDataAndProcessData = async () => {
-      setIsLoading(true);
       try {
         await fetchdata();
         getScientificNamesInSections();
@@ -97,72 +98,72 @@ const PlantList = () => {
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
   return (
-    <>
-      {isLoading || isFetching ? (
-        <LoadingIndicator size={40} showIcon />
-      ) : (
-        <View
-          style={{
-            paddingTop: screenHeight * 0.14,
-            backgroundColor: Colors.screenColor,
-            height: '100%',
-          }}>
-          <SectionList
-            contentContainerStyle={{
-              paddingBottom: screenHeight * 0.05,
-            }}
-            sections={scientificNamesList}
-            ListEmptyComponent={
-              <View
-                style={{
-                  height: '100%',
-                  alignSelf: 'center',
-                }}>
-                <WText>We can't fetch these names now</WText>
-              </View>
-            }
-            keyExtractor={(item, index) => item + index}
-            renderItem={({item, section}) => (
-              <View
-                style={{
-                  backgroundColor: Colors.lighterBlack,
-                  marginHorizontal: screenWidth * 0.05,
-                  paddingHorizontal: screenHeight * 0.02,
-                  paddingVertical: screenHeight * 0.02,
-                  borderRadius: 10,
-                  marginBottom: screenHeight * 0.01,
-                }}>
-                <WText style={{color: Colors.primaryTextColor}}>{item}</WText>
-              </View>
-            )}
-            stickySectionHeadersEnabled
-            renderSectionHeader={({section: {title}}) => (
-              <View
-                style={{
-                  paddingVertical: screenHeight * 0.02,
-                  marginVertical: screenHeight * 0.03,
-                  borderWidth: 1,
-                  borderRadius: 20,
-                  width: screenWidth * 0.5,
-                  alignSelf: 'center',
-                  borderColor: Colors.primary,
-                  alignItems: 'center',
-                  paddingHorizontal: screenWidth * 0.05,
-                }}>
-                <WText
-                  style={{
-                    color: Colors.primaryTextColor,
-                    fontFamily: Fonts.semiBold,
-                  }}>
-                  {title}
-                </WText>
-              </View>
-            )}
-          />
-          <Backbutton containsTitle title="Scientific Names" />
-        </View>
-      )}
-    </>
+    // <>
+    //   {isLoading || isFetching ? (
+    //     <LoadingIndicator size={40} showIcon />
+    //   ) : (
+    <View
+      style={{
+        paddingTop: screenHeight * 0.14,
+        backgroundColor: Colors.screenColor,
+        height: '100%',
+      }}>
+      <SectionList
+        contentContainerStyle={{
+          paddingBottom: screenHeight * 0.05,
+        }}
+        sections={scientificNamesList}
+        ListEmptyComponent={
+          <View
+            style={{
+              height: '100%',
+              alignSelf: 'center',
+            }}>
+            <WText>We can't fetch these names now</WText>
+          </View>
+        }
+        keyExtractor={(item, index) => item + index}
+        renderItem={({item, section}) => (
+          <View
+            style={{
+              backgroundColor: Colors.lighterBlack,
+              marginHorizontal: screenWidth * 0.05,
+              paddingHorizontal: screenHeight * 0.02,
+              paddingVertical: screenHeight * 0.02,
+              borderRadius: 10,
+              marginBottom: screenHeight * 0.01,
+            }}>
+            <WText style={{color: Colors.primaryTextColor}}>{item}</WText>
+          </View>
+        )}
+        stickySectionHeadersEnabled
+        renderSectionHeader={({section: {title}}) => (
+          <View
+            style={{
+              paddingVertical: screenHeight * 0.02,
+              marginVertical: screenHeight * 0.03,
+              borderWidth: 1,
+              borderRadius: 20,
+              width: screenWidth * 0.5,
+              alignSelf: 'center',
+              borderColor: Colors.primary,
+              alignItems: 'center',
+              paddingHorizontal: screenWidth * 0.05,
+            }}>
+            <WText
+              style={{
+                color: Colors.primaryTextColor,
+                fontFamily: Fonts.semiBold,
+              }}>
+              {title}
+            </WText>
+          </View>
+        )}
+      />
+      <Backbutton containsTitle title="Scientific Names" />
+    </View>
+    //   )}
+    // </>
   );
 };
 

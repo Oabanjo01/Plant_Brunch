@@ -1,6 +1,5 @@
 import Backbutton from '@app/components/backbutton';
 import {RenderCartItem} from '@app/components/cart/cartItem';
-import BottomSheetModal from '@app/components/modals/bottomSheetModal';
 import {Colors} from '@app/constants';
 import {getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
@@ -12,7 +11,6 @@ import ConfirmButton from '@app/utilities/confirmButton';
 import WText from '@app/utilities/customText';
 
 import useCart from '@app/utilities/hooks/cart/useCart';
-import LoadingIndicator from '@app/utilities/loadingIndicator';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
@@ -33,51 +31,47 @@ const CartScreen = ({route, navigation}: Props) => {
     fetchAllUserCartedItems();
   }, []);
 
-  if (isLoading) {
-    return <LoadingIndicator size={40} showIcon />;
-  } else {
-    return (
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: Colors.screenColor,
+      }}>
+      <Backbutton title="Carted Items" containsTitle />
       <View
         style={{
-          flex: 1,
-          backgroundColor: Colors.screenColor,
+          paddingTop: screenHeight * 0.14,
+          paddingBottom: screenHeight * 0.07,
+          height: screenHeight,
         }}>
-        <Backbutton title="Carted Items" containsTitle />
-        <View
-          style={{
-            paddingTop: screenHeight * 0.14,
-            paddingBottom: screenHeight * 0.07,
-            height: screenHeight,
-          }}>
-          {cartedList.length === 0 ? (
-            <WText style={{textAlign: 'center'}}>
-              Your cart is currently empty
-            </WText>
-          ) : (
-            <FlatList
-              data={cartedList}
-              renderItem={({item, index}: {item: any; index: number}) => (
-                <RenderCartItem index={index} item={item} />
-              )}
-              showsVerticalScrollIndicator={false}
-              ItemSeparatorComponent={() => <View style={{height: 10}} />}
-              keyExtractor={item => `${item.title}-${item.timeCarted}`}
-            />
-          )}
-        </View>
-
-        <ConfirmButton
-          buttonText="Proceed to Buy"
-          // newStyle={{}}
-          onPress={() => {
-            navigation.navigate('TransactionSummary', {
-              itemNo: cartedList.length,
-            });
-          }}
-        />
+        {cartedList.length === 0 ? (
+          <WText style={{textAlign: 'center'}}>
+            Your cart is currently empty
+          </WText>
+        ) : (
+          <FlatList
+            data={cartedList}
+            renderItem={({item, index}: {item: any; index: number}) => (
+              <RenderCartItem index={index} item={item} />
+            )}
+            showsVerticalScrollIndicator={false}
+            ItemSeparatorComponent={() => <View style={{height: 10}} />}
+            keyExtractor={item => `${item.title}-${item.timeCarted}`}
+          />
+        )}
       </View>
-    );
-  }
+
+      <ConfirmButton
+        buttonText="Proceed to Buy"
+        // newStyle={{}}
+        onPress={() => {
+          navigation.navigate('TransactionSummary', {
+            itemNo: cartedList.length,
+          });
+        }}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

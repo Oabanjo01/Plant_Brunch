@@ -101,7 +101,6 @@ const DropDown = ({
   };
 
   // TODO: Alert modal to confirm deletion of account, then dispatch log out
-
   // TODO: Edit modal to change username, email and password
   return (
     <View

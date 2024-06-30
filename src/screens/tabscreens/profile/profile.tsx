@@ -115,7 +115,6 @@ const ProfilePage = ({
   // TODO: figure out a way to navigate users to the product details screens
   // TODO: Add support modal for camera or file picker
   // TODO: Upload profile picture to firebase storage
-  // TODO: Fetch user location after requesting for access
   // TODO: Add bought image items to my items list
   return (
     <ScrollView

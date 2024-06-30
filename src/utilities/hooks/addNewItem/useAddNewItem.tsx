@@ -1,15 +1,17 @@
 import {RootState} from '@app/redux/store';
 import {showToast} from '@app/utilities/toast';
 import firestore from '@react-native-firebase/firestore';
+import {useLoadingIndicator} from '../../../../App';
 import {useState} from 'react';
 import {useSelector} from 'react-redux';
 
 export const db = firestore();
 export const useAddNewItem = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const userData = useSelector((state: RootState) => state.auth.user);
   const {uid, displayName} = userData;
+  const {isLoading, setIsLoading} = useLoadingIndicator();
 
   const today = new Date();
   const year = today.getFullYear();

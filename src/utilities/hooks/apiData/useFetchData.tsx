@@ -5,16 +5,18 @@ import {showToast} from '@app/utilities/toast';
 import {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {useSelector} from 'react-redux';
+import {useLoadingIndicator} from '../../../../App';
 
 const db = firestore();
 export const useFetchData = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [plantList, setPlantList] = useState<Plant[]>([]);
   const [plantDisease, setPlantDisease] = useState<PlantDiseaseType[]>([]);
 
   const userData = useSelector((state: RootState) => state.auth.user);
   const {displayName, email, uid} = userData;
+  const {isLoading, setIsLoading} = useLoadingIndicator();
 
   const convertToImageList: (item: string[]) => PlantDiseaseImageType[] = (
     item: string[],
@@ -103,6 +105,7 @@ export const useFetchData = () => {
       setIsLoading(true);
     }
     try {
+      setIsLoading(true);
       const plantListFirestore = (await fetchDataFromFirestore())
         .regularResponses;
       const plantDiseaseListFirestore = (await fetchDataFromFirestore())
@@ -136,12 +139,18 @@ export const useFetchData = () => {
   useEffect(() => {
     fetchdata();
   }, []);
+  // useEffect(() => {
+  //   if (!displayName) {
+  //     setIsLoading(true);
+  //   }
+  // }, [displayName]);
 
   return {
     isLoading,
     plantList,
     plantDisease,
     displayName,
+    setIsLoading,
     fetchdata,
     refreshing,
     setRefreshing,

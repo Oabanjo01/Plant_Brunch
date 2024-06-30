@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import {Platform, StatusBar, StyleSheet} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -11,19 +11,29 @@ import ThemeProvider from '@app/themeProvider';
 import {toastConfig} from '@app/utilities/toast';
 import Toast from 'react-native-toast-message';
 import {PersistGate} from 'redux-persist/integration/react';
+import LoadingIndicator from '@app/utilities/loadingIndicator';
 
+const LoadingContext = createContext({
+  isLoading: false,
+  setIsLoading: (value: boolean) => {},
+});
 const App = () => {
   // [ ]: Fix theming using system default settings
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   return (
     <>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <PaperProvider>
-            {/* <Toast. */}
-            <NavigationContainer onReady={() => BootSplash.hide({fade: true})}>
-              <ThemeProvider />
-            </NavigationContainer>
-            <Toast config={toastConfig} />
+            <LoadingContext.Provider value={{isLoading, setIsLoading}}>
+              <NavigationContainer
+                onReady={() => BootSplash.hide({fade: true})}>
+                <ThemeProvider />
+              </NavigationContainer>
+              <Toast config={toastConfig} />
+              <LoadingIndicator showIcon size={30} visible={isLoading} />
+            </LoadingContext.Provider>
           </PaperProvider>
         </PersistGate>
       </Provider>
@@ -37,7 +47,7 @@ export const generalStyles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
 });
-
+export const useLoadingIndicator = () => useContext(LoadingContext);
 export default App;
 
 {
