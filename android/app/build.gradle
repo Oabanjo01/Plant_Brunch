@@ -74,9 +74,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.wildlife"
+    namespace "com.plant_brunch"
     defaultConfig {
-        applicationId "com.wildlife"
+        applicationId "com.plant_brunch"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

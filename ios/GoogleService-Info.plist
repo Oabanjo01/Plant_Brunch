@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.reactjs.native.example.wildlife</string>
+	<string>org.reactjs.native.example.plant_brunch</string>
 	<key>PROJECT_ID</key>
 	<string>plant-app-aff11</string>
 	<key>STORAGE_BUCKET</key>

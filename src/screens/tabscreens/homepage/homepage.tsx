@@ -46,7 +46,8 @@ const HomePage = ({navigation}: ScreenProps) => {
     displayName,
     fetchdata,
     refreshing,
-    setRefreshing,
+    isFirstTime,
+    setIsFirstTime,
   } = useFetchData();
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
@@ -56,9 +57,10 @@ const HomePage = ({navigation}: ScreenProps) => {
   };
 
   useEffect(() => {
-    if (isFocused) {
-      onRefresh();
+    if (isFocused && !isFirstTime) {
+      fetchdata(false, true);
     }
+    return () => setIsFirstTime(false);
   }, [isFocused]);
 
   const userTheme = useSelector((state: RootState) => state.theme);

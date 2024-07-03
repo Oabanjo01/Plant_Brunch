@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:wildlife.xcodeproj">
+      location = "group:/Users/olabanjoolakunori/Documents/PersonalReactNativeProjects/Plant_Brunch/ios/plant_brunch.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Pods/Pods.xcodeproj">
+      location = "absolute:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

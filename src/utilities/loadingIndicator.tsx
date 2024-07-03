@@ -39,12 +39,12 @@ const LoadingIndicator = ({
 
     bounceAnimation.start();
 
-    return () => bounceAnimation.stop();
+    return () => bounceAnim.setValue(0);
   }, [bounceAnim]);
 
   const bounceInterpolation = bounceAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 20], // Adjust this value to control bounce height
+    outputRange: [0, 20],
   });
 
   if (!visible) return null;
