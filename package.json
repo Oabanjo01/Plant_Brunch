@@ -1,5 +1,5 @@
 {
-  "name": "wildlife",
+  "name": "plant_brunch",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -20,6 +20,7 @@
     "@react-navigation/native-stack": "^6.9.17",
     "axios": "^1.6.8",
     "formik": "^2.4.5",
+    "hermes-engine": "^0.11.0",
     "react": "^18.2.0",
     "react-native": "0.72.7",
     "react-native-bootsplash": "^5.5.3",

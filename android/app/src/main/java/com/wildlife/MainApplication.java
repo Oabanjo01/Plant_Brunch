@@ -1,4 +1,4 @@
-package com.wildlife;
+package com.plant_brunch;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

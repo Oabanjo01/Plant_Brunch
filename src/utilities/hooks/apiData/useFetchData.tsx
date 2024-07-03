@@ -13,6 +13,7 @@ export const useFetchData = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [plantList, setPlantList] = useState<Plant[]>([]);
   const [plantDisease, setPlantDisease] = useState<PlantDiseaseType[]>([]);
+  const [isFirstTime, setIsFirstTime] = useState<boolean>(false);
 
   const userData = useSelector((state: RootState) => state.auth.user);
   const {displayName, email, uid} = userData;
@@ -98,23 +99,20 @@ export const useFetchData = () => {
     };
   };
 
-  const fetchdata = async (isRefresh = false) => {
+  const fetchdata = async (isRefresh = false, noLoader?: boolean) => {
     if (isRefresh) {
       setRefreshing(true);
     } else {
-      setIsLoading(true);
+      noLoader ? null : setIsLoading(true);
     }
     try {
-      setIsLoading(true);
       const plantListFirestore = (await fetchDataFromFirestore())
         .regularResponses;
       const plantDiseaseListFirestore = (await fetchDataFromFirestore())
         .diseaseResponses;
-      // console.log(plantDiseaseListFirestore, plantListFirestore);
 
       await retryWithBackoff(fetchHomePagedata, 2)
         .then((data: any) => {
-          //
           setPlantList([...plantListFirestore, ...data?.plantList]);
           setPlantDisease([
             ...plantDiseaseListFirestore,
@@ -138,6 +136,7 @@ export const useFetchData = () => {
   };
   useEffect(() => {
     fetchdata();
+    return () => setIsFirstTime(true);
   }, []);
   // useEffect(() => {
   //   if (!displayName) {
@@ -154,5 +153,7 @@ export const useFetchData = () => {
     fetchdata,
     refreshing,
     setRefreshing,
+    setIsFirstTime,
+    isFirstTime,
   };
 };

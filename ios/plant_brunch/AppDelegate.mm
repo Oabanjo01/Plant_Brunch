@@ -3,12 +3,13 @@
 #import <Firebase.h>
 
 #import <React/RCTBundleURLProvider.h>
+#import <React/RCTInspectorDevServerHelper.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  self.moduleName = @"wildlife";
+  self.moduleName = @"plant_brunch";
   [FIRApp configure];
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.

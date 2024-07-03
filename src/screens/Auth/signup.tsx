@@ -124,7 +124,7 @@ const SignUpScreen = ({navigation}: ScreenProps) => {
                 marginBottom: 6,
                 fontFamily: Fonts.semiBold,
               }}>
-              Hello, create a new wildlife account
+              Hello, create a new plant_brunch account
             </WText>
             <WText style={{marginBottom: '7%'}}>
               Sign up now! Let’s Learn More About Plants

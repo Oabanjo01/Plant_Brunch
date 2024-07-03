@@ -1,16 +1,15 @@
-import {View, SectionList, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import WText from '@app/utilities/customText';
-import {useSelector} from 'react-redux';
-import {RootState} from '@app/redux/store';
 import {getThemeColor} from '@app/constants/colors';
+import {RootState} from '@app/redux/store';
+import WText from '@app/utilities/customText';
+import React, {useEffect, useState} from 'react';
+import {SectionList, StyleSheet, View} from 'react-native';
+import {useSelector} from 'react-redux';
 
+import Backbutton from '@app/components/backbutton';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {Fonts} from '@app/constants/fonts';
 import {useFetchData} from '@app/utilities/hooks/apiData/useFetchData';
-import LoadingIndicator from '@app/utilities/loadingIndicator';
 import {showToast} from '@app/utilities/toast';
-import Backbutton from '@app/components/backbutton';
 import {useLoadingIndicator} from '../../../App';
 
 interface SectionType {
@@ -22,36 +21,17 @@ const PlantList = () => {
   const [scientificNamesList, setScientificNameList] = useState<SectionType[]>(
     [],
   );
-  const {isLoading, setIsLoading} = useLoadingIndicator();
 
   const {
     plantList,
     plantDisease,
-    isLoading: isFetching,
+    isLoading,
     displayName,
     fetchdata,
     refreshing,
     setRefreshing,
+    setIsLoading,
   } = useFetchData();
-
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchDataAndProcessData = async () => {
-      try {
-        await fetchdata();
-        getScientificNamesInSections();
-      } catch (error) {
-        showToast({
-          text1: 'Error',
-          text2: 'An error occurred while fetching list',
-          type: 'error',
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchDataAndProcessData();
-  }, [plantList, plantDisease]);
 
   const getScientificNamesInSections = () => {
     const generalPhotographyList = plantList.map(item => {
@@ -94,14 +74,29 @@ const PlantList = () => {
     }
   };
 
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchDataAndProcessData = async () => {
+      try {
+        await fetchdata();
+        getScientificNamesInSections();
+      } catch (error) {
+        showToast({
+          text1: 'Error',
+          text2: 'An error occurred while fetching list',
+          type: 'error',
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDataAndProcessData();
+  }, [plantList, plantDisease]);
+
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
   return (
-    // <>
-    //   {isLoading || isFetching ? (
-    //     <LoadingIndicator size={40} showIcon />
-    //   ) : (
     <View
       style={{
         paddingTop: screenHeight * 0.14,
@@ -162,8 +157,6 @@ const PlantList = () => {
       />
       <Backbutton containsTitle title="Scientific Names" />
     </View>
-    //   )}
-    // </>
   );
 };
 
