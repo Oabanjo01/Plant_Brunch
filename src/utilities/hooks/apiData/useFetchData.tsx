@@ -134,10 +134,10 @@ export const useFetchData = () => {
       }
     }
   };
-  useEffect(() => {
-    fetchdata();
-    return () => setIsFirstTime(true);
-  }, []);
+  // useEffect(() => {
+  //   fetchdata();
+  //   return () => setIsFirstTime(true);
+  // }, []);
   // useEffect(() => {
   //   if (!displayName) {
   //     setIsLoading(true);

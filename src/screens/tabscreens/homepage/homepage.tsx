@@ -58,7 +58,7 @@ const HomePage = ({navigation}: ScreenProps) => {
 
   useEffect(() => {
     if (isFocused && !isFirstTime) {
-      fetchdata(false, true);
+      // fetchdata(false, true);
     }
     return () => setIsFirstTime(false);
   }, [isFocused]);
@@ -82,6 +82,8 @@ const HomePage = ({navigation}: ScreenProps) => {
             colors={[Colors.primary]}
           />
         }
+        contentContainerStyle={{zIndex: -10}}
+        style={{zIndex: -10}}
         showsVerticalScrollIndicator={false}
         contentInsetAdjustmentBehavior="never">
         <LinearGradient
@@ -162,25 +164,30 @@ const HomePage = ({navigation}: ScreenProps) => {
 
           <View
             style={{
-              flex: 1,
-              position: 'absolute',
-              left: screenWidth * 0.05,
-              right: screenWidth * 0.05,
-              bottom: -dashboardHeight * 0.1,
               flexDirection: 'row',
               backgroundColor: Colors.whiteColor,
-              alignItems: 'center',
               borderRadius: 40,
               paddingHorizontal: screenWidth * 0.03,
+              alignItems: 'center',
               ...Platform.select({
                 ios: {
                   shadowColor: 'rgba(0, 0, 0, 0.1)',
                   shadowOffset: {width: 1, height: 2},
                   shadowOpacity: 0.8,
                   shadowRadius: 2,
+                  position: 'absolute',
+                  bottom: -10,
+                  zIndex: 100000,
+                  left: screenWidth * 0.05,
+                  right: screenWidth * 0.05,
                 },
                 android: {
                   elevation: 7,
+                  flex: 1,
+                  position: 'absolute',
+                  left: screenWidth * 0.05,
+                  right: screenWidth * 0.05,
+                  bottom: -dashboardHeight * 0.1,
                 },
               }),
             }}>
