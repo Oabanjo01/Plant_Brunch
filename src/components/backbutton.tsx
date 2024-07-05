@@ -13,9 +13,11 @@ import WText from '@app/utilities/customText';
 const Backbutton = ({
   title,
   containsTitle,
+  closeBottomSheet,
 }: {
   title?: string;
   containsTitle?: boolean;
+  closeBottomSheet?: () => void;
 }) => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const userTheme = useSelector((state: RootState) => state.theme);
@@ -35,6 +37,7 @@ const Backbutton = ({
       }}>
       <TouchableOpacity
         onPress={() => {
+          closeBottomSheet?.(); // optional chaining. Learnt something new, lol
           navigation.goBack();
         }}>
         <Ionicons

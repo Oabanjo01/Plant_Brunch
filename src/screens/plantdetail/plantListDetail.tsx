@@ -1,21 +1,24 @@
+import Backbutton from '@app/components/backbutton';
+import DropDown from '@app/components/dropDown';
 import {Colors as StaticColors, getThemeColor} from '@app/constants/colors';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {FontSize, Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
+import {RootState} from '@app/redux/store';
 import {Plant, PlantListImageType} from '@app/redux/types';
 import WText from '@app/utilities/customText';
 import useArticles from '@app/utilities/hooks/articles/useArticles';
-import {useLikes} from '@app/utilities/hooks/likes/useLikes';
 import useCart from '@app/utilities/hooks/cart/useCart';
+import {useLikes} from '@app/utilities/hooks/likes/useLikes';
 import {
   capitalize,
   createSentenceFromArray,
 } from '@app/utilities/sentenceHelpers';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   ActivityIndicator,
-  Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -25,18 +28,39 @@ import FastImage from 'react-native-fast-image';
 import {Divider} from 'react-native-paper';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {SubTopics} from './plantDiseaseDetail';
 import {useSelector} from 'react-redux';
-import {RootState} from '@app/redux/store';
-import DropDown from '@app/components/dropDown';
-import Backbutton from '@app/components/backbutton';
+import {SubTopics} from './plantDiseaseDetail';
+import {BottomSheetRefProps} from '@app/components/modals/bottomSheetModal';
+import {useVisibility} from '@app/themeProvider';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantListDetail'>;
 
 const PlantListDetail = ({route, navigation}: Props) => {
   const [showDescription, setShowDescription] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  // const theme = useSelector((state: RootState) => state.onboarding);
+
+  const {
+    setBottomSheetVisible,
+    setForceCloseModal,
+    isBottomSheetVisible,
+    forceCloseModal,
+  } = useVisibility();
+
+  const handleCloseModal = () => {
+    console.log('got her2');
+    setBottomSheetVisible(false);
+    setForceCloseModal(false);
+  };
+  const ref = useRef<BottomSheetRefProps>(null);
+
+  const closeModal = useCallback(() => {
+    if (isBottomSheetVisible === true || forceCloseModal) {
+      console.log('heree, 2');
+      handleCloseModal();
+      ref?.current?.scrollTo(screenHeight, 50);
+      return;
+    }
+  }, [isBottomSheetVisible, forceCloseModal]);
 
   const item = route.params?.item;
   const {
@@ -147,7 +171,9 @@ const PlantListDetail = ({route, navigation}: Props) => {
     );
   } else {
     return (
-      <View style={{flex: 1, backgroundColor: Colors.screenColor}}>
+      <Pressable
+        style={{flex: 1, backgroundColor: Colors.screenColor}}
+        onPress={closeModal}>
         <View
           style={{
             marginBottom: (screenHeight * 0.1) / 2,
@@ -183,9 +209,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
                         uri: item.original_url,
                         priority: FastImage.priority.normal,
                       }}
-                      resizeMode={
-                        Platform.OS === 'android' ? 'cover' : 'contain'
-                      }
+                      resizeMode={'cover'}
                       style={{height: screenHeight * 0.4, width: screenWidth}}
                     />
                     {isLoading && (
@@ -214,14 +238,10 @@ const PlantListDetail = ({route, navigation}: Props) => {
                   common_name,
                   !isFavourited,
                   'PlantList',
-                  default_image.original_url,
+                  default_image.original_url || '',
                 );
               }}
             />
-          </View>
-
-          <View style={{top: screenHeight * 0.07, position: 'absolute'}}>
-            <DropDown />
           </View>
         </View>
         <ScrollView
@@ -298,7 +318,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
               addOrRemoveArticle(
                 common_name,
                 !isBookmarked,
-                default_image.original_url,
+                default_image.original_url || '',
                 'Photography',
               );
             }}
@@ -344,7 +364,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
               addOrRemoveCartItem(
                 common_name,
                 !isCarted,
-                default_image.original_url,
+                default_image.original_url || '',
                 'Photography',
               );
             }}
@@ -365,8 +385,11 @@ const PlantListDetail = ({route, navigation}: Props) => {
             />
           </TouchableOpacity>
         </View>
-        <Backbutton />
-      </View>
+        <View style={{top: screenHeight * 0.07, position: 'absolute'}}>
+          <DropDown ref={ref} />
+        </View>
+        <Backbutton closeBottomSheet={closeModal} />
+      </Pressable>
     );
   }
 };

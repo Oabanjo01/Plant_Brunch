@@ -1,22 +1,19 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useCallback, useEffect, useImperativeHandle} from 'react';
+import {getThemeColor} from '@app/constants/colors';
+import {screenHeight, screenWidth} from '@app/constants/dimensions';
+import {RootState} from '@app/redux/store';
+import {useVisibility} from '@app/themeProvider';
+import React, {useCallback, useImperativeHandle} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
-  Easing,
   Extrapolation,
   interpolate,
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-  withTiming,
 } from 'react-native-reanimated';
-import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {useSelector} from 'react-redux';
-import {RootState} from '@app/redux/store';
-import {getThemeColor} from '@app/constants/colors';
-import {useVisibility} from '@app/themeProvider';
-import WText from '@app/utilities/customText';
 
 type BottomSheetProps = {
   children: React.ReactNode;
