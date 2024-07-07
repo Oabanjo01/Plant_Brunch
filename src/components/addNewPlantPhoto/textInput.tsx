@@ -1,5 +1,6 @@
 import {
   KeyboardTypeOptions,
+  Platform,
   StyleSheet,
   Text,
   TextInput,
@@ -115,5 +116,11 @@ const styles = StyleSheet.create({
   textInput: {
     marginRight: screenWidth * 0.025,
     flex: 1,
+    ...Platform.select({
+      ios: {
+        paddingVertical: 10,
+        paddingLeft: 10,
+      },
+    }),
   },
 });

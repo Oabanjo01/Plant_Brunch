@@ -58,7 +58,7 @@ const HomePage = ({navigation}: ScreenProps) => {
 
   useEffect(() => {
     if (isFocused && !isFirstTime) {
-      // fetchdata(false, true);
+      fetchdata(false, true);
     }
     return () => setIsFirstTime(false);
   }, [isFocused]);
@@ -255,7 +255,6 @@ const HomePage = ({navigation}: ScreenProps) => {
               data={plantList}
               keyExtractor={item => item.id.toString()}
               renderItem={({item}) => {
-                // console.log(item.default_image.original_url, 'got here');
                 return (
                   <RenderPlantPictures item={item} navigation={navigation} />
                 );

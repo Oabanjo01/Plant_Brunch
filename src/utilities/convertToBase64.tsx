@@ -12,7 +12,6 @@ export const useConvertToBase64 = (uri: string[] | undefined) => {
         for (let i = index; i < uri.length; i++) {
           const newImage = await RNFS.readFile(item, 'base64');
           const modifiedImage = `data:image/jpeg;base64,${newImage}`;
-          console.log('got here', modifiedImage);
           setbase64List(prev => [...prev, modifiedImage]);
         }
       });

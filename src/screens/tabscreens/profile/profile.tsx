@@ -28,6 +28,7 @@ import {
   StyleSheet,
   TouchableHighlight,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -56,7 +57,7 @@ const ProfilePage = ({
   };
   const ref = useRef<BottomSheetRefProps>(null);
 
-  const showModal = useCallback(() => {
+  const closeModal = useCallback(() => {
     if (isBottomSheetVisible === true || forceCloseModal) {
       handleCloseModal();
       ref?.current?.scrollTo(screenHeight, 50);
@@ -275,6 +276,9 @@ const ProfilePage = ({
           />
         </SwiperFlatList>
       </ScrollView>
+      {isBottomSheetVisible && (
+        <Pressable style={styles.overlay} onPress={closeModal} />
+      )}
       <View
         style={{
           paddingTop: screenHeight * 0.07,
@@ -287,14 +291,6 @@ const ProfilePage = ({
   );
 };
 
-// Tab body
-
-// render the article and the likes
-
-// render the outer flatlist on My items
-
-// Render image in outer flatlist in my saved items
-
 const styles = StyleSheet.create({
   radioButtonStyle: {
     borderWidth: 3,
@@ -303,6 +299,12 @@ const styles = StyleSheet.create({
     borderRadius: 10 / 2,
     marginRight: screenWidth * 0.02,
     borderColor: Colors.addPhotoButtonColor,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'transparent',
+    opacity: 1,
+    height: '100%',
   },
 });
 

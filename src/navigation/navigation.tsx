@@ -86,10 +86,8 @@ const HomeTabNavigator: React.FC = () => {
       <TabStack.Navigator
         tabBar={props => {
           if (isBottomSheetVisible) {
-            console.log('No tab bar visible');
             return null;
           } else {
-            console.log('Tab bar visible');
             return (
               <TabBarStyle
                 {...props}

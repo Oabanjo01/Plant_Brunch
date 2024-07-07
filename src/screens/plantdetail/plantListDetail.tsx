@@ -39,28 +39,16 @@ const PlantListDetail = ({route, navigation}: Props) => {
   const [showDescription, setShowDescription] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const {
-    setBottomSheetVisible,
-    setForceCloseModal,
-    isBottomSheetVisible,
-    forceCloseModal,
-  } = useVisibility();
+  const {forceCloseModal} = useVisibility();
 
-  const handleCloseModal = () => {
-    console.log('got her2');
-    setBottomSheetVisible(false);
-    setForceCloseModal(false);
-  };
   const ref = useRef<BottomSheetRefProps>(null);
 
   const closeModal = useCallback(() => {
-    if (isBottomSheetVisible === true || forceCloseModal) {
-      console.log('heree, 2');
-      handleCloseModal();
+    if (forceCloseModal) {
       ref?.current?.scrollTo(screenHeight, 50);
       return;
     }
-  }, [isBottomSheetVisible, forceCloseModal]);
+  }, [forceCloseModal]);
 
   const item = route.params?.item;
   const {
@@ -157,6 +145,8 @@ const PlantListDetail = ({route, navigation}: Props) => {
     fetchCartStatus(common_name);
   }, []);
 
+  console.log(forceCloseModal, 'forceCloseModal');
+
   if (isFetchingArticles || isFetching || isFetchingCartItems) {
     return (
       <View
@@ -171,14 +161,13 @@ const PlantListDetail = ({route, navigation}: Props) => {
     );
   } else {
     return (
-      <Pressable
-        style={{flex: 1, backgroundColor: Colors.screenColor}}
-        onPress={closeModal}>
+      <View style={{backgroundColor: Colors.screenColor, height: '100%'}}>
         <View
           style={{
             marginBottom: (screenHeight * 0.1) / 2,
             height: screenHeight * 0.4,
             width: screenWidth,
+            backgroundColor: Colors.screenColor,
           }}>
           {imageToList?.length === 0 || !imageToList ? (
             <WText
@@ -248,7 +237,6 @@ const PlantListDetail = ({route, navigation}: Props) => {
           style={{
             paddingHorizontal: 20,
             backgroundColor: Colors.screenColor,
-            marginBottom: screenHeight * 0.06,
           }}>
           <View
             style={{
@@ -385,11 +373,25 @@ const PlantListDetail = ({route, navigation}: Props) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={{top: screenHeight * 0.07, position: 'absolute'}}>
+
+        {forceCloseModal && (
+          <Pressable
+            style={styles.overlay}
+            onPress={() => {
+              console.log('Press');
+              closeModal();
+            }}
+          />
+        )}
+        <View
+          style={{
+            top: screenHeight * 0.07,
+            position: 'absolute',
+          }}>
           <DropDown ref={ref} />
         </View>
         <Backbutton closeBottomSheet={closeModal} />
-      </Pressable>
+      </View>
     );
   }
 };
@@ -414,6 +416,11 @@ export const styles = StyleSheet.create({
     right: screenWidth * 0.05,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    opacity: 1,
+    height: '100%',
   },
 });
 

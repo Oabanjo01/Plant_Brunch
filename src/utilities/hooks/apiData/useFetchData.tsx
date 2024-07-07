@@ -22,7 +22,6 @@ export const useFetchData = () => {
   const convertToImageList: (item: string[]) => PlantDiseaseImageType[] = (
     item: string[],
   ) => {
-    // console.log(item, 'itemeeee');
     let imageList: PlantDiseaseImageType[] = item?.map((item: string) => {
       return {
         original_url: item,
@@ -40,7 +39,6 @@ export const useFetchData = () => {
     const itemList = (await generalList.get()).docs.map(item => {
       let imageList = convertToImageList(item.data().images);
       let itemType = item.data().type;
-      // console.log(item.data().images, 'hereee');
 
       let regularResponse: {plantList: Plant} = {
         plantList: {
@@ -134,10 +132,10 @@ export const useFetchData = () => {
       }
     }
   };
-  // useEffect(() => {
-  //   fetchdata();
-  //   return () => setIsFirstTime(true);
-  // }, []);
+  useEffect(() => {
+    fetchdata();
+    return () => setIsFirstTime(true);
+  }, []);
   // useEffect(() => {
   //   if (!displayName) {
   //     setIsLoading(true);

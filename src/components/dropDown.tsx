@@ -55,15 +55,11 @@ const DropDown = forwardRef(
     const {theme} = userTheme;
     const Colors = getThemeColor(theme);
 
-    console.log(isBottomSheetVisible, forceCloseModal, 'isBottomSheetVisible');
-
     const handleOpenModal = () => {
-      console.log('got her');
       affectBottomTab ? setBottomSheetVisible(true) : null;
       setForceCloseModal(true);
     };
     const handleCloseModal = () => {
-      console.log('got her2');
       affectBottomTab ? setBottomSheetVisible(false) : null;
       setForceCloseModal(false);
     };

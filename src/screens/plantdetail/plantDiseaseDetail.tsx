@@ -39,28 +39,16 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const item = route.params?.item;
 
-  const {
-    setBottomSheetVisible,
-    setForceCloseModal,
-    isBottomSheetVisible,
-    forceCloseModal,
-  } = useVisibility();
+  const {forceCloseModal} = useVisibility();
 
-  const handleCloseModal = () => {
-    console.log('got her2');
-    setBottomSheetVisible(false);
-    setForceCloseModal(false);
-  };
   const ref = useRef<BottomSheetRefProps>(null);
 
   const closeModal = useCallback(() => {
-    if (isBottomSheetVisible === true || forceCloseModal) {
-      console.log('heree, 2');
-      handleCloseModal();
+    if (forceCloseModal) {
       ref?.current?.scrollTo(screenHeight, 50);
       return;
     }
-  }, [isBottomSheetVisible, forceCloseModal]);
+  }, [forceCloseModal]);
 
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
@@ -76,7 +64,6 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     other_name,
     scientific_name,
   } = item as PlantDiseaseType;
-  // console.log(description);
 
   const renderStarIcons = (rating: number) => {
     const stars = [];
@@ -112,7 +99,6 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
 
   const combinedSolution = solution.map(item => {
     const joinedDescription = item.description.replace(/\n/g, '');
-    console.log(item);
     return (
       <>
         <WText style={{fontFamily: Fonts.italic, fontSize: 15}}>
@@ -196,17 +182,13 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     );
   } else {
     return (
-      <Pressable
-        style={{flex: 1, backgroundColor: Colors.screenColor}}
-        onPress={() => {
-          console.log('Press');
-          closeModal;
-        }}>
+      <View style={{backgroundColor: Colors.screenColor, height: '100%'}}>
         <View
           style={{
             marginBottom: (screenHeight * 0.1) / 2,
             height: screenHeight * 0.4,
             width: screenWidth,
+            backgroundColor: Colors.screenColor,
           }}>
           {item?.images?.length === 0 || !item?.images ? (
             <WText
@@ -275,6 +257,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
         </View>
         <ScrollView
           style={{
+            backgroundColor: Colors.screenColor,
             paddingHorizontal: 20,
           }}>
           <View
@@ -449,11 +432,14 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             />
           </TouchableOpacity>
         </View>
+        {forceCloseModal && (
+          <Pressable style={styles.overlay} onPress={closeModal} />
+        )}
         <View style={{top: screenHeight * 0.07, position: 'absolute'}}>
           <DropDown ref={ref} />
         </View>
         <Backbutton />
-      </Pressable>
+      </View>
     );
   }
 };

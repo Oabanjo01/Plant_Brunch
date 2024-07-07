@@ -28,7 +28,6 @@ const BottomSheetComponent = () => {
         clicked={clicked}
         tileTitle={true}
         onPressed={() => {
-          console.log('prsses', clicked);
           setClicked(1);
         }}
         value={1}

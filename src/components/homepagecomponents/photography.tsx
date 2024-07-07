@@ -27,7 +27,6 @@ const RenderPlantPictures = ({
   const loadingPicture = () => {
     setLoading(true);
   };
-  // console.log(item.default_image.original_url, 'got herrree');
   return (
     <TouchableOpacity
       onPress={() => {

@@ -44,13 +44,11 @@ export const retryWithBackoff = async (
   try {
     return await operation();
   } catch (error) {
-    console.log(error);
     if (retryCount >= MAX_RETRIES) {
       throw error;
     }
 
     const delayMs = RETRY_BASE_DELAY * Math.pow(2, retryCount);
-    console.log(`Retrying in ${delayMs} ms...`);
 
     await new Promise(resolve => setTimeout(resolve, delayMs));
     return retryWithBackoff(operation, retryCount + 1);

@@ -132,18 +132,12 @@ const AddNewItem = ({navigation, route}: Props) => {
   };
 
   const {base64List} = useConvertToBase64(uri);
-  console.log(base64List);
   const {addNewItem, isLoading} = useAddNewItem();
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={values => {
-        console.log(
-          values.groupedInputs,
-          values.groupedSolutionInputs,
-          'heree',
-        );
         const regularPayload = {
           price: values.price,
           scientific_Name: values.scientific_Name,
@@ -187,12 +181,13 @@ const AddNewItem = ({navigation, route}: Props) => {
           }}>
           <ScrollView
             keyboardShouldPersistTaps="never"
-            showsVerticalScrollIndicator={false}>
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{paddingBottom: screenHeight * 0.2}}>
             <View
               style={{
                 alignItems: 'center',
                 alignSelf: 'center',
-                width: screenWidth * 0.9,
+                width: screenWidth,
                 paddingTop: screenHeight * 0.15,
               }}>
               <SwiperFlatList
@@ -204,20 +199,24 @@ const AddNewItem = ({navigation, route}: Props) => {
                 data={uri}
                 renderItem={({item}: {item: string}) => {
                   return (
-                    <FastImage
-                      source={{uri: `file://${item}`}}
-                      resizeMode={
-                        Platform.OS === 'android' ? 'cover' : 'contain'
-                      }
+                    <View
                       style={{
-                        height: screenHeight * 0.4,
-                        width: screenWidth * 0.85,
-                        borderWidth: 1,
-                        borderColor: Colors.lighterBlack,
-                        marginBottom: screenHeight * 0.05,
-                        borderRadius: 20,
-                      }}
-                    />
+                        width: screenWidth,
+                        alignItems: 'center',
+                      }}>
+                      <FastImage
+                        source={{uri: `file://${item}`}}
+                        resizeMode={'cover'}
+                        style={{
+                          height: screenHeight * 0.4,
+                          width: screenWidth * 0.85,
+                          borderWidth: 1,
+                          borderColor: Colors.lighterBlack,
+                          marginBottom: screenHeight * 0.05,
+                          borderRadius: 20,
+                        }}
+                      />
+                    </View>
                   );
                 }}
               />
@@ -385,9 +384,8 @@ const AddNewItem = ({navigation, route}: Props) => {
               errorMessage={errors.price}
               keyboardType="numeric"
             />
-
-            <Backbutton containsTitle title="Add a New Plant" />
           </ScrollView>
+          <Backbutton containsTitle title="Add a New Plant" />
           <KeyboardAvoidingView
             style={{
               backgroundColor: Colors.screenColor,
