@@ -1,5 +1,6 @@
 import {ScreenProps} from '@app/navigation/navigation';
 import {showToast} from '@app/utilities/toast';
+import {useLoadingIndicator} from '../../../../App';
 import {useState} from 'react';
 import {
   Asset,
@@ -9,11 +10,11 @@ import {
 
 export const UsePickImage = ({navigation}: ScreenProps) => {
   const [selectedImages, setSelectedImages] = useState<Asset[]>([]);
-  const [opening, setOpening] = useState(false);
   const [transferred, setTransferred] = useState(0);
+  const {isLoading, setIsLoading} = useLoadingIndicator();
 
   const selectImage = async () => {
-    setOpening(true);
+    setIsLoading(true);
 
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
@@ -59,7 +60,7 @@ export const UsePickImage = ({navigation}: ScreenProps) => {
         }
       });
     } catch (error) {
-      setOpening(false);
+      setIsLoading(false);
       showToast({
         type: 'error',
         text1: 'Error',
@@ -67,12 +68,13 @@ export const UsePickImage = ({navigation}: ScreenProps) => {
         position: 'bottom',
       });
     } finally {
-      setOpening(false);
+      setIsLoading(false);
     }
   };
   return {
     selectedImages,
     selectImage,
-    opening,
+    isLoading,
+    setIsLoading,
   };
 };

@@ -1,27 +1,35 @@
-import {Colors as StaticColors, Routes} from '@app/constants';
+import {Colors as StaticColors} from '@app/constants';
 import {screenHeight, screenWidth} from '@app/constants/dimensions';
 import {FontSize, Fonts} from '@app/constants/fonts';
 import {RootStackParamList} from '@app/navigation/navigation';
 import {PlantDiseaseImageType, PlantDiseaseType} from '@app/redux/types';
 import WText from '@app/utilities/customText';
 
-import {capitalize} from '@app/utilities/sentenceHelpers';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useEffect, useState} from 'react';
-import {Platform, ScrollView, TouchableOpacity, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
-import {ActivityIndicator, Divider} from 'react-native-paper';
-import {SwiperFlatList} from 'react-native-swiper-flatlist';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {styles} from './plantListDetail';
-import {useLikes} from '@app/utilities/hooks/likes/useLikes';
+import Backbutton from '@app/components/backbutton';
+import DropDown from '@app/components/dropDown';
+import {getThemeColor} from '@app/constants/colors';
+import {RootState} from '@app/redux/store';
 import useArticles from '@app/utilities/hooks/articles/useArticles';
 import useCart from '@app/utilities/hooks/cart/useCart';
+import {useLikes} from '@app/utilities/hooks/likes/useLikes';
+import {capitalize} from '@app/utilities/sentenceHelpers';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import {Divider} from 'react-native-paper';
+import {SwiperFlatList} from 'react-native-swiper-flatlist';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
-import {RootState} from '@app/redux/store';
-import {getThemeColor} from '@app/constants/colors';
-import DropDown from '@app/components/dropDown';
-import Backbutton from '@app/components/backbutton';
+import {styles} from './plantListDetail';
+import {useVisibility} from '@app/themeProvider';
+import {BottomSheetRefProps} from '@app/components/modals/bottomSheetModal';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantDiseaseDetail'>;
 
@@ -30,6 +38,17 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
   const [showSolutions, setShowSolutions] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const item = route.params?.item;
+
+  const {forceCloseModal} = useVisibility();
+
+  const ref = useRef<BottomSheetRefProps>(null);
+
+  const closeModal = useCallback(() => {
+    if (forceCloseModal) {
+      ref?.current?.scrollTo(screenHeight, 50);
+      return;
+    }
+  }, [forceCloseModal]);
 
   const userTheme = useSelector((state: RootState) => state.theme);
   const {theme} = userTheme;
@@ -45,7 +64,6 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     other_name,
     scientific_name,
   } = item as PlantDiseaseType;
-  // console.log(description);
 
   const renderStarIcons = (rating: number) => {
     const stars = [];
@@ -81,7 +99,6 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
 
   const combinedSolution = solution.map(item => {
     const joinedDescription = item.description.replace(/\n/g, '');
-    console.log(item);
     return (
       <>
         <WText style={{fontFamily: Fonts.italic, fontSize: 15}}>
@@ -165,12 +182,13 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     );
   } else {
     return (
-      <View style={{flex: 1, backgroundColor: Colors.screenColor}}>
+      <View style={{backgroundColor: Colors.screenColor, height: '100%'}}>
         <View
           style={{
             marginBottom: (screenHeight * 0.1) / 2,
             height: screenHeight * 0.4,
             width: screenWidth,
+            backgroundColor: Colors.screenColor,
           }}>
           {item?.images?.length === 0 || !item?.images ? (
             <WText
@@ -202,9 +220,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
                         uri: item.original_url,
                         priority: FastImage.priority.normal,
                       }}
-                      resizeMode={
-                        Platform.OS === 'android' ? 'cover' : 'contain'
-                      }
+                      resizeMode={'cover'}
                       style={{height: screenHeight * 0.4, width: screenWidth}}
                     />
                     {isLoading && (
@@ -241,6 +257,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
         </View>
         <ScrollView
           style={{
+            backgroundColor: Colors.screenColor,
             paddingHorizontal: 20,
           }}>
           <View
@@ -415,8 +432,11 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             />
           </TouchableOpacity>
         </View>
+        {forceCloseModal && (
+          <Pressable style={styles.overlay} onPress={closeModal} />
+        )}
         <View style={{top: screenHeight * 0.07, position: 'absolute'}}>
-          <DropDown />
+          <DropDown ref={ref} />
         </View>
         <Backbutton />
       </View>

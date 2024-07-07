@@ -7,6 +7,7 @@ import WText from '@app/utilities/customText';
 import useCameraDevice from '@app/utilities/hooks/camera/useCamera';
 import {UsePickImage} from '@app/utilities/hooks/pickImage/usePickImage';
 import LoadingIndicator from '@app/utilities/loadingIndicator';
+import {useLoadingIndicator} from 'App';
 import React from 'react';
 import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -19,9 +20,10 @@ const CameraPage = ({navigation}: ScreenProps) => {
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
 
-  const {selectImage, selectedImages, opening} = UsePickImage({navigation});
+  const {selectImage, selectedImages, isLoading} = UsePickImage({navigation});
   // [ ]: Create an add product screen, that user is directed to, after taking image. Should contain every essential information.
-  if (opening) {
+  if (isLoading) {
+    console.log('Doing this');
     return <LoadingIndicator size={40} showIcon />;
   } else {
     return (

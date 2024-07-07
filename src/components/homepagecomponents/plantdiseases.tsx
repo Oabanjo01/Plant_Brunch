@@ -34,7 +34,6 @@ export const RenderDiseasePicture = ({
   const loadingPicture = () => {
     setLoading(true);
   };
-  // console.log(plantDisease.description, 'plantDisease');
   return (
     <TouchableOpacity
       onPress={() =>
@@ -56,7 +55,7 @@ export const RenderDiseasePicture = ({
                 }
               : require('../../../assets/images/Picture.png')
           }
-          resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
+          resizeMode={'cover'}
           onLoadEnd={loadedPicture}
           onLoadStart={loadingPicture}
         />

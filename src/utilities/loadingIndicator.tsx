@@ -22,6 +22,7 @@ const LoadingIndicator = ({
   const bounceAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    console.log('got here');
     const bounceAnimation = Animated.loop(
       Animated.sequence([
         Animated.timing(bounceAnim, {
@@ -39,8 +40,8 @@ const LoadingIndicator = ({
 
     bounceAnimation.start();
 
-    return () => bounceAnim.setValue(0);
-  }, [bounceAnim]);
+    // return () => bounceAnim.stopAnimation();
+  }, []);
 
   const bounceInterpolation = bounceAnim.interpolate({
     inputRange: [0, 1],

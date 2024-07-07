@@ -20,7 +20,13 @@ const ConfirmButton = ({
   const {theme} = userTheme;
   const Colors = getThemeColor(theme);
   return (
-    <View style={{width: screenWidth, backgroundColor: Colors.screenColor}}>
+    <View
+      style={{
+        width: screenWidth,
+        position: 'absolute',
+        bottom: 0,
+        backgroundColor: Colors.screenColor,
+      }}>
       <Pressable style={{...styles.buttonStyle, ...newStyle}} onPress={onPress}>
         <WText
           style={{

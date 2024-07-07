@@ -99,6 +99,7 @@ const LoginScreen = ({navigation}: ScreenProps) => {
         }) => (
           <ScrollView
             style={{...styles.container, backgroundColor: Colors.screenColor}}
+            contentContainerStyle={{paddingTop: '10%'}}
             keyboardShouldPersistTaps="never">
             <WText
               style={{

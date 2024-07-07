@@ -34,14 +34,13 @@ const CartScreen = ({route, navigation}: Props) => {
   return (
     <View
       style={{
-        flex: 1,
+        height: '100%',
         backgroundColor: Colors.screenColor,
       }}>
-      <Backbutton title="Carted Items" containsTitle />
       <View
         style={{
           paddingTop: screenHeight * 0.14,
-          paddingBottom: screenHeight * 0.07,
+          // paddingBottom: screenHeight * 0.07,
           height: screenHeight,
         }}>
         {cartedList.length === 0 ? (
@@ -51,6 +50,7 @@ const CartScreen = ({route, navigation}: Props) => {
         ) : (
           <FlatList
             data={cartedList}
+            contentContainerStyle={{paddingBottom: 100}}
             renderItem={({item, index}: {item: any; index: number}) => (
               <RenderCartItem index={index} item={item} />
             )}
@@ -63,13 +63,13 @@ const CartScreen = ({route, navigation}: Props) => {
 
       <ConfirmButton
         buttonText="Proceed to Buy"
-        // newStyle={{}}
         onPress={() => {
           navigation.navigate('TransactionSummary', {
             itemNo: cartedList.length,
           });
         }}
       />
+      <Backbutton title="Carted Items" containsTitle />
     </View>
   );
 };

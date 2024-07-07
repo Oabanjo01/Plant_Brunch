@@ -27,7 +27,6 @@ const RenderPlantPictures = ({
   const loadingPicture = () => {
     setLoading(true);
   };
-  // console.log(item.default_image.original_url, 'got herrree');
   return (
     <TouchableOpacity
       onPress={() => {
@@ -46,7 +45,7 @@ const RenderPlantPictures = ({
           uri: item.default_image.original_url,
           priority: FastImage.priority.normal,
         }}
-        resizeMode={Platform.OS === 'android' ? 'cover' : 'contain'}
+        resizeMode={'cover'}
         style={{
           borderRadius: 10,
           width: screenWidth * 0.73,

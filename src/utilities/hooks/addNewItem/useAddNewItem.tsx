@@ -30,7 +30,6 @@ export const useAddNewItem = () => {
   const addNewItem = async (itemName: string, payload: any) => {
     const newID = (await generalList.get()).docs.length;
     setIsLoading(true);
-    // console.log(itemName, payload, 'heree');
     const additionalPayload = {
       ...payload,
       id: newID + 1,
@@ -38,7 +37,6 @@ export const useAddNewItem = () => {
       dateAdded: formattedDate.toString(),
     };
     try {
-      // console.log('here, I guess');
       await collection.doc(itemName).set(payload);
       await generalList.doc(itemName).set(additionalPayload);
       setIsLoading(false);
@@ -49,7 +47,13 @@ export const useAddNewItem = () => {
       });
     } catch (error) {
       setIsLoading(false);
-      // console.log(error, 'error');
+      showToast({
+        text1: 'Failed',
+        text2: 'Failed to add item',
+        type: 'error',
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 

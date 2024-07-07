@@ -58,7 +58,7 @@ const HomePage = ({navigation}: ScreenProps) => {
 
   useEffect(() => {
     if (isFocused && !isFirstTime) {
-      // fetchdata(false, true);
+      fetchdata(false, true);
     }
     return () => setIsFirstTime(false);
   }, [isFocused]);
@@ -82,8 +82,6 @@ const HomePage = ({navigation}: ScreenProps) => {
             colors={[Colors.primary]}
           />
         }
-        contentContainerStyle={{zIndex: -10}}
-        style={{zIndex: -10}}
         showsVerticalScrollIndicator={false}
         contentInsetAdjustmentBehavior="never">
         <LinearGradient
@@ -161,57 +159,54 @@ const HomePage = ({navigation}: ScreenProps) => {
               <WText style={{color: Colors.secondaryTextColor}}>Logout</WText>
             </TouchableOpacity>
           </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              backgroundColor: Colors.whiteColor,
-              borderRadius: 40,
-              paddingHorizontal: screenWidth * 0.03,
-              alignItems: 'center',
-              ...Platform.select({
-                ios: {
-                  shadowColor: 'rgba(0, 0, 0, 0.1)',
-                  shadowOffset: {width: 1, height: 2},
-                  shadowOpacity: 0.8,
-                  shadowRadius: 2,
-                  position: 'absolute',
-                  bottom: -10,
-                  zIndex: 100000,
-                  left: screenWidth * 0.05,
-                  right: screenWidth * 0.05,
-                },
-                android: {
-                  elevation: 7,
-                  flex: 1,
-                  position: 'absolute',
-                  left: screenWidth * 0.05,
-                  right: screenWidth * 0.05,
-                  bottom: -dashboardHeight * 0.1,
-                },
-              }),
-            }}>
-            <Ionicons
-              size={26}
-              style={{marginLeft: 10}}
-              color={Colors.primary}
-              name={'search-outline'}
-            />
-            <TextInput
-              underlineColor="transparent"
-              activeUnderlineColor="transparent"
-              selectionColor={Colors.primary}
-              cursorColor={Colors.primary}
-              maxLength={24}
-              style={{
-                backgroundColor: 'transparent',
-                flex: 1,
-                borderColor: 'transparent',
-              }}
-            />
-          </View>
         </LinearGradient>
-
+        <View
+          style={{
+            flexDirection: 'row',
+            backgroundColor: Colors.whiteColor,
+            borderRadius: 40,
+            paddingHorizontal: screenWidth * 0.03,
+            alignItems: 'center',
+            position: 'absolute',
+            top: dashboardHeight - 30,
+            left: screenWidth * 0.05,
+            right: screenWidth * 0.05,
+            flex: 1,
+            // ...Platform.select({
+            //   ios: {
+            //     shadowColor: 'rgba(0, 0, 0, 0.1)',
+            //     shadowOffset: {width: 1, height: 2},
+            //     shadowOpacity: 0.8,
+            //     shadowRadius: 2,
+            //   },
+            //   android: {
+            //     elevation: 7,
+            //     position: 'absolute',
+            //     left: screenWidth * 0.05,
+            //     right: screenWidth * 0.05,
+            //     bottom: -dashboardHeight * 0.1,
+            //   },
+            // }),
+          }}>
+          <Ionicons
+            size={26}
+            style={{marginLeft: 10}}
+            color={Colors.primary}
+            name={'search-outline'}
+          />
+          <TextInput
+            underlineColor="transparent"
+            activeUnderlineColor="transparent"
+            selectionColor={Colors.primary}
+            cursorColor={Colors.primary}
+            maxLength={24}
+            style={{
+              backgroundColor: 'transparent',
+              flex: 1,
+              borderColor: 'transparent',
+            }}
+          />
+        </View>
         <View
           style={{
             marginTop: screenHeight * 0.06,
@@ -260,7 +255,6 @@ const HomePage = ({navigation}: ScreenProps) => {
               data={plantList}
               keyExtractor={item => item.id.toString()}
               renderItem={({item}) => {
-                // console.log(item.default_image.original_url, 'got here');
                 return (
                   <RenderPlantPictures item={item} navigation={navigation} />
                 );
