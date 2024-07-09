@@ -105,6 +105,7 @@ const DropDown = forwardRef(
     const data: DropDownData[] = [
       {label: 'Cart', value: 'cart', icon: 'cart-outline'},
       {label: 'Settings', value: 'settings', icon: 'settings-outline'},
+      {label: 'History', value: 'history', icon: 'document-text-outline'},
     ];
 
     const handleOptionSelect = (value: string) => {
@@ -112,6 +113,9 @@ const DropDown = forwardRef(
       if (value === 'cart') {
         ref?.current?.scrollTo(2000, 50);
         navigation.navigate(Routes.CartScreen);
+      }
+      if (value === 'history') {
+        console.log('history');
       } else if (value === 'settings') {
         showModal();
       }
