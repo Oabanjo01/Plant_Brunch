@@ -23,7 +23,6 @@ const CameraPage = ({navigation}: ScreenProps) => {
   const {selectImage, selectedImages, isLoading} = UsePickImage({navigation});
   // [ ]: Create an add product screen, that user is directed to, after taking image. Should contain every essential information.
   if (isLoading) {
-    console.log('Doing this');
     return <LoadingIndicator size={40} showIcon />;
   } else {
     return (
@@ -40,6 +39,8 @@ const CameraPage = ({navigation}: ScreenProps) => {
             onPress={() => handlePhoneVersion(navigation)}
             style={{
               borderWidth: 2,
+              width: screenWidth * 0.3,
+              alignItems: 'center',
               padding: 10,
               borderRadius: 20,
               borderColor: Colors.tabBarTextColor,
@@ -53,7 +54,7 @@ const CameraPage = ({navigation}: ScreenProps) => {
               }}
               color={Colors.primary}
             />
-            <WText style={{color: Colors.primaryTextColor}}>Camerapage</WText>
+            <WText style={{color: Colors.primaryTextColor}}>Camera</WText>
           </TouchableOpacity>
         }
         <TouchableOpacity
@@ -63,6 +64,8 @@ const CameraPage = ({navigation}: ScreenProps) => {
             padding: 10,
             borderRadius: 20,
             borderColor: Colors.tabBarTextColor,
+            alignItems: 'center',
+            width: screenWidth * 0.3,
           }}>
           <Ionicons
             name={'image-outline'}

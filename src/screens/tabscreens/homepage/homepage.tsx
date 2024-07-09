@@ -19,7 +19,6 @@ import {logoutAction} from '@app/redux/actions/actions';
 import {RootState} from '@app/redux/store';
 import WText from '@app/utilities/customText';
 import {useFetchData} from '@app/utilities/hooks/apiData/useFetchData';
-import LoadingIndicator from '@app/utilities/loadingIndicator';
 import {showToast} from '@app/utilities/toast';
 import Dashboard from '@assets/images/Dashboard.svg';
 import auth from '@react-native-firebase/auth';
@@ -27,7 +26,6 @@ import {useIsFocused} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {
   FlatList,
-  Platform,
   RefreshControl,
   ScrollView,
   TouchableOpacity,
@@ -43,6 +41,7 @@ const HomePage = ({navigation}: ScreenProps) => {
     plantList,
     plantDisease,
     isLoading,
+    setIsLoading,
     displayName,
     fetchdata,
     refreshing,
@@ -57,6 +56,7 @@ const HomePage = ({navigation}: ScreenProps) => {
   };
 
   useEffect(() => {
+    console.log('Got here when - 3');
     if (isFocused && !isFirstTime) {
       fetchdata(false, true);
     }
@@ -135,8 +135,8 @@ const HomePage = ({navigation}: ScreenProps) => {
                 await auth()
                   .signOut()
                   .then(() => {
-                    dispatch(logoutAction());
                     navigation.replace(Routes.Login);
+                    dispatch(logoutAction());
                     showToast({
                       type: 'success',
                       text1: 'Logged out',
@@ -218,7 +218,7 @@ const HomePage = ({navigation}: ScreenProps) => {
           <FlatList
             // onRefresh={}
             data={SubTopics}
-            keyExtractor={item => item.id}
+            keyExtractor={(item, index) => `${index} - ${item.id}`}
             renderItem={({item, index}) => {
               return (
                 <RenderSubTopics
@@ -253,7 +253,7 @@ const HomePage = ({navigation}: ScreenProps) => {
             }}>
             <FlatList
               data={plantList}
-              keyExtractor={item => item.id.toString()}
+              keyExtractor={(item, index) => `${index} - ${item.id.toString()}`}
               renderItem={({item}) => {
                 return (
                   <RenderPlantPictures item={item} navigation={navigation} />
@@ -303,7 +303,7 @@ const HomePage = ({navigation}: ScreenProps) => {
             }}>
             <FlatList
               data={plantDisease}
-              keyExtractor={item => item.id.toString()}
+              keyExtractor={(item, index) => `${index} - ${item.id.toString()}`}
               renderItem={({item}) => {
                 return (
                   <RenderDiseasePicture

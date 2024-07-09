@@ -7,6 +7,7 @@ import {
   ImageLibraryOptions,
   launchImageLibrary,
 } from 'react-native-image-picker';
+import {Platform} from 'react-native';
 
 export const UsePickImage = ({navigation}: ScreenProps) => {
   const [selectedImages, setSelectedImages] = useState<Asset[]>([]);
@@ -20,6 +21,13 @@ export const UsePickImage = ({navigation}: ScreenProps) => {
       mediaType: 'photo',
       selectionLimit: 5,
       includeBase64: true,
+      ...Platform.select({
+        ios: {
+          quality: 0.4,
+          maxWidth: 400,
+          maxHeight: 400,
+        },
+      }),
     };
 
     try {

@@ -32,6 +32,7 @@ import {useSelector} from 'react-redux';
 import {SubTopics} from './plantDiseaseDetail';
 import {BottomSheetRefProps} from '@app/components/modals/bottomSheetModal';
 import {useVisibility} from '@app/themeProvider';
+import LinearGradient from 'react-native-linear-gradient';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantListDetail'>;
 
@@ -59,9 +60,8 @@ const PlantListDetail = ({route, navigation}: Props) => {
     cycle,
     watering,
     sunlight,
+    price,
   } = item as Plant;
-
-  const imageToList = [default_image];
 
   const renderStarIcons = (rating: number) => {
     const stars = [];
@@ -145,8 +145,6 @@ const PlantListDetail = ({route, navigation}: Props) => {
     fetchCartStatus(common_name);
   }, []);
 
-  console.log(forceCloseModal, 'forceCloseModal');
-
   if (isFetchingArticles || isFetching || isFetchingCartItems) {
     return (
       <View
@@ -169,7 +167,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
             width: screenWidth,
             backgroundColor: Colors.screenColor,
           }}>
-          {imageToList?.length === 0 || !imageToList ? (
+          {default_image?.length === 0 || !default_image ? (
             <WText
               style={{
                 textAlign: 'center',
@@ -187,9 +185,17 @@ const PlantListDetail = ({route, navigation}: Props) => {
               showPagination
               paginationDefaultColor={Colors.lighterBlack}
               paginationActiveColor={Colors.primary}
-              keyExtractor={item => item?.id?.toString()}
-              data={imageToList}
-              renderItem={({item}: {item: PlantListImageType}) => {
+              keyExtractor={(item, index) =>
+                `${index} - ${item?.original_url?.toString()}`
+              }
+              data={default_image}
+              renderItem={({
+                item,
+                index,
+              }: {
+                item: PlantListImageType;
+                index: number;
+              }) => {
                 return (
                   <>
                     <FastImage
@@ -201,6 +207,51 @@ const PlantListDetail = ({route, navigation}: Props) => {
                       resizeMode={'cover'}
                       style={{height: screenHeight * 0.4, width: screenWidth}}
                     />
+                    {index > 0 &&
+                      Number(price?.toString().replace(',', '')) >= 0 && (
+                        <View
+                          style={{
+                            ...styles.patternOverlay,
+                            justifyContent: 'center',
+                          }}>
+                          <LinearGradient
+                            colors={[
+                              '#f0f0f0',
+                              Colors.lightPrimaryColor,
+                              '#f0f0f0',
+                            ]}
+                            start={{x: 0, y: 0}}
+                            end={{x: 1, y: 1}}
+                            style={styles.gradient}
+                          />
+                          <View
+                            style={{
+                              alignItems: 'center',
+                            }}>
+                            <WText>Image Preview Not Available</WText>
+                            <TouchableOpacity>
+                              <WText>Buy to View</WText>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      )}
+                    <View
+                      style={{
+                        backgroundColor: Colors.screenColor,
+                        position: 'absolute',
+                        borderRadius: 15,
+                        bottom: 20,
+                        left: 10,
+                      }}>
+                      <WText
+                        style={{
+                          fontSize: 20,
+                          padding: 7.5,
+                          color: Colors.primaryTextColor,
+                        }}>
+                        ₦ {price ? price : 0.0}
+                      </WText>
+                    </View>
                     {isLoading && (
                       <View
                         style={{
@@ -227,7 +278,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
                   common_name,
                   !isFavourited,
                   'PlantList',
-                  default_image.original_url || '',
+                  default_image[0].original_url || '',
                 );
               }}
             />
@@ -306,7 +357,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
               addOrRemoveArticle(
                 common_name,
                 !isBookmarked,
-                default_image.original_url || '',
+                default_image[0].original_url || '',
                 'Photography',
               );
             }}
@@ -352,7 +403,7 @@ const PlantListDetail = ({route, navigation}: Props) => {
               addOrRemoveCartItem(
                 common_name,
                 !isCarted,
-                default_image.original_url || '',
+                default_image[0].original_url || '',
                 'Photography',
               );
             }}
@@ -378,7 +429,6 @@ const PlantListDetail = ({route, navigation}: Props) => {
           <Pressable
             style={styles.overlay}
             onPress={() => {
-              console.log('Press');
               closeModal();
             }}
           />
@@ -421,6 +471,22 @@ export const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     opacity: 1,
     height: '100%',
+  },
+  blurOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  gradient: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  patternOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    opacity: 0.9,
+    backgroundColor: 'transparent',
+    backgroundImage:
+      'repeating-linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), repeating-linear-gradient(45deg, #ccc 25%, #f0f0f0 25%, #f0f0f0 75%, #ccc 75%, #ccc)',
+    backgroundSize: '20px 20px',
+    backgroundPosition: '0 0, 10px 10px',
   },
 });
 

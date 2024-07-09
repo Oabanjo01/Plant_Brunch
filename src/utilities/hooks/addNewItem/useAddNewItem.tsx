@@ -46,6 +46,7 @@ export const useAddNewItem = () => {
         type: 'success',
       });
     } catch (error) {
+      console.log(error);
       setIsLoading(false);
       showToast({
         text1: 'Failed',

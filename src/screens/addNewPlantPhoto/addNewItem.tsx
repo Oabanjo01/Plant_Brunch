@@ -39,7 +39,7 @@ interface GroupedInputProps {
   description: string;
 }
 
-// TODO: Fix issue with bottom button
+// [ ]: Fix issue with bottom button
 
 const AddNewItem = ({navigation, route}: Props) => {
   const params = route.params;

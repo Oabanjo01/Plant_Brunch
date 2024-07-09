@@ -40,7 +40,7 @@ export interface Plant {
   cycle: string;
   watering: string;
   sunlight: string[];
-  default_image: PlantListImageType;
+  default_image: PlantListImageType[];
   item_Owner?: string;
   price?: string;
   date_Added?: string;

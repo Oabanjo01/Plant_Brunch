@@ -30,6 +30,7 @@ import {useSelector} from 'react-redux';
 import {styles} from './plantListDetail';
 import {useVisibility} from '@app/themeProvider';
 import {BottomSheetRefProps} from '@app/components/modals/bottomSheetModal';
+import LinearGradient from 'react-native-linear-gradient';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PlantDiseaseDetail'>;
 
@@ -63,6 +64,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
     common_name,
     other_name,
     scientific_name,
+    price,
   } = item as PlantDiseaseType;
 
   const renderStarIcons = (rating: number) => {
@@ -191,17 +193,24 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
             backgroundColor: Colors.screenColor,
           }}>
           {item?.images?.length === 0 || !item?.images ? (
-            <WText
+            <View
               style={{
-                textAlign: 'center',
-                textAlignVertical: 'center',
                 height: screenHeight * 0.4,
                 width: screenWidth,
-                borderBottomColor: Colors.disabledButtonColor,
-                borderBottomWidth: 1,
+                justifyContent: 'center',
               }}>
-              No Image Uploaded
-            </WText>
+              <WText
+                style={{
+                  textAlign: 'center',
+                  fontFamily: Fonts.italic,
+                  fontSize: 15,
+                  color: Colors.addPhotoButtonColor,
+                  borderBottomColor: Colors.disabledButtonColor,
+                  borderBottomWidth: 1,
+                }}>
+                No Image Uploaded
+              </WText>
+            </View>
           ) : (
             <SwiperFlatList
               index={0}
@@ -210,7 +219,13 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
               paginationActiveColor={Colors.primary}
               keyExtractor={item => item?.id?.toString()}
               data={item?.images.slice(0, 5)}
-              renderItem={({item}: {item: PlantDiseaseImageType}) => {
+              renderItem={({
+                item,
+                index,
+              }: {
+                item: PlantDiseaseImageType;
+                index: number;
+              }) => {
                 return (
                   <>
                     <FastImage
@@ -223,6 +238,51 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
                       resizeMode={'cover'}
                       style={{height: screenHeight * 0.4, width: screenWidth}}
                     />
+                    {index > 0 &&
+                      Number(price?.toString().replace(',', '')) >= 0 && (
+                        <View
+                          style={{
+                            ...styles.patternOverlay,
+                            justifyContent: 'center',
+                          }}>
+                          <LinearGradient
+                            colors={[
+                              '#f0f0f0',
+                              Colors.lightPrimaryColor,
+                              '#f0f0f0',
+                            ]}
+                            start={{x: 0, y: 0}}
+                            end={{x: 1, y: 1}}
+                            style={styles.gradient}
+                          />
+                          <View
+                            style={{
+                              alignItems: 'center',
+                            }}>
+                            <WText>Image Preview Not Available</WText>
+                            <TouchableOpacity>
+                              <WText>Buy to View</WText>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      )}
+                    <View
+                      style={{
+                        backgroundColor: Colors.screenColor,
+                        position: 'absolute',
+                        borderRadius: 15,
+                        bottom: 20,
+                        left: 10,
+                      }}>
+                      <WText
+                        style={{
+                          fontSize: 20,
+                          padding: 7.5,
+                          color: Colors.primaryTextColor,
+                        }}>
+                        ₦ {price ? price : 0.0}
+                      </WText>
+                    </View>
                     {isLoading && (
                       <View
                         style={{
@@ -256,6 +316,7 @@ const PlantDiseaseDetail = ({route, navigation}: Props) => {
           </View>
         </View>
         <ScrollView
+          contentContainerStyle={{paddingBottom: 100}}
           style={{
             backgroundColor: Colors.screenColor,
             paddingHorizontal: 20,

@@ -1,6 +1,11 @@
 import {fetchHomePagedata, retryWithBackoff} from '@app/index';
 import {RootState} from '@app/redux/store';
-import {Plant, PlantDiseaseImageType, PlantDiseaseType} from '@app/redux/types';
+import {
+  Plant,
+  PlantDiseaseImageType,
+  PlantDiseaseType,
+  PlantListImageType,
+} from '@app/redux/types';
 import {showToast} from '@app/utilities/toast';
 import {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
@@ -19,15 +24,17 @@ export const useFetchData = () => {
   const {displayName, email, uid} = userData;
   const {isLoading, setIsLoading} = useLoadingIndicator();
 
-  const convertToImageList: (item: string[]) => PlantDiseaseImageType[] = (
+  const convertToImageList: (
     item: string[],
-  ) => {
-    let imageList: PlantDiseaseImageType[] = item?.map((item: string) => {
-      return {
-        original_url: item,
-        regular_url: item,
-      };
-    });
+  ) => (PlantDiseaseImageType | PlantListImageType)[] = (item: string[]) => {
+    let imageList: (PlantDiseaseImageType | PlantListImageType)[] = item?.map(
+      (item: string) => {
+        return {
+          original_url: item,
+          regular_url: item,
+        };
+      },
+    );
     return imageList;
   };
 
@@ -49,10 +56,7 @@ export const useFetchData = () => {
           cycle: item.data().cycle,
           watering: item.data().watering,
           sunlight: [item.data().sunlight],
-          default_image: {
-            original_url: item.data().images[0],
-            regular_url: item.data().images[0],
-          },
+          default_image: imageList,
           date_Added: item.data().dateAdded,
           item_Owner: item.data().itemOwner,
           price: item.data().price,
@@ -111,7 +115,7 @@ export const useFetchData = () => {
 
       await retryWithBackoff(fetchHomePagedata, 2)
         .then((data: any) => {
-          setPlantList([...plantListFirestore, ...data?.plantList]);
+          setPlantList([...plantListFirestore, ...data?.modifiedPlantList]);
           setPlantDisease([
             ...plantDiseaseListFirestore,
             ...data?.plantDisease,
@@ -132,10 +136,19 @@ export const useFetchData = () => {
       }
     }
   };
+
   useEffect(() => {
     fetchdata();
     return () => setIsFirstTime(true);
   }, []);
+
+  useEffect(() => {
+    console.log('Got here when - 1');
+    if (plantList.length === 0 || plantDisease.length === 0) {
+      setIsLoading(true);
+    }
+  }, [isLoading]);
+
   // useEffect(() => {
   //   if (!displayName) {
   //     setIsLoading(true);
