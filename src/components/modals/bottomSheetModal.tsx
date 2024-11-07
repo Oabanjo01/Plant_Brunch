@@ -41,6 +41,7 @@ const BottomSheetModal = React.forwardRef<
   const scrollTo = useCallback((scrollheight: number, damping: number) => {
     'worklet';
     translationY.value = withSpring(scrollheight, {damping: damping});
+    console.log(translationY.value);
     if (scrollheight > 0) {
       runOnJS(setBottomSheetVisible)(false);
       runOnJS(setForceCloseModal)(false);

@@ -1,5 +1,7 @@
 import DropDown from '@app/components/dropDown';
-import {BottomSheetRefProps} from '@app/components/modals/bottomSheetModal';
+import BottomSheetModal, {
+  BottomSheetRefProps,
+} from '@app/components/modals/bottomSheetModal';
 import {RenderArticlesOrLikes} from '@app/components/profile/myArticlesandLikes';
 import {RenderCollectedPlantBox} from '@app/components/profile/myItemBox';
 import {TabBodyDisplay} from '@app/components/profile/tabBody';
@@ -28,13 +30,14 @@ import {
   StyleSheet,
   TouchableHighlight,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
+import {uploadBoxIcon} from '../uploadimage/uploadmethod';
+import useCameraDevice from '@app/utilities/hooks/camera/useCamera';
 
 const ProfilePage = ({
   navigation,
@@ -43,6 +46,7 @@ const ProfilePage = ({
   navigation: ScreenProps;
   route: any;
 }) => {
+  const {navigation: navigationProp} = navigation;
   const [activeButton, setActiveButton] = useState<number>(1);
   const {
     setBottomSheetVisible,
@@ -50,12 +54,34 @@ const ProfilePage = ({
     isBottomSheetVisible,
     forceCloseModal,
   } = useVisibility();
+  const {handlePermission, handlePhoneVersion} = useCameraDevice();
 
   const handleCloseModal = () => {
     setBottomSheetVisible(false);
     setForceCloseModal(false);
   };
+  const handleOpenModal = () => {
+    setBottomSheetVisible(true);
+    setForceCloseModal(true);
+  };
   const ref = useRef<BottomSheetRefProps>(null);
+  const profilePictureRef = useRef<BottomSheetRefProps>(null);
+
+  const showModal = useCallback(() => {
+    if (isBottomSheetVisible === false && forceCloseModal === false) {
+      handleOpenModal();
+      profilePictureRef?.current?.scrollTo(-screenHeight / 1.5, 50);
+      return;
+    } else if (
+      isBottomSheetVisible === true ||
+      forceCloseModal ||
+      ref?.current
+    ) {
+      handleCloseModal();
+      profilePictureRef?.current?.scrollTo(screenHeight, 50);
+      return;
+    }
+  }, [isBottomSheetVisible, forceCloseModal, profilePictureRef]);
 
   const closeModal = useCallback(() => {
     if (isBottomSheetVisible === true || forceCloseModal) {
@@ -63,7 +89,7 @@ const ProfilePage = ({
       ref?.current?.scrollTo(screenHeight, 50);
       return;
     }
-  }, [isBottomSheetVisible, forceCloseModal]);
+  }, []);
 
   const userData = useSelector((state: RootState) => state.auth.user);
   const {displayName} = userData;
@@ -87,7 +113,11 @@ const ProfilePage = ({
     addOrRemoveArticle,
   } = useArticles();
 
-  const {selectImage} = UsePickImage(navigation);
+  const {
+    selectImage,
+    selectedImages,
+    isLoading: profilePictureLoading,
+  } = UsePickImage(navigation);
 
   useEffect(() => {
     if (isFocused && activeButton === 2) {
@@ -134,7 +164,6 @@ const ProfilePage = ({
   };
   // TODO: figure out a way to navigate users to the product details screens
   // TODO: Add support modal for camera or file picker
-  // TODO: Upload profile picture to firebase storage
   // TODO: Add bought image items to my items list
   return (
     <>
@@ -164,7 +193,10 @@ const ProfilePage = ({
           </View>
 
           <TouchableHighlight
-            onPress={selectImage}
+            onPress={() => {
+              console.log('Press');
+              showModal();
+            }}
             underlayColor={Colors.screenColor}
             style={{
               height: dashboardHeight * 0.4,
@@ -286,6 +318,52 @@ const ProfilePage = ({
           top: 0,
         }}>
         <DropDown affectBottomTab={true} ref={ref} />
+      </View>
+      <View
+        style={{
+          paddingTop: screenHeight * 0.07,
+          position: 'absolute',
+          top: 0,
+        }}>
+        <BottomSheetModal ref={profilePictureRef}>
+          <WText
+            style={{
+              paddingTop: 20,
+              fontSize: 16,
+              color: Colors.addPhotoButtonColor,
+            }}>
+            Upload with
+          </WText>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              height: 200,
+              width: screenWidth / 1.2,
+            }}>
+            {uploadBoxIcon(
+              () => {
+                handlePhoneVersion(navigationProp);
+              },
+              'camera-outline',
+              'Camera',
+              Colors.tabBarTextColor,
+              Colors.primary,
+              Colors.primaryTextColor,
+            )}
+            {uploadBoxIcon(
+              () => {
+                selectImage();
+              },
+              'image-outline',
+              'Access Files',
+              Colors.tabBarTextColor,
+              Colors.primary,
+              Colors.primaryTextColor,
+            )}
+          </View>
+        </BottomSheetModal>
       </View>
     </>
   );
